@@ -1,0 +1,63 @@
+\documentclass[a4paper,english]{ifimaster}
+
+\usepackage[utf8]{inputenc}
+\usepackage{babel,duomasterforside}
+\usepackage{csquotes}
+\usepackage{hyperref}
+
+\usepackage[backend=biber,style=authoryear]{biblatex}
+\addbibresource{bibliography.bib}
+
+
+
+
+
+\title{Learning}
+\subtitle{something something dark side}
+\author{Mathias Kirkerød}
+
+\begin{document}
+\duoforside[dept={Department of Informatics},
+program={Informatics: Language and Communication},
+long]
+
+\frontmatter{}
+\chapter*{Abstract}
+
+\tableofcontents{}
+\listoffigures{}
+\listoftables{}
+
+\chapter*{Preface}
+
+\mainmatter{}
+\part{Introduction}
+	\section{Something about machine learning} 
+
+\chapter{Background}
+	\section{Why is it important?}
+	\section{Where are the challenges?}
+	\section{What are you going to solve, and why?}
+	\section{Related work}
+	
+	\section{Machine Learning}
+		%\subsection{deep vs shallow}		
+		\subsection{supervised vs unsupervised}
+	\section{Unsupervised}
+		\subsection{ML}
+		\subsection{Deep learning}
+		\subsection{more}
+		
+\part{The project}
+
+\chapter{Planning the project}
+
+\part{Conclusion}
+
+\chapter{Results}
+
+\backmatter{}
+
+\printbibliography
+
+\end{document}
