@@ -163,23 +163,66 @@ long]
 	  
 	  
 	\section{Machine Learning}
-
-
-
-	Testing a cite:\\
-
+	Machine learning is a very broad term, but can i short be summarised by:\\
+	\vspace{10px}
+	
 	\textit{ A computer program is said to learn from experience E with respect to 
 	some class of tasks T and performance measure P, if its performance at
 	tasks in T, as measured by P, improves with the experience E. } 
-	\cite{MitchellTomM1997Ml}
+	\cite{MitchellTomM1997Ml}\\
+	
+	\vspace{10px}
+	Here we have a couple of parameters:\\
+	\textbf{E} text about p\\
+	\textbf{T} text about p\\
+	\textbf{P} text about p\\
+	
+	From this we see that the goal of machine learning is to improve some performance P with experience.
+	\textbf{might here talk about different tasks ML can do?}
+	
+	  \subsection{Supervised \& Unsupervised machine learning}
+	  We often divide machine learning in to two (diffuse) categories: supervised and unsupervised.\\
+	  \textbf{Supervised learning:} is the act of training with data that has an answer. The learning algorithm cant get supervision while 
+	  training on the task. %TODO more
+	  
+	  \textbf{Unsupervised learning:} is the act of training without any supervision, on the sense that we do not give the algorithm the answer
+	  to the training data set. %TODO more 
+	  
+	  In the description of supervised vs unsupervised we looked at a specific branch of machine learning: Classification. Classification is, as the name implies, the task of 
+	  getting data sorted in to groups of similarity. 
+	  
+	  
+	  \begin{itemize}
+	    \item Classification
+	    \item regression 
+	    \item transcription/translation
+	    \item de-noising /finding missing inputs
+	  \end{itemize}
+	  
+	  Now that we have the definintion of machine learning we focus on the task at hand; finding polyps. In an ideal world we have a
+	  Classification problem with only two classes: Non-polyp and polyp. 
+	  
+	  \begin{itemize}
+	    \item SVM 
+	    \item CNN 
+	    \item random forests
+	    \item knn
+	  \end{itemize}
+	  
+	  \subsection{CNN}
+	   
+	  
+	  
+	  
+	  
+	  
+	
+	
+	
+	
 	  \subsection{Tasks (other better word goes here)}
 \label{chap:Tasks}
-\begin{itemize}
- \item Classification
- \item regression 
- \item transcription/translation
- \item de-noising /finding missing inputs
-\end{itemize}
+
 \subsection{The rate of success}
 What is a good result, how to measure?\\
 \textbf{FP,TN,FN,TP}\\
