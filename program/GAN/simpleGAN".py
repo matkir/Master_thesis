@@ -120,7 +120,7 @@ class DCGAN():
         
         X_train=load_polyp_data()
         
-        half_batch=int(len(X_train)/100)
+        half_batch=int(len(X_train)/200)
 
 
         for epoch in tqdm(range(epochs)):
@@ -135,6 +135,10 @@ class DCGAN():
 
             # Sample noise and generate a half batch of new images
             noise = np.random.normal(0, 1, (half_batch,100))
+<<<<<<< HEAD
+=======
+            #noise = np.random.normal(0, 1, (1, 100))
+>>>>>>> 5e23ba3de6ab97287318d53b9b865bb165a8ef6d
             gen_imgs = self.generator.predict(noise)
 
             # Train the discriminator (real classified as ones and generated as zeros)
@@ -184,7 +188,11 @@ class DCGAN():
 
 
 def load_polyp_data():
+<<<<<<< HEAD
     if False: 
+=======
+    if True: 
+>>>>>>> 5e23ba3de6ab97287318d53b9b865bb165a8ef6d
         return np.load("train_data.npy")
     data=np.ndarray(shape=(1000, int(240), int(192), 3),dtype=np.int32)
     folder ='../../../kvasir-dataset-v2/polyps' 
@@ -199,5 +207,9 @@ def load_polyp_data():
     return data
 if __name__ == '__main__':
     dcgan = DCGAN()
+<<<<<<< HEAD
     dcgan.train(epochs=100, batch_size=32, save_interval=5)
+=======
+    dcgan.train(epochs=100, batch_size=32, save_interval=50)
+>>>>>>> 5e23ba3de6ab97287318d53b9b865bb165a8ef6d
    
