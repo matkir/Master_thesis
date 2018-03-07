@@ -7,7 +7,7 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.convolutional import UpSampling2D, Conv2D
 from keras.models import Sequential, Model
 from keras.optimizers import Adam
-
+from scipy import stats
 import matplotlib.pyplot as plt
 
 import sys, os
@@ -18,14 +18,19 @@ import numpy as np
 
 class DCGAN():
     def __init__(self):
-        self.img_rows = 720 
-        self.img_cols = 576
+        self.img_rows = 240#720 
+        self.img_cols = 192#576
         self.channels = 3
 
-        optimizer = Adam(0.0002, 0.5)
+        optimizer = Adam(0.02, 0.5)
+
+
+
 
         # Build and compile the discriminator
         self.discriminator = self.build_discriminator()
+        # For the combined model we will only train the generator
+        #self.discriminator.trainable = False
         self.discriminator.compile(loss='binary_crossentropy', 
                                    optimizer=optimizer,
             metrics=['accuracy'])
@@ -38,8 +43,6 @@ class DCGAN():
         z = Input(shape=(100,))
         img = self.generator(z)
 
-        # For the combined model we will only train the generator
-        self.discriminator.trainable = False
 
         # The valid takes generated images as input and determines validity
         valid = self.discriminator(img)
@@ -55,18 +58,18 @@ class DCGAN():
 
         model = Sequential()
 
-        model.add(Dense(180*144*3, activation="relu", input_shape=noise_shape))
-        model.add(Reshape((180, 144, 3)))
+        model.add(Dense(60*48*3, activation="relu", input_shape=noise_shape))
+        model.add(Reshape((60, 48, 3)))
         model.add(BatchNormalization(momentum=0.8))
         model.add(UpSampling2D())
-        model.add(Conv2D(128, kernel_size=6, padding="same"))
+        model.add(Conv2D(64, kernel_size=4, padding="same"))
         model.add(Activation("relu"))
         model.add(BatchNormalization(momentum=0.8)) 
         model.add(UpSampling2D())
-        model.add(Conv2D(64, kernel_size=3, padding="same"))
+        model.add(Conv2D(16, kernel_size=2, padding="same"))
         model.add(Activation("relu"))
         model.add(BatchNormalization(momentum=0.8))
-        model.add(Conv2D(3, kernel_size=3, padding="same"))
+        model.add(Conv2D(3, kernel_size=4, padding="same"))
         model.add(Activation("tanh"))
 
         model.summary()
@@ -109,11 +112,11 @@ class DCGAN():
         return Model(img, validity)
 
     def train(self, epochs, batch_size=128, save_interval=50):
-        (X_train, _), (_, _) = mnist.load_data()
+        #(X_train, _), (_, _) = mnist.load_data()
     
         # Rescale -1 to 1
-        X_train = (X_train.astype(np.float32) - 127.5) / 127.5
-        X_train = np.expand_dims(X_train, axis=3)
+        #X_train = (X_train.astype(np.float32) - 127.5) / 127.5
+        #X_train = np.expand_dims(X_train, axis=3)
         
         X_train=load_polyp_data()
         
@@ -131,8 +134,7 @@ class DCGAN():
             imgs = X_train[idx]
 
             # Sample noise and generate a half batch of new images
-            noise = np.random.normal(0, 1, (half_batch, 100))
-            noise = np.random.normal(0, 1, (1, 100))
+            noise = np.random.normal(0, 1, (half_batch,100))
             gen_imgs = self.generator.predict(noise)
 
             # Train the discriminator (real classified as ones and generated as zeros)
@@ -160,38 +162,42 @@ class DCGAN():
         r, c = 5, 5
         noise = np.random.normal(0, 1, (r * c, 100))
         gen_imgs = self.generator.predict(noise)
-
+        gen_imgs = stats.threshold(gen_imgs, threshmax=1, newval=1)
         # Rescale images 0 - 1
         gen_imgs = 0.5 * gen_imgs + 0.5
 
         fig, axs = plt.subplots(r, c)
         #fig.suptitle("DCGAN: Generated digits", fontsize=12)
         cnt = 0
-        for i in range(r):
-            for j in range(c):
-                axs[i,j].imshow(gen_imgs[cnt, :,:,0], cmap='gray')
-                axs[i,j].axis('off')
-                cnt += 1
-        fig.savefig("dcgan/images/mnist_%d.png" % epoch)
-        plt.close()
-
+        try: 
+            for i in range(r):
+                for j in range(c):
+                    axs[i,j].imshow(gen_imgs[cnt, :,:,:])
+                    axs[i,j].axis('off')
+                    cnt += 1
+            fig.savefig("dcgan/images/mnist_%d.png" % epoch)
+            plt.close()
+        except:
+            print("WRONG")
  
 
 
 
 def load_polyp_data():
-    data=np.ndarray(shape=(1000, int(720/9), int(576/9), 3),dtype=np.int32)
+    if False: 
+        return np.load("train_data.npy")
+    data=np.ndarray(shape=(1000, int(240), int(192), 3),dtype=np.int32)
     folder ='../../../kvasir-dataset-v2/polyps' 
     i=0
     for img in tqdm(os.listdir(folder)):
         path=os.path.join(folder,img)
         save=cv2.imread(path)
-        save=cv2.resize(save,(int(576/9),int(720/9)))
+        save=cv2.resize(save,(int(192),int(240)))
         data[i]=(np.array(save))
         i+=1
-    #np.save("train_data.npy", data)
+    np.save("train_data.npy", data)
     return data
 if __name__ == '__main__':
     dcgan = DCGAN()
-    dcgan.train(epochs=4000, batch_size=32, save_interval=50)
+    dcgan.train(epochs=100, batch_size=32, save_interval=5)
    
