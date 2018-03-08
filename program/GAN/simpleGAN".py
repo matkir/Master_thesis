@@ -9,8 +9,7 @@ from keras.models import Sequential, Model
 from keras.optimizers import Adam
 from scipy import stats
 import matplotlib.pyplot as plt
-
-import sys, os
+import sys,os
 import cv2
 from tqdm import tqdm
 
@@ -25,12 +24,12 @@ class DCGAN():
         optimizer = Adam(0.002, 0.5)
 
 
-
-
         # Build and compile the discriminator
         self.discriminator = self.build_discriminator()
+
         # For the combined model we will only train the generator
-        self.discriminator.trainable = False
+        #self.discriminator.trainable = False
+
         self.discriminator.compile(loss='binary_crossentropy', 
                                    optimizer=optimizer,
                                    metrics=['accuracy'])
@@ -120,8 +119,8 @@ class DCGAN():
         
         X_train=load_polyp_data()
         
-        half_batch=int(len(X_train)/200)
-
+        half_batch=int(len(X_train)/2)
+        half_batch=1
 
         for epoch in tqdm(range(epochs)):
 
@@ -173,7 +172,7 @@ class DCGAN():
         try: 
             for i in range(r):
                 for j in range(c):
-                    if i==0 and j==0 and False:
+                    if i==0 and j==0:
                         axs[i,j].imshow(X_train[cnt, :,:,:])
                         axs[i,j].axis('off')
                         cnt += 1
@@ -191,7 +190,7 @@ class DCGAN():
 
 
 def load_polyp_data():
-    if False: 
+    if True: 
         return np.load("train_data.npy")
     data=np.ndarray(shape=(1000, int(240), int(192), 3),dtype=np.int32)
     folder ='../../../kvasir-dataset-v2/polyps' 
