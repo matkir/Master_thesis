@@ -22,7 +22,7 @@ class DCGAN():
         self.img_cols = 192#576
         self.channels = 3
 
-        optimizer = Adam(0.02, 0.5)
+        optimizer = Adam(0.002, 0.5)
 
 
 
@@ -30,10 +30,10 @@ class DCGAN():
         # Build and compile the discriminator
         self.discriminator = self.build_discriminator()
         # For the combined model we will only train the generator
-        #self.discriminator.trainable = False
+        self.discriminator.trainable = False
         self.discriminator.compile(loss='binary_crossentropy', 
                                    optimizer=optimizer,
-            metrics=['accuracy'])
+                                   metrics=['accuracy'])
 
         # Build and compile the generator
         self.generator = self.build_generator()
@@ -135,10 +135,7 @@ class DCGAN():
 
             # Sample noise and generate a half batch of new images
             noise = np.random.normal(0, 1, (half_batch,100))
-<<<<<<< HEAD
-=======
             #noise = np.random.normal(0, 1, (1, 100))
->>>>>>> 5e23ba3de6ab97287318d53b9b865bb165a8ef6d
             gen_imgs = self.generator.predict(noise)
 
             # Train the discriminator (real classified as ones and generated as zeros)
@@ -166,19 +163,25 @@ class DCGAN():
         r, c = 5, 5
         noise = np.random.normal(0, 1, (r * c, 100))
         gen_imgs = self.generator.predict(noise)
-        gen_imgs = stats.threshold(gen_imgs, threshmax=1, newval=1)
         # Rescale images 0 - 1
         gen_imgs = 0.5 * gen_imgs + 0.5
-
+        gen_imgs = stats.threshold(gen_imgs, threshmax=1, newval=1)
+        gen_imgs = stats.threshold(gen_imgs, threshmin=1, newval=0)
         fig, axs = plt.subplots(r, c)
         #fig.suptitle("DCGAN: Generated digits", fontsize=12)
         cnt = 0
         try: 
             for i in range(r):
                 for j in range(c):
-                    axs[i,j].imshow(gen_imgs[cnt, :,:,:])
-                    axs[i,j].axis('off')
-                    cnt += 1
+                    if i==0 and j==0 and False:
+                        axs[i,j].imshow(X_train[cnt, :,:,:])
+                        axs[i,j].axis('off')
+                        cnt += 1
+                        print("asff")
+                    else:    
+                        axs[i,j].imshow(gen_imgs[cnt, :,:,:])
+                        axs[i,j].axis('off')
+                        cnt += 1
             fig.savefig("dcgan/images/mnist_%d.png" % epoch)
             plt.close()
         except:
@@ -188,11 +191,7 @@ class DCGAN():
 
 
 def load_polyp_data():
-<<<<<<< HEAD
     if False: 
-=======
-    if True: 
->>>>>>> 5e23ba3de6ab97287318d53b9b865bb165a8ef6d
         return np.load("train_data.npy")
     data=np.ndarray(shape=(1000, int(240), int(192), 3),dtype=np.int32)
     folder ='../../../kvasir-dataset-v2/polyps' 
@@ -207,9 +206,5 @@ def load_polyp_data():
     return data
 if __name__ == '__main__':
     dcgan = DCGAN()
-<<<<<<< HEAD
     dcgan.train(epochs=100, batch_size=32, save_interval=5)
-=======
-    dcgan.train(epochs=100, batch_size=32, save_interval=50)
->>>>>>> 5e23ba3de6ab97287318d53b9b865bb165a8ef6d
    
