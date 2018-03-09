@@ -11,6 +11,7 @@ from keras.layers.convolutional import UpSampling2D, Conv2D
 from keras.models import Sequential, Model, load_model
 from keras.optimizers import Adam
 from tqdm import tqdm
+os.environ['CUDA_VISIBLE_DEVICES'] = 'gpu'
 
 
 class GAN():
@@ -21,39 +22,38 @@ class GAN():
         self.channels = 3   # RGB        
         optimizer = Adam(0.0002, 0.5)
 
+        # Build and compile the discriminator
+        self.discriminator = self.build_discriminator()
+        self.discriminator.compile(loss='binary_crossentropy', 
+            optimizer=optimizer,
+            metrics=['accuracy'])
+    
+        # Build and compile the generator
+        self.generator = self.build_generator()
+        self.generator.compile(loss='binary_crossentropy', optimizer=optimizer)
+    
+        # The generator takes noise as input and generated imgs
+        z = Input(shape=(100,))
+        img = self.generator(z)
+    
+        # For the combined model we will only train the generator
+        self.discriminator.trainable = False
+    
+        # The valid takes generated images as input and determines validity
+        valid = self.discriminator(img)
+    
+        # The combined model  (stacked generator and discriminator) takes
+        # noise as input => generates images => determines validity 
+        self.combined = Model(z, valid)
+        self.combined.compile(loss='binary_crossentropy', optimizer=optimizer)        
         if sys.argv[1]=='load':
-            self.discriminator=load_model("new_discriminator.h5")
-            self.generator=load_model("new_generator.h5")
-            self.combined=load_model("new_combined.h5")
+            #self.discriminator=load_model("new_discriminator.h5")
+            #self.generator=load_model("new_generator.h5")
+            #self.combined=load_model("new_combined.h5")
             self.discriminator.load_weights("discriminator_weights.h5")
             self.generator.load_weights("generator_weights.h5")
             self.combined.load_weights("combined_weights.h5")
-        else:
-            # Build and compile the discriminator
-            self.discriminator = self.build_discriminator()
-            self.discriminator.compile(loss='binary_crossentropy', 
-                optimizer=optimizer,
-                metrics=['accuracy'])
-        
-            # Build and compile the generator
-            self.generator = self.build_generator()
-            self.generator.compile(loss='binary_crossentropy', optimizer=optimizer)
-        
-            # The generator takes noise as input and generated imgs
-            z = Input(shape=(100,))
-            img = self.generator(z)
-        
-            # For the combined model we will only train the generator
-            self.discriminator.trainable = False
-        
-            # The valid takes generated images as input and determines validity
-            valid = self.discriminator(img)
-        
-            # The combined model  (stacked generator and discriminator) takes
-            # noise as input => generates images => determines validity 
-            self.combined = Model(z, valid)
-            self.combined.compile(loss='binary_crossentropy', optimizer=optimizer)        
-            
+           
                
 
 
