@@ -11,7 +11,7 @@ from keras.layers.convolutional import UpSampling2D, Conv2D
 from keras.models import Sequential, Model, load_model
 from keras.optimizers import Adam
 from tqdm import tqdm
-os.environ['CUDA_VISIBLE_DEVICES'] = 'gpu'
+#os.environ['CUDA_VISIBLE_DEVICES'] = 'gpu'
 
 
 class GAN():
@@ -131,17 +131,12 @@ class GAN():
 
         for epoch in tqdm(range(epochs)):
 
-            # ---------------------
             #  Train Discriminator
-            # ---------------------
 
-            # Select a random half batch of images
             idx = np.random.randint(0, X_train.shape[0], half_batch)
             imgs = X_train[idx]
 
-            # Sample noise and generate a half batch of new images
             noise = np.random.normal(0, 1, (half_batch,100))
-            #noise = np.random.normal(0, 1, (1, 100))
             gen_imgs = self.generator.predict(noise)
 
             # Train the discriminator (real classified as ones and generated as zeros)
@@ -149,12 +144,9 @@ class GAN():
             d_loss_fake = self.discriminator.train_on_batch(gen_imgs, np.zeros((half_batch, 1)))
             d_loss = 0.5 * np.add(d_loss_real, d_loss_fake)
 
-            # ---------------------
             #  Train Generator
-            # ---------------------
 
             noise = np.random.normal(0, 1, (batch_size, 100))
-
             # Train the generator (wants discriminator to mistake images as real)
             g_loss = self.combined.train_on_batch(noise, np.ones((batch_size, 1)))
 
