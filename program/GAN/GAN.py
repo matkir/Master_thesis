@@ -122,7 +122,6 @@ class GAN():
     def train(self, epochs, batch_size=128, save_interval=50):
         X_train=self.load_polyp_data()
         # Rescale -1 to 1
-        X_train = (X_train.astype(np.float32) - 127.5) / 127.5
         
         
         half_batch=int(len(X_train)/4)
@@ -200,6 +199,7 @@ class GAN():
             data[i]=(np.roll(np.array(save),1,axis=-1))
             i+=1
         np.save("train_data.npy", data)
+        data = (data.astype(np.float32) - 127.5) / 127.5
         return data
 
 if __name__ == '__main__':
