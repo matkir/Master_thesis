@@ -1,18 +1,4 @@
-import numpy as np
-import sys,os
-import matplotlib.pyplot as plt
-import cv2
-from keras import backend as K
-from scipy import stats
-from keras.datasets import mnist
-from keras.layers import Input, Dense, Reshape, Flatten, Dropout, MaxPooling2D, UpSampling2D
-from keras.layers import BatchNormalization, Activation, ZeroPadding2D
-from keras.layers.advanced_activations import LeakyReLU
-from keras.layers.convolutional import UpSampling2D, Conv2D
-from keras.models import Sequential, Model, load_model
-from keras.optimizers import Adam
-import keras.layers as kadd
-from tqdm import tqdm
+from EncDec import *
 os.environ['CUDA_VISIBLE_DEVICES'] = ''
 
 class AE():
@@ -27,39 +13,8 @@ class AE():
                self.encoder.load_weights("encoder_weights.h5")
                self.autoencoder.load_weights("ae_weights.h5")               
      def buld_AE(self):
-          def build_encoder():
-               self.input_img = Input(shape=(self.img_rows, self.img_cols, self.channels)) 
-               x = Conv2D(16, (3, 3), activation='relu', padding='same')(self.input_img)
-               x = MaxPooling2D((2, 2), padding='same')(x)
-               x = Conv2D(8, (3, 3), activation='relu', padding='same')(x)
-               x = MaxPooling2D((2, 2), padding='same')(x)
-               x = Conv2D(8, (3, 3), activation='relu', padding='same')(x)
-               x = MaxPooling2D((2, 2), padding='same')(x)
-               x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
-               self.encoded = MaxPooling2D((3, 3), padding='same')(x)
-               Encoder=Model(self.input_img, self.encoded,name='encoder')
-               return Encoder
-          def build_decoder():
-               self.input_code=Input(shape=(15,12,1))
-               x = Conv2D(1, (3, 3), activation='relu', padding='same')(self.input_code)
-               x = UpSampling2D((3, 3))(x)
-               x = Conv2D(8, (3, 3), activation='tanh', padding='same')(x)
-               x = UpSampling2D((2, 2))(x)
-               x = Conv2D(8, (3, 3), activation='tanh', padding='same')(x)
-               x = UpSampling2D((2, 2))(x)
-               x = Conv2D(3, (3, 3), activation='tanh', padding='same')(x)
-               x = UpSampling2D((2, 2))(x)
-               self.decoded = Conv2D(3, (3, 3), activation='tanh', padding='same')(x)
-               Decoder=Model(self.input_code, self.decoded,name='decoder')
-               return Decoder
-          def build_AE(e,d):
-               AE=Sequential()
-               AE.add(e)
-               AE.add(d)
-               AE.compile(optimizer='adam', loss='mse')
-               return AE
-          self.encoder=build_encoder()
-          self.decoder=build_decoder()
+          self.input_img,self.encoded,self.encoder=build_encoder(self.img_shape)
+          self.input_code,self.decoded,self.decoder=build_decoder(self.encoded)
           self.autoencoder=build_AE(self.encoder, self.decoder) 
           
           #end of decoder
@@ -73,13 +28,20 @@ class AE():
                self.encoder.summary()
           
      def train(self, epochs=20, batch_size=32, save_interval=5):
+          TensorBoard(batch_size=batch_size)
           X_train=self.load_polyp_data()
+          loss=100
           for epoch in tqdm(range(epochs)):
                idx = np.random.randint(0, X_train.shape[0], batch_size)
-               idx2 = np.random.randint(0, X_train.shape[0], batch_size)
                imgs = X_train[idx] 
-               imgs2 = X_train[idx] 
-               loss=self.autoencoder.train_on_batch(imgs, imgs)
+               idx2 = np.random.randint(0, X_train.shape[0], batch_size)
+               imgs2 = X_train[idx]
+               
+               if (epoch+2) % save_interval == 0 and loss<0.05:
+                    img=np.clip((np.random.normal(imgs,0.1)),-1,1)
+               else:
+                    img=imgs
+               loss=self.autoencoder.train_on_batch(imgs, img)
                loss2=self.autoencoder.test_on_batch(imgs2, imgs2)
                print(loss,loss2)
                if epoch % save_interval == 0:
@@ -100,12 +62,13 @@ class AE():
           #noise_enc=np.clip((np.random.normal(img,0.01)),-1,1)
           gen_enc = self.encoder.predict(img)
           
-          noise_dec = np.random.normal(0, 1, (3,self.img_shape[0]//24,self.img_shape[1]//24,1))
+          #noise_dec = np.random.normal(0, 1, (3,self.img_shape[0]//24,self.img_shape[1]//24,1))
+          noise_dec = np.random.normal(0, 1, (3,540))
           gen_dec = self.decoder.predict(noise_dec)
           
           gen_ae=self.autoencoder.predict(img)
 
-          self.plot_1_to_255(gen_enc, gen_dec, gen_ae,epoch)     
+          self.plot_1_to_255(gen_enc, gen_dec, gen_ae,img,epoch)     
      
      
      
@@ -125,31 +88,43 @@ class AE():
           np.save("train_data.npy", data)
           return data
      
-     def plot_1_to_255(self,enc_img,dec_img,ae_img,epoch):
-               fig, axs = plt.subplots(3, 3) #3 of each picture
+     def plot_1_to_255(self,enc_img,dec_img,ae_img,real_img,epoch):
+               fig, axs = plt.subplots(3, 4) #3 of each picture
                #dec_img=(dec_img*127.5)+127.5
                #enc_img=np.squeeze((enc_img*127.5)+127.5) #remove silly dim
                #ae_img=(ae_img*127.5)+127.5
                dec_img=(dec_img*0.5)+0.5
-               enc_img=np.squeeze((enc_img*0.5)+0.5) #remove silly dim
+               if len(enc_img.shape)==2:
+                    enc_img=np.repeat(np.expand_dims((enc_img*0.5)+0.5,axis=-1),enc_img.shape[1]//2,axis=-1) 
+               else:
+                    enc_img=np.squeeze((enc_img*0.5)+0.5)#remove silly dim
                ae_img=(ae_img*0.5)+0.5
+               real_img=(real_img*0.5)+0.5
                cnt1=0
                cnt2=0
                cnt3=0
+               cnt4=0
                for i in range(3):
-                    for j in range(3):
+                    for j in range(4):
                          if j==0:
                               axs[i,j].imshow(dec_img[cnt1, :,:,:])
                               axs[i,j].axis('off')
                               cnt1 += 1
                          elif j==1:
-                              axs[i,j].imshow(enc_img[cnt2, :,:])
+                              if len(enc_img.shape)==3:
+                                   axs[i,j].imshow(enc_img[cnt2, :,:])
+                              else:
+                                   axs[i,j].imshow(enc_img[cnt2, :,:,:])
                               axs[i,j].axis('off')
                               cnt2 += 1
                          elif j==2:
                               axs[i,j].imshow(ae_img[cnt3, :,:,:])
                               axs[i,j].axis('off')
                               cnt3 += 1
+                         elif j==3:
+                              axs[i,j].imshow(real_img[cnt4, :,:,:])
+                              axs[i,j].axis('off')
+                              cnt4 += 1
                          else:
                               raise IndexError    
                
