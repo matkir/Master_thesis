@@ -12,3 +12,13 @@ gnre
                        en test
                        over
                        flere linjer
+[2018-03-15 15:45:31]: Been working on autoencoder, naive.
+                       
+                       Not getting any results lower than 0.09
+                       
+                       Need to experiment with debth, leyers and activationfunctuons.
+                       
+                       The plan is to use VAE after this goes well. Probably start on that next week.
+                       
+                       
+                       GAN need a sorted libary later.
