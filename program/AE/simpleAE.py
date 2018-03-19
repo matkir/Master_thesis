@@ -28,10 +28,11 @@ class AE():
                self.encoder.summary()
           
      def train(self, epochs=20, batch_size=32, save_interval=5):
-          TensorBoard(batch_size=batch_size)
           X_train=self.load_polyp_data()
+          X_train=self.flow_polyp_data()
           loss=100
           for epoch in tqdm(range(epochs)):
+               """
                idx = np.random.randint(0, X_train.shape[0], batch_size)
                imgs = X_train[idx] 
                idx2 = np.random.randint(0, X_train.shape[0], batch_size)
@@ -46,8 +47,8 @@ class AE():
                print(loss,loss2)
                if epoch % save_interval == 0:
                     self.save_imgs(epoch,imgs[0:3,:,:,:])               
-          # encode and decode some digits
-          # note that we take them from the *test* set
+               """
+               self.autoencoder.fit_generator(X_train)
           print("saving")
           self.decoder.save("new_decoder.h5")
           self.encoder.save("new_encoder.h5")
@@ -70,13 +71,21 @@ class AE():
 
           self.plot_1_to_255(gen_enc, gen_dec, gen_ae,img,epoch)     
      
-     
+     def flow_polyp_data(self):
+          data = ImageDataGenerator(rescale=1/127.5+0.5)
+          folder ='../../../kvasir-dataset-v2/polyps' 
+          data_generator = data.flow_from_directory(
+                  folder,
+                  target_size=(720, 576),
+                  batch_size=32,
+                  class_mode=None)          
+          return data_generator
      
      def load_polyp_data(self):
           if '-l' in sys.argv:
                return np.load("train_data.npy")
           data=np.ndarray(shape=(2000, self.img_shape[0], self.img_shape[1], self.img_shape[2]),dtype=np.int32)
-          folder ='../../../kvasir-dataset-v2/blanding' 
+          folder ='../../../kvasir-dataset-v2/polyps' 
           i=0
           for img in tqdm(os.listdir(folder)):
                path=os.path.join(folder,img)

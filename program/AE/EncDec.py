@@ -14,6 +14,7 @@ from keras.optimizers import Adam
 import keras.layers as kadd
 from tqdm import tqdm
 from keras.callbacks import TensorBoard
+from keras.preprocessing.image import ImageDataGenerator
 
 def build_encoder(img_shape):
     input_img = Input(shape=(img_shape)) 
