@@ -22,3 +22,16 @@ gnre
                        
                        
                        GAN need a sorted libary later.
+[2018-03-22 15:34:30]: working on modules and sphix
+                       
+                       
+                       rn modules are working, only one EncDec, which is supposed to be shared all over the programs, since the networks should have the same structure.
+                       
+                       install.sh now downloads kvasir, and adds int. this means that the program when finished can be run anywhere.
+                       
+                       %TODO sphinx sucks, might have to find simon.
+                       
+                       
+                       I still have to look at VAE, but first the goal is to make an autoencoder that works.
+                       
+                       Gans has to wait untill AE works
