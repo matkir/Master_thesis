@@ -34,18 +34,21 @@ class AE():
           for epoch in tqdm(range(epochs)):
                idx = np.random.randint(0, X_train.shape[0], batch_size)
                imgs = X_train[idx] 
-               idx2 = np.random.randint(0, X_train.shape[0], batch_size)
-               imgs2 = X_train[idx]
                
                if (epoch+2) % save_interval == 0 and loss<0.05:
                     img=np.clip((np.random.normal(imgs,0.1)),-1,1)
                else:
                     img=imgs
                loss=self.autoencoder.train_on_batch(imgs, img)
-               loss2=self.autoencoder.test_on_batch(imgs2, imgs2)
-               print(loss,loss2)
                if epoch % save_interval == 0:
-                    self.save_imgs(epoch,imgs[0:3,:,:,:])               
+                    idx2 = np.random.randint(0, X_train.shape[0], batch_size)
+                    imgs2 = X_train[idx]
+                    loss2=self.autoencoder.test_on_batch(imgs2, imgs2)
+                    print(loss,loss2)
+                    self.save_imgs(epoch,imgs[0:3,:,:,:]) 
+                    self.decoder.save_weights(f"decoder_weights_{epoch}.h5")
+                    self.encoder.save_weights(f"encoder_weights_{epoch}.h5")
+                    self.autoencoder.save_weights(f"ae_weights_{epoch}.h5")
           # encode and decode some digits
           # note that we take them from the *test* set
           print("saving")
@@ -148,7 +151,7 @@ if __name__ == '__main__':
           a=int(a)
      else:
           a=50
-     obj.train(epochs=a, batch_size=80, save_interval=5)
+     obj.train(epochs=a, batch_size=80, save_interval=100)
 
 
 
