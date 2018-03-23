@@ -35,3 +35,13 @@ gnre
                        I still have to look at VAE, but first the goal is to make an autoencoder that works.
                        
                        Gans has to wait untill AE works
+[2018-03-23 16:18:23]: Im finished with the first AE and GAN
+                       Both the GAN and AE are simple, and they need to be upgraded a bit.
+                       
+                       Plot, load , encoder, decoder ,discriminator is all now a package. you can pip install it.
+                       
+                       Bug: GAN makes black images, need to find out why.
+                       
+                       TODO: finish GAN, Make AE more accurate. Combine the weights from GAN and AE
+                       look in to VAE and that thing that combines AE and GAN.
+                       
