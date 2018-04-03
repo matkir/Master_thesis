@@ -45,3 +45,9 @@ gnre
                        TODO: finish GAN, Make AE more accurate. Combine the weights from GAN and AE
                        look in to VAE and that thing that combines AE and GAN.
                        
+[2018-04-03 15:25:16]: test
+[2018-04-03 15:25:49]: made a naive sorter to sort images based on green saqare.
+                       
+                       started on ccgan
+                       
+                       
