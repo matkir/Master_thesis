@@ -51,3 +51,16 @@ gnre
                        started on ccgan
                        
                        
+[2018-04-05 17:16:56]: started a long run on gan, suspect good ish results
+                       
+                       Fixed install.sh, now properly does everything
+                       Readme is better
+                       
+                       Sent mail about using AE in gan, suspect failiure.
+[2018-04-09 14:20:28]: started on VAE, needs to connect the layers
+                       
+                       Watched VAE
+                       
+                       started 52 hr long simulation
+                       
+                       goodbye
