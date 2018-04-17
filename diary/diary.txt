@@ -64,3 +64,10 @@ gnre
                        started 52 hr long simulation
                        
                        goodbye
+[2018-04-17 17:59:28]: begynte på selector.
+                       begynte på ccgan
+                       
+                       skal fokusere på framework først, så treningen på et senere tidspunkt.
+                       
+                       
+                       WP
