@@ -74,3 +74,7 @@ gnre
 [2018-04-20 14:38:44]: written on the thesis.. general setup is in the works. need more statistics and crap, ill find someone to help me.
                        
                        No coding today
+[2018-04-23 16:48:23]: ccgan is done with mnsit
+                       
+                       Started work on contextencoder
+                       
