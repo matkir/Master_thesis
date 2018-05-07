@@ -183,6 +183,90 @@ long]
 	    
 	  \subsection{images from pillcam, and what we are looking at/for REM}
 	  
+	
+	\section{Naive Methods REM}
+	  Now that we have an idea of what we are looking for we can first turn to some more naive methods for detecting anomalies, and for enhancing the images.\\
+	  The field of image processing has been researched since\\ %TODO WHEN
+	  
+	  Using some of the classic methods in image processing we can see if\\ %TODO
+	  
+	  We often describe the method in to two groups of information: First and Second order statistics.\\
+	  \textbf{First order:} First order statistics does not take in to account the relative positioning of the pixels in the image, and because of this, gives much less
+	  information than the second order statistics.\\
+	  Example of First order statistics is often what information we can get out of a histogram. This can be scewness, variance, and mean value.\\
+	  
+	  \vspace{10px}
+	  
+	  \textbf{Second order:} Second order statistics takes in to account the relative positioning of the pixels in the image. We can calculate the GLCM matrix and get a much more detailed 
+	  view of the image. \\
+	  
+	  
+	  
+	  \subsection{GLCM}
+	    A GLCM (Grey-level co-occurrence matrix) is a matrix that is used when examining the spatial relationship of pixels in a texture. 
+	    The calculation of a GLCM gives us how often pairs of pixels with spesific values and a specified spatial relationship occur at a given place in an image. %TODO CITE
+	  
+	    \subsubsection{Algorithm}
+	      For simplicity we use only greyscale in this example:
+	      \begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5]{figures/sliding_window_box.png}
+		\caption{GLCM capturing features}
+	      \end{figure}
+	      The algorithm starts by running a sliding window over the image, often with a stride, and for each stops calculates the spatial relationship between each pixel specified.
+	      The result can be something like this figure %TODO link to figure
+	      where we can read out the most likely neighbouring pixel.
+	       \begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5]{figures/Simple_GLCM.png}
+		\caption{GLCM Matrix}
+	      \end{figure}
+	      The darker colours on in the matrix is indicating that we often have a jump between, for instance pixel-value of 1 and a pixel-value of 4, but no from 1 to 1.\\
+	      With this information we can get a naive pattern-recogniser. 
+	    \subsubsection{Other uses}
+	      Besides for the pattern recognition we can use the GLCM to get the information on:
+	      \begin{itemize}
+	       \item \textbf{Contrast} is the difference in luminance or colour in the picture. We would expect low contrast in the “background” and higher contrast around edges and irregular objects.
+	       \item \textbf{Homogeneity} is how similar a local area is to itself
+	       \item \textbf{Variance} $\sigma^2$ , is directly a measure of ”roughness”
+	       \item \textbf{Mean} value of a GLCM can give us areas with higer or lower pixel values. Good way to find polyps if they are lighter than the tissue around.
+	       \item \textbf{Entropy}
+	       \item \textbf{Energy}
+	      \end{itemize}
+
+
+	  
+	  \subsection{Edge detection}
+	    Using Edge detection in is another viable way to look for polyps. 
+	    \begin{figure}[h]
+	      \centering
+	      \begin{minipage}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{figures/sliding_window.png}
+		\caption{Original image}
+	      \end{minipage}
+	      \hfill
+	      \begin{minipage}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{figures/Canny.png}
+		\caption{Edges of the picture}
+	      \end{minipage}
+	    \end{figure}
+	    \subsubsection{Algorithm}
+	      For each pixel look at the neighbouring pixel, if \\
+	      
+	      \begin{centering} 
+		$ abs(p_a - p_b)>tresh $\\ 
+	      \end{centering}
+	      
+	      then mark pixel as an edge pixel. \\
+	      
+	  \subsection{Hough Transforms}
+	    Using for instance Canny edge detection %TODO CITE
+	    we can get a better view of where the potential border of the polyp/anomaly is. (As shown in %TODO FIG CITE)
+	    
+	    A hough transform can i theory have many/any shape(s), and together with edge detection, we might find some of the polyps this way.
+	    
+	    
+	  
 	  
 	\section{Machine Learning}
 	Machine learning is a very broad term, but can i short be summarised by:\\
