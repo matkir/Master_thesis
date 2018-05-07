@@ -79,3 +79,10 @@ gnre
                        Started work on contextencoder
                        
 [2018-04-25 12:32:53]: remember O(n) in thesis
+[2018-05-03 17:01:38]: strted on an finshed live.py
+                       
+                       it together with selector masks an area
+                       
+                       need to find right training weights, and struckture, ill se tomorrow.
+                       :wq
+                       
