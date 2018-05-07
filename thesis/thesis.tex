@@ -204,12 +204,40 @@ long]
 	
 	  \subsection{Supervised \& Unsupervised machine learning}
 	  We often divide machine learning in to two (diffuse) categories: supervised and unsupervised.\\
-	  \textbf{Supervised learning:} is the act of training with data that has an answer. The learning algorithm cant get supervision while 
-	  training on the task. %TODO more
+	  \textbf{Supervised learning:} is the act of training with data that has an answer or a label. The learning algorithm can get supervision while 
+	  training on the task. An example on a supervised task  is to recognise handwritten numbers, or differentiate between dogs and cats. The task is supervised if the images
+	  comes with the correct label in the data set. These  examples are typical classification examples, where the task is to identify the right group to classify the data to %TODO more
+	  A simpler classification assignment is binary classification, where the target is (often) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian 
+	  or International. 
+	  In the last example the classification changes from binary to multi-class if you sort the cars on every nationality, and not just Norwegian/non-Norwegian.
+	  
+	  Another type of supervised learning is regression. This is the act of prediction given prior data. Examples of regression is everything from prediction of stock prices, to house prices 
+	  in an area, to\\ %TODO more
+	  \begin{figure}
+	     \centering
+	    \includegraphics[scale=0.5]{figures/class_vs_reg.png}
+	     \caption{Left: Example of binary classification. Right: Example of regression} 
+	  \end{figure}
+
 	  
 	  \textbf{Unsupervised learning:} is the act of training without any supervision, on the sense that we do not give the algorithm the answer
 	  to the training data set. %TODO more 
+	 
+	  Since we do not have categorised data in unsupervised learning, we often %TODO more
+	  Types of unsupervised learning can for instance be clustering, the act of sorting data based on similarity. An example of this can be if you want to sort plants based on species, or 
+	  you are detecting anomalies in a dataset.
+	  Unsupervised learning can be used for PCA %TODO CITE 
+	  or other dimensionaly reduction methods.\\
 	  
+	  A third method to used unsupervised learning is the adversarial route, where you use machine learning to make similar looking data to the original data set. 
+	    
+	   \begin{figure}
+	     \centering
+	    \includegraphics[scale=0.5]{figures/cluster_pca.png}
+	     \caption{Left: Example of binary clustering. Right: Example of principal component analysis} 
+	  \end{figure}
+
+	 
 	  In the description of supervised vs unsupervised we looked at a specific branch of machine learning: Classification. Classification is, as the name implies, the task of 
 	  getting data sorted in to groups of similarity. 
 	  
