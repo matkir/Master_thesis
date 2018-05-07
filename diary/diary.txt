@@ -86,3 +86,4 @@ gnre
                        need to find right training weights, and struckture, ill se tomorrow.
                        :wq
                        
+[2018-05-07 17:35:04]: working on thesis
