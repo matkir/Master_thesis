@@ -1,0 +1,214 @@
+	\section{Cancer and polyps}
+	  \subsection{What we are looking for REM}
+	  Different types of disorders.
+	  %TODO image of polyp
+	  Polyp is harmless, but if left untreated it can become cancerous
+	  %TODO tell the risk
+	  Pictures is from the pillcam project, kvasir dataset.
+	  \subsection{images from pillcam, and what we are looking at/for REM}
+	  %TODO More pictures of polyps, and other anomalies
+	  
+	
+	\section{Naive Methods REM}
+	  Now that we have an idea of what we are looking for we can first turn to some more naive methods for detecting anomalies, and for enhancing the images.\\
+	  The field of image processing has been researched since\\ %TODO WHEN
+	  
+	  Using some of the classic methods in image processing we can see if\\ %TODO
+	  
+	  We often describe the method in to two groups of information: First and Second order statistics.\\
+	  \textbf{First order:} First order statistics does not take in to account the relative positioning of the pixels in the image, and because of this, gives much less
+	  information than the second order statistics.\\
+	  Example of First order statistics is often what information we can get out of a histogram. This can be scewness, variance, and mean value.\\
+	  
+	  \vspace{10px}
+	  
+	  \textbf{Second order:} Second order statistics takes in to account the relative positioning of the pixels in the image. We can calculate the GLCM matrix and get a much more detailed 
+	  view of the image. \\
+	  
+	  
+	  
+	  \subsection{GLCM}
+	    A GLCM (Grey-level co-occurrence matrix) is a matrix that is used when examining the spatial relationship of pixels in a texture. 
+	    The calculation of a GLCM gives us how often pairs of pixels with spesific values and a specified spatial relationship occur at a given place in an image. %TODO CITE
+	  
+	    \subsubsection{Algorithm}
+	      For simplicity we use only greyscale in this example:
+	      \begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5]{figures/sliding_window_box.png}
+		\caption{GLCM capturing features}
+	      \end{figure}
+	      The algorithm starts by running a sliding window over the image, often with a stride, and for each stops calculates the spatial relationship between each pixel specified.
+	      The result can be something like this figure %TODO link to figure
+	      where we can read out the most likely neighbouring pixel.
+	       \begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5]{figures/Simple_GLCM.png}
+		\caption{GLCM Matrix}
+	      \end{figure}
+	      The darker colours on in the matrix is indicating that we often have a jump between, for instance pixel-value of 1 and a pixel-value of 4, but no from 1 to 1.\\
+	      With this information we can get a naive pattern-recogniser. 
+	    \subsubsection{Other uses}
+	      Besides for the pattern recognition we can use the GLCM to get the information on:
+	      \begin{itemize}
+	       \item \textbf{Contrast} is the difference in luminance or colour in the picture. We would expect low contrast in the “background” and higher contrast around edges and irregular objects.
+	       \item \textbf{Homogeneity} is how similar a local area is to itself
+	       \item \textbf{Variance} $\sigma^2$ , is directly a measure of ”roughness”
+	       \item \textbf{Mean} value of a GLCM can give us areas with higer or lower pixel values. Good way to find polyps if they are lighter than the tissue around.
+	       \item \textbf{Entropy}
+	       \item \textbf{Energy}
+	      \end{itemize}
+
+
+	  
+	  \subsection{Edge detection}
+	    Using Edge detection in is another viable way to look for polyps. 
+	    \begin{figure}[ht]
+	      \centering
+	      \begin{minipage}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{figures/sliding_window.png}
+		\caption{Original image}
+	      \end{minipage}
+	      \hfill
+	      \begin{minipage}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{figures/Canny.png}
+		\caption{Edges of the picture}
+	      \end{minipage}
+	    \end{figure}
+	    \subsubsection{Algorithm}
+	      For each pixel look at the neighbouring pixel, if \\
+	      
+	      \begin{centering} 
+		$ abs(p_a - p_b)>tresh $\\ 
+	      \end{centering}
+	      
+	      then mark pixel as an edge pixel. \\
+	      
+	  \subsection{Hough Transforms}
+	    Using for instance Canny edge detection %TODO CITE
+	    we can get a better view of where the potential border of the polyp/anomaly is. (As shown in %TODO FIG CITE)
+	    
+	    A hough transform can i theory have many/any shape(s), and together with edge detection, we might find some of the polyps this way.
+	    
+	    
+	  
+	  
+	\section{Machine Learning}
+	Machine learning is a very broad term, but can i short be summarised by:\\
+	\vspace{10px}
+	
+	\textit{ A computer program is said to learn from experience E with respect to 
+	some class of tasks T and performance measure P, if its performance at
+	tasks in T, as measured by P, improves with the experience E. } 
+	\cite{MitchellTomM1997Ml}\\
+	
+	\vspace{10px}
+	Here we have a couple of parameters:\\
+	\textbf{E} text about p\\
+	\textbf{T} text about p\\
+	\textbf{P} text about p\\
+	
+	From this we see that the goal of machine learning is to improve some performance P with experience.
+	\textbf{might here talk about different tasks ML can do?}
+	
+	  \subsection{Supervised \& Unsupervised machine learning}
+	  We often divide machine learning in to two (diffuse) categories: supervised and unsupervised.\\
+	  \textbf{Supervised learning:} is the act of training with data that has an answer or a label. The learning algorithm can get supervision while 
+	  training on the task. An example on a supervised task  is to recognise handwritten numbers, or differentiate between dogs and cats. The task is supervised if the images
+	  comes with the correct label in the data set. These  examples are typical classification examples, where the task is to identify the right group to classify the data to %TODO more
+	  A simpler classification assignment is binary classification, where the target is (often) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian 
+	  or International. 
+	  In the last example the classification changes from binary to multi-class if you sort the cars on every nationality, and not just Norwegian/non-Norwegian.
+	  
+	  Another type of supervised learning is regression. This is the act of prediction given prior data. Examples of regression is everything from prediction of stock prices, to house prices 
+	  in an area, to\\ %TODO more
+	  \begin{figure}
+	     \centering
+	    \includegraphics[scale=0.5]{figures/class_vs_reg.png}
+	     \caption{Left: Example of binary classification. Right: Example of regression} 
+	  \end{figure}
+
+	  
+	  \textbf{Unsupervised learning:} is the act of training without any supervision, on the sense that we do not give the algorithm the answer
+	  to the training data set. %TODO more 
+	 
+	  Since we do not have categorised data in unsupervised learning, we often %TODO more
+	  Types of unsupervised learning can for instance be clustering, the act of sorting data based on similarity. An example of this can be if you want to sort plants based on species, or 
+	  you are detecting anomalies in a dataset.
+	  Unsupervised learning can be used for PCA %TODO CITE 
+	  or other dimensionaly reduction methods.\\
+	  
+	  A third method to used unsupervised learning is the adversarial route, where you use machine learning to make similar looking data to the original data set. 
+	    
+	   \begin{figure}
+	     \centering
+	    \includegraphics[scale=0.5]{figures/cluster_pca.png}
+	     \caption{Left: Example of binary clustering. Right: Example of principal component analysis} 
+	  \end{figure}
+
+	 
+	  In the description of supervised vs unsupervised we looked at a specific branch of machine learning: Classification. Classification is, as the name implies, the task of 
+	  getting data sorted in to groups of similarity. 
+	  
+	  
+	  \begin{itemize}
+	    \item subsfication
+	    \item r to the pillcam projression 
+	    \item transcription/translation
+	    \item de-noising /finding missing inputs
+	  \end{itemize}
+	  
+	  Now that we have the definintion of machine learning we focus on the task at hand; finding polyps. In an ideal world we have a
+	  Classification problem with only two classes: Non-polyp and polyp. 
+	  
+	  \begin{itemize}
+	    \item SVM 
+	    \item CNN 
+	    \item random forests
+	    \item knn
+	  \end{itemize}
+	  
+	  \subsection{CNN}
+	  \subsubsection{UCNN?}
+	  
+	  
+	  
+	  
+	  
+	
+	
+	
+	
+	  \subsection{Tasks (other better word goes here)}
+\label{chap:Tasks}
+
+\subsection{The rate of success}
+What is a good result, how to measure?\\
+\textbf{FP,TN,FN,TP}\\
+
+
+%\subsection{deep vs shallow}		
+\section{supervised vs unsupervised}
+What it means to be S/US.\\
+Something about the kind of experience allowed during the learning process.
+
+
+\section{Unsupervised}
+noe med å dele i grupper?
+Experience the dataset containing many features, and finds useful properties of the structures. 
+\textit{\textbf{Unsupervised learning algorithms} experience a dataset containing manyfeatures, then learn useful properties of the structure of this dataset. In the contextof deep learning, we usually want to learn the entire probability distribution thatgenerated a dataset, whether explicitly, as in density estimation, or implicitly, fortasks like synthesis or denoising. Some other unsupervised learning algorithmsperform other roles, like clustering, which consists of dividing the dataset intoclusters of similar examples.}
+\cite{Goodfellow-et-al-2016}
+
+
+\subsection{Approaches to unsupervised learning}
+look at the \autoref{chap:Tasks} to see what applies to the unsupervised.
+
+\subsection{Deep Unsupervised learning}
+\subsection{more}
+\section{Related work}
+
+
+	      
+		
+		
+		

@@ -1,0 +1,47 @@
+\documentclass[USenglish]{ifimaster}  %% ... or USenglish or norsk or nynorsk
+\usepackage[utf8]{inputenc}           %% ... or latin1 or applemac
+\usepackage[T1]{fontenc,url}
+\urlstyle{sf}
+\usepackage{babel,textcomp,csquotes,ifimasterforside,varioref,graphicx}
+\usepackage{enumitem}
+\usepackage{amsmath, amsthm}
+\usepackage{listings}
+\usepackage{graphicx, chngpage}
+\usepackage{framed, subfigure}
+\usepackage{geometry}
+\usepackage{algpseudocode,algorithmicx,algorithm}
+\usepackage[backend=biber,style=nature,maxbibnames=10,minbibnames=10]{biblatex}
+\usepackage{multicol}
+\usepackage[hidelinks]{hyperref}
+\usepackage[toc,page]{appendix}
+
+\theoremstyle{definition}
+\newtheorem{exmp}{Example}[section]
+\newtheorem{defi}{Definition}[section]
+
+\title{TODO: Title}
+%%\subtitle{TODO: Subtitle if any}
+\author{Mathias Kirkerød}
+
+\bibliography{library}
+\geometry{textwidth=370pt}
+
+\begin{document}
+\ififorside{}
+\frontmatter{}
+\maketitle{}
+
+
+\chapter{Introduction} \label{cap:introduction}
+\input{introduction.tex}
+
+\chapter{Background} \label{cap:background}
+\input{background.tex}
+
+
+
+\backmatter{}
+\printbibliography
+
+
+\end{document}

@@ -1,44 +1,41 @@
-\documentclass[a4paper,english]{ifimaster}
-
-\usepackage[utf8]{inputenc}
-\usepackage{babel,duomasterforside}
-\usepackage{csquotes}
-\usepackage[hidelinks]{hyperref}
+\documentclass[USenglish]{ifimaster}  %% ... or USenglish or norsk or nynorsk
+\usepackage[utf8]{inputenc}           %% ... or latin1 or applemac
+\usepackage[T1]{fontenc,url}
+\urlstyle{sf}
+\usepackage{babel,textcomp,csquotes,ifimasterforside,varioref,graphicx}
+\usepackage{enumitem}
 \usepackage{amsmath, amsthm}
 \usepackage{listings}
 \usepackage{graphicx, chngpage}
 \usepackage{framed, subfigure}
 \usepackage{geometry}
-
-\usepackage[backend=biber,style=authoryear]{biblatex}
-\addbibresource{bibliography.bib}
+\usepackage{algpseudocode,algorithmicx,algorithm}
+\usepackage[backend=biber,style=nature,maxbibnames=10,minbibnames=10]{biblatex}
 \usepackage{multicol}
+\usepackage[hidelinks]{hyperref}
 \usepackage[toc,page]{appendix}
 
 \theoremstyle{definition}
 \newtheorem{exmp}{Example}[section]
 \newtheorem{defi}{Definition}[section]
 
-
-
-\title{Using unsupervised machine learning for polyp detection in the GI tract}
-%\subtitle{Shit just got real}
+\title{TODO: Title}
+%%\subtitle{TODO: Subtitle if any}
 \author{Mathias Kirkerød}
 
 \bibliography{library}
 \geometry{textwidth=370pt}
 
 \begin{document}
-\duoforside[dept={Department of Informatics},
-program={Informatics: Technical and Scientific Applications},
-long]
-
+\ififorside{}
 \frontmatter{}
+\maketitle{}
+
 \chapter*{Abstract}
-\input{abstract/abstract.tex}
+\input{abstract.tex}
 
 \chapter*{Acknowledgements}
-\input{acknowledgement/acknowledgement.tex}
+\input{acknowledgement.tex}
 
 \tableofcontents{}
 \listoffigures{}
@@ -46,32 +43,34 @@ long]
 
 
 \mainmatter{}
+%\part{Introduction}
+
 
 \chapter{Introduction} \label{cap:introduction}
-\input{introduction/introduction.tex}
+\input{introduction.tex}
 
 \chapter{Background} \label{cap:background}
-\input{background/background.tex}
+\input{background.tex}
 
 
 %\part{The project}
 
 \chapter{Methods} \label{cap:methods}
-%\input{methods.tex}
+\input{methods.tex}
 
 \chapter{Implementation} \label{cap:implementation}
-%\input{implementation.tex}
+\input{implementation.tex}
 
 %\part{Conclusion}
 
 \chapter{Result and Discussion} \label{cap:results}
-%\input{result/result.tex}
+\input{result.tex}
 
 \chapter{Conclusion} \label{cap:conclution}
-%\input{conclusion/conclusion.tex}
+\input{conclusion.tex}
 
 \chapter{Future Work} \label{cap:future}
-%\input{future/future.tex}
+\input{future.tex}
 
 \backmatter{}
 \printbibliography

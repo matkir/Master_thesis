@@ -1,4 +1,5 @@
 ## Core latex/pdflatex auxiliary files:
+*.pdf
 *.aux
 *.lof
 *.log
@@ -11,7 +12,7 @@
 *.cb
 *.cb2
 .*.lb
-
+.pdf
 ## Intermediate documents:
 *.dvi
 *.xdv
@@ -110,14 +111,6 @@ acs-*.bib
 *.gaux
 *.gtex
 
-# htlatex
-*.4ct
-*.4tc
-*.idv
-*.lg
-*.trc
-*.xref
-
 # hyperref
 *.brf
 
@@ -153,9 +146,7 @@ _minted*
 *.mw
 
 # nomencl
-*.nlg
 *.nlo
-*.nls
 
 # pax
 *.pax
@@ -198,9 +189,6 @@ pythontex-files-*/
 # easy-todo
 *.lod
 
-# xmpincl
-*.xmpi
-
 # xindy
 *.xdy
 
@@ -237,7 +225,3 @@ TSWLatexianTemp*
 
 # standalone packages
 *.sta
-
-# generated if using elsarticle.cls
-*.spl
-*.pdf
