@@ -104,8 +104,8 @@
 	
 	\vspace{10px}
 	Here we have a couple of parameters:\\
-	\textbf{E} text about p\\
-	\textbf{T} text about p\\
+	\textbf{E} text about e\\
+	\textbf{T} text about t\\
 	\textbf{P} text about p\\
 	
 	From this we see that the goal of machine learning is to improve some performance P with experience.
@@ -113,6 +113,8 @@
 	
 	  \subsection{Supervised \& Unsupervised machine learning}
 	  We often divide machine learning in to two (diffuse) categories: supervised and unsupervised.\\
+	  
+	  \vspace{5px}
 	  \textbf{Supervised learning:} is the act of training with data that has an answer or a label. The learning algorithm can get supervision while 
 	  training on the task. An example on a supervised task  is to recognise handwritten numbers, or differentiate between dogs and cats. The task is supervised if the images
 	  comes with the correct label in the data set. These  examples are typical classification examples, where the task is to identify the right group to classify the data to %TODO more
@@ -129,6 +131,7 @@
 	  \end{figure}
 
 	  
+	  \vspace{5px}
 	  \textbf{Unsupervised learning:} is the act of training without any supervision, on the sense that we do not give the algorithm the answer
 	  to the training data set. %TODO more 
 	 
@@ -158,7 +161,73 @@
 	    \item de-noising /finding missing inputs
 	  \end{itemize}
 	  
-	  Now that we have the definintion of machine learning we focus on the task at hand; finding polyps. In an ideal world we have a
+	  \subsection{Types of machine learning}
+	  There are a number of different machine learning algorithms. %TODO tell that we are going inn to detail here
+	  \begin{table}[ht]
+	    \centering
+	    \resizebox{\textwidth}{!}{%
+	    \begin{tabular}{|c|c|c|c|c|}
+	      \hline
+	      \multicolumn{5}{|c|}{Machine Learning}                                                                                 \\ \hline
+	      \multicolumn{2}{|c|}{Supervised Learning}   & \multicolumn{2}{c|}{Unsupervised Learning}       & Reinforcement Learning\\ \hline
+	      Classification          & Regression        & Clustering           & Dimensionality reduction  & -                     \\ \hline
+	      Support vector machines & Linear Regression & K means clustering   & PCA                       & SOMething             \\
+	      K nearest neighbours    & Decision trees    & Hidden Markov models &                           &                       \\
+	      Neural networks         & Neural networks   & Neural Networks      &                           &                      
+	    \end{tabular}%
+	    }
+	    \caption{Machine leaning types}
+	    \label{ML-types}
+	  \end{table}
+	  
+	  %TODO rewrite under.
+	  
+	  \vspace{5px}
+	  \textbf{K nearest neighbours}\\
+	  Talk about KNN\\
+		 
+	  \vspace{5px}
+	  \textbf{Linear Regression}\\
+	  How to regress linearly\\
+	  
+	  \vspace{5px}
+	  \textbf{Support vector machine}\\
+	  SVM and 2 class\\
+	  
+	  \vspace{5px}
+	  \textbf{Others?}\\
+	  Other important ones to talk about?\\
+	  
+	  
+	  \vspace{5px}
+	  \textbf{Neural networks}\\
+	  %TODO har given good results last years
+	  %leading in the field
+	  %own chapter
+	  NN is future\\
+	  own chapter\\
+	  
+	
+	\section{Neural Networks}
+	  
+	  
+	  \subsection{How it works}
+	    %TODO talk about backward/forward prop?
+	    %
+	
+	  
+	  \subsection{Convolutional neural networks}
+	  
+	  \subsection{Advaserial neural networks}
+	  
+	  
+	  
+	  \subsubsection{UCNN?}
+	  
+	  
+	  
+	\section{The problem at hand}
+	  Now that we have the definition of machine learning we focus on the task at hand; finding polyps. In an ideal world we have a
 	  Classification problem with only two classes: Non-polyp and polyp. 
 	  
 	  \begin{itemize}
@@ -168,47 +237,9 @@
 	    \item knn
 	  \end{itemize}
 	  
-	  \subsection{CNN}
-	  \subsubsection{UCNN?}
-	  
-	  
-	  
-	  
-	  
-	
-	
 	
 	
 	  \subsection{Tasks (other better word goes here)}
-\label{chap:Tasks}
+	  \label{chap:Tasks}
 
-\subsection{The rate of success}
-What is a good result, how to measure?\\
-\textbf{FP,TN,FN,TP}\\
-
-
-%\subsection{deep vs shallow}		
-\section{supervised vs unsupervised}
-What it means to be S/US.\\
-Something about the kind of experience allowed during the learning process.
-
-
-\section{Unsupervised}
-noe med å dele i grupper?
-Experience the dataset containing many features, and finds useful properties of the structures. 
-\textit{\textbf{Unsupervised learning algorithms} experience a dataset containing manyfeatures, then learn useful properties of the structure of this dataset. In the contextof deep learning, we usually want to learn the entire probability distribution thatgenerated a dataset, whether explicitly, as in density estimation, or implicitly, fortasks like synthesis or denoising. Some other unsupervised learning algorithmsperform other roles, like clustering, which consists of dividing the dataset intoclusters of similar examples.}
-\cite{Goodfellow-et-al-2016}
-
-
-\subsection{Approaches to unsupervised learning}
-look at the \autoref{chap:Tasks} to see what applies to the unsupervised.
-
-\subsection{Deep Unsupervised learning}
-\subsection{more}
 \section{Related work}
-
-
-	      
-		
-		
-		
