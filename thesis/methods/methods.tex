@@ -81,6 +81,11 @@
   believes if the part it got was a generated or original image.
   Training and evaluation is the same as described in the general description of how an generative adversarial network is working.
   
+  \subsection{Using a Variational Autoencoder to train the adversarial network}
+    This chapter talks about the use of a Variational autoencoder to train the generator.
+    
+    
+    
   \subsubsection{Setup of the GAN}
   Using the Contextencoder described we made 3 %TODO make 2 more programs
   similar programs for image prediction.\\
@@ -96,6 +101,7 @@
   \textbf{Categorical masker:} The categorical masker is a mix between the two prior models. The categorical masker divides the image in to 9 different equally placed squares, and only masks those areas. %TODO Is middle one removed?
   The result is a mix between a general approach and a specific corner approach.
 
+  
   \subsubsection{Result of the GAN}
   The result of the trained weights can be found at %TODO adress
   It is part of a pygame demo, that can take any image and predict the area marked, based on the loaded weights.\\

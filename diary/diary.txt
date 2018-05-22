@@ -87,3 +87,11 @@ gnre
                        :wq
                        
 [2018-05-07 17:35:04]: working on thesis
+[2018-05-15 16:43:03]: remember double click bug
+[2018-05-22 15:16:30]: TODO:
+                       Fix gui
+                       Write about:
+                       1. AE
+                       2. CE
+                       3. CCGAN
+                       
