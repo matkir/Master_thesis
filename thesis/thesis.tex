@@ -9,16 +9,19 @@
 \usepackage{graphicx, chngpage}
 \usepackage{framed, subfigure}
 \usepackage{geometry}
-\usepackage{todonotes}
+\usepackage[disable]{todonotes}
+%\usepackage{todonotes}
 \usepackage[backend=biber,style=authoryear]{biblatex}
 \addbibresource{bibliography.bib}
 \usepackage{multicol}
 \usepackage[toc,page]{appendix}
+\usepackage{ dsfont } %MATH SYMBOLS
 
 \theoremstyle{definition}
 \newtheorem{exmp}{Example}[section]
 \newtheorem{defi}{Definition}[section]
 
+\setcounter{secnumdepth}{6} %this is so that i can ref to paragraph
 
 
 \title{Using unsupervised machine learning for polyp detection in the GI tract}
@@ -26,7 +29,8 @@
 \author{Mathias Kirkerød}
 
 \bibliography{library}
-\geometry{textwidth=370pt}
+%\geometry{textwidth=370pt}
+\geometry{textwidth=420pt}
 
 \begin{document}
 \duoforside[dept={Department of Informatics},

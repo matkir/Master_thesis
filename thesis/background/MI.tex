@@ -10,7 +10,7 @@
   when it comes to classifying images. 
   From %TODO CITE, find out who
   's paper, we can see that the activation map on a regular image gives very high result on, in addition to the polyp, the corners and the green sqare. 
-  \begin{figure}[h]
+  \begin{figure}[ht]
     \centering
     \includegraphics[scale=0.5]{background/figures/placeholder.jpeg}
     \caption{Using X's activation map we can see that the edges triggers unwanted activations}
@@ -18,7 +18,7 @@
   
   In addition to sqares and edges, we also have the problem that parts of the image is over saturated at points where the light from the led is reflected directly back to the camera.
   Another problem is when the camera captures images that are too close to the wall. Both of these scenarios creates patches where the saturation is maximum. 
-   \begin{figure}[h]
+   \begin{figure}[ht]
     \centering
     \includegraphics[scale=0.5]{background/figures/reflection.jpg}
     \caption{we have two different types of saturation: the reflected area in the top part of the image, and the right side of the image.}
@@ -36,7 +36,7 @@
     As we can see from this, there are a lot of old methods that can give approximations. We can also conclude that none of these methods are perfect.
     We will therefore look at methods that takes learning in to use.
   \subsection{Using machine learning for inpainting}
-    As discussed earlier, machine learning is using prior experiences to make dessisions given the problem at hand. 
+    As discussed earlier, machine learning is using prior experiences to make decisions given the problem at hand. 
     It is also worth mentioning that we do not need labeled data, since we are in a way looking at a global average of every image both with, and without polyps. We are therefor insetiviced to use an 
     Unsupervised approach.
     Since machine learning is learning from a training set, it is important that the training set contains as little as possible of the features we want to remove. \\
@@ -59,11 +59,106 @@
     
     Now that we have better images to train our data with, we need the correct algorithm.
     We have already seen unsupervised learning aproaches in chapter %TODO ref 
+    \newpage
     \subsubsection{Algorithm}
       \todo{Hvordan skal jeg gaa frem nar det kommer til aa presantere disse? skal jeg bare si hvilke metoder jeg har testet?}
       Text about presenting UML, and stuff.
       \subsubsection{Autoencoder}
-      
+	\paragraph{This is explaining Autoencoders, put me in the right place} %%TODO CITE: http://www.deeplearningbook.org/contents/autoencoders.html
+	  As we recall from earlier, an autoencoder is a type of neural network that tries to output a recreation of the output.\todo{we are not recalling} \\ 
+	  We can do this by having an encoder, $h=f(x)$, connected to a decoder, $r=g(h)$. 
+	  An autoencoder has the job to set $g(f(x))=x$ over the whole input, but in most cases this is not a practical program. We often gives the autoencoder the restriction
+	  that it has to map the input through a latent space that has a smaller dimension than the input dataset.\\
+	  This is called an undercomplete autoencoder.\\
+	  \vspace{10px}
+	  \begin{figure}[ht!]
+	    \centering
+	    \includegraphics[scale=0.5]{background/figures/SimpleAE.png}
+	    \caption{The general structure of an autoencoder, mapping $\textbf{x}$ through $\textbf{h}$ to an output $\textbf{r}$.}
+	  \end{figure}
+	  
+	  As with supervised classifiers we can use gradient decent to optimize the model. This is because we are trying to recreate the input $\textbf{x}$ from out output $\widetilde{\textbf{x}}$\\
+	  
+	  This can simply be done by minimizeing the loss function\\
+	  \begin{equation}
+	    L(\textbf{x},g(f(\textbf{x})))
+	  \end{equation}
+	  with for instance MSE with gradient decent. \todo{explain MSE, and general loss on an ealier time}\\
+	  
+	  Now we can transfer this to a more relevant example by making an image as input and use convolutions to reduce the dimensionality in the encoder and increase the dimentionality in the encoder.
+	  \vspace{10px}
+	  \begin{figure}[ht!]
+	    \centering
+	    \includegraphics[scale=0.5]{background/figures/CAE.png}
+	    \caption{Convolutional autoencoder with an RGB image as input, and the reconstructed image as output.}
+	  \end{figure}
+	
+	\newpage
+	test
+	
+	
+	\newpage
+	As we recall from earlier, an autoencoder is a type of neural network that tries to output a recreation of the output.\\%TODO: REF the part about autoencoders 
+	We can use this for inpainting by setting the algorithm to train on images with areas cropped away.
+	There are a couple of different way we can train an autoencoder to do this.\\
+	
+	%\todo{should i talk about the different ways or present the best?}
+	
+	
+	\vspace{10px}
+	\textbf{Denoising Autoencoder with MSE loss:}\label{par:Denoising_Autoencoder_with_MSE_loss}\\
+	The simplest way to train the autoencoder is to first take the trainingset $\mathds{X}$ and make an augmented copy $\widetilde{\textbf{x}}^{(i)}$ for 
+	every data point in $\textbf{x}_{\sim \mathds{X}}^{(i)}$. \\
+	\textit{Here $\widetilde{\textbf{x}}$ is a copy of x with random areas masked.}\\
+	
+	Now we minimize the loss function\\	
+	  \begin{equation}
+	    L(\textbf{x},g(f(\widetilde{\textbf{x}})))
+	  \end{equation}
+	over the whole image.\\
+	\vspace{20px}
+	
+	With this approach the autoencoder learns to fill in the blank spots with plausible data, without changing the rest of the image. 
+	\todo{this will probably work best if the autoencoder is not undercomplete, perhaps talk about this}
+	One problem by this approach is that we do not want the rest of the image to change for obvious reasons, and the alogrithm as it is here has the flaw that it will change all the pixels in the image, at 
+	least to a minor degree. \\
+	
+	This can be somewhat fixed by only taking the augmented parts, and pasting the directly in to the image. This will leave most of the original image, except for the parts that was cropped randomly.\\
+	
+	\vspace{10px}
+	\textbf{Denoising Autoencoder with \todo{clever tittle}:}\\
+	If we take what we learned from \ref{par:Denoising_Autoencoder_with_MSE_loss}, we can make a more optimal autoencoder:
+	Rather than taking a loss like 	
+	\begin{equation}
+	  L(\textbf{x},g(f(\widetilde{\textbf{x}})))
+	\end{equation}
+	over the whole image, we can rather just focus on the parts that matters, namely the cropped areas.\\
+	
+	If we add the cropped image to the output from the autoencoder to make an image image, we can use this new image to train out loss.
+	For most of the image, the loss will be zero, since the only part that is changed is the cropped area. 
+	We can also make a new loss that is more optimal for the task at hand. 
+	\begin{equation}
+	  MSE_{crop}\:=\: \frac{1}{n}
+	  \begin{cases}
+	      \begin{array}{lcl}
+	      (\widetilde{\textbf{x}}-\textbf{x}) \; if \; \widetilde{\textbf{x}} \: \in \: \textbf{x}_{crop} \\
+	      0 \; else
+	      \end{array}
+	  \end{cases}
+	\end{equation}
+	Where $\textbf{x}_{crop}$ is the area that was cropped away from the original image and $n$ is the number of pixels in that area.\\
+	With
+	
+	\todo{token to not train}
+	
+	
+	
+	
+	
+	
+	
+	
+
       \subsubsection{Contextencoder}
       \subsubsection{CCgan}
       \subsubsection{PixelCNN}
