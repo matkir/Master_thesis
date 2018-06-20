@@ -147,12 +147,15 @@
 	  \end{cases}
 	\end{equation}
 	Where $\textbf{x}_{crop}$ is the area that was cropped away from the original image and $n$ is the number of pixels in that area.\\
-	With
+	With this modified MSE we are assured that only the pixels in the cropped area is changed with gradient decent, and we save a lot of computation as an added bonus.
+	
 	
 	\todo{token to not train}
-	
-	
-	
+	\begin{figure}[ht!]
+	    \centering
+	    \includegraphics[scale=0.5]{background/figures/AE_for_inpainting.png}
+	    \caption{Final result of the autoencoder used in the testing}
+	\end{figure}
 	
 	
 	
