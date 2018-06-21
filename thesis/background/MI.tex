@@ -64,7 +64,7 @@
       \todo{Hvordan skal jeg gaa frem nar det kommer til aa presantere disse? skal jeg bare si hvilke metoder jeg har testet?}
       Text about presenting UML, and stuff.
       \subsubsection{Autoencoder}
-	\paragraph{This is explaining Autoencoders, put me in the right place} %%TODO CITE: http://www.deeplearningbook.org/contents/autoencoders.html
+	\paragraph{This is explaining Autoencoders, put me in the right place}\label{Explaining_autoencoders} %%TODO CITE: http://www.deeplearningbook.org/contents/autoencoders.html
 	  As we recall from earlier, an autoencoder is a type of neural network that tries to output a recreation of the output.\todo{we are not recalling} \\ 
 	  We can do this by having an encoder, $h=f(x)$, connected to a decoder, $r=g(h)$. 
 	  An autoencoder has the job to set $g(f(x))=x$ over the whole input, but in most cases this is not a practical program. We often gives the autoencoder the restriction
@@ -161,8 +161,39 @@
 	
 	
 	
-
+      \subsubsection{Explaining GANs, this will be moved}
+      	\paragraph{This is explaining GANS, put me in the right place} %%TODO CITE: http://www.deeplearningbook.org/contents/generative_models.html and Goodfellow at al. 2014
+	  Now that we have looked at autoencoders we can take it a step further. 
+	  generative advaserial models can be used as a generator of new data, and can have som reseblance to autoencoders \ref{Explaining_autoencoders}, especially variational autoencoders %TODO cite VAE, ref VAE
+	  
+	  The difference lies in that advaserial networks is based on game theoretic scenarios in which a generator network is compeating agenst an advasery. 
+	  The generator produces samples $x=g(z;\theta^{(g)})$, where $g$ is the network given the weights $\theta$. Then the discriminator network predicts if a sample is drawn from the dataset or from the generator.
+	  More spessific, it gives a probably given by $d(x;\theta^{(d)})$ , and determins if $x$ is from the generator or the data-set. 
+	  Since we have two networks compeating agenst each other we can look at this as a Zero-sum game with the generators payoff is determined by $v(\theta^{(g)},\theta^{(d)})$, and the discriminators payoff is determined 
+	  by $-v(\theta^{(g)},\theta^{(d)})$.
+	  \textit{$v$ is here a function that is determined by both the sucsess rate of the discriminator and the generator, the most common used is}
+	  \begin{equation}
+	  v(\theta^{(g)},\theta^{(d)}) \; = \; \mathds{E}_{x\sim p_{data}}\log{d(x)} + \mathds{E}_{x\sim p_{model}}\log{(1 - d(x))} %TODO: CITE First gan paper on formula
+	  \end{equation}
+	  as derived from Goodfellow et al. %TODO cite 
+	  
+	  Lets look at a gan in detail. \\
+	  \begin{figure}[ht!]
+	    \centering
+	    \includegraphics[scale=0.5]{background/figures/simpleGAN.png}
+	    \caption{The idea behind a GAN. Here the generator saples from a random (Gaussian) distribution and generates samples that the discriminator classifies as real or fake}
+	\end{figure}
+	
+	 %TODO MORE
+	
       \subsubsection{Contextencoder}
+	Inpainting can also be done with advaserial models, and using a network trained to do the task of inpainting can be a lot more powerful than using just an autoencoder\todo{ref} or the naive methods\todo{ref}.
+	A contextencoder is building on the advaserial principle by using a generator/discriminator pair to fill in masked areas in an image. 
+	
+	The concept behind a Contextencoder is to take the whole image as input to an encoder/decoder pair and \todo{finish}
+	
+	
+	
       \subsubsection{CCgan}
       \subsubsection{PixelCNN}
       
