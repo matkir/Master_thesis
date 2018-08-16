@@ -10,7 +10,7 @@
 \usepackage{framed, subfigure}
 \usepackage{geometry}
 \usepackage[disable]{todonotes}
-%\usepackage{todonotes}
+\usepackage{todonotes}
 \usepackage[backend=biber,style=authoryear]{biblatex}
 \addbibresource{bibliography.bib}
 \usepackage{multicol}
@@ -24,7 +24,7 @@
 \setcounter{secnumdepth}{6} %this is so that i can ref to paragraph
 
 
-\title{Using unsupervised machine learning for polyp detection in the GI tract}
+\title{Using unsupervised machine learning as a tool for polyp detection in the GI tract}
 %\subtitle{Shit just got real}
 \author{Mathias Kirkerød}
 
@@ -59,9 +59,12 @@ long]
 
 
 %\part{The project}
+\chapter{Methodology}\label{cap:methodology}
+\input{methodology/methodology.tex}
+
 
 \chapter{Methods} \label{cap:methods}
-\input{methods/methods.tex}
+%\input{methods/methods.tex}
 
 \chapter{Implementation} \label{cap:implementation}
 %\input{implementation.tex}

@@ -123,10 +123,34 @@
     \subsection{How it works}
 	    %TODO talk about backward/forward prop?
 	    %
+	\begin{figure}[ht!]
+	    \centering
+	    \includegraphics[scale=0.2]{background/figures/neural_network.png}
+	    \caption{THIS IMAGE IS SHAME(LESS)LY taken from the internetz, draw own so the lawyers don't get you!}
+	\end{figure}
+	TEXT ABOUT NEURAL NETWORKS\\
+	TEXT ABOUT NEURAL NETWORKS\\
+	TEXT ABOUT NEURAL NETWORKS\\
+	TEXT ABOUT NEURAL NETWORKS\\
+
 	
-	  
+	TEXT ABOUT FEED FORWARD\\
+	TEXT ABOUT FEED FORWARD\\
+	TEXT ABOUT FEED FORWARD\\
+	TEXT ABOUT FEED FORWARD\\
+
+	TEXT ABOUT BACKPROP\\
+	TEXT ABOUT BACKPROP\\
+	TEXT ABOUT BACKPROP\\
+	TEXT ABOUT BACKPROP\\
+	
     \subsection{Convolutional neural networks}
-	  
+	\begin{figure}[ht!]
+	    \centering
+	    \includegraphics[scale=0.2]{background/figures/conv_neural_network.png}
+	    \caption{THIS IMAGE IS SHAME(LESS)LY taken from the internetz, draw own so the lawyers don't get you!}
+	\end{figure}
+    
     \subsection{Advaserial neural networks}
   	  	\paragraph{This is explaining GANS, put me in the right place} %%TODO CITE: http://www.deeplearningbook.org/contents/generative_models.html and Goodfellow at al. 2014
 	  Now that we have looked at autoencoders we can take it a step further. 
@@ -152,6 +176,8 @@
 	
 	 %TODO MORE
     \subsubsection{UCNN?}	
+    \subsection{Recurrent neural networks}
+      \subsubsection{LSTM}
 	
 	
 \section{Models we need to explain at this point (find better tittle)}
@@ -250,6 +276,8 @@
 
 
 \section{Cancer and polyps}
+	  \subsection{What is the GI tract REM}
+	  \subsection{How does polyps form REM}
 	  \subsection{What we are looking for REM}
 	  Different types of disorders.
 	  %TODO image of polyp
@@ -266,13 +294,29 @@
 	    
 	  
 \section{Explain how the ML-methods can be used with the polyps}
-	basicly talk about detecting polyps
+	When you work with machine learning a lot of the job is to make the data as clear as possible. \\
+	Imagine that you want to do something simple as reading an analogue clock. The \"straight forward\" way to do it is to  
+	make a convolutional neural network to look at the dials. This will require a much more complex network compared to if you could convert the angle of the dials
+	to degrees and have that as an input to your model.
+
+	\begin{figure}[ht]
+	  \centering
+	  \includegraphics[scale=0.5]{methods/figures/Clock.png}
+	  \caption{A clock needs a more complex network compared to just the degrees}
+	\end{figure}
+	%TODO FIND ORIGinal source
+	The trick is often to make the data as refined as possible. 
+	Further some of the techniques used is described.
 	
-	  
+	\todo{Here i need to talk about how preproccesing might help the problem, and make this a springboad in to the next section: the problem at hand}
+	
+	
+	\todo{adress the problem with lack of data, and talk about how machine learning can help, machine learning.}
 	  
 	  
 \section{The problem at hand}
-	  Now that we have the definition of machine learning and the current task, we can focus on the task at hand; finding polyps. In an ideal world we have a
+	  Now that we have the definition of machine learning and the current task, we can focus on the task at hand; finding polyps. In an ideal world\footnote{Ideal as in the only disease we could get in  the GI tract was cancer originating
+	  from polyps which looked exactly the same} we have a
 	  Classification problem with only two classes: Non-polyp and polyp. 
 	  
 	  \begin{itemize}
