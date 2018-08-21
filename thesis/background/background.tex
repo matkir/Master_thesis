@@ -15,8 +15,67 @@
 	
     From this we see that the goal of machine learning is to improve some performance P with experience.
     \textbf{might here talk about different tasks ML can do?}
+    
 
     \subsection{How machine learning works}   
+	\todo{tell that this is loosely based on deeplearningbook, basic machine learning}
+	We can start with one of the simplest examples: linear regression. \\
+	This is a typical task that is often performed in Machine leaning, though, often the model is often of a polynomial chararcteristics. 
+	In linear regression we want to make a model that can predict a value given an input.
+	
+	\begin{figure}
+	    \centering
+	    \includegraphics[scale=0.1]{background/figures/linear_regression.png}
+	    \caption{Example of linear regression in Geogebra. Here the red line is the best approxmiation of a y value, given an x value.} 
+	\end{figure} %credit AK for img
+ 
+	The output, y, from the regression can be calculated with the general formula for a line.
+	\begin{equation}
+	  y=ax+b\\
+	\end{equation}
+	Or in the machine learing case:\\
+	\begin{equation}
+	  y=W^{(1)}x+W^{(2)}\\
+	\end{equation}
+	Our goal is to find the optimal value for $W^{(1)}$ and $W^{(2)}$ so that the error between the predicted output data and the 
+	actual output data is as small as possible.\\
+	
+	The most prominent way of calculating this error is to use for instance the mean square error betweet the predicet and actual output of the data. 
+	\begin{equation}\label{MSE_form}
+	 MSE=\frac{1}{2m} \sum_i (\hat{y}-y)_i^2
+	\end{equation}
+	Where $m$ is the number of samples, $y$ is the real output, and $\hat{y}$ is the prediced output. The 2 in the dinominator is just a constant
+	to make derivation of the formula easier.\\
+	
+	From this we can intuitivly see that the error tends towards 0 when $\hat{y}$=$y$. We can also note, because of the 
+	squaring in the formula, that the error is ony based on L2 distance between $\hat{y}$ and $y$.\\
+	
+	\vspace{10mm}
+	Now that we have an error, we need a way to improve it \todo{more about GDEC}
+	
+	\subsection{Example with gradient decent}
+	Now that we have a model with an error function, we can see how we would go on to change the weights ($W^{(1\&2)}$) 
+	of our model, to get a better result. 
+	
+	Lets start with: 
+	
+	$x=\left[ \begin{array}{c} 1\\ 2\\ 3\\ \end{array} \right]$ 
+	and 
+	$y=\left[\begin{array}{c} 1.5\\2\\ 2.5\\\end{array}\right]$
+	with the weights $W^{(1)}=0$ and $W^{(2)}=0$
+	
+	We can first calculate the initial loss of the model given a MSE. Using \ref{MSE_form} gives us a loss of:
+	\begin{equation}
+	   \frac{1}{2*3} (1.5^2+2^2+2.5^2)=2.08
+	\end{equation}
+	
+	
+	We will now use gradient decent to estimate
+	
+	
+	
+	
+	
 	\subsubsection{Feed forward}
     
 	\subsubsection{Loss and gradient decent }
