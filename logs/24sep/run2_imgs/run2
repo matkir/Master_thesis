@@ -1,0 +1,13 @@
+optimizer_generator = Adam(lr=0.0005)
+optimizer_discriminator = SGD(lr=0.001)
+loss=['mse', 'binary_crossentropy'],loss_weights=[0.15, 0.85]
+mask 0
+epochs 4000
+batch_size 160
+save_interval 100
+threshold 0.5
+corner 1
+soft 1
+
+
+Running on the medico set
