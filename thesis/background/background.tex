@@ -1,4 +1,30 @@
+In this chapter we will present the background and motivation of our thesis.
+We start with our background in medical procedures, looking on how doctors perform colonoscopies, mainly from a gastrointestal perspective.
+Then will then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then our focus is moved to how doctors 
+use computer aided diagnosis (CAD) today to help with the screening. Lastly we look at current models for CAD made both by simula.
+
+We will then shift our focus to machine learning, and give a breaf introduction in different machine learning methods. Wtih this in mind we will look
+at neural network, especially convolutional neural networks, and how they work.
+
+Lastly we will combine the need for computer aided diagnosis with the machine learning.
+\section{The Medical Background}
+    In the field of medical diagnosis there are allways new and interesting methods beeing researched to help the medical staff when it comes to patient \textit{rate of survival}, and quality of life. 
+    Everything from x to y is ways the medical instusty has done to improve the survival rates of their patients. 
+    In the last decade \textit{comuters and cameras came to help us.}
+    Another example is the invention and usage of gastro-stick-with-camera.
+    \subsection{colonoscopy/gastro/procedure}
+    When performin gastronomi we use astik
+    \subsection{Medical images/data/other}
+    
+    \subsection{Systems in place for detection}
+    \subsection{summary}
+    
+
 \section{Machine Learning}
+    We have looked at the challenges that the medical staff has when it comes to detecting polyps, and how it is solved today.
+    But to truly understand how automated systems like \todo{fill} works, we need to look at Machine learing.  
+    
+    
     Machine learning is a very broad term, but can i short be summarised by:\\
     \vspace{10px}
 	
@@ -13,34 +39,89 @@
     \textbf{T} text about t\\
     \textbf{P} text about p\\
 	
-    From this we see that the goal of machine learning is to improve some performance P with experience.
-    \textbf{might here talk about different tasks ML can do?}
+    From this we see that the goal of machine learning is to improve some performance P with experience. This is based on how humans, and in our case doctors learn.
+    As the ammount of experience increase, the performance of the task should also increase. 
+    With this in mind, we can assume that, given the right ammount and type of data, our machine learning algorithms can solve universially complex problems, given a numerical output. \todo{cite}
     
-
+\subsection{Machine learning types}
+    With basis in the quote from \cite{MitchellTomM1997Ml} \todo{fix} , we have a broad definition of what machine leaning can be.
+    As long as we have a model trying to complete a task based on previous experience, it can be called machine learing. 
+    
+	\begin{table}[h]
+	    \centering
+	    \resizebox{\textwidth}{!}{%
+	    \begin{tabular}{|c|c|c|c|c|}
+	      \hline
+	      \multicolumn{5}{|c|}{Machine Learning}                                                                                 \\ \hline
+	      \multicolumn{2}{|c|}{Supervised Learning}   & \multicolumn{2}{c|}{Unsupervised Learning}       & Reinforcement Learning\\ \hline
+	      Classification          & Regression        & Clustering           & Dimensionality reduction  & -                     \\ \hline
+	      Support vector machines & Linear Regression & K means clustering   & PCA                       & SOMething             \\
+	      K nearest neighbours    & Decision trees    & Hidden Markov models &                           &                       \\
+	      Neural networks         & Neural networks   & Neural Networks      &                           &                      
+	    \end{tabular}%
+	    }
+	    \caption{Machine leaning types}
+	    \label{ML-types}
+	  \end{table}
+	  
+	  
+    Here we see some of the most famous machine learning alogrithms, and their subsequent subcategory. %TODO At this point we ahvent talked about supervised vs unsupervised
+	  %TODO rewrite under.
+	  
+	  \vspace{5px}
+	  \textbf{K nearest neighbours}\\
+	  The K nearest neighbours alorithm was proposed by%TODO
+	  , and is a method used for both classification and regression. 
+	  
+		
+	  \vspace{5px}
+	  \textbf{Linear Regression}\\
+	  How to regress linearly\\
+	  
+	  \vspace{5px}
+	  \textbf{Support vector machine}\\
+	  SVM and 2 class\\
+	  
+	  \vspace{5px}
+	  \textbf{Others?}\\
+	  Other important ones to talk about?\\
+	
+	
+	  \vspace{5px}
+	  \textbf{Neural networks}\\
+	  %TODO har given good results last years
+	  %leading in the field
+	  %own chapter
+	  NN is future\\
+	  own chapter\\
+    
+    
     \subsection{How machine learning works}   
 	\todo{tell that this is loosely based on deeplearningbook, basic machine learning}
-	We can start with one of the simplest examples: linear regression. \\
-	This is a typical task that is often performed in Machine leaning, though, often the model is often of a polynomial chararcteristics. 
+	We can start with one of the simplest examples in machine learing: linear regression. \\
+	Linear regression, and regression in genera, is a typical task assigned to machine leading, given the simple input and output. 
 	In linear regression we want to make a model that can predict a value given an input.
 	
 	\begin{figure}
 	    \centering
-	    \includegraphics[scale=0.1]{background/figures/linear_regression.png}
-	    \caption{Example of linear regression in Geogebra. Here the red line is the best approxmiation of a y value, given an x value.} 
+	    \includegraphics[scale=0.05]{background/figures/linear_regression.png}
+	    \caption{Example of linear regression in Geogebra\todo{cite geogebra}. Here the red line is the best approxmiation of a y value, given an x value.} 
 	\end{figure} %credit AK for img
  
 	The output, y, from the regression can be calculated with the general formula for a line.
 	\begin{equation}
 	  y=ax+b\\
 	\end{equation}
+	
 	Or in the machine learing case:\\
 	\begin{equation}
 	  y=W^{(1)}x+W^{(2)}\\
 	\end{equation}
+	Where $W^{(1)}$ \& $W^{(2)}$
 	Our goal is to find the optimal value for $W^{(1)}$ and $W^{(2)}$ so that the error between the predicted output data and the 
 	actual output data is as small as possible.\\
 	
-	The most prominent way of calculating this error is to use for instance the mean square error betweet the predicet and actual output of the data. 
+	The most prominent way of calculating this error is to use the mean square error betweet the predicet and actual output of the data. 
 	\begin{equation}\label{MSE_form}
 	 MSE=\frac{1}{2m} \sum_i (\hat{y}-y)_i^2
 	\end{equation}
@@ -129,51 +210,7 @@
 	    \item de-noising /finding missing inputs
 	\end{itemize}
 	  
-    \subsection{Types of machine learning (AKA what we can do with ML)}
-	There are a number of different machine learning algorithms. %TODO tell that we are going inn to detail here
-	\begin{table}[ht]
-	    \centering
-	    \resizebox{\textwidth}{!}{%
-	    \begin{tabular}{|c|c|c|c|c|}
-	      \hline
-	      \multicolumn{5}{|c|}{Machine Learning}                                                                                 \\ \hline
-	      \multicolumn{2}{|c|}{Supervised Learning}   & \multicolumn{2}{c|}{Unsupervised Learning}       & Reinforcement Learning\\ \hline
-	      Classification          & Regression        & Clustering           & Dimensionality reduction  & -                     \\ \hline
-	      Support vector machines & Linear Regression & K means clustering   & PCA                       & SOMething             \\
-	      K nearest neighbours    & Decision trees    & Hidden Markov models &                           &                       \\
-	      Neural networks         & Neural networks   & Neural Networks      &                           &                      
-	    \end{tabular}%
-	    }
-	    \caption{Machine leaning types}
-	    \label{ML-types}
-	  \end{table}
-	  
-	  %TODO rewrite under.
-	  
-	  \vspace{5px}
-	  \textbf{K nearest neighbours}\\
-	  Talk about KNN\\
-		
-	  \vspace{5px}
-	  \textbf{Linear Regression}\\
-	  How to regress linearly\\
-	  
-	  \vspace{5px}
-	  \textbf{Support vector machine}\\
-	  SVM and 2 class\\
-	  
-	  \vspace{5px}
-	  \textbf{Others?}\\
-	  Other important ones to talk about?\\
-	
-	
-	  \vspace{5px}
-	  \textbf{Neural networks}\\
-	  %TODO har given good results last years
-	  %leading in the field
-	  %own chapter
-	  NN is future\\
-	  own chapter\\
+   
 	  
 
 	
@@ -334,17 +371,17 @@
     
 
 
-\section{Cancer and polyps}
-	  \subsection{What is the GI tract REM}
-	  \subsection{How does polyps form REM}
-	  \subsection{What we are looking for REM}
-	  Different types of disorders.
-	  %TODO image of polyp
-	  Polyp is harmless, but if left untreated it can become cancerous
-	  %TODO tell the risk
-	  Pictures is from the pillcam project, kvasir dataset.
-	  \subsection{images from pillcam, and what we are looking at/for REM}
-	  %TODO More pictures of polyps, and other anomalies
+%\section{Cancer and polyps}
+%	  \subsection{What is the GI tract REM}
+%	  \subsection{How does polyps form REM}%
+%	  \subsection{What we are looking for REM}
+%	  Different types of disorders.
+%	  %TODO image of polyp
+%	  Polyp is harmless, but if left untreated it can become cancerous
+%	  %TODO tell the risk
+%	  Pictures is from the pillcam project, kvasir dataset.
+%	  \subsection{images from pillcam, and what we are looking at/for REM}
+%	  %TODO More pictures of polyps, and other anomalies
 	  
 
 	  
@@ -384,6 +421,248 @@
 	    \item random forests
 	    \item knn
 	  \end{itemize}
-	  
+
+\iffalse
+\section{In painting}
+  We have discussed the importance of good input data, and the potential benefits to resource usage and ease of making a good model.
+  So a priority when it comes to image classification is to have data without anomalies and other areas that can be interpreted as a feature for the classifier. 
+  In a machine learning perspective, the data is best if it has the same structure, and is %TODO similar enough.
+  In painting is the process of reconstructing lost or deteriorated parts of images and videos. %TODO CITE https://en.wikipedia.org/wiki/Inpainting
+  
+
+  From prior papers on polyp detection in the GI tract %TODO CITE!!!
+  we have clear results that the black corners, and the green squares trigger a big activation %TODO WRITE BETTER
+  when it comes to classifying images. 
+  From %TODO CITE, find out who
+  's paper, we can see that the activation map on a regular image gives very high result on, in addition to the polyp, the corners and the green sqare. 
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[scale=0.5]{background/figures/placeholder.jpeg}
+    \caption{Using X's activation map we can see that the edges triggers unwanted activations}
+  \end{figure}
+  
+  In addition to sqares and edges, we also have the problem that parts of the image is over saturated at points where the light from the led is reflected directly back to the camera.
+  Another problem is when the camera captures images that are too close to the wall. Both of these scenarios creates patches where the saturation is maximum. 
+   \begin{figure}[ht]
+    \centering
+    \includegraphics[scale=0.5]{background/figures/reflection.jpg}
+    \caption{we have two different types of saturation: the reflected area in the top part of the image, and the right side of the image.}
+  \end{figure}
+  in an ideal scenario the image would have no pixel values at max, and as little frame as possible. 
+  We therefor want to make a tool that can help us with this.
+  \subsection{Naive methods for In painting}
+    Inpainting is not a new area of research, as it has been around since %TODO CITE
+    Because of this there are many naive methods that gives good inpaintings. 
 	
-	\input{background/inpaining_naive_ML.tex}
+    \subsubsection{Textured syntesys based on image inpainting}
+    \subsubsection{MOARE}
+    \subsubsection{MOARE}
+   \subsection{Naive methods for borderfinding}
+
+%
+% THIS SECTION MUST BE MOVED/FIXED
+%
+\section{Naive Methods REM}
+	  Now that we have an idea of what we are looking for we can first turn to some more naive methods for detecting anomalies, and for enhancing the images.\\
+	  The field of image processing has been researched since\\ %TODO WHEN
+	  
+	  Using some of the classic methods in image processing we can see if\\ %TODO
+	  
+	  We often describe the method in to two groups of information: First and Second order statistics.\\
+	  \textbf{First order:} First order statistics does not take in to account the relative positioning of the pixels in the image, and because of this, gives much less
+	  information than the second order statistics.\\
+	  Example of First order statistics is often what information we can get out of a histogram. This can be scewness, variance, and mean value.\\
+	  
+	  \vspace{10px}
+	  
+	  \textbf{Second order:} Second order statistics takes in to account the relative positioning of the pixels in the image. We can calculate the GLCM matrix and get a much more detailed 
+	  view of the image. \\
+	  
+	  
+	  
+	  \subsection{GLCM}
+	    A GLCM (Grey-level co-occurrence matrix) is a matrix that is used when examining the spatial relationship of pixels in a texture. 
+	    The calculation of a GLCM gives us how often pairs of pixels with spesific values and a specified spatial relationship occur at a given place in an image. %TODO CITE
+	  
+	    \subsubsection{Algorithm}
+	      For simplicity we use only greyscale in this example:
+	      \begin{figure}[ht]
+		\centering
+		\includegraphics[scale=0.5]{figures/sliding_window_box.png}
+		\caption{GLCM capturing features}
+	      \end{figure}
+	      The algorithm starts by running a sliding window over the image, often with a stride, and for each stops calculates the spatial relationship between each pixel specified.
+	      The result can be something like this figure %TODO link to figure
+	      where we can read out the most likely neighbouring pixel.
+	       \begin{figure}[ht]
+		\centering
+		\includegraphics[scale=0.5]{figures/Simple_GLCM.png}
+		\caption{GLCM Matrix}
+	      \end{figure}
+	      The darker colours on in the matrix is indicating that we often have a jump between, for instance pixel-value of 1 and a pixel-value of 4, but no from 1 to 1.\\
+	      With this information we can get a naive pattern-recogniser. 
+	    \subsubsection{Other uses}
+	      Besides for the pattern recognition we can use the GLCM to get the information on:
+	      \begin{itemize}
+	       \item \textbf{Contrast} is the difference in luminance or colour in the picture. We would expect low contrast in the “background” and higher contrast around edges and irregular objects.
+	       \item \textbf{Homogeneity} is how similar a local area is to itself
+	       \item \textbf{Variance} $\sigma^2$ , is directly a measure of ”roughness”
+	       \item \textbf{Mean} value of a GLCM can give us areas with higer or lower pixel values. Good way to find polyps if they are lighter than the tissue around.
+	       \item \textbf{Entropy}
+	       \item \textbf{Energy}
+	      \end{itemize}
+
+
+	  
+	  \subsection{Edge detection}
+	    Using Edge detection in is another viable way to look for polyps. 
+	    \begin{figure}[ht]
+	      \centering
+	      \begin{minipage}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{figures/sliding_window.png}
+		\caption{Original image}
+	      \end{minipage}
+	      \hfill
+	      \begin{minipage}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{figures/Canny.png}
+		\caption{Edges of the picture}
+	      \end{minipage}
+	    \end{figure}
+	    \subsubsection{Algorithm}
+	      For each pixel look at the neighbouring pixel, if \\
+	      
+	      \begin{centering} 
+		$ abs(p_a - p_b)>tresh $\\ 
+	      \end{centering}
+	      
+	      then mark pixel as an edge pixel. \\
+	      
+	  \subsection{Hough Transforms}
+	    Using for instance Canny edge detection %TODO CITE
+	    we can get a better view of where the potential border of the polyp/anomaly is. (As shown in %TODO FIG CITE)
+	    
+	    A hough transform can i theory have many/any shape(s), and together with edge detection, we might find some of the polyps this way.
+	    
+    
+    
+    
+    
+    
+	
+    As we can see from this, there are a lot of old methods that can give approximations. We can also conclude that none of these methods are perfect.
+    We will therefore look at methods that takes learning in to use.
+\section{Using machine learning for inpainting}
+    \subsection{AE}
+    \subsection{CE}
+    \subsection{CCGAN}
+    \subsection{PCNN}
+    As discussed earlier, machine learning is using prior experiences to make decisions given the problem at hand. 
+    It is also worth mentioning that we do not need labeled data, since we are in a way looking at a global average of every image both with, and without polyps. We are therefor incentiviced to use an 
+    Unsupervised approach.
+    Since machine learning is learning from a training set, it is important that the training set contains as little as possible of the features we want to remove. \\
+    
+    Because of this the first thing we need to do if we are going to mask out corners and sqares, is to limit the training set to only contain cropped, non-sqare images. 
+ 
+    \begin{figure}[ht]
+      \centering
+      \begin{minipage}[b]{0.45\textwidth}
+	\includegraphics[width=\textwidth]{background/figures/uncropped_img.png}
+	\caption{Original image with black padding}
+      \end{minipage}
+      \hfill
+      \begin{minipage}[b]{0.45\textwidth}
+	\includegraphics[width=\textwidth]{background/figures/cropped_8percent_img.png}
+	\caption{Black edges cropped away + 8\% zoom}
+      \end{minipage}
+      \caption{Here we have an example on how we would make an image better to train on. This is not representative of the training, since we only use images without the green square under training}
+    \end{figure}
+    
+    Now that we have better images to train our data with, we need the correct algorithm.
+    We have already seen unsupervised learning aproaches in chapter %TODO ref 
+    \newpage
+    \subsubsection{Algorithm}
+      \todo{Hvordan skal jeg gaa frem nar det kommer til aa presantere disse? skal jeg bare si hvilke metoder jeg har testet?}
+      Text about presenting UML, and stuff.
+  
+	\newpage
+	As we recall from earlier, an autoencoder is a type of neural network that tries to output a recreation of the output.\\%TODO: REF the part about autoencoders 
+	We can use this for inpainting by setting the algorithm to train on images with areas cropped away.
+	There are a couple of different way we can train an autoencoder to do this.\\
+	
+	%\todo{should i talk about the different ways or present the best?}
+	
+	
+	\vspace{10px}
+	\textbf{Denoising Autoencoder with MSE loss:}\label{par:Denoising_Autoencoder_with_MSE_loss}\\
+	The simplest way to train the autoencoder is to first take the trainingset $\mathds{X}$ and make an augmented copy $\widetilde{\textbf{x}}^{(i)}$ for 
+	every data point in $\textbf{x}_{\sim \mathds{X}}^{(i)}$. \\
+	\textit{Here $\widetilde{\textbf{x}}$ is a copy of x with random areas masked.}\\
+	
+	Now we minimize the loss function\\	
+	  \begin{equation}
+	    L(\textbf{x},g(f(\widetilde{\textbf{x}})))
+	  \end{equation}
+	over the whole image.\\
+	\vspace{20px}
+	
+	With this approach the autoencoder learns to fill in the blank spots with plausible data, without changing the rest of the image. 
+	\todo{this will probably work best if the autoencoder is not undercomplete, perhaps talk about this}
+	One problem by this approach is that we do not want the rest of the image to change for obvious reasons, and the alogrithm as it is here has the flaw that it will change all the pixels in the image, at 
+	least to a minor degree. \\
+	
+	This can be somewhat fixed by only taking the augmented parts, and pasting the directly in to the image. This will leave most of the original image, except for the parts that was cropped randomly.\\
+	
+	\vspace{10px}
+	\textbf{Denoising Autoencoder with \todo{clever tittle}:}\\
+	If we take what we learned from \ref{par:Denoising_Autoencoder_with_MSE_loss}, we can make a more optimal autoencoder:
+	Rather than taking a loss like 	
+	\begin{equation}
+	  L(\textbf{x},g(f(\widetilde{\textbf{x}})))
+	\end{equation}
+	over the whole image, we can rather just focus on the parts that matters, namely the cropped areas.\\
+	
+	If we add the cropped image to the output from the autoencoder to make an image image, we can use this new image to train out loss.
+	For most of the image, the loss will be zero, since the only part that is changed is the cropped area. 
+	We can also make a new loss that is more optimal for the task at hand. 
+	\begin{equation}
+	  MSE_{crop}\:=\: \frac{1}{n}
+	  \begin{cases}
+	      \begin{array}{lcl}
+	      (\widetilde{\textbf{x}}-\textbf{x}) \; if \; \widetilde{\textbf{x}} \: \in \: \textbf{x}_{crop} \\
+	      0 \; else
+	      \end{array}
+	  \end{cases}
+	\end{equation}
+	Where $\textbf{x}_{crop}$ is the area that was cropped away from the original image and $n$ is the number of pixels in that area.\\
+	With this modified MSE we are assured that only the pixels in the cropped area is changed with gradient decent, and we save a lot of computation as an added bonus.
+	
+	
+	\todo{token to not train}
+	\begin{figure}[ht!]
+	    \centering
+	    \includegraphics[scale=0.5]{background/figures/AE_for_inpainting.png}
+	    \caption{Final result of the autoencoder used in the testing}
+	\end{figure}
+	
+	
+	
+	
+	
+      \subsubsection{Explaining GANs, this will be moved}
+      
+	
+      \subsubsection{Contextencoder}
+	Inpainting can also be done with advaserial models, and using a network trained to do the task of inpainting can be a lot more powerful than using just an autoencoder\todo{ref} or the naive methods\todo{ref}.
+	A contextencoder is building on the advaserial principle by using a generator/discriminator pair to fill in masked areas in an image. 
+	
+	The concept behind a Contextencoder is to take the whole image as input to an encoder/decoder pair and \todo{finish}
+	
+	
+	
+      \subsubsection{CCgan}
+      \subsubsection{PixelCNN}
+      
+\fi
+
+  
+ 
