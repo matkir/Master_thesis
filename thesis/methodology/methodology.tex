@@ -1,34 +1,62 @@
-With our background in both machine learning and \todo{medical background} we can now look at how we want to solve the problems associated with setting up a system for medical diagnosis.
+With our background in both machine learning and \todo{medical background} we can now look at how we want to solve the problems associated with setting up a system for medical diagnosis.  
+We will first look at the language and packages used in the creation of this thesis. We will go in depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
 
-    
-\section{Libraries}
+Then we will look at the setup of the complete program. Here we will go in-depth into both the different preprocessing algorithms, and take a look at the transfer learning network used during classifying.
 
+
+\section{Libraries} 
 In this chapter, we will discuss the foundation of our code, important external libraries, and the setup and execution of our project.  
 We will first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we will look into the wrapper we use to get a greater level of abstraction over our code, together with custom wrapper functions that are used by our wrapper. 
 
+\subsection{python}
+When doing machine learning, the most popular languages, in no particular order, are: Python, Java, R, C++, and C \todo{cite}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base and user-friendliness. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
+Right now Python is the leading language for machine learning. Driven by this, there is considerable focus into making it faster, to compete with already fast languages, like the C family. 
 
-\todo{why we used python}
-    \subsection{python}
-    When doing machine learning, the most popular languages, in no particular order, are: Python, Java, R, C++, and C \todo{cite}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
-    Right now Python is the leading language for machine learning. Driven by this, there is a lot of focus into making it faster, to compete with already fast languages, like the C family. 
+Python is an interpreted, high-level, general-purpose programming language created in 1991.   It, like many other modern languages, is object-oriented and supports functional programming. 
 
-    Python is an interpreted, high-level, general-purpose programming language created in 1991.   It is a language that does \todo{does}, and more. 
-
-    
-
-    \subsection{tensorflow}
-    Arguably the biggest reason for the success of machine learning in python lies in Tensorflow.\todo{cite} Tensorflow is a machine learning package developed by Google in \todo{year} and has since then become the leading framework for machine learning worldwide \todo{cote}.  
-    \todo{something about projects with python, and how may uses}
-
-    Tensorflow is today a multi-language tool, but it had its origin in python. It is just in later years that other languages has gotten tensorflow support. 
-
-    \todo{tensorflow is, tensorflow does}
+Mainly because of the excellent support when it comes to machine learning, and the general "easy to use and no compiling" we have chosen python as the base for our code in this thesis. 
 
 
 
-    \subsection{keras}
-    One of the least attractive things with tensorflow is its unnecessary complexity.  
-    Chollet did stuff! 
+\subsection{tensorflow}
+Arguably the biggest reason for the success of machine learning in python lies in Tensorflow.\todo{cite} Tensorflow is a machine learning package developed by Google in \todo{year} and has since then become the leading framework for machine learning worldwide \todo{cote}.  
+Tensorflow is in use by companies like AMD, Nvidia, eBay and Snapchat. 
+
+
+\todo{something about projects with python, and how may uses}
+
+Tensorflow is today a multi-language tool, but it had its origin in python. It is just in later years that other languages have gotten tensorflow support.  
+The data flows through a graph network, where the objects in the graph describe the mathematical operations used in the machine learning, and the edges between graphs are the multidimensional arrays storing the weights associated with the operation in question. The name Tensorflow is a combination of the flow we experience during calculation and the tensors between the mathematical operations. 
+
+As stated, Python, and subsequently machine learning in Python, would be much slower than a counterpart in C. Because of this, Tensorflow works as a layer of abstraction to code running in the C language. 
+ 
+\todo{cpu vs gpu}
+\todo{, CNTK, or Theano}
+
+
+
+\subsection{keras}
+One of the least attractive things with tensorflow is its unnecessary complexity.  Even though Tensorflow offers more abstraction compared to running the code in pure C, the Tensorflow library can be unnecessarily complex.
+As a result of this, many external libraries try to simplify many of the complexities that accompany tensorflow. 
+Libraries like TFlearn was made as a modular and transparent deep learning library on top of tensorflow. It gives a higher-level API to Tensoflow to reduce complexity and speed up experiments. \todo{cite TFLEARN}
+The most successful library for on top of Tensorflow is Keras \todo{cite keras}. 
+Just as TFlearn, Keras is a high-level package written in python. It is capable of running on top of TensorFlow, CNTK, or Theano, which is the tree most popular machine learning libraries at this time. 
+From their website they state that their four goals when creating Kears were:
+\textbf{User friendliness. }\\
+\textbf{Modularity. }\\
+\textbf{Easy extensibility.}\\ 
+\textbf{Work with Python. }\\
+
+One of the core elements of Keras that makes it a better choice than just running, for instance, Tensorflow, is the concept of a model. A model in Keras is a way to organise the layers of the network in a more organised way, giving a better understanding of how the network is set up, and how each layer type contributes to the graph. \todo{more}
+
+This thesis relies on Keras as a wrapper for tensorflow. As stated, the use of models and the simplicity of the language makes it an excellent choice of such a large project. Also, Keras has good support for convolutional operations which is the most used methods when managing images. Keras also has the most popular pretrained convolutional neural network models available in its package. \textit{Since one of our primary goal is to see how well our datasets generalise to the real world, transfer-learning will be a great tool to forgo unnecessary training}
+
+
+
+
+\subsection{Custom functions for Keras and tensorflow}
+
+
     
     \subsection{Additional packs in keras made by me}
     

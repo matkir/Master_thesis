@@ -7,7 +7,6 @@
 \usepackage{amsmath, amsthm}
 \usepackage{listings}
 \usepackage{graphicx, chngpage}
-\usepackage{framed, subfigure}
 \usepackage{geometry}
 \usepackage[disable]{todonotes}
 \usepackage{todonotes}
@@ -17,24 +16,26 @@
 \usepackage[toc,page]{appendix}
 \usepackage{ dsfont } %MATH SYMBOLS
 
+
 \usepackage{graphicx}    
 \usepackage{textcomp}    
 \usepackage{amsmath}    
 \usepackage{subcaption}     
+%\expandafter\def\csname ver@subfig.sty\endcsname{}
 \usepackage{float}    
-\usepackage{subfig} 
+
 
 
 %\theoremstyle{definition}
 %\newtheorem{exmp}{Example}[section]
 %\newtheorem{defi}{Definition}[section]
 
-\setcounter{secnumdepth}{6} %this is so that i can ref to paragraph
+%\setcounter{secnumdepth}{6} %this is so that i can ref to paragraph
 
 
 \title{Using unsupervised machine learning as a tool for polyp detection in the GI tract}
-%\subtitle{Shit just got real}
-\author{Mathias Kirkerød}
+%\subtitle{}
+\author{Mathias Kirkerod}
 
 %\bibliography{library}
 %\geometry{textwidth=370pt}
@@ -77,7 +78,7 @@
 
 
 \chapter{Result and Discussion} \label{cap:results}
-%\input{result/result.tex}
+\input{result/result.tex}
 
 \chapter{Conclusion} \label{cap:conclution}
 %\input{conclusion/conclusion.tex}
@@ -85,7 +86,7 @@
 \chapter{Future Work} \label{cap:future}
 %\input{future/future.tex}
 
-\chapter{Appendix}
+%\chapter{Appendix}
 
 
 \backmatter{}

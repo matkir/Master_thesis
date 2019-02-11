@@ -1,159 +1,231 @@
-In this chapter we will present the background and motivation of our thesis.
-We start with our background in medical procedures, looking on how doctors perform colonoscopies, mainly from a gastrointestal perspective.
-Then will then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then our focus is moved to how doctors 
-use computer aided diagnosis (CAD) today to help with the screening. Lastly we look at current models for CAD made both by simula.
+In this chapter, we will present the background and motivation of our thesis.
+We start with our background in medical procedures, looking at how doctors perform colonoscopies, mainly from a gastrointestinal perspective.
+Then will then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then our focus is moved to how doctors use computer-aided diagnosis (CAD) today to help with the screening. Lastly, we look at current models for CAD made both by Simula.
 
-We will then shift our focus to machine learning, and give a breaf introduction in different machine learning methods. Wtih this in mind we will look
-at neural network, especially convolutional neural networks, and how they work.
+After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can \'learn\' and discuss different areas we can use and areas we are using machine learning today.
+We will then go in depth into the examples and look at the most common machine learning models. We will look at the most common form of machine learning, namely neural networks, and show the structure that is most used in this type of machine learning. 
 
-Lastly we will combine the need for computer aided diagnosis with the machine learning.
+ With this in mind, we will look
+at neural networks, especially convolutional neural networks, and how they work.
+
+Lastly, we will combine the need for computer-aided diagnosis with the machine learning.
 \section{The Medical Background}
-    In the field of medical diagnosis there are allways new and interesting methods beeing researched to help the medical staff when it comes to patient \textit{rate of survival}, and quality of life. 
-    Everything from x to y is ways the medical instusty has done to improve the survival rates of their patients. 
-    In the last decade \textit{comuters and cameras came to help us.}
-    Another example is the invention and usage of gastro-stick-with-camera.
-    \subsection{colonoscopy/gastro/procedure}
-    When performin gastronomi we use astik
-    \subsection{Medical images/data/other}
+In the field of medical diagnosis, there are always new and interesting methods being researched to help the medical staff when it comes to patient \textit{rate of survival}, and quality of life. 
+Everything from x to y is ways the medical industry has done to improve the survival rates of their patients. 
+In the last decade \textit{comuters and cameras came to help us.}
+Another example is the invention and usage of gastro-stick-with-camera.
+\subsection{colonoscopy/gastro/procedure}
+When performin gastronomi we use astik
+\subsection{Medical images/data/other}
     
-    \subsection{Systems in place for detection}
-    \subsection{summary}
+\subsection{Systems in place for detection}
+\subsection{summary}
     
 
 \section{Machine Learning}
-    We have looked at the challenges that the medical staff has when it comes to detecting polyps, and how it is solved today.
-    But to truly understand how automated systems like \todo{fill} works, we need to look at Machine learing.  
-    
-    
-    Machine learning is a very broad term, but can i short be summarised by:\\
-    \vspace{10px}
-	
-    \textit{ A computer program is said to learn from experience E with respect to 
-    some class of tasks T and performance measure P, if its performance at
-    tasks in T, as measured by P, improves with the experience E. } 
-    \cite{MitchellTomM1997Ml}\\
-	
-    \vspace{10px}
-    Here we have a couple of parameters:\\
-    \textbf{E} text about e\\
-    \textbf{T} text about t\\
-    \textbf{P} text about p\\
-	
-    From this we see that the goal of machine learning is to improve some performance P with experience. This is based on how humans, and in our case doctors learn.
-    As the ammount of experience increase, the performance of the task should also increase. 
-    With this in mind, we can assume that, given the right ammount and type of data, our machine learning algorithms can solve universially complex problems, given a numerical output. \todo{cite}
-    
-\subsection{Machine learning types}
-    With basis in the quote from \cite{MitchellTomM1997Ml} \todo{fix} , we have a broad definition of what machine leaning can be.
-    As long as we have a model trying to complete a task based on previous experience, it can be called machine learing. 
-    
-	\begin{table}[h]
-	    \centering
-	    \resizebox{\textwidth}{!}{%
-	    \begin{tabular}{|c|c|c|c|c|}
-	      \hline
-	      \multicolumn{5}{|c|}{Machine Learning}                                                                                 \\ \hline
-	      \multicolumn{2}{|c|}{Supervised Learning}   & \multicolumn{2}{c|}{Unsupervised Learning}       & Reinforcement Learning\\ \hline
-	      Classification          & Regression        & Clustering           & Dimensionality reduction  & -                     \\ \hline
-	      Support vector machines & Linear Regression & K means clustering   & PCA                       & SOMething             \\
-	      K nearest neighbours    & Decision trees    & Hidden Markov models &                           &                       \\
-	      Neural networks         & Neural networks   & Neural Networks      &                           &                      
-	    \end{tabular}%
-	    }
-	    \caption{Machine leaning types}
-	    \label{ML-types}
-	  \end{table}
-	  
-	  
-    Here we see some of the most famous machine learning alogrithms, and their subsequent subcategory. %TODO At this point we ahvent talked about supervised vs unsupervised
-	  %TODO rewrite under.
-	  
-	  \vspace{5px}
-	  \textbf{K nearest neighbours}\\
-	  The K nearest neighbours alorithm was proposed by%TODO
-	  , and is a method used for both classification and regression. 
-	  
-		
-	  \vspace{5px}
-	  \textbf{Linear Regression}\\
-	  How to regress linearly\\
-	  
-	  \vspace{5px}
-	  \textbf{Support vector machine}\\
-	  SVM and 2 class\\
-	  
-	  \vspace{5px}
-	  \textbf{Others?}\\
-	  Other important ones to talk about?\\
-	
-	
-	  \vspace{5px}
-	  \textbf{Neural networks}\\
-	  %TODO har given good results last years
-	  %leading in the field
-	  %own chapter
-	  NN is future\\
-	  own chapter\\
-    
-    
-    \subsection{How machine learning works}   
-	\todo{tell that this is loosely based on deeplearningbook, basic machine learning}
-	We can start with one of the simplest examples in machine learing: linear regression. \\
-	Linear regression, and regression in genera, is a typical task assigned to machine leading, given the simple input and output. 
-	In linear regression we want to make a model that can predict a value given an input.
-	
-	\begin{figure}
-	    \centering
-	    \includegraphics[scale=0.05]{background/figures/linear_regression.png}
-	    \caption{Example of linear regression in Geogebra\todo{cite geogebra}. Here the red line is the best approxmiation of a y value, given an x value.} 
-	\end{figure} %credit AK for img
+We have looked at the challenges that the medical staff has when it comes to detecting polyps, and how it is solved today.
+However, to truly understand how automated systems like Mirmir\todo{cite} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are after.  
+
+Machine learning is a broad term, but can, in short, be summarised by:\\
+\vspace{10px}
+
+\textit{ A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with the experience E. } \cite{MitchellTomM1997Ml}\\
+
+\vspace{10px}
+A few things of note from this quote is the variables mentioned in the quote. Experience e is the stored knowledge the program has gotten. It is in most cases just numbers used to approximate a solution given an input, to try to get it as close to the right answer. This approximation is made for every task T until we are happy with the result.
+Lastly, to tell how well our program does we need a measure P that tells us how far away from the desired output we got.
+   
+From this, we see that the goal of machine learning is to improve some performance P with experience. This behaviour is a mimicry of human learning, where we as humans need to practice on a task to improve on it.
+As the amount of experience increase, both for us and the machine, the performance of the task becomes better and better. With this in mind, we can assume that, given the right amount and type of data, our machine learning algorithms can solve any problems humans can solve, given both the right training environment and a way to train, given the environment.
+
+We have talked about machine learning in broad terms at this point. We have drawn a parallel between how humans learn, and how machines gather experience.  Now we will look into the most popular machine learning techniques, and show the machine learning algorithms stores the experience gathered.
  
-	The output, y, from the regression can be calculated with the general formula for a line.
-	\begin{equation}
-	  y=ax+b\\
-	\end{equation}
-	
-	Or in the machine learing case:\\
-	\begin{equation}
-	  y=W^{(1)}x+W^{(2)}\\
-	\end{equation}
-	Where $W^{(1)}$ \& $W^{(2)}$
-	Our goal is to find the optimal value for $W^{(1)}$ and $W^{(2)}$ so that the error between the predicted output data and the 
-	actual output data is as small as possible.\\
-	
-	The most prominent way of calculating this error is to use the mean square error betweet the predicet and actual output of the data. 
-	\begin{equation}\label{MSE_form}
-	 MSE=\frac{1}{2m} \sum_i (\hat{y}-y)_i^2
-	\end{equation}
-	Where $m$ is the number of samples, $y$ is the real output, and $\hat{y}$ is the prediced output. The 2 in the dinominator is just a constant
-	to make derivation of the formula easier.\\
-	
-	From this we can intuitivly see that the error tends towards 0 when $\hat{y}$=$y$. We can also note, because of the 
-	squaring in the formula, that the error is ony based on L2 distance between $\hat{y}$ and $y$.\\
-	
-	\vspace{10mm}
-	Now that we have an error, we need a way to improve it \todo{more about GDEC}
-	
-	\subsection{Example with gradient decent}
-	Now that we have a model with an error function, we can see how we would go on to change the weights ($W^{(1\&2)}$) 
-	of our model, to get a better result. 
-	
-	Lets start with: 
-	
-	$x=\left[ \begin{array}{c} 1\\ 2\\ 3\\ \end{array} \right]$ 
-	and 
-	$y=\left[\begin{array}{c} 1.5\\2\\ 2.5\\\end{array}\right]$
-	with the weights $W^{(1)}=0$ and $W^{(2)}=0$
-	
-	We can first calculate the initial loss of the model given a MSE. Using \ref{MSE_form} gives us a loss of:
-	\begin{equation}
-	   \frac{1}{2*3} (1.5^2+2^2+2.5^2)=2.08
-	\end{equation}
-	
-	
-	We will now use gradient decent to estimate
-	
-	
+\subsection{Machine learning types}
+With a basis in the quote from \cite{MitchellTomM1997Ml} \todo{fix}, we have a broad definition of what machine learning can be.
+As long as we have a model trying to complete a task based on previous experience, it can be called machine learning. Though just like humans, we have multiple ways to gather and retain information.
+
+Figure \ref{fig:ML_types} shows a chart over the three most common categories within the field of machine learning. 
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.3]{background/figures/ML_types.png}
+        \caption{The three main types of machine learning and their subtypes}
+    \label{fig:ML_types} 
+    \end{figure}
+
+We have three subcategories of machine learning: Supervised, Unsupervised, and Reinforcement learning. \todo{more}
+
+\subsubsection{supervised machine learning}
+Supervised machine learning is the simplest form of machine learning to understand. It is also the most prominent where x\% is and \todo{finish and cite}
+
+Supervised machine learning functions have the objective of, given an input-output pair, approximate the input to be as close to the output.  \todo{ Stuart J. Russell, Peter Norvig (2010) Artificial Intelligence: A Modern Approach, Third Edition, Prentice Hall ISBN 9780136042594.}
+Alternatively, in simpler terms, given an input x, produce an answer as close as possible to the output y.
+A supervised algorithm analyses the training data and produces an inferred function, which can be used to map new data entries. 
+
+\todo{steps}
+\todo{more info}
+\textbf{Supervised learning:} is the act of training with data that has an answer or a label. The learning algorithm can get supervision while training on the task. An example of a supervised task is to recognise handwritten numbers, or differentiate between dogs and cats. The task is considered supervised if the images come with the correct label in the data set. These  examples are typical classification examples, where the task is to identify the right group to classify the data to %TODO more
+A simpler classification assignment is binary classification, where the target is (often) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian or International. In the last example, the classification changes from binary to multi-class if we sort the cars on every nationality, and not just Norwegian/non-Norwegian. Another type of a supervised learning task is regression. Regression is the act of prediction given prior data. Examples of regression are everything from the prediction of stock prices, to house prices in an area, to\\ %TODO more
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{figures/class_vs_reg.png}
+    \caption{Left: Example of binary classification. Right: Example of regression} 
+\end{figure}
+  
+
+
+\subsubsection{unsupervised machine learning}
+\textbf{Unsupervised learning:} is the act of training without any supervision, on the sense that we do not give the algorithm the answer to the training data set. %TODO more 
+Since we do not have categorised data in unsupervised learning, we often %TODO more
+Types of unsupervised learning can, for instance, be clustering, the act of sorting data based on similarity.
+An example of this can be if we want to sort plants based on species, or we are detecting anomalies in a dataset. Unsupervised learning can be used for PCA %TODO CITE 
+or other dimensionality reduction methods.\\
+A third method to used unsupervised learning is the adversarial route, where we use machine learning to make similar looking data to the original data set. 
+        
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{figures/cluster_pca.png}
+    \caption{Left: Example of binary clustering. Right: Example of principal component analysis} 
+\end{figure}
+
+In the description of supervised vs unsupervised we looked at a specific branch of machine learning: Classification. Classification is, as the name implies, the task of getting data sorted into groups of similarity. 
+      
+      
+\begin{itemize}
+    \item subsfication
+    \item r to the pillcam projression 
+    \item transcription/translation
+    \item de-noising /finding missing inputs
+    \end{itemize}
+      
+\subsubsection{rienforcement learning}
+
+
+\subsubsection{Famous machine learning types}
+Now that we have a basis on the three types of machine learning we can go into more detail on the most successful types of machine learning used both now and in the past. 
+Machine learning was coined as a term as early as in the 10000 century. The first concept was of the \todo{more}
+
+
+In more recent times, when the first computers came, a common type of machine learning was the K-nearest neighbour algorithm.
+\todo{fast}
+\todo{no training}
+\todo{talk about it as a clustering method, classification}
+\todo{proposed by}
+
+\vspace{5px}
+
+Another early adoption of machine learning was in the form of regression. Regression is the statistical concept of estimating the relationships among variables. It is in heavy use today, and one of the core concept we use machine learning for today. 
+Legendre first used regression in 1805 with his method of least squares.\todo{cite} The least square methods were first done by hand, and it was at the time one best models, backed by math, to estimate the relationship between an input and a subsequent output. 
+\todo{find out how much I need to write here}
+
+Today regression analysis is widely used in statistics and informatics, and there is a significant overlap between the two research fields. While often we can make analytical models when working with a dataset with few variables, machine learning has the possibility of making much more complex models.
+
+\vspace{5px}
+
+A newer and applied form of supervised machine learning is the support vector machine. The original support vector machine was invented by Vladimir N. Vapnik and Alexey Ya Chervonenkis in 1963. \todo{cite} 
+In 1992, Bernhard E. Boser, Isabelle M. Guyon and Vladimir N. Vapnik suggested ways to make the support vector machine work in multiclass examples by using kernels.  
+
+A support vector machine is a form of classifier where the goal is to divide two datasets by a line that is just between the data. 
+
+
+\vspace{5px} 
+\todo{perhaps NN}
+\todo{might be own chapter}
+
+
+    
+We have now discussed the general structure of the three types of machine learning. For each of the three methods we have looked at designs that utilise their form of learning, and we have shown how they can be used in the real world.
+We have also looked into some successful algorithms through the ages, highlighting innovations that helped form our vast library of methods we can use to tackle problems we meet.
+We will now first go more in-depth into how a general machine learning algorithm works, giving a rundown on how a simple algorithm works from start to end.
+After this, we look into a more advanced example utilising a Generative adversarial network as a template.
+
+
+    
+\section{How machine learning works}   
+\todo{tell that this is loosely based on deeplearningbook, basic machine learning}
+One of the easiest to understand tasks in machine learning is the process of regression. As stated earlier, regression is a process of approximation given prior input.
+
+We start with one of the simplest forms of approximation, namely linear approximation. In linear approximation, we are interested in finding the function that best defines our data using only a polynomial of the first degree.  First, we recall that a first-order function is always on the form
+\begin{equation}
+y = ax +b 
+\end{equation}
+Where x is input, y is output and the constants a and b  defines the function.
+    
+\begin{figure}
+\centering
+\includegraphics[scale=0.05]{background/figures/linear_regression.png}
+\caption{Example of linear regression in Geogebra\todo{cite geogebra}. Here the red line is the best approxmiation of a y value, given an x value.} 
+\label{fig:geogebra}
+\end{figure} %credit AK for img
+
+Figure \ref{geogebra} shows an ideal example of linear regression. Here we approximate the values of our model with the straight line defined by choosing the right slope (a) and the right constant (b).
+With the knowledge of math, we look into how to do it computationally with the help of simple machine learning. 
+
+ 
+We can recall from the quote by \cite{MitchellTomM1997Ml} that we gain experience E by doing a task T. In our example we choose to store our experience as its done in equation \ref{eq:ML_lin}.
+    
+\begin{equation}
+y=W^{(1)}x+W^{(2)}\\
+\label{eq:ML_lin}
+\end{equation}
+
+Here, like before, our output is y and our input is x. We have replaced a and b with new placeholders $W^{(1)}$ \& $W^{(2)}$.
+Now our goal is to, given a task T, gain experience E and store it in $W^{(1)}$ and $W^{(2)}$. With our values for $W^{(1)}$ \& $W^{(2)}$ we want the best performance P.  The best performance here is defined as getting the smallest difference between the predicted output data and the actual output data. 
+
+
+The most prominent way of calculating this error is to use the mean square error between the predicted and actual output of the data. 
+\begin{equation}\label{MSE_form}
+     MSE=\frac{1}{2m} \sum_i (\hat{y}-y)_i^2
+\end{equation}
+Where $m$ is the number of samples, $y$ is the real output, and $\hat{y}$ is the predicted output. The 2 in the denominator is just a constant to make the derivation of the formula easier.\\
+    
+From this, we can intuitively see that the error tends towards 0 when $\hat{y}$=$y$. We can also note, because of the squaring in the formula, that the error is only based on L2 distance between $\hat{y}$ and $y$.\\
+
+Now that we have an error, we need a way to improve it \todo{more about GDEC}
+At this point, we have a way to store experience E (in  $W^{(1)}$ \& $W^{(2)}$), measure performance P (in the MSE), and we have tasks T (in the form of input-output pairs).
+
+
+Given an input-output pair, we will now look at how to use machine learning to better approximate the next input-output pair.
+
+   
+Lets start with: 
+\begin{equation}
+	x=\left[ \begin{array}{c} 1\\ 2\\ 3\\ \end{array} \right]
+	y=\left[\begin{array}{c} 1.5\\2\\ 2.5\\\end{array}\right]
+\end{equation}
+with the weights $W^{(1)}=0$ and $W^{(2)}=0$
+Using the formula \ref{eq:ML_lin} we can calculate  $\hat{y}$ to be
+\begin{equation}
+    \hat{y}=\left[\begin{array}{c} 0\\0\\ 0\\\end{array}\right]
+\end{equation}
+
+We can now calculate the performance by applying the mean square error function. Using \ref{MSE_form} gives us a loss of:
+\begin{equation}
+   \frac{1}{2*3} ({(1.5-0)}^2+{(2-0)}^2+{(2.5-0)}^2)=2.08
+\end{equation}
+With our new found error, we need a way to use this to update our weights $W^{(1)}$ \& $W^{(2)}$ to get a better estimate. 
+    
+
+The most common way to update our weights is to use gradient descent. 
+Gradient descent is a first order iterative optimisation algorithm \todo{cite Wikipedia GD} for finding the minimum of a function. In our case, we are looking for the minimum value of the MSE function. Gradient descent is defined as (simplified for our example):
+\begin{equation}
+	a_{n+1}= a_{n} - \gamma \nabla F(a_{n})
+\end{equation}
+Where $\nabla$F() is the derivate of function in question, a is the input at step n, and $\gamma$ is a learning rate set to a small number. 
+
+Derivating \ref{MSE_form} and using a learning rate of 1 we get the following. 
+\begin{equation}
+\label{MSE_deriv_w0}
+     \nabla F_{W^0} = \frac{d}{d_{W^{0}} } \frac{1}{2m} \sum_i (\hat{y}-y)_i^2 \\
+     \nabla F_{W^0} = \frac{1}{m} \sum_i (\hat{y}-y)_i\\
+\end{equation}
+
+\begin{equation}
+     \nabla F_{W^1} = \frac{d}{d_{W^{1}} } \frac{1}{2m} \sum_i (\hat{y}-y)_i^2 \\
+     \nabla F_{W^1} = \frac{1}{m} \sum_i (\hat{y}-y)_i \dot \hat{y}\\
+\end{equation}
+    
+    
 	
 	
 	
@@ -161,55 +233,9 @@ Lastly we will combine the need for computer aided diagnosis with the machine le
     
 	\subsubsection{Loss and gradient decent }
 
-    
-    \subsection{Supervised \& Unsupervised machine learning}
-	We often divide machine learning in to two (diffuse) categories: supervised and unsupervised.\\
-	\vspace{5px}
-	\textbf{Supervised learning:} is the act of training with data that has an answer or a label. The learning algorithm can get supervision while 
-	training on the task. An example on a supervised task  is to recognise handwritten numbers, or differentiate between dogs and cats. The task is supervised if the images
-	comes with the correct label in the data set. These  examples are typical classification examples, where the task is to identify the right group to classify the data to %TODO more
-	A simpler classification assignment is binary classification, where the target is (often) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian 
-	or International. 
-	In the last example the classification changes from binary to multi-class if you sort the cars on every nationality, and not just Norwegian/non-Norwegian.
-	  
-	Another type of supervised learning is regression. This is the act of prediction given prior data. Examples of regression is everything from prediction of stock prices, to house prices 
-	in an area, to\\ %TODO more
-	\begin{figure}
-	    \centering
-	    \includegraphics[scale=0.5]{figures/class_vs_reg.png}
-	    \caption{Left: Example of binary classification. Right: Example of regression} 
-	\end{figure}
-  
-	\vspace{5px}
-	\textbf{Unsupervised learning:} is the act of training without any supervision, on the sense that we do not give the algorithm the answer
-	to the training data set. %TODO more 
-	 
-	Since we do not have categorised data in unsupervised learning, we often %TODO more
-	Types of unsupervised learning can for instance be clustering, the act of sorting data based on similarity. An example of this can be if you want to sort plants based on species, or 
-	you are detecting anomalies in a dataset.
-	Unsupervised learning can be used for PCA %TODO CITE 
-	or other dimensionaly reduction methods.\\
-	  
-	A third method to used unsupervised learning is the adversarial route, where you use machine learning to make similar looking data to the original data set. 
-	    
-	\begin{figure}
-	    \centering
-	    \includegraphics[scale=0.5]{figures/cluster_pca.png}
-	    \caption{Left: Example of binary clustering. Right: Example of principal component analysis} 
-	\end{figure}
 
-	 
-	In the description of supervised vs unsupervised we looked at a specific branch of machine learning: Classification. Classification is, as the name implies, the task of 
-	getting data sorted in to groups of similarity. 
-	  
-	  
-	\begin{itemize}
-	    \item subsfication
-	    \item r to the pillcam projression 
-	    \item transcription/translation
-	    \item de-noising /finding missing inputs
-	\end{itemize}
-	  
+	
+
    
 	  
 
