@@ -224,7 +224,8 @@ Derivating \ref{MSE_form} and using a learning rate of 1 we get the following.
      \nabla F_{W^1} = \frac{d}{d_{W^{1}} } \frac{1}{2m} \sum_i (\hat{y}-y)_i^2 \\
      \nabla F_{W^1} = \frac{1}{m} \sum_i (\hat{y}-y)_i \dot \hat{y}\\
 \end{equation}
-    
+
+ 
     
 	
 	
@@ -241,177 +242,179 @@ Derivating \ref{MSE_form} and using a learning rate of 1 we get the following.
 
 	
 \section{Neural Networks}
-	  
-    \subsection{How it works}
-	    %TODO talk about backward/forward prop?
-	    %
-	\begin{figure}[ht!]
-	    \centering
-	    \includegraphics[scale=0.2]{background/figures/neural_network.png}
-	    \caption{THIS IMAGE IS SHAME(LESS)LY taken from the internetz, draw own so the lawyers don't get you!}
-	\end{figure}
-	TEXT ABOUT NEURAL NETWORKS\\
-	TEXT ABOUT NEURAL NETWORKS\\
-	TEXT ABOUT NEURAL NETWORKS\\
-	TEXT ABOUT NEURAL NETWORKS\\
+We have looked at different types of machine learning, and we have gone in depth into how a linear regression model works. In this chapter, we want to get further insight into how we can make more complex models, and we will look into the most popular method for machine learning, namely Neural Networks. 
+After the rundown on how neural networks are built up and how they operate, we will look into convolutional neural networks. In the end, we will look at successful networks, mainly made for image classification.
 
-	
-	TEXT ABOUT FEED FORWARD\\
-	TEXT ABOUT FEED FORWARD\\
-	TEXT ABOUT FEED FORWARD\\
-	TEXT ABOUT FEED FORWARD\\
 
-	TEXT ABOUT BACKPROP\\
-	TEXT ABOUT BACKPROP\\
-	TEXT ABOUT BACKPROP\\
-	TEXT ABOUT BACKPROP\\
-	
-    \subsection{Convolutional neural networks}
-	\begin{figure}[ht!]
-	    \centering
-	    \includegraphics[scale=0.2]{background/figures/conv_neural_network.png}
-	    \caption{THIS IMAGE IS SHAME(LESS)LY taken from the internetz, draw own so the lawyers don't get you!}
-	\end{figure}
+\subsection{The perceptron}
+To explain how a neural net operates, we first need to look at the most fundamental structure present in every type of neural network, namely the Perceptron.
+The fist perceptron was introduced by \todo{who} in \todo{find when}, and it was made as an attempt to mimic the human neuron.  
+
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.5]{background/figures/neuron.jpg}
+        \caption{https://socratic.org/questions/how-is-a-neuron-adapted-to-perform-its-function}
+        \label{fig:neuron}
+\end{figure}
+
+
+
+Figure \ref{fig:neuron} shows how a human neuron looks like, and in which direction the signal goes. Each neuron is connected to multiple other neurons by connecting the dendrites to other neighbouring neurons. 
+When a signal is sent, the dendrites register the signal and sends it through the axon out to the axon terminal. At the axon terminal, other neurons pick up the electrical signal and pass it through their axon.
+This flow of electricity is the fundamental way different part of our brain communicates, and the different pathways the signals can take represent how we learn. 
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.5]{background/figures/perceptron.png}
+        \caption{Simple perceptron}
+    \label{fig:perceptron}
+\end{figure}
+
+We can now look at the perceptron in figure \ref{fig:perceptron}, as we can discern, this mathematical model has the same structure, and we have the same flow as we would in the human brain. 
+First, we get numerical data from, either other perceptrons, or from an input. We add it together and send it out on the other side. We will now look more in depth how this is done, and show how the mathematics behind it works. \\
+
+\textbf{Step 1:} our perceptron gets signals $a_{(i,0)}-a_{(i,n)}$ where $n$ is the number of inputs to the perceptron.\\
+
+\textbf{Step 2:} each of our signals $a_{(i,0)}-a_{(i,n)}$ is multiplied by a weight $W^{(0)}$ -  $W^{(n)}$. \\
+
+\textbf{Step 3:} we sum every input to a scalar. \\
+
+\textbf{Step 4:} We apply an activation function. This can be a simple sigmoid function or tanh function, but the most common is the Rectified linear unit (ReLu) \todo{cite} \\ 
+
+\textbf{Step 5:} The output of the activation function $a_{(j,0)}-a_{(j,n)}$ is sent to the next perceptron. 
+
+\todo{talk about why we use an activation function}
+
+
+
+\subsection{Multilayer perceptrons}
+The neural network was a proposal made by Warren McCulloch and Walter Pitts (1943) \todo{cite}  created a computational model for neural networks based on mathematics and algorithms called threshold logic. 
+\todo{talk about the single neuron made by that dude}
+
+The first multilayer network at the time used backpropagation in the same way described in \todo{find formula}.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.2]{background/figures/neural_network.png}
+\caption{THIS IMAGE IS SHAME(LESS)LY taken from the internetz, draw own so the lawyers don't get you!}
+\label{fig:mlnn}
+\end{figure}
+
+Figure \ref{fig:mlnn} shows the basic structure of a multilayer network.
+In this figure, we have four things we need to look into.
+
+\subsection{Feed forward and backpropagation through a neural network}
+\todo{looked at how MLP works, let's look at back-and-forward prop}
+
+
+
+
+
     
-    \subsection{Advaserial neural networks}
-  	  	\paragraph{This is explaining GANS, put me in the right place} %%TODO CITE: http://www.deeplearningbook.org/contents/generative_models.html and Goodfellow at al. 2014
-	  Now that we have looked at autoencoders we can take it a step further. 
-	  generative advaserial models can be used as a generator of new data, and can have som reseblance to autoencoders \ref{Explaining_autoencoders}, especially variational autoencoders %TODO cite VAE, ref VAE
-	  
-	  The difference lies in that advaserial networks is based on game theoretic scenarios in which a generator network is compeating agenst an advasery. 
-	  The generator produces samples $x=g(z;\theta^{(g)})$, where $g$ is the network given the weights $\theta$. Then the discriminator network predicts if a sample is drawn from the dataset or from the generator.
-	  More spessific, it gives a probably given by $d(x;\theta^{(d)})$ , and determins if $x$ is from the generator or the data-set. 
-	  Since we have two networks compeating agenst each other we can look at this as a Zero-sum game with the generators payoff is determined by $v(\theta^{(g)},\theta^{(d)})$, and the discriminators payoff is determined 
-	  by $-v(\theta^{(g)},\theta^{(d)})$.
-	  \textit{$v$ is here a function that is determined by both the sucsess rate of the discriminator and the generator, the most common used is}
-	  \begin{equation}
-	  v(\theta^{(g)},\theta^{(d)}) \; = \; \mathds{E}_{x\sim p_{data}}\log{d(x)} + \mathds{E}_{x\sim p_{model}}\log{(1 - d(x))} %TODO: CITE First gan paper on formula
-	  \end{equation}
-	  as derived from Goodfellow et al. %TODO cite 
-	  
-	  Lets look at a gan in detail. \\
-	  \begin{figure}[ht!]
-	    \centering
-	    \includegraphics[scale=0.5]{background/figures/simpleGAN.png}
-	    \caption{The idea behind a GAN. Here the generator saples from a random (Gaussian) distribution and generates samples that the discriminator classifies as real or fake}
-	\end{figure}
-	
-	 %TODO MORE
-    \subsubsection{UCNN?}	
-    \subsection{Recurrent neural networks}
-      \subsubsection{LSTM}
-	
-	
-\section{Models we need to explain at this point (find better tittle)}
+\subsection{Convolutional neural networks}
+The multilayer perceptron we have discussed is a strong tool that can learn a multitude of decision boundaries, and subsequently learn to classify thousands of different classes. 
+As we get more data and more classes, the networks needed to solve our problem grows. We can recall from chapter \todo{ref chapter on MLP} that the number of weights between neurons is \todo{insert math}. As the number of perceptrons per layer in our neural networks increases, the total amount of storage space increases by a factor of 4 \todo{fix this}
+
+Another problem with the standard MLP is the fact that it is spatially dependent. Given an input $x$, the output, $y$, of the MLP will vary a lot if we shift the input data by one place, or if we flip the data. In some cases, this is something we want in our machine learning algorithms, but more often than not, this behaviour is not a desirable outcome.
+
+Given the downsides we have with regards to memory usage and non-spatiality in our multilayer perceptrons, we present Kunihiko Fukushima \todo{cite} solution to solve both complications.
+
+Convolutional neural networks are the most popular form for image recognition, segmentation, and classification \todo{cite, IEEE paper got cites}
+
+\todo{transition}
+
+Convolutional networks work with filters and assign a weight to each pixel in the filters used. This use of filters significantly reduces the number of weights between layers, since we now have weights that are not dependent on the input size, and only dependent on the size and number of filters.
+
+\todo{sliding window}
+
+Given a $5x5$ filter 
+
+\begin{figure}[ht!]
+        \centering
+        \includegraphics[scale=0.2]{background/figures/conv_neural_network.png}
+        \caption{THIS IMAGE IS SHAME(LESS)LY taken from the internetz, draw own so the lawyers don't get you!}
+    \end{figure}
+ 
+\todo{the layer structure}
+
+\subsection{Additional layers}
+\subsubsection{Activation layers}
+\subsubsection{Pooling}
+\subsubsection{Normalisation}
+\subsubsection{Dropout}
+
+
+\section{Neural Network models}
+
     \subsection{Autoencoders}\label{Explaining_autoencoders}
 	  %%TODO CITE: http://www.deeplearningbook.org/contents/autoencoders.html
-	  As we recall from earlier, an autoencoder is a type of neural network that tries to output a recreation of the output.\todo{we are not recalling} \\ 
+As we recall from earlier, an autoencoder is a type of neural network that tries to output a recreation of the output.\todo{we are not recalling} \\ 
+
+We can do this by having an encoder, $h=f(x)$, connected to a decoder, $r=g(h)$. 
+An autoencoder has the job to set $g(f(x))=x$ over the whole input, but in most cases this is not a practical program. We often gives the autoencoder the restriction
+that it has to map the input through a latent space that has a smaller dimension than the input dataset.\\
+This is called an undercomplete autoencoder.\\
+\vspace{10px}
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.5]{background/figures/SimpleAE.png}
+	\caption{The general structure of an autoencoder, mapping $\textbf{x}$ through $\textbf{h}$ to an output $\textbf{r}$.}
+\end{figure}
+
+As with supervised classifiers we can use gradient decent to optimize the model. This is because we are trying to recreate the input $\textbf{x}$ from out output $\widetilde{\textbf{x}}$\\
 	  
-	  We can do this by having an encoder, $h=f(x)$, connected to a decoder, $r=g(h)$. 
-	  An autoencoder has the job to set $g(f(x))=x$ over the whole input, but in most cases this is not a practical program. We often gives the autoencoder the restriction
-	  that it has to map the input through a latent space that has a smaller dimension than the input dataset.\\
-	  This is called an undercomplete autoencoder.\\
-	  \vspace{10px}
-	  \begin{figure}[ht!]
-	    \centering
-	    \includegraphics[scale=0.5]{background/figures/SimpleAE.png}
-	    \caption{The general structure of an autoencoder, mapping $\textbf{x}$ through $\textbf{h}$ to an output $\textbf{r}$.}
-	  \end{figure}
-	  
-	  As with supervised classifiers we can use gradient decent to optimize the model. This is because we are trying to recreate the input $\textbf{x}$ from out output $\widetilde{\textbf{x}}$\\
-	  
-	  This can simply be done by minimizeing the loss function\\
-	  \begin{equation}
-	    L(\textbf{x},g(f(\textbf{x})))
-	  \end{equation}
-	  with for instance MSE with gradient decent. \todo{explain MSE, and general loss on an ealier time}\\
-	  
-	  Now we can transfer this to a more relevant example by making an image as input and use convolutions to reduce the dimensionality in the encoder and increase the dimentionality in the encoder.
-	  \vspace{10px}
-	  \begin{figure}[ht!]
-	    \centering
-	    \includegraphics[scale=0.5]{background/figures/CAE.png}
-	    \caption{Convolutional autoencoder with an RGB image as input, and the reconstructed image as output.}
-	  \end{figure}
+This can simply be done by minimizeing the loss function\\
+\begin{equation}
+	L(\textbf{x},g(f(\textbf{x})))
+\end{equation}
+
+with for instance MSE with gradient decent. \todo{explain MSE, and general loss on an ealier time}\\
+Now we can transfer this to a more relevant example by making an image as input and use convolutions to reduce the dimensionality in the encoder and increase the dimentionality in the encoder.
+\begin{figure}[t]
+	\centering
+	\includegraphics[scale=0.5]{background/figures/CAE.png}
+	\caption{Convolutional autoencoder with an RGB image as input, and the reconstructed image as output.}
+\end{figure}
 	
-    
-    
-    \subsection{Contextencoders}
-	Inpainting can also be done with advaserial models, and using a network trained to do the task of inpainting can be a lot more powerful than using just an autoencoder\todo{ref} or the naive methods\todo{ref}.
-	A contextencoder is building on the advaserial principle by using a generator/discriminator pair to fill in masked areas in an image. 
+    \subsection{Advaserial neural networks}
+\paragraph{This is explaining GANS, put me in the right place} %%TODO CITE: http://www.deeplearningbook.org/contents/generative_models.html and Goodfellow at al. 2014
+Now that we have looked at autoencoders we can take it a step further. 
+generative advaserial models can be used as a generator of new data, and can have som reseblance to autoencoders \ref{Explaining_autoencoders}, especially variational autoencoders %TODO cite VAE, ref VAE
+
+The difference lies in that advaserial networks is based on game theoretic scenarios in which a generator network is compeating agenst an advasery. 
+The generator produces samples $x=g(z;\theta^{(g)})$, where $g$ is the network given the weights $\theta$. Then the discriminator network predicts if a sample is drawn from the dataset or from the generator.
+More spessific, it gives a probably given by $d(x;\theta^{(d)})$ , and determins if $x$ is from the generator or the data-set. 
+Since we have two networks compeating agenst each other we can look at this as a Zero-sum game with the generators payoff is determined by $v(\theta^{(g)},\theta^{(d)})$, and the discriminators payoff is determined by $-v(\theta^{(g)},\theta^{(d)})$.
+\textit{$v$ is here a function that is determined by both the sucsess rate of the discriminator and the generator, the most common used is}
+\begin{equation} %TODO: CITE First gan paper on formula
+	v(\theta^{(g)},\theta^{(d)}) \; = \; \mathds{E}_{x\sim p_{data}}\log{d(x)} + \mathds{E}_{x\sim p_{model}}\log{(1 - d(x))} 
+\end{equation}
+as derived from Goodfellow et al. %TODO cite 
+	  
+Lets look at a gan in detail. \\
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.5]{background/figures/simpleGAN.png}
+	\caption{The idea behind a GAN. Here the generator saples from a random (Gaussian) distribution and generates samples that the discriminator classifies as real or fake}
+\end{figure}
 	
-	The concept behind a Contextencoder is to take the whole image as input to an encoder/decoder pair and \todo{finish}
-    
-    
-    \subsection{CC-GANS}
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-      HERE IS TEXT ABOUT CCGANS
-    
-    
-    \subsection{Pixel CNN}
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
-      HERE is text about pccn
+\subsubsection{UCNN?}	
+\subsection{Recurrent neural networks}
+\subsubsection{LSTM}
+
+\subsection{Contextencoders}
+Inpainting can also be done with advaserial models, and using a network trained to do the task of inpainting can be a lot more powerful than using just an autoencoder\todo{ref} or the naive methods\todo{ref}.
+A contextencoder is building on the advaserial principle by using a generator/discriminator pair to fill in masked areas in an image. 
+	
+The concept behind a Contextencoder is to take the whole image as input to an encoder/decoder pair and \todo{finish}
+     
+\subsection{CC-GANS}  
+\subsection{Pixel CNN}
+      
     
 
 
-%\section{Cancer and polyps}
-%	  \subsection{What is the GI tract REM}
-%	  \subsection{How does polyps form REM}%
-%	  \subsection{What we are looking for REM}
-%	  Different types of disorders.
-%	  %TODO image of polyp
-%	  Polyp is harmless, but if left untreated it can become cancerous
-%	  %TODO tell the risk
-%	  Pictures is from the pillcam project, kvasir dataset.
-%	  \subsection{images from pillcam, and what we are looking at/for REM}
-%	  %TODO More pictures of polyps, and other anomalies
-	  
-
-	  
-	  
 
 	    
 	  

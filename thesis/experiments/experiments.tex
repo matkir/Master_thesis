@@ -215,8 +215,23 @@ These Metrics becomes a more prominent topic when it comes to inpainting. With i
 
 
 \section{Setup of experiments}
+We propose the following hypothesis.
+\vspace{10px}
+
+\begin{verbatim}
+When classifying images, we will get the best result when we have images with the least amount of sparse information. 
+Hence by removing areas with sparse information, we will see an increase in classification performance compared to not removing areas.
+\end{verbatim}
+
+and
+
+\begin{verbatim}
+When training a classifier, we will get a higher mode of generalisation of our results when removing dataset specific artefacts 
+compared to not removing artefacts.
+\end{verbatim}
 
 
+In this thesis, we will set up our experiments to test our two hypothesises. 
 
 \section{format of experiments}
     \subsection{Inpaint}
