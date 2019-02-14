@@ -10,16 +10,50 @@ at neural networks, especially convolutional neural networks, and how they work.
 
 Lastly, we will combine the need for computer-aided diagnosis with the machine learning.
 \section{The Medical Background}
+In this chapter, we will present the background and motivation of our thesis.
+We start with our background in medical procedures, looking at how doctors perform colonoscopies, mainly from a gastrointestinal perspective.
+Then will then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then our focus is moved to how doctors use computer-aided diagnosis (CAD) today to help with the screening. Lastly, we look at current models for CAD made both by Simula.
+
+After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can \'learn\' and discuss different areas we can use and areas we are using machine learning today.
+We will then go in depth into the examples and look at the most common machine learning models. We will look at the most common form of machine learning, namely neural networks, and show the structure that is most used in this type of machine learning. 
+
+ With this in mind, we will look
+at neural networks, especially convolutional neural networks, and how they work.
+
+Lastly, we will combine the need for computer-aided diagnosis with machine learning.
+
+\section{The Medical Background}
 In the field of medical diagnosis, there are always new and interesting methods being researched to help the medical staff when it comes to patient \textit{rate of survival}, and quality of life. 
-Everything from x to y is ways the medical industry has done to improve the survival rates of their patients. 
+Everything from x to y is ways the medical industry has done to improve the survival rates of their patients.
 In the last decade \textit{comuters and cameras came to help us.}
 Another example is the invention and usage of gastro-stick-with-camera.
-\subsection{colonoscopy/gastro/procedure}
-When performin gastronomi we use astik
+
+
+\subsection{Endoscopy and Colonoscopy}
+Gastrointestinal endoscopies are one of the most common medical examinations where the mucosa of the patient is visualised via a camera through the whole of the GI tract. \todo{cite:https://www.ncbi.nlm.nih.gov/pubmed/24085634}
+To get a visualisation of the GI tract, two different methods are in use: colonoscopy and gastroscopy. 
+Colonoscopy is the practice of inserting a colonoscope into the rectum and moving through the large intestine towards the small intestine.  Gastroscopy is the practice of inserting a camera via the mouth to get a visualisation through the stomach.
+
+The endoscopic tool used for this visualisation is made out of a flexible tube with a charged coupled device (CCD) working as a camera at the end. In addition to the light sensing chip, there are also an optical fiber to transport light to the camera. At the other end, the colonoscope is connected to a device that records the video, and a light source for the optical fiber.
+The video from the CCD is shown live for the medical staff for the doctors to analyse.
+%\todo{cite:https://www.who.int/medical_devices/innovation/colonoscope.pdf}
+
+
+\subsection{pill cam}
+
+
+
+
+
+
 \subsection{Medical images/data/other}
+
+
     
 \subsection{Systems in place for detection}
+
 \subsection{summary}
+We have now looked at the medical perspective of colonoscopy. We see that the practice has not changed since the introduction of the colonoscope, and that the best chance of detection is manually looking at images by professional medical staff. We have also taken a look into the automatic detection methods being experimented with today.
     
 
 \section{Machine Learning}
@@ -154,10 +188,10 @@ Where x is input, y is output and the constants a and b  defines the function.
 \begin{figure}
 \centering
 \includegraphics[scale=0.05]{background/figures/linear_regression.png}
-\caption{Example of linear regression in Geogebra\todo{cite geogebra}. Here the red line is the best approxmiation of a y value, given an x value.} 
+\caption{Example of linear regression in Geogebra Here the red line is the best approxmiation of a y value, given an x value.} 
 \label{fig:geogebra}
 \end{figure} %credit AK for img
-
+\todo{cite geogebra}.
 Figure \ref{geogebra} shows an ideal example of linear regression. Here we approximate the values of our model with the straight line defined by choosing the right slope (a) and the right constant (b).
 With the knowledge of math, we look into how to do it computationally with the help of simple machine learning. 
 
@@ -399,9 +433,9 @@ Lets look at a gan in detail. \\
 	\caption{The idea behind a GAN. Here the generator saples from a random (Gaussian) distribution and generates samples that the discriminator classifies as real or fake}
 \end{figure}
 	
-\subsubsection{UCNN?}	
+\subsection{UCNN?}	
 \subsection{Recurrent neural networks}
-\subsubsection{LSTM}
+\subsection{LSTM}
 
 \subsection{Contextencoders}
 Inpainting can also be done with advaserial models, and using a network trained to do the task of inpainting can be a lot more powerful than using just an autoencoder\todo{ref} or the naive methods\todo{ref}.
