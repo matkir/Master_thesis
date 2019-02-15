@@ -72,7 +72,7 @@ K-fold cross-validation is a tool used in statistics and machine learning to hel
 Take the Kvasir dataset containing 8000 images with 1000 images from each class. We can choose a value for the number of folds, 'k', to be 6. This means that we split our dataset into six pieces before training.  With the six pieces, we assign one of them as a test set, and we assign the four other for training and validation. We then train our data five times, using four folds for training and the last fold for validation during training. For each training run we rotate the validation set, so each of the five folds is used for validation once. \todo{img of k fold}
 
 The advantage of this method is that we maximise the utility of the dataset. We find the distribution of the dataset that hopefully covers the most significant range of the unseen data. 
-
+\section{Metrics}
 \subsection{presantation of data, confusion matrix}
 With k-fold cross-validation, we end up with the dataset that scored the highest during the final validation step.  There are multiple ways to calculate metrics for how well a dataset is doing,  but they all are a comparison of the predicted class versus the true class.  
 Take for instance the case with the 8-class dataset Kvasir, where we predict an image to be of class 3, which in the real world be normal-z-line, while the actual True class is 5, and this might be esophagitis.\todo{rewrite}
@@ -214,7 +214,7 @@ These Metrics becomes a more prominent topic when it comes to inpainting. With i
 
 
 
-\section{Setup of experiments}
+\section{Setup of experiments and hardware}
 We propose the following hypothesis.
 \vspace{10px}
 
@@ -249,7 +249,7 @@ We can also recall that the recall score \todo{2x recall} gives us a  probabilit
 We want to end this chapter with a small experiment to see if network types affect the recall of polyps if convolutions are used compared to dense connections. We will use this to conclude if it is the network type of the inpainting that has the best effect when it comes to a good recall score for polyps.
 
 
-\section{hardware}
+\textbf{hardware}\\
 The Hardware used for the generation and calssification is as follows.
 \begin{table}[t]
 \caption{Hardware for things}
@@ -267,109 +267,6 @@ GPU               & GTX1080TI     \\
 \end{table}
 
 
-\section{Design of the inpainting experiments}
-When inpainting we have multiple hypotheses we want to test to see how it affects the results. We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. Based on the hardware limitations \todo{more}
-
-When generating the datasets, we use the Kvasir dataset as a base exclusively. When using only the Kvasir dataset, we have the CVC sets for testing. This selection of image source was made intentionally to have a fundamentally different test and training set, and the more differences between testing and training set the more of an indication of generalisation. 
-
-\begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.6\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{experiments/figures/leftframe.jpg}
-         \caption{$y=x$}
-         \label{fig:y equals x}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.6\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{experiments/figures/greenframe.jpg}
-         \caption{$y=3sinx$}
-         \label{fig:three sin x}
-     \end{subfigure}
-        \caption{Three simple graphs}
-        \label{fig:three graphs}
-\end{figure}
-
-Figure \todo{ref} shows three different image types from the Kvasir dataset. 
-Image (a) shows the image class esophagitis. This image shows one of the main problems with the Kvasir dataset when it comes to dataset specific artefacts. In addition to the cut corners, we have an extra wide area to the left of the image containing non-relevant information like name, sex, and other comments. We can recall from chapter \todo{find where} that the area to the left does not contain any relevant information for the classification and subsequently can only give false information during classification. 
-Another example of dataset-specific artefacts is in the image (b). In this image, we have the same cut corners as in most colonoscopy images. However, we also have an additional green square in the bottom left corner.
-
-\begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.5\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{experiments/figures/noleftframe.jpg}
-         \caption{$y=x$}
-         \label{fig:y equals x}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.5\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{experiments/figures/nogreenframe.jpg}
-         \caption{$y=3sinx$}
-         \label{fig:three sin x}
-     \end{subfigure}
-        \caption{Three simple graphs}
-        \label{fig:three graphs}
-\end{figure}
-
-
-
-Compared to the CVC images we have images in the Kvasir set with this square and with additional text, both outside the image, and on top of the image.  
-
-We propose different types of inpainting to prove or disprove our two hypothesises.
-
-\subsection{Removing black corners}
-The most straightforward experiment to conduct is to test how the removal of the black corners will affect the result. 
-The black edges around the images in the Kvasir set is also present in the CVC set, and the Nerthus set too. By removing the black corners around the image, we do not change Kvasir specific artefacts, but according to our first hypothesis, we believe we will get a higher classification accuracy since this removes areas with sparse information.
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.3]{experiments/figures/default-corner.png}
-\caption{The automatially generated mask used to remove the black corners}
-\label{fig:corner_mask}
-\end{figure}
-
-When classifying images during the testing stage, we need to take this mask in to account regarding the removal of black corners in the test set.
-
-1) We can either do the same masking and inpainting on the test set. \\
-2) We can crop the image in a way that removes the black corners without inpainting.\\
-3) We can forgo modifying the test data and just run the test set as is. \\
-
-Method 1)  was tested in the paper by Kirkerød et al. in the Mediaeval 2018 conference, where both the training and test data were augmented.
-From the experiments run at the mediaeval conference, we have some essential information we can take into account.  
-Training data used to train the preprocessing tools were data from the same dataset as Kvasir, giving the project and thesis an overlap in the data distribution during training. 
-The evaluation of the test set was done in beforehand, and not live. Also, there was no focus on evaluation speed when running the classification on the test set. The Medico test set used in the Mediaeval conference was also gathered from the same distribution as the Medico test set. This means that if we are going to compare methods of masking the test set, we should only look at the Kvasir dataset when comparing the masking methods, given the CVC dataset will not give sufficient comparability.
-\todo{more about the result of testing inpainting.}
-In addition, given that our goal with the medical classification is, in the future, to have the opportunity for live classification. We have chosen in this thesis not to convert medical images during testing given the time used during a live evaluation would not be suitable. 
-
-
-Method number 2) was the proposal of cropping the images during evaluation.  Thambawita et al. did similar methods in the Mediaeval 2018 conference, but had, in addition, the same cropping during training. In the paper \todo{find Vajiras paper} we can see that this method worked with great success. The operation of just cropping images is also multiple times as fast as inpainting images, so it is feasible for a live recording.  
-
-The last proposed method is not to augment the images during testing. This method, since we are not preprocessing the test data at all, the fastest when it comes to live classification. Without the augmentation, we risk getting a lower classification score.
-
-
-In this thesis we will use method number 3). The decision is based on the fact that the final product would most likely be used in cooperation with medical staff, and hence the image should be as close to the feed from the pillcam/colonoscope. Method 2) might also work, but we remove data from the image that the medical staff might need for their classification. 
-
- 
-\subsection{Removing green squares}
-The next major area in question is the removal of the green squares.  The experiment would see if the removal of the green \'minimap\' would affect the classification score. 
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.3]{experiments/figures/default-green.png}
-\caption{The automatially generated mask used to remove the black corners}
-\label{fig:corner_mask}
-\end{figure}
-
-The removal of the green squares  hypothesis 2
-
-
-
-
-\subsection{Removing black corners}
-\subsection{Removing black corners}
 
 
 \section{Results of the Inpainting}
@@ -380,16 +277,6 @@ The removal of the green squares  hypothesis 2
     \subsection{Random masking}
 
 
-
-\section{Design of the inpainting experiments}
-\section{Results of the Inpainting experiments}
-    \subsection{Black corners}
-    \subsection{Green square}
-    \subsection{Text}
-    \subsection{Combination}
-    \subsection{Random masking}
-
-\section{Design of the transfer learning experiments}
 \section{Results of the transfer learning experiments}
 
     

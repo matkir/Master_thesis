@@ -8,18 +8,6 @@ We will then go in depth into the examples and look at the most common machine l
  With this in mind, we will look
 at neural networks, especially convolutional neural networks, and how they work.
 
-Lastly, we will combine the need for computer-aided diagnosis with the machine learning.
-\section{The Medical Background}
-In this chapter, we will present the background and motivation of our thesis.
-We start with our background in medical procedures, looking at how doctors perform colonoscopies, mainly from a gastrointestinal perspective.
-Then will then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then our focus is moved to how doctors use computer-aided diagnosis (CAD) today to help with the screening. Lastly, we look at current models for CAD made both by Simula.
-
-After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can \'learn\' and discuss different areas we can use and areas we are using machine learning today.
-We will then go in depth into the examples and look at the most common machine learning models. We will look at the most common form of machine learning, namely neural networks, and show the structure that is most used in this type of machine learning. 
-
- With this in mind, we will look
-at neural networks, especially convolutional neural networks, and how they work.
-
 Lastly, we will combine the need for computer-aided diagnosis with machine learning.
 
 \section{The Medical Background}
@@ -372,14 +360,14 @@ Given a $5x5$ filter
  
 \todo{the layer structure}
 
-\subsection{Additional layers}
+\subsection{Additional convolutional layers}
 \subsubsection{Activation layers}
 \subsubsection{Pooling}
 \subsubsection{Normalisation}
 \subsubsection{Dropout}
 
 
-\section{Neural Network models}
+\section{Complex Neural Network models}
 
     \subsection{Autoencoders}\label{Explaining_autoencoders}
 	  %%TODO CITE: http://www.deeplearningbook.org/contents/autoencoders.html
@@ -411,7 +399,7 @@ Now we can transfer this to a more relevant example by making an image as input 
 	\caption{Convolutional autoencoder with an RGB image as input, and the reconstructed image as output.}
 \end{figure}
 	
-    \subsection{Advaserial neural networks}
+\subsection{Advaserial neural networks}
 \paragraph{This is explaining GANS, put me in the right place} %%TODO CITE: http://www.deeplearningbook.org/contents/generative_models.html and Goodfellow at al. 2014
 Now that we have looked at autoencoders we can take it a step further. 
 generative advaserial models can be used as a generator of new data, and can have som reseblance to autoencoders \ref{Explaining_autoencoders}, especially variational autoencoders %TODO cite VAE, ref VAE
@@ -433,18 +421,17 @@ Lets look at a gan in detail. \\
 	\caption{The idea behind a GAN. Here the generator saples from a random (Gaussian) distribution and generates samples that the discriminator classifies as real or fake}
 \end{figure}
 	
-\subsection{UCNN?}	
-\subsection{Recurrent neural networks}
-\subsection{LSTM}
+%\subsection{Recurrent neural networks}
+%\subsection{LSTM}
 
-\subsection{Contextencoders}
+\subsubsection{Contextencoders}
 Inpainting can also be done with advaserial models, and using a network trained to do the task of inpainting can be a lot more powerful than using just an autoencoder\todo{ref} or the naive methods\todo{ref}.
 A contextencoder is building on the advaserial principle by using a generator/discriminator pair to fill in masked areas in an image. 
 	
 The concept behind a Contextencoder is to take the whole image as input to an encoder/decoder pair and \todo{finish}
      
-\subsection{CC-GANS}  
-\subsection{Pixel CNN}
+\subsubsection{CC-GANS}  
+%\subsection{Pixel CNN}
       
     
 
@@ -473,7 +460,7 @@ The concept behind a Contextencoder is to take the whole image as input to an en
 	\todo{adress the problem with lack of data, and talk about how machine learning can help, machine learning.}
 	  
 	  
-\section{The problem at hand}
+\section{The problem at hand / Summary}
 	  Now that we have the definition of machine learning and the current task, we can focus on the task at hand; finding polyps. In an ideal world\footnote{Ideal as in the only disease we could get in  the GI tract was cancer originating
 	  from polyps which looked exactly the same} we have a
 	  Classification problem with only two classes: Non-polyp and polyp. 
