@@ -6,10 +6,10 @@ Then we will look at the setup of the complete program. Here we will go in-depth
 
 \section{Libraries} 
 In this chapter, we will discuss the foundation of our code, important external libraries, and the setup and execution of our project.  
-We will first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we will look into the wrapper we use to get a greater level of abstraction over our code, together with custom wrapper functions that are used by our wrapper. 
+We will first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we will look into the wrapper we use to get a higher level of abstraction over our code, together with custom wrapper functions that are used by our wrapper. 
 
 \subsection{python}
-When doing machine learning, the most popular languages, in no particular order, are: Python, Java, R, C++, and C \todo{cite}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base and user-friendliness. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
+When doing machine learning, the most popular languages, in no particular order, are Python, Java, R, C++, and C \todo{cite}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base and user-friendliness. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
 Right now Python is the leading language for machine learning. Driven by this, there is considerable focus into making it faster, to compete with already fast languages, like the C family. 
 
 Python is an interpreted, high-level, general-purpose programming language created in 1991.   It, like many other modern languages, is object-oriented and supports functional programming. 
@@ -54,11 +54,15 @@ This thesis relies on Keras as a wrapper for tensorflow. As stated, the use of m
 
 
 
-\subsection{Custom functions for Keras and tensorflow}
-
-
+\subsection{Custom functions for Keras, tensorflow and python}
+\subsubsection{CWFC layer}
+\subsubsection{Spectral conv?}
+\subsubsection{Masklaod}
+\subsubsection{self attention}
+\subsubsection{masked loss}
+\subsubsection{subpixel}
     
-    \subsection{Additional packs in keras made by me}
+\subsection{Additional packs in Keras made by me}
 
 \section{Design of the inpainting experiments}
 When inpainting we have multiple hypotheses we want to test to see how it affects the results. We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. Based on the hardware limitations \todo{more}
@@ -125,17 +129,19 @@ The black edges around the images in the Kvasir set is also present in the CVC s
 \end{figure}
 
 When classifying images during the testing stage, we need to take this mask in to account regarding the removal of black corners in the test set.
+\begin{itemize}
 
-1) We can either do the same masking and inpainting on the test set. \\
-2) We can crop the image in a way that removes the black corners without inpainting.\\
-3) We can forgo modifying the test data and just run the test set as is. \\
+\item 1) We can either do the same masking and inpainting on the test set. \\
+\item 2) We can crop the image in a way that removes the black corners without inpainting.\\
+\item 3) We can forgo modifying the test data and just run the test set as is. \\
+\end{itemize}
 
 Method 1)  was tested in the paper by Kirkerød et al. in the Mediaeval 2018 conference, where both the training and test data were augmented.
 From the experiments run at the mediaeval conference, we have some essential information we can take into account.  
 Training data used to train the preprocessing tools were data from the same dataset as Kvasir, giving the project and thesis an overlap in the data distribution during training. 
-The evaluation of the test set was done in beforehand, and not live. Also, there was no focus on evaluation speed when running the classification on the test set. The Medico test set used in the Mediaeval conference was also gathered from the same distribution as the Medico test set. This means that if we are going to compare methods of masking the test set, we should only look at the Kvasir dataset when comparing the masking methods, given the CVC dataset will not give sufficient comparability.
+The evaluation of the test set was done in beforehand, and not live. Also, there was no focus on evaluation speed when running the classification on the test set. The Medico test set used in the Mediaeval conference was also gathered from the same distribution as the Medico test set. This use of the same distribution means that if we are going to compare methods of masking the test set, we should only look at the Kvasir dataset when comparing the masking methods, given the CVC dataset will not give sufficient comparability.
 \todo{more about the result of testing inpainting.}
-In addition, given that our goal with the medical classification is, in the future, to have the opportunity for live classification. We have chosen in this thesis not to convert medical images during testing given the time used during a live evaluation would not be suitable. 
+Also, given that our goal with the medical classification is, in the future, to have the opportunity for live classification. We have chosen in this thesis not to convert medical images during testing given the time used during a live evaluation would not be suitable. 
 
 
 Method number 2) was the proposal of cropping the images during evaluation.  Thambawita et al. did similar methods in the Mediaeval 2018 conference, but had, in addition, the same cropping during training. In the paper \todo{find Vajiras paper} we can see that this method worked with great success. The operation of just cropping images is also multiple times as fast as inpainting images, so it is feasible for a live recording.  
@@ -168,7 +174,101 @@ The removal of the green squares  hypothesis 2
 
  
 \section{Describe code}
-    
+\subsection{autoencoder}
+The autoencoder we used in this thesis bears some resemblance to the standard autoencoder by \todo{x et al}. 
+To describe the model we will look at the example where we try to inpaint the green square in the image, and nothing else.
+To train the autoencoder for inpainting, we divide the dataset in two, first images with the green square and images without the green square. We discard the images with the green square since they are not viable for training. 
+The resulting dataset will only contain images without green sources.
+
+\begin{figure*}[t]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{methodology/figures/masked_img.png}
+    \caption[Hate to be this guy]
+    {{\small Image the autoencoder receives as an input }}    
+    \label{fig:AErec}
+\end{subfigure}
+\qquad
+\begin{subfigure}[b]{0.42\textwidth}  
+    \centering 
+    \includegraphics[width=\textwidth]{methodology/figures/whole_img.png}
+    \caption[Hate to be this guy]%
+    {{\small The missing part the autoencoder tries to replicate}}    
+    \label{fig:AErep}
+\end{subfigure}
+\caption[Hate to be this guy]
+{\small A standard image taken in by the autoencoder} 
+\label{fig:AEmasks}
+\end{figure*}
+
+The next step before training is to cut the images according to the mask provided. Figure \ref{fig:AErec} shows what the finished masking looks like, and \ref{fig:AErep} shows what we want to achieve after training.
+
+We feed \ref{fig:AErep} into the autoencoder consisting of convolutional layers, leakyReLu layers, and a tanh layer.
+\todo{more}
+\todo{remember to talk about loss}
+
+
+\subsection{Generative adversarial network}
+The gan used the same generator discriminator elements as the Goodfellow gan, but does not take in noise\todo{the best version does}
+
+
+\subsection{Transfer learning classifier}
+The dataset we are making with our generators needs to be classified. 
+
+The classifier we use is based on the idea of reusing networks we already know apply well to the real world.
+We have made a classifier that, by default, use one of the pretrained networks provided by the Keras framework.
+
+\begin{table}[h]
+\caption{Datasets provided by keras}
+\begin{center}
+\small
+\begin{tabular}{llllll}
+\toprule
+\multicolumn{1}{c}
+{Model}             & Size   & Top-1 Accuracy & Top-5 Acc & Parameters  & Depth \\
+\midrule
+Xception          & 88 MB  & 0.790          & 0.945          & 22,910,480  & 126   \\
+VGG16             & 528 MB & 0.713          & 0.901          & 138,357,544 & 23    \\
+VGG19             & 549 MB & 0.713          & 0.900          & 143,667,240 & 26    \\
+ResNet50          & 98 MB  & 0.749          & 0.921          & 25,636,712  & -     \\
+ResNet101         & 171 MB & 0.764          & 0.928          & 44,707,176  & -     \\
+ResNet152         & 232 MB & 0.766          & 0.931          & 60,419,944  & -     \\
+ResNet50V2        & 98 MB  & 0.760          & 0.930          & 25,613,800  & -     \\
+ResNet101V2       & 171 MB & 0.772          & 0.938          & 44,675,560  & -     \\
+ResNet152V2       & 232 MB & 0.780          & 0.942          & 60,380,648  & -     \\
+ResNeXt50         & 96 MB  & 0.777          & 0.938          & 25,097,128  & -     \\
+ResNeXt101        & 170 MB & 0.787          & 0.943          & 44,315,560  & -     \\
+InceptionV3       & 92 MB  & 0.779          & 0.937          & 23,851,784  & 159   \\
+InceptionResNetV2 & 215 MB & 0.803          & 0.953          & 55,873,736  & 572   \\
+MobileNet         & 16 MB  & 0.704          & 0.895          & 4,253,864   & 88    \\
+MobileNetV2       & 14 MB  & 0.713          & 0.901          & 3,538,984   & 88    \\
+DenseNet121       & 33 MB  & 0.750          & 0.923          & 8,062,504   & 121   \\
+DenseNet169       & 57 MB  & 0.762          & 0.932          & 14,307,880  & 169   \\
+DenseNet201       & 80 MB  & 0.773          & 0.936          & 20,242,984  & 201   \\
+NASNetMobile      & 23 MB  & 0.744          & 0.919          & 5,326,716   & -     \\
+NASNetLarge       & 343 MB & 0.825          & 0.960          & 88,949,818  & -        \\   
+\bottomrule
+\end{tabular}
+\end{center}
+\label{tab:Kaeras_app}
+\end{table}
+
+Table \ref{tab:Kaeras_app} shows the pretrained networks available to load in the Keras framework. 
+When training we did some extra steps at the end, namely added global average pooling and a fully connected layer with the desired number of outputs (usually eight classes, and eight outputs)
+
+
+
+
 \section{Describe project}
-    
-    The whole project in 
+Here i am going to explain the projects
+\section{Summary}
+At this point, we have described the reasoning behind using python, tensorflow and Keras for our machine learning. 
+After this we looked into the filters used for training our models, and what type of preprocessing we wanted to do in addition to the inpainting. We looked at the advantages and disadvantages of preprocessing the Trest data, as opposed to just preprocessing the training data.
+
+We then went more in-depth into how the three main programs were built up, and how they differ from their original sources.
+First, we looked at the preprocessing methods, AE and GAN. We looked at how they learned from the samples, and we went more in-depth talking about the crucial layers for each model.
+
+At last, we ended up giving a summary of the project as a whole, following a the Kvasir dataset from its original source into the generation of the six new datasets, and how each one of them was classified with all the different parameters to show the dataset-specific rate of success.
+
+ 
