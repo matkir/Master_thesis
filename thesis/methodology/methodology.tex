@@ -64,6 +64,9 @@ This thesis relies on Keras as a wrapper for tensorflow. As stated, the use of m
     
 \subsection{Additional packs in Keras made by me}
 
+
+
+\newpage
 \section{Design of the inpainting experiments}
 When inpainting we have multiple hypotheses we want to test to see how it affects the results. We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. Based on the hardware limitations \todo{more}
 
@@ -129,12 +132,11 @@ The black edges around the images in the Kvasir set is also present in the CVC s
 \end{figure}
 
 When classifying images during the testing stage, we need to take this mask in to account regarding the removal of black corners in the test set.
-\begin{itemize}
-
-\item 1) We can either do the same masking and inpainting on the test set. \\
-\item 2) We can crop the image in a way that removes the black corners without inpainting.\\
-\item 3) We can forgo modifying the test data and just run the test set as is. \\
-\end{itemize}
+\begin{enumerate}
+\item We can either do the same masking and inpainting on the test set. 
+\item We can crop the image in a way that removes the black corners without inpainting.
+\item We can forgo modifying the test data and just run the test set as is. 
+\end{enumerate}
 
 Method 1)  was tested in the paper by Kirkerød et al. in the Mediaeval 2018 conference, where both the training and test data were augmented.
 From the experiments run at the mediaeval conference, we have some essential information we can take into account.  

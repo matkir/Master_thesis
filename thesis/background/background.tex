@@ -2,7 +2,7 @@ In this chapter, we will present the background and motivation of our thesis.
 We start with our background in medical procedures, looking at how doctors perform colonoscopies, mainly from a gastrointestinal perspective.
 Then will then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then our focus is moved to how doctors use computer-aided diagnosis (CAD) today to help with the screening. Lastly, we look at current models for CAD made both by Simula.
 
-After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can \'learn\' and discuss different areas we can use and areas we are using machine learning today.
+After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can \'learn\' and discuss different areas we can use and the areas we are using machine learning today.
 We will then go in depth into the examples and look at the most common machine learning models. We will look at the most common form of machine learning, namely neural networks, and show the structure that is most used in this type of machine learning. 
 
  With this in mind, we will look
@@ -19,10 +19,10 @@ Another example is the invention and usage of gastro-stick-with-camera.
 
 \subsection{Endoscopy and Colonoscopy}
 Gastrointestinal endoscopies are one of the most common medical examinations where the mucosa of the patient is visualised via a camera through the whole of the GI tract. \todo{cite:https://www.ncbi.nlm.nih.gov/pubmed/24085634}
-To get a visualisation of the GI tract, two different methods are in use: colonoscopy and gastroscopy. 
+Today the medical staff working with the visual screening of the intestinal tract use primarily two different methods: colonoscopy and gastroscopy. 
 Colonoscopy is the practice of inserting a colonoscope into the rectum and moving through the large intestine towards the small intestine.  Gastroscopy is the practice of inserting a camera via the mouth to get a visualisation through the stomach.
 
-The endoscopic tool used for this visualisation is made out of a flexible tube with a charged coupled device (CCD) working as a camera at the end. In addition to the light sensing chip, there are also an optical fiber to transport light to the camera. At the other end, the colonoscope is connected to a device that records the video, and a light source for the optical fiber.
+The endoscopic tool used for this visualisation is made out of a flexible tube with a charged coupled device (CCD) working as a camera at the end. In addition to the light sensing chip, there is also an optical fibre to transport light to the camera. At the other end, the colonoscope is connected to a device that records the video, and a light source for the optical fibre.
 The video from the CCD is shown live for the medical staff for the doctors to analyse.
 %\todo{cite:https://www.who.int/medical_devices/innovation/colonoscope.pdf}
 
@@ -41,7 +41,7 @@ The video from the CCD is shown live for the medical staff for the doctors to an
 \subsection{Systems in place for detection}
 
 \subsection{summary}
-We have now looked at the medical perspective of colonoscopy. We see that the practice has not changed since the introduction of the colonoscope, and that the best chance of detection is manually looking at images by professional medical staff. We have also taken a look into the automatic detection methods being experimented with today.
+We have now looked at the medical perspective of colonoscopy. We see that the practice has not changed since the introduction of the colonoscope and that the best chance of detection is manually looking at images by professional medical staff. We have also taken a look into the automatic detection methods being experimented with today.
     
 
 \section{Machine Learning}
@@ -191,7 +191,7 @@ y=W^{(1)}x+W^{(2)}\\
 \label{eq:ML_lin}
 \end{equation}
 
-Here, like before, our output is y and our input is x. We have replaced a and b with new placeholders $W^{(1)}$ \& $W^{(2)}$.
+Here, like before, our output is y, and our input is x. We have replaced a and b with new placeholders $W^{(1)}$ \& $W^{(2)}$.
 Now our goal is to, given a task T, gain experience E and store it in $W^{(1)}$ and $W^{(2)}$. With our values for $W^{(1)}$ \& $W^{(2)}$ we want the best performance P.  The best performance here is defined as getting the smallest difference between the predicted output data and the actual output data. 
 
 
@@ -212,8 +212,8 @@ Given an input-output pair, we will now look at how to use machine learning to b
    
 Lets start with: 
 \begin{equation}
-	x=\left[ \begin{array}{c} 1\\ 2\\ 3\\ \end{array} \right]
-	y=\left[\begin{array}{c} 1.5\\2\\ 2.5\\\end{array}\right]
+    x=\left[ \begin{array}{c} 1\\ 2\\ 3\\ \end{array} \right]
+    y=\left[\begin{array}{c} 1.5\\2\\ 2.5\\\end{array}\right]
 \end{equation}
 with the weights $W^{(1)}=0$ and $W^{(2)}=0$
 Using the formula \ref{eq:ML_lin} we can calculate  $\hat{y}$ to be
@@ -231,7 +231,7 @@ With our new found error, we need a way to use this to update our weights $W^{(1
 The most common way to update our weights is to use gradient descent. 
 Gradient descent is a first order iterative optimisation algorithm \todo{cite Wikipedia GD} for finding the minimum of a function. In our case, we are looking for the minimum value of the MSE function. Gradient descent is defined as (simplified for our example):
 \begin{equation}
-	a_{n+1}= a_{n} - \gamma \nabla F(a_{n})
+    a_{n+1}= a_{n} - \gamma \nabla F(a_{n})
 \end{equation}
 Where $\nabla$F() is the derivate of function in question, a is the input at step n, and $\gamma$ is a learning rate set to a small number. 
 
@@ -249,26 +249,27 @@ Derivating \ref{MSE_form} and using a learning rate of 1 we get the following.
 
  
     
-	
-	
-	
-	\subsubsection{Feed forward}
     
-	\subsubsection{Loss and gradient decent }
+    
+    
+    \subsubsection{Feed forward}
+    
+    \subsubsection{Loss and gradient decent }
 
 
-	
+    
 
    
-	  
+      
 
-	
+    
 \section{Neural Networks}
 We have looked at different types of machine learning, and we have gone in depth into how a linear regression model works. In this chapter, we want to get further insight into how we can make more complex models, and we will look into the most popular method for machine learning, namely Neural Networks. 
 After the rundown on how neural networks are built up and how they operate, we will look into convolutional neural networks. In the end, we will look at successful networks, mainly made for image classification.
 
 
 \subsection{The perceptron}
+\label{chap:perceptron}
 To explain how a neural net operates, we first need to look at the most fundamental structure present in every type of neural network, namely the Perceptron.
 The fist perceptron was introduced by \todo{who} in \todo{find when}, and it was made as an attempt to mimic the human neuron.  
 
@@ -279,8 +280,7 @@ The fist perceptron was introduced by \todo{who} in \todo{find when}, and it was
         \caption{https://socratic.org/questions/how-is-a-neuron-adapted-to-perform-its-function}
         \label{fig:neuron}
 \end{figure}
-
-
+\todo{non-linear problems  }
 
 Figure \ref{fig:neuron} shows how a human neuron looks like, and in which direction the signal goes. Each neuron is connected to multiple other neurons by connecting the dendrites to other neighbouring neurons. 
 When a signal is sent, the dendrites register the signal and sends it through the axon out to the axon terminal. At the axon terminal, other neurons pick up the electrical signal and pass it through their axon.
@@ -294,7 +294,7 @@ This flow of electricity is the fundamental way different part of our brain comm
 \end{figure}
 
 We can now look at the perceptron in figure \ref{fig:perceptron}, as we can discern, this mathematical model has the same structure, and we have the same flow as we would in the human brain. 
-First, we get numerical data from, either other perceptrons, or from an input. We add it together and send it out on the other side. We will now look more in depth how this is done, and show how the mathematics behind it works. \\
+First, we get numerical data from, either other perceptrons or from an input. We add it together and send it out on the other side. We will now look more in depth how this is done, and show how the mathematics behind it works. \\
 
 \textbf{Step 1:} our perceptron gets signals $a_{(i,0)}-a_{(i,n)}$ where $n$ is the number of inputs to the perceptron.\\
 
@@ -316,7 +316,7 @@ The neural network was a proposal made by Warren McCulloch and Walter Pitts (194
 
 The first multilayer network at the time used backpropagation in the same way described in \todo{find formula}.
 
-\begin{figure}[ht!]
+\begin{figure}[h]
 \centering
 \includegraphics[scale=0.2]{background/figures/neural_network.png}
 \caption{THIS IMAGE IS SHAME(LESS)LY taken from the internetz, draw own so the lawyers don't get you!}
@@ -327,7 +327,7 @@ Figure \ref{fig:mlnn} shows the basic structure of a multilayer network.
 In this figure, we have four things we need to look into.
 
 \subsection{Feed forward and backpropagation through a neural network}
-\todo{looked at how MLP works, let's look at back-and-forward prop}
+\todo{looked at how MLP works, let us look at back-and-forward prop}
 
 
 
@@ -344,90 +344,152 @@ Given the downsides we have with regards to memory usage and non-spatiality in o
 
 Convolutional neural networks are the most popular form for image recognition, segmentation, and classification \todo{cite, IEEE paper got cites}
 
-\todo{transition}
+When building a convolutional neural network we often use multiple layers stacked on opt of each other to give the network traits that a regular multilayer perceptron could not achieve. By far the most essential layer of the convolutional neural network is the convolutional layer.
 
-Convolutional networks work with filters and assign a weight to each pixel in the filters used. This use of filters significantly reduces the number of weights between layers, since we now have weights that are not dependent on the input size, and only dependent on the size and number of filters.
 
-\todo{sliding window}
+\subsubsection{Convolutional layers}
 
-Given a $5x5$ filter 
+Convolutional networks work with filters as opposed to perceptrons with weights assigned before and after the input in the vertices between perceptron. Convolutional layers assign a weight to each position in a special filter matrix. This use of filters significantly reduces the number of weights between layers, since we now have weights that are not dependent on the input size, and only dependent on this matrix size.
 
-\begin{figure}[ht!]
-        \centering
-        \includegraphics[scale=0.2]{background/figures/conv_neural_network.png}
-        \caption{THIS IMAGE IS SHAME(LESS)LY taken from the internetz, draw own so the lawyers don't get you!}
-    \end{figure}
+The three main parameters of a convolutional layer are the number of filters, kernel size and strides.
+When making a convolutional layer, we start by pseudo-randomly initialising a $ (F \times K \times K)$ matrix as our weights.
+In this matrix, F is the number of filters in the convolutional layer and K is the filter size. We can think of this as F filters of size $(K \times K)$ stacked on top of each other. 
+When applying the convolutional layer to an input vector, we take each of the F filters and slide it over the image. 
+For each position of the filter, we multiply the image value with the filter and sum the result. The scalar made by this multiplication is the value passed on to the next layer at that specific point.
+Figure \ref{fig:conv_opp} shows the this convolution process after 3 sliding operations with a $(3 \times 3)$ filter.
  
-\todo{the layer structure}
+\begin{figure}[t]
+        \centering
+        \includegraphics[scale=0.5]{background/figures/Conv_filter.png}
+        \caption{The values calculated when a convolutional filter after 4 sliding window operations, here the number of inputs does not represent how many inputs there usually is in an image}
+        \label{fig:conv_opp}
+\end{figure}
 
-\subsection{Additional convolutional layers}
+
+As we can see from this architecture, we can only change when weights in the filter matrix, as there are no other variables in the convolutional operation. Using this sliding window technique gives us the benefit that the filter only gathers information from the local area, and subsequently makes the convolutional operation non-spatially dependent.  
+
 \subsubsection{Activation layers}
+As we discussed in chapter \ref{chap:perceptron}, in addition to summing the inputs and passing them on, we need to apply an activation function to the output. The same problem with our desire to make non-linear problems apply in the CNN model. 
+To apply an activation layer to a CNN, we take every value in the matrix and apply the activation function separately to every data-point. 
+
 \subsubsection{Pooling}
+Pooling layers, often also called downsampling layers, are commonly also found in CNN's. 
+Their primary role in the network is to reduce the spatial size of the data provided, and thus reducing the number of weights and variables used by the network.  
+The two most common pooling operations are max pooling and average pooling\todo{cite}. Both methods resemble convolutions in the way that they apply their function to a sliding filter over the data. 
+ 
+\begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.7]{background/figures/pooling.png}
+        \caption{Both max and average pooling done on a 4 $\times$ 4 matrix}
+        \label{fig:pooling}
+\end{figure}
+
+Just like in Figure \ref{fig:pooling} the most common pooling parameters are of filter size 2 and stride 2. Using this configuration leaves every point of the input checked once, and the resulting output size is halved. 
+Pooling layers do generally not have any weights associated with them. This lack of weights means that the pooling layer routes the signal back without changing it during backpropagation.
+\todo{unpooling}
+
 \subsubsection{Normalisation}
+Normalisation layers are one of the newer addition to the CNN models. The normalisation layers, as with the pooling layers does not contain any weights, ad subsequently only change the data based on the statistics of the data. 
+
+
+
+In CNN models the most used type of normalisation is batch normalisation.
+
+\begin{itemize}
+\item Learning faster
+\item Increase Accuracy
+\end{itemize}
+
+
+
+
 \subsubsection{Dropout}
+A major problem in machine learning is the act of overfitting the data. We say that a model is overfitting to the data when it learns the bias that comes with the dataset. 
+ 
+\begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.6]{background/figures/Under_vs_overfitting.png}
+        \caption{Three cases of data boundary prediction. In most cases we desire appropriate amount of fitting to our dataset to keep generalisation}
+        \label{fig:dropout}
+\end{figure}
+
+
+Dropout, first proposed by Srivastava et al.\todo{http://jmlr.org/papers/v15/srivastava14a.bib}, in 2014 was used to prevent overfitting of neural networks (As seen in figure \ref{fig:dropout}).
+Dropout layers in the CNN will randomly cut a certain amount of connections in a layer. The amount is usually between 25\% and 50\% of the connections. The result of the use of dropout is that the network can not rely on only a few numbers of weights during training since there is a chance the input from the weight will be cut at random intervals. 
+
+This random cutting forces the network to spread out the essential weights throughout the network. 
+Even though dropout does not explicitly change the weights, it implicitly forces the stong weights to be eavenly distributed throughout the network. 
+Dropout does, in practice, the same as an L1 or L2 regularizer. 
+
 
 
 \section{Complex Neural Network models}
+At this point, we have looked at the most crucial parts of a convolutional neural network individually.
 
-    \subsection{Autoencoders}\label{Explaining_autoencoders}
-	  %%TODO CITE: http://www.deeplearningbook.org/contents/autoencoders.html
-As we recall from earlier, an autoencoder is a type of neural network that tries to output a recreation of the output.\todo{we are not recalling} \\ 
+\subsection{Autoencoders}
+\label{Explaining_autoencoders}
+%%TODO CITE: http://www.deeplearningbook.org/contents/autoencoders.html
+In the realm of image-generating one of the simplest networks to train and use is the Autoencoder.
+In 19999 Mathias et al. \todo{cite} proposed a encoder-decoder network where the task was to recreate the original input as an output. 
+
+In this thesis we are using an autoencoder to do this thing \todo{fix}
+
 
 We can do this by having an encoder, $h=f(x)$, connected to a decoder, $r=g(h)$. 
-An autoencoder has the job to set $g(f(x))=x$ over the whole input, but in most cases this is not a practical program. We often gives the autoencoder the restriction
+An autoencoder has the job to set $g(f(x))=x$ over the whole input, but in most cases, this is not a practical program. We often give the autoencoder the restriction
 that it has to map the input through a latent space that has a smaller dimension than the input dataset.\\
-This is called an undercomplete autoencoder.\\
+This type of network is called an under-complete autoencoder.\\
 \vspace{10px}
 \begin{figure}[ht!]
-	\centering
-	\includegraphics[scale=0.5]{background/figures/SimpleAE.png}
-	\caption{The general structure of an autoencoder, mapping $\textbf{x}$ through $\textbf{h}$ to an output $\textbf{r}$.}
+    \centering
+    \includegraphics[scale=0.5]{background/figures/SimpleAE.png}
+    \caption{The general structure of an autoencoder, mapping $\textbf{x}$ through $\textbf{h}$ to an output $\textbf{r}$.}
 \end{figure}
 
-As with supervised classifiers we can use gradient decent to optimize the model. This is because we are trying to recreate the input $\textbf{x}$ from out output $\widetilde{\textbf{x}}$\\
-	  
-This can simply be done by minimizeing the loss function\\
+As with supervised classifiers, we can use gradient descent to optimise the model. This is because we are trying to recreate the input $\textbf{x}$ from out output $\widetilde{\textbf{x}}$\\
+      
+This can simply be done by minimizing the loss function\\
 \begin{equation}
-	L(\textbf{x},g(f(\textbf{x})))
+    L(\textbf{x},g(f(\textbf{x})))
 \end{equation}
 
-with for instance MSE with gradient decent. \todo{explain MSE, and general loss on an ealier time}\\
-Now we can transfer this to a more relevant example by making an image as input and use convolutions to reduce the dimensionality in the encoder and increase the dimentionality in the encoder.
+with for instance MSE with gradient descent. \todo{explain MSE, and general loss on an earlier time}\\
+Now we can transfer this to a more relevant example by making an image as input and use convolutions to reduce the dimensionality in the encoder and increase the dimensionality in the encoder.
 \begin{figure}[t]
-	\centering
-	\includegraphics[scale=0.5]{background/figures/CAE.png}
-	\caption{Convolutional autoencoder with an RGB image as input, and the reconstructed image as output.}
+    \centering
+    \includegraphics[scale=0.5]{background/figures/CAE.png}
+    \caption{Convolutional autoencoder with an RGB image as input, and the reconstructed image as output.}
 \end{figure}
-	
+    
 \subsection{Advaserial neural networks}
 \paragraph{This is explaining GANS, put me in the right place} %%TODO CITE: http://www.deeplearningbook.org/contents/generative_models.html and Goodfellow at al. 2014
 Now that we have looked at autoencoders we can take it a step further. 
-generative advaserial models can be used as a generator of new data, and can have som reseblance to autoencoders \ref{Explaining_autoencoders}, especially variational autoencoders %TODO cite VAE, ref VAE
+generative adversarial models can be used as a generator of new data and can have some resemblance to autoencoders \ref{Explaining_autoencoders}, especially variational autoencoders %TODO cite VAE, ref VAE
 
-The difference lies in that advaserial networks is based on game theoretic scenarios in which a generator network is compeating agenst an advasery. 
+The difference lies in that adversarial networks is based on game theoretic scenarios in which a generator network is competing against an advasery. 
 The generator produces samples $x=g(z;\theta^{(g)})$, where $g$ is the network given the weights $\theta$. Then the discriminator network predicts if a sample is drawn from the dataset or from the generator.
 More spessific, it gives a probably given by $d(x;\theta^{(d)})$ , and determins if $x$ is from the generator or the data-set. 
-Since we have two networks compeating agenst each other we can look at this as a Zero-sum game with the generators payoff is determined by $v(\theta^{(g)},\theta^{(d)})$, and the discriminators payoff is determined by $-v(\theta^{(g)},\theta^{(d)})$.
-\textit{$v$ is here a function that is determined by both the sucsess rate of the discriminator and the generator, the most common used is}
+Since we have two networks competing against each other we can look at this as a Zero-sum game with the generators payoff is determined by $v(\theta^{(g)},\theta^{(d)})$, and the discriminators payoff is determined by $-v(\theta^{(g)},\theta^{(d)})$.
+\textit{$v$ is here a function that is determined by both the success rate of the discriminator and the generator, the most commonly used is}
 \begin{equation} %TODO: CITE First gan paper on formula
-	v(\theta^{(g)},\theta^{(d)}) \; = \; \mathds{E}_{x\sim p_{data}}\log{d(x)} + \mathds{E}_{x\sim p_{model}}\log{(1 - d(x))} 
+    v(\theta^{(g)},\theta^{(d)}) \; = \; \mathds{E}_{x\sim p_{data}}\log{d(x)} + \mathds{E}_{x\sim p_{model}}\log{(1 - d(x))} 
 \end{equation}
 as derived from Goodfellow et al. %TODO cite 
-	  
+      
 Lets look at a gan in detail. \\
 \begin{figure}[ht!]
-	\centering
-	\includegraphics[scale=0.5]{background/figures/simpleGAN.png}
-	\caption{The idea behind a GAN. Here the generator saples from a random (Gaussian) distribution and generates samples that the discriminator classifies as real or fake}
+    \centering
+    \includegraphics[scale=0.5]{background/figures/simpleGAN.png}
+    \caption{The idea behind a GAN. Here the generator samples from a random (Gaussian) distribution and generates samples that the discriminator classifies as real or fake}
 \end{figure}
-	
+    
 %\subsection{Recurrent neural networks}
 %\subsection{LSTM}
 
 \subsubsection{Contextencoders}
-Inpainting can also be done with advaserial models, and using a network trained to do the task of inpainting can be a lot more powerful than using just an autoencoder\todo{ref} or the naive methods\todo{ref}.
-A contextencoder is building on the advaserial principle by using a generator/discriminator pair to fill in masked areas in an image. 
-	
+Inpainting can also be done with adversarial models, and using a network trained to do the task of inpainting can be a lot more powerful than using just an autoencoder\todo{ref} or the naive methods\todo{ref}.
+A contextencoder is building on the adversarial principle by using a generator/discriminator pair to fill in masked areas in an image. 
+    
 The concept behind a Contextencoder is to take the whole image as input to an encoder/decoder pair and \todo{finish}
      
 \subsubsection{CC-GANS}  
@@ -437,40 +499,38 @@ The concept behind a Contextencoder is to take the whole image as input to an en
 
 
 
-	    
-	  
+        
+      
 \section{Explain how the ML-methods can be used with the polyps}
-	When you work with machine learning a lot of the job is to make the data as clear as possible. \\
-	Imagine that you want to do something simple as reading an analogue clock. The \"straight forward\" way to do it is to  
-	make a convolutional neural network to look at the dials. This will require a much more complex network compared to if you could convert the angle of the dials
-	to degrees and have that as an input to your model.
+    When you work with machine learning a lot of the job is to make the data as clear as possible. \\
+    Imagine that you want to do something as simple as reading an analogue clock. The \"straight forward\" way to do it is to make a convolutional neural network to look at the dials. This will require a much more complex network compared to if you could convert the angle of the dials to degrees and have that as an input to your model.
 
-	\begin{figure}[ht]
-	  \centering
-	  \includegraphics[scale=0.5]{methods/figures/Clock.png}
-	  \caption{A clock needs a more complex network compared to just the degrees}
-	\end{figure}
-	%TODO FIND ORIGinal source
-	The trick is often to make the data as refined as possible. 
-	Further some of the techniques used is described.
-	
-	\todo{Here i need to talk about how preproccesing might help the problem, and make this a springboad in to the next section: the problem at hand}
-	
-	
-	\todo{adress the problem with lack of data, and talk about how machine learning can help, machine learning.}
-	  
-	  
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[scale=0.5]{methods/figures/Clock.png}
+      \caption{A clock needs a more complex network compared to just the degrees}
+    \end{figure}
+    %TODO FIND ORIGinal source
+    The trick is often to make the data as refined as possible. 
+    Further, some of the techniques used are described.
+    
+    \todo{Here I need to talk about how preprocessing might help the problem, and make this a springboard into the next section: the problem at hand}
+    
+    
+    \todo{adress the problem with lack of data, and talk about how machine learning can help, machine learning.}
+      
+      
 \section{The problem at hand / Summary}
-	  Now that we have the definition of machine learning and the current task, we can focus on the task at hand; finding polyps. In an ideal world\footnote{Ideal as in the only disease we could get in  the GI tract was cancer originating
-	  from polyps which looked exactly the same} we have a
-	  Classification problem with only two classes: Non-polyp and polyp. 
-	  
-	  \begin{itemize}
-	    \item SVM 
-	    \item CNN 
-	    \item random forests
-	    \item knn
-	  \end{itemize}
+      Now that we have the definition of machine learning and the current task, we can focus on the task at hand; finding polyps. In an ideal world\footnote{Ideal as in the only disease, we could get in  the GI tract was cancer originating
+      from polyps which looked exactly the same} we have a
+      Classification problem with only two classes: Non-polyp and polyp. 
+      
+      \begin{itemize}
+        \item SVM 
+        \item CNN 
+        \item random forests
+        \item knn
+      \end{itemize}
 
 \iffalse
 \section{In painting}
@@ -480,30 +540,30 @@ The concept behind a Contextencoder is to take the whole image as input to an en
   In painting is the process of reconstructing lost or deteriorated parts of images and videos. %TODO CITE https://en.wikipedia.org/wiki/Inpainting
   
 
-  From prior papers on polyp detection in the GI tract %TODO CITE!!!
-  we have clear results that the black corners, and the green squares trigger a big activation %TODO WRITE BETTER
+  From previous papers on polyp detection in the GI tract %TODO CITE!!!
+We have clear results that the black corners and the green squares trigger a big activation %TODO WRITE BETTER
   when it comes to classifying images. 
   From %TODO CITE, find out who
-  's paper, we can see that the activation map on a regular image gives very high result on, in addition to the polyp, the corners and the green sqare. 
+  's paper, we can see that the activation map on a regular image gives a very high result on, in addition to the polyp, the corners and the green square. 
   \begin{figure}[ht]
     \centering
     \includegraphics[scale=0.5]{background/figures/placeholder.jpeg}
     \caption{Using X's activation map we can see that the edges triggers unwanted activations}
   \end{figure}
   
-  In addition to sqares and edges, we also have the problem that parts of the image is over saturated at points where the light from the led is reflected directly back to the camera.
+  In addition to squares and edges, we also have the problem that parts of the image is over saturated at points where the light from the led is reflected directly back to the camera.
   Another problem is when the camera captures images that are too close to the wall. Both of these scenarios creates patches where the saturation is maximum. 
    \begin{figure}[ht]
     \centering
     \includegraphics[scale=0.5]{background/figures/reflection.jpg}
     \caption{we have two different types of saturation: the reflected area in the top part of the image, and the right side of the image.}
   \end{figure}
-  in an ideal scenario the image would have no pixel values at max, and as little frame as possible. 
-  We therefor want to make a tool that can help us with this.
+  in an ideal scenario, the image would have no pixel values at max, and as little frame as possible. 
+  We, therefore, want to make a tool that can help us with this.
   \subsection{Naive methods for In painting}
     Inpainting is not a new area of research, as it has been around since %TODO CITE
-    Because of this there are many naive methods that gives good inpaintings. 
-	
+    Because of this, there are many naive methods that give good inpaintings. 
+    
     \subsubsection{Textured syntesys based on image inpainting}
     \subsubsection{MOARE}
     \subsubsection{MOARE}
@@ -513,118 +573,116 @@ The concept behind a Contextencoder is to take the whole image as input to an en
 % THIS SECTION MUST BE MOVED/FIXED
 %
 \section{Naive Methods REM}
-	  Now that we have an idea of what we are looking for we can first turn to some more naive methods for detecting anomalies, and for enhancing the images.\\
-	  The field of image processing has been researched since\\ %TODO WHEN
-	  
-	  Using some of the classic methods in image processing we can see if\\ %TODO
-	  
-	  We often describe the method in to two groups of information: First and Second order statistics.\\
-	  \textbf{First order:} First order statistics does not take in to account the relative positioning of the pixels in the image, and because of this, gives much less
-	  information than the second order statistics.\\
-	  Example of First order statistics is often what information we can get out of a histogram. This can be scewness, variance, and mean value.\\
-	  
-	  \vspace{10px}
-	  
-	  \textbf{Second order:} Second order statistics takes in to account the relative positioning of the pixels in the image. We can calculate the GLCM matrix and get a much more detailed 
-	  view of the image. \\
-	  
-	  
-	  
-	  \subsection{GLCM}
-	    A GLCM (Grey-level co-occurrence matrix) is a matrix that is used when examining the spatial relationship of pixels in a texture. 
-	    The calculation of a GLCM gives us how often pairs of pixels with spesific values and a specified spatial relationship occur at a given place in an image. %TODO CITE
-	  
-	    \subsubsection{Algorithm}
-	      For simplicity we use only greyscale in this example:
-	      \begin{figure}[ht]
-		\centering
-		\includegraphics[scale=0.5]{figures/sliding_window_box.png}
-		\caption{GLCM capturing features}
-	      \end{figure}
-	      The algorithm starts by running a sliding window over the image, often with a stride, and for each stops calculates the spatial relationship between each pixel specified.
-	      The result can be something like this figure %TODO link to figure
-	      where we can read out the most likely neighbouring pixel.
-	       \begin{figure}[ht]
-		\centering
-		\includegraphics[scale=0.5]{figures/Simple_GLCM.png}
-		\caption{GLCM Matrix}
-	      \end{figure}
-	      The darker colours on in the matrix is indicating that we often have a jump between, for instance pixel-value of 1 and a pixel-value of 4, but no from 1 to 1.\\
-	      With this information we can get a naive pattern-recogniser. 
-	    \subsubsection{Other uses}
-	      Besides for the pattern recognition we can use the GLCM to get the information on:
-	      \begin{itemize}
-	       \item \textbf{Contrast} is the difference in luminance or colour in the picture. We would expect low contrast in the “background” and higher contrast around edges and irregular objects.
-	       \item \textbf{Homogeneity} is how similar a local area is to itself
-	       \item \textbf{Variance} $\sigma^2$ , is directly a measure of ”roughness”
-	       \item \textbf{Mean} value of a GLCM can give us areas with higer or lower pixel values. Good way to find polyps if they are lighter than the tissue around.
-	       \item \textbf{Entropy}
-	       \item \textbf{Energy}
-	      \end{itemize}
+      Now that we have an idea of what we are looking for we can first turn to some more naive methods for detecting anomalies, and for enhancing the images.\\
+      The field of image processing has been researched since\\ %TODO WHEN
+      
+      Using some of the classic methods in image processing, we can see if\\ %TODO
+      
+      We often describe the method into two groups of information: First and Second order statistics.\\
+      \textbf{First order:} First order statistics does not take in to account the relative positioning of the pixels in the image, and because of this, gives much less information than the second order statistics.\\
+      Example of First-order statistics is often what information we can get out of a histogram. This can be skewness, variance, and mean value.\\
+      
+      \vspace{10px}
+      
+      \textbf{Second order:} Second-order statistics takes in to account the relative positioning of the pixels in the image. We can calculate the GLCM matrix and get a much more detailed view of the image. \\
+      
+      
+      
+      \subsection{GLCM}
+        A GLCM (Grey-level co-occurrence matrix) is a matrix that is used when examining the spatial relationship of pixels in a texture. 
+        The calculation of a GLCM gives us how often pairs of pixels with specific values and a specified spatial relationship occur at a given place in an image. %TODO CITE
+      
+        \subsubsection{Algorithm}
+          For simplicity we use only greyscale in this example:
+          \begin{figure}[ht]
+        \centering
+        \includegraphics[scale=0.5]{figures/sliding_window_box.png}
+        \caption{GLCM capturing features}
+          \end{figure}
+          The algorithm starts by running a sliding window over the image, often with a stride, and for each stop calculates the spatial relationship between each pixel specified.
+          The result can be something like this figure %TODO link to figure
+          where we can read out the most likely neighbouring pixel.
+           \begin{figure}[ht]
+        \centering
+        \includegraphics[scale=0.5]{figures/Simple_GLCM.png}
+        \caption{GLCM Matrix}
+          \end{figure}
+          The darker colours on in the matrix are indicating that we often have a jump between, for instance, pixel-value of 1 and a pixel value of 4, but no from 1 to 1.\\
+          With this information, we can get a naive pattern-recogniser. 
+        \subsubsection{Other uses}
+          Besides for the pattern recognition we can use the GLCM to get the information on:
+          \begin{itemize}
+           \item \textbf{Contrast} is the difference in luminance or colour in the picture. We would expect low contrast in the “background” and higher contrast around edges and irregular objects.
+           \item \textbf{Homogeneity} is how similar a local area is to itself
+           \item \textbf{Variance} $\sigma^2$ , is directly a measure of ”roughness”
+           \item \textbf{Mean} value of a GLCM can give us areas with higer or lower pixel values. Good way to find polyps if they are lighter than the tissue around.
+           \item \textbf{Entropy}
+           \item \textbf{Energy}
+          \end{itemize}
 
 
-	  
-	  \subsection{Edge detection}
-	    Using Edge detection in is another viable way to look for polyps. 
-	    \begin{figure}[ht]
-	      \centering
-	      \begin{minipage}[b]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{figures/sliding_window.png}
-		\caption{Original image}
-	      \end{minipage}
-	      \hfill
-	      \begin{minipage}[b]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{figures/Canny.png}
-		\caption{Edges of the picture}
-	      \end{minipage}
-	    \end{figure}
-	    \subsubsection{Algorithm}
-	      For each pixel look at the neighbouring pixel, if \\
-	      
-	      \begin{centering} 
-		$ abs(p_a - p_b)>tresh $\\ 
-	      \end{centering}
-	      
-	      then mark pixel as an edge pixel. \\
-	      
-	  \subsection{Hough Transforms}
-	    Using for instance Canny edge detection %TODO CITE
-	    we can get a better view of where the potential border of the polyp/anomaly is. (As shown in %TODO FIG CITE)
-	    
-	    A hough transform can i theory have many/any shape(s), and together with edge detection, we might find some of the polyps this way.
-	    
+      
+      \subsection{Edge detection}
+        Using Edge detection in is another viable way to look for polyps. 
+        \begin{figure}[ht]
+          \centering
+          \begin{minipage}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/sliding_window.png}
+        \caption{Original image}
+          \end{minipage}
+          \hfill
+          \begin{minipage}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/Canny.png}
+        \caption{Edges of the picture}
+          \end{minipage}
+        \end{figure}
+        \subsubsection{Algorithm}
+          For each pixel look at the neighbouring pixel, if \\
+          
+          \begin{centering} 
+        $ abs(p_a - p_b)>tresh $\\ 
+          \end{centering}
+          
+          then mark a pixel as an edge pixel. \\
+          
+      \subsection{Hough Transforms}
+        Using, for instance, Canny edge detection %TODO CITE
+        we can get a better view of where the potential border of the polyp/anomaly is. (As shown in %TODO FIG CITE)
+        
+        A Hough transform can I theory have many/any shape(s), and together with edge detection, we might find some of the polyps this way.
+        
     
     
     
     
     
-	
-    As we can see from this, there are a lot of old methods that can give approximations. We can also conclude that none of these methods are perfect.
-    We will therefore look at methods that takes learning in to use.
+    
+    As we can see from this, there are a lot of old methods that can give approximations. We can also conclude that none of these methods is perfect.
+    We will, therefore, look at methods that take learning in to use.
 \section{Using machine learning for inpainting}
     \subsection{AE}
     \subsection{CE}
     \subsection{CCGAN}
     \subsection{PCNN}
     As discussed earlier, machine learning is using prior experiences to make decisions given the problem at hand. 
-    It is also worth mentioning that we do not need labeled data, since we are in a way looking at a global average of every image both with, and without polyps. We are therefor incentiviced to use an 
+    It is also worth mentioning that we do not need labelled data since we are in a way looking at a global average of every image both with and without polyps. We are therefore incentivised to use an 
     Unsupervised approach.
-    Since machine learning is learning from a training set, it is important that the training set contains as little as possible of the features we want to remove. \\
+    Since machine learning is learning from a training set, it is essential that the training set contains as little as possible of the features we want to remove. \\
     
-    Because of this the first thing we need to do if we are going to mask out corners and sqares, is to limit the training set to only contain cropped, non-sqare images. 
+    Because of this, the first thing we need to do if we are going to mask out corners and squares is to limit the training set only to contain cropped, non-square images. 
  
     \begin{figure}[ht]
       \centering
       \begin{minipage}[b]{0.45\textwidth}
-	\includegraphics[width=\textwidth]{background/figures/uncropped_img.png}
-	\caption{Original image with black padding}
+    \includegraphics[width=\textwidth]{background/figures/uncropped_img.png}
+    \caption{Original image with black padding}
       \end{minipage}
       \hfill
       \begin{minipage}[b]{0.45\textwidth}
-	\includegraphics[width=\textwidth]{background/figures/cropped_8percent_img.png}
-	\caption{Black edges cropped away + 8\% zoom}
+    \includegraphics[width=\textwidth]{background/figures/cropped_8percent_img.png}
+    \caption{Black edges cropped away + 8\% zoom}
       \end{minipage}
-      \caption{Here we have an example on how we would make an image better to train on. This is not representative of the training, since we only use images without the green square under training}
+      \caption{Here we have an example on how we would make an image better to train on. This is not representative of the training since we only use images without the green square under training}
     \end{figure}
     
     Now that we have better images to train our data with, we need the correct algorithm.
@@ -634,81 +692,80 @@ The concept behind a Contextencoder is to take the whole image as input to an en
       \todo{Hvordan skal jeg gaa frem nar det kommer til aa presantere disse? skal jeg bare si hvilke metoder jeg har testet?}
       Text about presenting UML, and stuff.
   
-	\newpage
-	As we recall from earlier, an autoencoder is a type of neural network that tries to output a recreation of the output.\\%TODO: REF the part about autoencoders 
-	We can use this for inpainting by setting the algorithm to train on images with areas cropped away.
-	There are a couple of different way we can train an autoencoder to do this.\\
-	
-	%\todo{should i talk about the different ways or present the best?}
-	
-	
-	\vspace{10px}
-	\textbf{Denoising Autoencoder with MSE loss:}\label{par:Denoising_Autoencoder_with_MSE_loss}\\
-	The simplest way to train the autoencoder is to first take the trainingset $\mathds{X}$ and make an augmented copy $\widetilde{\textbf{x}}^{(i)}$ for 
-	every data point in $\textbf{x}_{\sim \mathds{X}}^{(i)}$. \\
-	\textit{Here $\widetilde{\textbf{x}}$ is a copy of x with random areas masked.}\\
-	
-	Now we minimize the loss function\\	
-	  \begin{equation}
-	    L(\textbf{x},g(f(\widetilde{\textbf{x}})))
-	  \end{equation}
-	over the whole image.\\
-	\vspace{20px}
-	
-	With this approach the autoencoder learns to fill in the blank spots with plausible data, without changing the rest of the image. 
-	\todo{this will probably work best if the autoencoder is not undercomplete, perhaps talk about this}
-	One problem by this approach is that we do not want the rest of the image to change for obvious reasons, and the alogrithm as it is here has the flaw that it will change all the pixels in the image, at 
-	least to a minor degree. \\
-	
-	This can be somewhat fixed by only taking the augmented parts, and pasting the directly in to the image. This will leave most of the original image, except for the parts that was cropped randomly.\\
-	
-	\vspace{10px}
-	\textbf{Denoising Autoencoder with \todo{clever tittle}:}\\
-	If we take what we learned from \ref{par:Denoising_Autoencoder_with_MSE_loss}, we can make a more optimal autoencoder:
-	Rather than taking a loss like 	
-	\begin{equation}
-	  L(\textbf{x},g(f(\widetilde{\textbf{x}})))
-	\end{equation}
-	over the whole image, we can rather just focus on the parts that matters, namely the cropped areas.\\
-	
-	If we add the cropped image to the output from the autoencoder to make an image image, we can use this new image to train out loss.
-	For most of the image, the loss will be zero, since the only part that is changed is the cropped area. 
-	We can also make a new loss that is more optimal for the task at hand. 
-	\begin{equation}
-	  MSE_{crop}\:=\: \frac{1}{n}
-	  \begin{cases}
-	      \begin{array}{lcl}
-	      (\widetilde{\textbf{x}}-\textbf{x}) \; if \; \widetilde{\textbf{x}} \: \in \: \textbf{x}_{crop} \\
-	      0 \; else
-	      \end{array}
-	  \end{cases}
-	\end{equation}
-	Where $\textbf{x}_{crop}$ is the area that was cropped away from the original image and $n$ is the number of pixels in that area.\\
-	With this modified MSE we are assured that only the pixels in the cropped area is changed with gradient decent, and we save a lot of computation as an added bonus.
-	
-	
-	\todo{token to not train}
-	\begin{figure}[ht!]
-	    \centering
-	    \includegraphics[scale=0.5]{background/figures/AE_for_inpainting.png}
-	    \caption{Final result of the autoencoder used in the testing}
-	\end{figure}
-	
-	
-	
-	
-	
+    \newpage
+    As we recall from earlier, an autoencoder is a type of neural network that tries to output a recreation of the output.\\%TODO: REF the part about autoencoders 
+    We can use this for inpainting by setting the algorithm to train on images with areas cropped away.
+    There are a couple of different ways we can train an autoencoder to do this.\\
+    
+    %\todo{shouldI talk about the different ways or present the best?}
+    
+    
+    \vspace{10px}
+    \textbf{Denoising Autoencoder with MSE loss:}\label{par:Denoising_Autoencoder_with_MSE_loss}\\
+    The simplest way to train the autoencoder is to first take the trainingset $\mathds{X}$ and make an augmented copy $\widetilde{\textbf{x}}^{(i)}$ for 
+    every data point in $\textbf{x}_{\sim \mathds{X}}^{(i)}$. \\
+    \textit{Here $\widetilde{\textbf{x}}$ is a copy of x with random areas masked.}\\
+    
+    Now we minimise the loss function\\    
+      \begin{equation}
+        L(\textbf{x},g(f(\widetilde{\textbf{x}})))
+      \end{equation}
+    over the whole image.\\
+    \vspace{20px}
+    
+    With this approach, the autoencoder learns to fill in the blank spots with credible data, without changing the rest of the image. 
+    \todo{this will probably work best if the autoencoder is not under complete, perhaps talk about this}
+    One problem by this approach is that we do not want the rest of the image to change for obvious reasons, and the algorithm as it is here has the flaw that it will change all the pixels in the image, at least to a minor degree. \\
+    
+    This can be somewhat fixed by only taking the augmented parts, and pasting them directly into the image. This will leave most of the original image, except for the parts that were cropped randomly.\\
+    
+    \vspace{10px}
+    \textbf{Denoising Autoencoder with \todo{clever tittle}:}\\
+    If we take what we learned from \ref{par:Denoising_Autoencoder_with_MSE_loss}, we can make a more optimal autoencoder:
+    Rather than taking a loss like     
+    \begin{equation}
+      L(\textbf{x},g(f(\widetilde{\textbf{x}})))
+    \end{equation}
+    over the whole image, we can rather just focus on the parts that matters, namely the cropped areas.\\
+    
+    If we add the cropped image to the output from the autoencoder to make an image, we can use this new image to train out loss.
+    For most of the image, the loss will be zero, since the only part that is changed is the cropped area. 
+    We can also make a new loss that is more optimal for the task at hand. 
+    \begin{equation}
+      MSE_{crop}\:=\: \frac{1}{n}
+      \begin{cases}
+          \begin{array}{lcl}
+          (\widetilde{\textbf{x}}-\textbf{x}) \; if \; \widetilde{\textbf{x}} \: \in \: \textbf{x}_{crop} \\
+          0 \; else
+          \end{array}
+      \end{cases}
+    \end{equation}
+    Where $\textbf{x}_{crop}$ is the area that was cropped away from the original image and $n$ is the number of pixels in that area.\\
+    With this modified MSE we are assured that only the pixels in the cropped area is changed with gradient decent, and we save a lot of computation as an added bonus.
+    
+    
+    \todo{token to not train}
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[scale=0.5]{background/figures/AE_for_inpainting.png}
+        \caption{Final result of the autoencoder used in the testing}
+    \end{figure}
+    
+    
+    
+    
+    
       \subsubsection{Explaining GANs, this will be moved}
       
-	
+    
       \subsubsection{Contextencoder}
-	Inpainting can also be done with advaserial models, and using a network trained to do the task of inpainting can be a lot more powerful than using just an autoencoder\todo{ref} or the naive methods\todo{ref}.
-	A contextencoder is building on the advaserial principle by using a generator/discriminator pair to fill in masked areas in an image. 
-	
-	The concept behind a Contextencoder is to take the whole image as input to an encoder/decoder pair and \todo{finish}
-	
-	
-	
+    Inpainting can also be done with adversarial models, and using a network trained to do the task of inpainting can be a lot more powerful than using just an autoencoder\todo{ref} or the naive methods\todo{ref}.
+    A contextencoder is building on the adversarial principle by using a generator/discriminator pair to fill in masked areas in an image. 
+    
+    The concept behind a Contextencoder is to take the whole image as input to an encoder/decoder pair and \todo{finish}
+    
+    
+    
       \subsubsection{CCgan}
       \subsubsection{PixelCNN}
       
