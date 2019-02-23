@@ -1,78 +1,185 @@
+In the previous chapter, we described our methodology. We presented the framework we used for our setup, and we went into detail on the configuration of the experiments, and the project as a whole describing both the masking and the neural networks. 
+In this chapter, we will start with the description of the datasets used on the results and the metrics chosen as a reference point for the evaluation of our results. 
+Finally, for each model, we will evaluate it for the datasets we have presented.
+
 \section{Datasets}
-To show and explain the experiments, we need to look at some datasets we can evaluate our results. 
-In this thesis, we primarily use four \todo{5} datasets to train and evaluate our results.
+To show and explain the experiments, we need to look at the datasets we have to evaluate our results. 
+\todo{something about Simula already researching on this}
+
+In this thesis, we primarily use four datasets to train and evaluate our results.
+
+
 
 \subsection{kvasir}
 
 
-Automatic computerised detection of diseases has been a quintessential focus on the medical industry, but for a long time, a still fairly unexplored research area.  As a response to this Simula Research laboratory together with \todo{more}, made the dataset Kvasir.
-It was originally made to improve medical practice and refine health care systems where similar dataset did not exist.
 
-Kvasir is a dataset containing images from inside the gastrointestinal tract containing three anatomical landmarks, in the form of (A), (B) and (C). Also, the Kvasir dataset includes two categories of images related to endoscopic polyp removal, (D) and (E). And lastly, three classes, (G), (H), and (I), containing images without the anomalies, as a form of baseline. 
-Medical professionals sorted the dataset, and it is made to be used for both single and multi-disease computer-aided detection. 
+As we recall from the introduction chapter, oesophagal, stomach and colorectal cancer accounts for about 2.8 million new cases and 1.8 million deaths per year, and this number is increasing as the population gets older.   With automatic detection of diseases by use of computers being prominent, but a still unexplored field of research the dataset Kvasir was made.
+Kvasir is a Multi-Class Image Dataset for Computer Aided Gastrointestinal Disease Detection made in Norway. The data is gathered from the Vestre Viken Health Trust, and it contains not only polyps but also two other findings, two classes related to polyp removal and three anatomical landmarks in the GI tract.
 
-At this time, there are two versions of the Kvasir dataset.  V1 vs V2
-The images are from both from the lower and upper GI tract. 
+The data is collected using endoscopic equipment at Vestre Viken Health Trust in Norway. The Vestre Viken Health Trust is a collection of 4 hospitals, and it provides health care to 470.000 people.
+One of the more prominent hospitals in this group is Bærum Hospital. It has a large gastroenterology department where the data originates, and more data will be provided in the future. The data from Bærum Hospital has been annotated by medical experts and the Cancer Registry of Norway before its inclusion in the Kvasir dataset, making the data thoroughly marked and checked.
+The Cancer Registry of Norway work provides new knowledge about cancer prevention and cancer treatment. It is part of the South-Eastern Norway Regional Health Authority and organised as an independent institution under Oslo University Hospital Trust. The Cancer Registry of Norway is responsible for the national cancer screening programmes with the goal to ultimately prevent cancer death by discovering cancers or pre-cancerous lesions as early as possible. 
 
 
-\subsection{Nerthus} 
+
+Kvasir is a dataset containing images from inside the gastrointestinal tract containing three anatomical landmarks, in the form of the Z-line (a), the Pylorus (b) and the Cecum (c). Also, the Kvasir dataset includes two categories of images related to endoscopic polyp removal, Dyed and Lifted Polyps (d) and Dyed Resection Margins (e), and lastly, three classes, Esophagitis (g), Polyps (h), and Ulcerative Colitis (i), containing images of pathological findings.
+
+\subsubsection{Anatomical Landmarks}
+The definition of an anatomical landmark is a feature that is easily recognisable through an endoscope. For the medical staff they are essential for navigating the GI tract, and the assist as a reference point both for a physical location, and to describe the position for a relevant finding.
+It is often relevant for a complete endoscopic report to contain image documentation and a description of these three landmarks.
+ 
+\paragraph{Z-line}
+The Z-line is the sphincter between the oesophagus and the stomach. This sphincter is an endoscopically recognisable border where the white mucosa meets the red gastric mucosa from the stomach.  When performing endoscopy an assessment of the Z-line is important to determine whether disease is present or not. A malfunctioning sphincter can, for instance, lead to diseases like gastroesophageal reflux. \todo{cite}.
+Figure \ref{fig:z-line} shows a normal z-line taken from an endoscopy. 
+
+\textbf{Pylorus}
+We call the barrier between the stomach and the upper part of the small bowel for the Pylorus. This sphincter is responsible for letting food from the stomach into the GI tract, and to keep the stomach acid from flowing into the bowels.
+Medical staff inspect both sides of the pylorus when doing a complete colonoscopy and endoscopy. This inspection is crucial to identify findings like ulcerations, erosions or stenosis.  \todo{cite}
+Figure \ref{fig:pylorus} shows an endoscopic image of a healthy pylorus taken from inside the stomach.
+
+\textbf{Cecum}
+The last anatomical landmark used in gastronomy is the cecum. It is an intraperitoneal pouch that is considered to be the beginning of the large intestine. This area in the GI tract is considered the final stop for a standard colonoscopy as it is the last quality indicator for the procedure.
+Being the last landmark, the identification and inspection of this area are one of the most crucial steps in the whole inspection. 
+Figure \ref{fig:cecum} shows a normal cecum.
+
+
+\subsection{Pathological Findings}
+Pathological findings are areas or objects with an abnormal or unwanted feature. When looking at it from the oral entrance, pathological findings takes the form of inflammation, while in the lower GI tract it takes the form of, for instance, polyps. 
+Pathological findings are the group of images that are especially important to detect and classify as they impose the most significant risk for the patients well being. \todo{do not like the ending}
+
+
+\paragraph{Esophagitis}
+Esophagitis is an inflammation oesophagus near the Z-line. Usually, the oesophagus is composed of a mucosal lining and circular smooth muscle fibres, but when a patient has a condition like a gastroesophageal reflux disease the area can become inflamed. 
+Clinically, detection of this inflammation is necessary for treatment initiation to relieve the symptoms and to prevent further development that can lead to more complications.
+
+
+\paragraph{polyps}
+Polyps are lesions in the bowel detectable as mucosal outgrowths. There are multiple types of polyps that are either flat, elevated, or pedunculated. Polyps are distinguishable from normal mucosa as they have a different colour and surface texture. Most of these bowel anomalies are harmless, but they have, as discussed in the introduction, the possibility to become cancerous. 
+There is a big focus dedicated to the removal and detection of there polyps as they are a significant threat to cancer of not treated in time. Because of the different shape and rate of outgrowth, medical staff overlook a small, but significant part of the polyps during routine procedures. 
+This rate of error was the most significant driving force for investing in computer-aided medical diagnosis, and subsequently creating the Kvasir dataset.
+
+\paragraph{Ulcerative Colitis}
+Ulcerative Colitis is the last pathological finding type in the Kvasir dataset. 
+It is a chronic inflammatory disease affecting the large bowel. Ulcerative Colitis may both come from psychological and physiological factors, but the origin of the disease is often unknown. The degree of inflammation is a factor when performing medical diagnosis, though in the Kvasir dataset we only have one class of ulcerative colitis.
+A severe example of ulcerative colitis can is seen in figure \ref{fig:ulcerativecolitis}. Here we have an evident inflammation, and thus this would most likely be classified as severe.
+
+
+
+\subsection{Polyp Removal}
+The last groups are concerned with the removal of polyps. A technique often used in polyp removal is endoscopic mucosal resection (EMR). \todo{cite}
+This procedure includes the injection of a liquid underneath the polyp, lifting it from the underlying tissue. After the injection, the medical staff use a snare to wrap around remove the polyp. Using this method of lifting and snaring, the medical staff reduces the risk of damaging the surrounding tissue by a large margin.
+
+\paragraph{Dyed and Lifted Polyps}
+The first of the two classes concerning polyp removal is the Dyed and Lifted Polyps class. This case is the polyp after it has been lifted from the surrounding tissue, and the next step is to use a snare to remove it.
+Figure \ref{fig:dyedandliftedpolyps} shows a polyp after the injection liquid is applied. 
+
+
+\paragraph{Dyed Resection Margins}
+The resection margin is important to evaluate after the removal of a polyp, as we want to be sure the entirety of the are is clean. 
+If the procedure did not eradicate the polyp, the residual polyp tissue might lead to continued growth, and in the worst case malignancy development. 
+
+
+
+
+%\subsection{Nerthus} 
 \todo{do we do Nerthus?}
 \subsection{CVC-356}
+The 
+
 \subsection{CVC-12k}
 \subsection{CVC-612}
 
 
-    
-    
-    %\textbf{The human digestive system may be affected by several diseases. Altogether esophageal, stomach and colorectal cancer accounts for about 2.8 million new cases and 1.8 million deaths per year. Endoscopic examinations are the gold standards for investigation of the GI tract. Gastroscopy is an examination of the upper GI tract including esophagus, stomach and first part of small bowel, while colonoscopy covers the large bowel (colon) and rectum. Both these examinations are real-time video examinations of the inside of the GI tract by use of digital high definition endoscopes. Endoscopic examinations are resource demanding and requires both expensive technical equipment and trained personnel. For colorectal cancer prevention, endoscopic detection and removal of possible precancerous lesions are essential. Adenoma detection is therefore considered to be an important quality indicator in colorectal cancer screening. However, the ability to detect adenomas varies between doctors, and this may eventually affect the individuals’ risk of getting colorectal cancer. Endoscopic assessment of severity and sub-classification of different findings may also vary from one doctor to another. Accurate grading of diseases are important since it may influence decision-making on treatment and follow-up. For example, the degree of inflammation directly affects the choice of therapy in inflammatory bowel diseases (IBD). An objective and automated scoring system would therefore be highly welcomed. Automatic detection, recognition and assessment of pathological findings will probably contribute to reduce inequalities, improve quality and optimize use of scarce medical resources. Furthermore, since endoscopic examinations are real-time investigations, both normal and abnormal findings have to be recorded and documented within written reports. Automatic report generation would proba- bly contribute to reduce doctors’ time required for paperwork and thereby increase time to patient care. Reliable and careful docu- mentation with the use of minimal standard terminology (MST) may also contribute to improved patient follow-up and treatment. To our knowledge, a standardized and automatic reporting system that ensure high quality endoscopy reports does not exist. In order to make the health care system more scalable and cost effective, basic research in the intersection between computer science and medicine must go beyond traditional medical imaging by combining this area with multimedia data analysis and retrieval, artificial intelligence, and distributed processing. Next-generation medical big-data applications are a frontier for innovation, compe- tition and productivity, where there are currently large initiatives both in the EU and the US. In the area of multimedia research, people are starting to see the synergies between multimedia and medical systems. For automatic algorithmic detection of abnormalities in the GI tract, there have been many proposals from various research communities, especially for the topic of polyp detection. However, the results are hard to reproduce due to lack of available medical data, i.e., the work listed above all use different and non-public data sets. Here, we therefore publish Kvasir: A Multi-Class Image Dataset for Computer Aided Gastrointestinal Disease Detection from the Vestre Viken Health Trust (Norway) containing not only polyps, but also two other findings, two classes related to polyp removal and three anatomical landmarks in the GI tract.}
+ 
     
 \newpage
+
+%============================================
+
+    \begin{figure*}[t]
+        \centering
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{experiments/images/dyed-lifted-polyps.jpg}
+            \caption[Is this in use]%
+            {{\small  }}    
+            \label{fig:polypAEGREEN}
+        \end{subfigure}
+        \qquad
+        \begin{subfigure}[b]{0.4\textwidth}  
+            \centering 
+            \includegraphics[width=\textwidth]{experiments/images/dyed-resection-margins.jpg}
+            \caption[Hate to be this guy]%
+            {{\small }}    
+            \label{fig:polypGAN}
+        \end{subfigure}
+        \qquad\vfill%\vskip\baselineskip
+        \begin{subfigure}[b]{0.4\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{experiments/images/esophagitis.jpg}
+            \caption[]%
+            {{\small }}    
+            \label{fig:zAE}
+        \end{subfigure}
+        \qquad%\hfill%\quad
+        \begin{subfigure}[b]{0.4\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{experiments/images/normal-cecum.jpg}
+            \caption[]%
+            {{\small }}    
+            \label{fig:zGAN}
+        \end{subfigure}
+        \qquad
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{experiments/images/normal-pylorus.jpg}
+            \caption[Is this in use]%
+            {{\small  }}    
+            \label{fig:polypAEGREEN}
+        \end{subfigure}
+        \qquad
+        \begin{subfigure}[b]{0.4\textwidth}  
+            \centering 
+            \includegraphics[width=\textwidth]{experiments/images/normal-z-line.jpg}
+            \caption[Hate to be this guy]%
+            {{\small }}    
+            \label{fig:polypGAN}
+        \end{subfigure}
+        \qquad\vfill%\vskip\baselineskip
+        \begin{subfigure}[b]{0.4\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{experiments/images/polyps.jpg}
+            \caption[]%
+            {{\small }}    
+            \label{fig:zAE}
+        \end{subfigure}
+        \qquad%\hfill%\quad
+        \begin{subfigure}[b]{0.4\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{experiments/images/ulcerative-colitis.jpg}
+            \caption[]%
+            {{\small }}    
+            \label{fig:zGAN}
+        \end{subfigure}
+        \caption[ ]
+        {\small New text here} 
+        \label{fig:GC1GREEN}
+    \end{figure*}
     
-    %============================================
-\iffalse
-    \begin{figure}[t]
-       \centering
-        \subfloat[\centering g]{
-            \includegraphics[width=4.5cm, height=4.5cm]{experiments/images/dyed-lifted-polyps.jpg}
-       }
-       \subfloat[\centering g]{
-            \includegraphics[width=4.5cm, height=4.5cm]{experiments/images/dyed-resection-margins.jpg}
-        }
-        \hspace{0mm}
-       \subfloat[\centering g]{
-            \includegraphics[width=4.5cm, height=4.5cm]{experiments/images/esophagitis.jpg}
-        }
-        \subfloat[\centering g]{
-            \includegraphics[width=4.5cm, height=4.5cm]{experiments/images/normal-cecum.jpg}
-        }
-        \hspace{0mm}
-       \subfloat[\centering g]{
-            \includegraphics[width=4.5cm, height=4.5cm]{experiments/images/normal-pylorus.jpg}
-       }
-        \subfloat[][\centering g]{
-            \includegraphics[width=4.5cm, height=4.5cm]{experiments/images/normal-z-line.jpg}
-        }
-        \hspace{0mm}
-        \subfloat[\centering g]{
-           \includegraphics[width=4.5cm, height=4.5cm]{experiments/images/polyps.jpg}
-        }
-       \subfloat[\centering g]{
-            \includegraphics[width=4.5cm, height=4.5cm]{experiments/images/ulcerative-colitis.jpg}
-        }
-       \caption{Same image from the z-line with four different inpainting attempts. Each image is re-sized to fit in the figure.}
-        \label{fig:images_16}
-    \end{figure}
-\fi
+     
+
+
+
     %=============================================
 
-
+\section{Metrics}
 To discern the results of our experiments we introduce multiple metrics and tables to get an indication of our success. 
 The main dataset we used for training, Kvasir, was split into k number of folds, using k-fold cross-validation. 
 K-fold cross-validation is a tool used in statistics and machine learning to help to get an accurate representation of the data based on an average of the dataset.  In machine learning, it is a powerful tool that can help with adapting to new datasets and prevent overfitting. 
 Take the Kvasir dataset containing 8000 images with 1000 images from each class. We can choose a value for the number of folds, 'k', to be 6. This means that we split our dataset into six pieces before training.  With the six pieces, we assign one of them as a test set, and we assign the four other for training and validation. We then train our data five times, using four folds for training and the last fold for validation during training. For each training run we rotate the validation set, so each of the five folds is used for validation once. \todo{img of k fold}
 
 The advantage of this method is that we maximise the utility of the dataset. We find the distribution of the dataset that hopefully covers the most significant range of the unseen data. 
-\section{Metrics}
 \subsection{presantation of data, confusion matrix}
 With k-fold cross-validation, we end up with the dataset that scored the highest during the final validation step.  There are multiple ways to calculate metrics for how well a dataset is doing,  but they all are a comparison of the predicted class versus the true class.  
 Take for instance the case with the 8-class dataset Kvasir, where we predict an image to be of class 3, which in the real world be normal-z-line, while the actual True class is 5, and this might be esophagitis.\todo{rewrite}
