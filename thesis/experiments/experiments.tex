@@ -89,15 +89,15 @@ The
 
 \subsection{CVC-12k}
 \subsection{CVC-612}
-
+esdtgfgv
 
  
     
-\newpage
+
 
 %============================================
 
-    \begin{figure*}[t]
+    \begin{figure}[h!]
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
@@ -165,10 +165,10 @@ The
         \caption[ ]
         {\small New text here} 
         \label{fig:GC1GREEN}
-    \end{figure*}
+    \end{figure}
     
-     
-
+   
+\FloatBarrier
 
 
     %=============================================
@@ -185,44 +185,58 @@ With k-fold cross-validation, we end up with the dataset that scored the highest
 Take for instance the case with the 8-class dataset Kvasir, where we predict an image to be of class 3, which in the real world be normal-z-line, while the actual True class is 5, and this might be esophagitis.\todo{rewrite}
 
 We can represent this as 
-\begin{verbatim}
-[3, 5] 
-\end{verbatim}.
+\[
+\begin{bmatrix}
+ 3 & 5\\ 
+\end{bmatrix}
+\]
 Storing value pairs like this can very quickly get cluttered and unorganised.
 The most common way to store these value pairs is to use a confusion matrix.  We initiate the matrix as a \textit{NxN} matrix where N is the total number of classes.
-\begin{verbatim}
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
-\end{verbatim} 
-After we have initisialised the confusion matrix, we add each value pair as to the matrix at is corresoponding postition.  Given the pair \begin{verbatim} [3, 5]  \end{verbatim} we add one to the posistion corresoponding to (x=3,y=5).  Another example could be given the pair where we guessed class 0 and the true class was 0 (\begin{verbatim}[0, 0] \end{verbatim}), we add one to the matrix at position (x=0,y=0). Witch 2 examples we get the following confusion matrix.
-\begin{verbatim}
- [  1  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   1   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
- [  0  0   0   0   0   0   0   0]
-\end{verbatim}
+\[
+\begin{bmatrix}
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+\end{bmatrix}
+\]
+
+After we have initisialised the confusion matrix, we add each value pair as to the matrix at is corresoponding postition.  Given the pair \[\begin{bmatrix}
+ 3 & 5\\ 
+\end{bmatrix}\]
+we add one to the posistion corresoponding to (x=3,y=5).  Another example could be given the pair where we guessed class 0 and the true class was 0 \[\begin{bmatrix}
+ 0 & 0\\ 
+\end{bmatrix}\], we add one to the matrix at position (x=0,y=0). Witch 2 examples we get the following confusion matrix.
+\[
+\begin{bmatrix}
+ 1 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  1 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+ 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+\end{bmatrix}
+\]
 As we fill in the matrix with more predictions we can start to draw conclusions from it. After appoximently 1600 evaluations, our result might at the end look like this.
-\begin{verbatim}
- [195  50   0   0   0   0   2   1]
- [  4 148   1   0   0   0   0   0]
- [  0   0 152   0   3  40   0   5]
- [  0   1   0 198   0   0  13   4]
- [  0   0   0   0 195   1   5   2]
- [  0   0  47   0   1 159   0   0]
- [  1   0   0   0   0   0 172   8]
- [  0   1   0   2   1   0   8 180]
-\end{verbatim}
-We can see that the highest numbers lies around the diagonal. This means that most of our results were classified correctly as values at the diagonal is the same x and y values, and subsequently a correct prediction. 
+\[
+\begin{bmatrix}
+ 195 & 50 &  0 &  0 &  0 &  0 &  2  & 1\\
+   4 & 148&  1 &  0 &  0 &  0 &  0  & 0\\
+   0 &  0 & 152&  0 &  3 & 40 &  0  & 5\\
+   0 &  1 &  0 &198 &  0 &  0 & 13  & 4\\
+   0 &  0 &  0 & 0  &195 &  1 &  5  & 2\\
+   0 &  0 & 47 & 0  &  1 &159 &  0  & 0\\
+   1 &  0 &  0 & 0  &  0 &  0 & 172 &  8\\
+   0 &  1 &  0 & 2  &  1 &  0 &  8  & 180\\
+\end{bmatrix}
+\]
+We can see that the highest numbers lie around the diagonal. This centralisation means that most of our results were classified correctly, as values at the diagonal are the same x and y values, and subsequently a correct prediction. 
 We can also discern something about the four primary metrics associated with a value in the matrix.\\
 
 \textbf{True Positive (TP): } True positive for a specific class is when it is predicted positive, and the True label is also positive.  In the Kvasir dataset, we have a True positive result if, for the class polyp, we predict a polyp.\\
@@ -235,16 +249,15 @@ We can also discern something about the four primary metrics associated with a v
 \textbf{False Negative (FN): } False positive is the case where we fail to predict the class when it is True. This type of error is often called "Type 2 error". False Negative is, in our case, the least desirable outcome for our classes with pathological findings like Esophagitis, Polyps and Ulcerative Colitis.
 
 For our multiclass confusion table, we can look at the four metrics like this
-\todo{https://i.stack.imgur.com/AuTKP.png}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{experiments/figures/confusionmatrix.png}
+\caption{
+Confusion matrix with eight classes, here True positive is marked in green, False Negative and False positive marked in red, and False negative in blue.
+}
+\label{fig:confusionmatrix}
+\end{figure}
 
-%\begin{table}[]
-%\begin{tabular}{llll}
-%                            & \multicolumn{3}{l}{Predicted label} \\
-%\multirow{3}{*}{True label} &            & True      & False      \\
-%                            & True       & 5         & 7          \\
-%                            & False      & 2         & 10        
-%\end{tabular}
-%\end{table}  
 
 \subsection{common Metrics}
 When evaluating our results, we use a set of common metrics used in the field of statistics and machine learning.  The metrics are Recall (REC), Precision (PREC), Specificity (SPEC), Accuracy (ACC), Matthews correlation coefficient (MCC), and F1 score (F1). 
@@ -279,6 +292,7 @@ TPR=\frac{TN}{TN+FP}
 
 \vspace{5px}
 \textbf{F1 score:}
+F1 score
 
 \vspace{5px}
 \textbf{Matthews correlation coefficient:}
@@ -644,9 +658,189 @@ VII  - GAN with both                   & 256x256 px         & BC+GS    & GAN    
     
 
    
-
+\FloatBarrier
 
 \section{Results of the transfer learning experiments}
+In the last chapter, we looked at the generation of the new datasets. \textit{we looked at the parameters behind the creation of each of them}, and we discussed downfall and advantages with the autoencoder method versus the GAN method. 
+
+We are now looking at the results when using the newly created datasets when training a classifier for each one of them. 
+
+
+The model used for the classifier is the same for all the datasets. We use the same learning rate, the same model, and the same parameters for early stopping of the training.  In this section we will first go through the model, then we will look at the results for each of the runs.
+
+\subsection{models}
+The clssification models was as follows.
+First, we supply info about the model. This information is for instance batch size, type of network, and choice of an optimiser. 
+
+The network chosen is loaded with the imagenet weights. With the model loaded into memory, a global average pooling layer is added, followed by a fully connected layer with the number of nodes equal to the number of classes in the input dataset and a softmax activation step.
+
+With the model loaded we complete it by adding the desired optimiser, and set parameters like batch size, learning rate, validation patience, and image size.
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.7]{experiments/figures/model.png}
+        \caption{ The model we use for classifying with the most important options for the learning process. }
+    \label{fig:KTLmodel}
+\end{figure}
+
+\todo{here we talk about K-fold}
+
+
+\subsection{Base case}
+When we are looking at the models, we use the base case results as a reference point improve upon. 
+This base case is the result of a standard run of classification without any inpainting. 
+
+
+\begin{figure}
+\advance\leftskip-1.6cm
+	\begin{subfigure}[b]{0.3\textwidth}
+         \[
+		\begin{bmatrix}
+		1564 & 4362\\
+		  365  & 5663\\
+		\end{bmatrix}
+		\]
+         \caption{12k result}
+         \label{mat:cvc12kCM}
+     \end{subfigure} 
+     \begin{subfigure}[b]{0.5\textwidth}
+     \centering
+         \small
+         \[
+		\begin{bmatrix}
+		157&   9 &  0 &  0 &  0 &  0 &  2 &  0\\
+		  7  &157  & 0  & 0  & 0  & 0  & 0  & 0\\
+		  0  & 0 &145  & 0  & 1 & 27 &  0  & 0\\
+		  0  & 0 &  0 & 158 &  0 &  0 &  0  &  3\\
+		  0  & 0  & 0 &  0 & 161 &  0 &  2  &  1\\
+		  0  & 0 & 21 &  0 &  3& 139 &  0 &  0\\
+		  2  & 0 &  0 &  4 &  0 &  0 & 158 &  0\\
+		  0  & 0  & 0 &  4 &  1 &  0 &  4 & 162\\
+		\end{bmatrix}
+		\]
+         \caption{The kvasir CM}
+         \label{mat:kvasirCM}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.3\textwidth}
+         \[
+		\begin{bmatrix}
+		1563 &  38\\
+	 	365 &  318\\
+		\end{bmatrix}
+		\]
+         \caption{cvc356 result}
+         \label{mat:cvc356CM}
+     \end{subfigure}
+     \advance\rightskip-1.6cm
+      \caption{The baseline confusion matrixes}
+        \label{fig:BaselineCM}
+\end{figure}
+
+Matrix \todo{ref matrix} shows the evaluation of the test set on each of the three datasets used. 
+On the Kvasir dataset, we used five folds for training and validation, and the last sixth fold for the testing. That left us with 1342 images divided evenly between the classes. 
+In this Confusion matrix, we see that most of the samples lie throughout the diagonal, which, as we recall, is the correct classification.
+
+For the CVC 12k results we have wrong. 
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+		\begin{tabular}{ll}
+		\multicolumn{2}{c}{Kvasir dataset}        \\
+		MCC & 0.9    \\
+		Accuracy                         & 1      \\
+		Recall                              & 0.5    \\
+		Precicion                        & 0.2143 \\
+		Accuracy                        & 0.1234 \\
+		F1                                     & 0.1234
+		\end{tabular}
+    \caption{The kvasir CM}
+    \label{mat:kvasirCM}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+      \centering
+		\begin{tabular}{ll}
+		\multicolumn{2}{c}{CVC356 dataset}        \\
+		MCC & 0.9    \\
+		Accuracy                         & 1      \\
+		Recall                              & 0.5    \\
+		Precicion                        & 0.2143 \\
+		Accuracy                        & 0.1234 \\
+		F1                                     & 0.1234
+		\end{tabular}
+    \caption{12k result}
+    \label{mat:cvc12kCM}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+		\begin{tabular}{ll}
+		\multicolumn{2}{c}{CVC 12k dataset}        \\
+		MCC & 0.9    \\
+		Accuracy                         & 1      \\
+		Recall                              & 0.5    \\
+		Precicion                        & 0.2143 \\
+		Accuracy                        & 0.1234 \\
+		F1                                     & 0.1234
+		\end{tabular}
+   \caption{cvc356 result}
+   \label{mat:cvc356CM}
+   \end{subfigure}
+   \caption{The baseline confusion matrixes}
+   \label{fig:BaselineCM}
+\end{figure}
+
+
+
+
+
+
+
+
+
+Here we can see that the oesophagus and z-line sucks. 
+
+We in general need models that do this. 
+
+Next, we are looking at CVC12k. As described in chapter \todo{refdatasets} we only have 2 classes; polyp and non-polyp.
+
+
+
+
+
+\subsection{Corners inpainted result}
+This dataset is our first dataset, connected to our first hypothesis. Here the corners were inpainted only.  
+From our hypothesis, we would expect the best result to come from the Kvasir test set since the area we remove is not just dataset specific for Kvasir.
+
+\vspace{5px}
+------------------------------\\
+This is a table for the AE and GAN with corners.\\
+The first model is the Kvasir dataset.\\
+MCC ACC SPEC \\
+Confusion tables?\\
+------------------------------\\
+
+Figure \todo{ref} shows us the results when training and testing on the Kvasir dataset with only corners inpainted. 
+
+
+\subsection{double image size}
+
+\subsection{Inceptionresnetv2}
+
+
+\section{Classification results}
+From the results, we see that inpainting the green square gives a better MCC score, compared to the base case When dealing with the images at 256 resolution. 
+
+
+
+\section{Summary}
+
+
+
+   
+ 
 
 
 
