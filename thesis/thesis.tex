@@ -1,4 +1,4 @@
-\documentclass[a4paper,english,twoside]{ifimaster}
+\documentclass[a4paper,english,twoside,11pt]{ifimaster}
 
 \usepackage[utf8]{inputenc}
 \usepackage{babel,duomasterforside}
@@ -14,6 +14,7 @@
 \usepackage{multicol}
 \usepackage[toc,page]{appendix}
 \usepackage{ dsfont } %MATH SYMBOLS
+%\geometry{textwidth=370pt} %%%%%%%%%%%%%%%%%%%%%%%is this right?
 
 
 \usepackage[justification=centering]{caption}
@@ -31,13 +32,14 @@
 \usepackage{tkz-graph} 
 %\usepackage{pgfkeys, pgfplots, pgfmath, pgfcore}
 \usepackage{placeins}
+\usepackage{blkarray}
 
 %\theoremstyle{definition}
 %\newtheorem{exmp}{Example}[section]
 %\newtheorem{defi}{Definition}[section]
 
 %\setcounter{secnumdepth}{6} %this is so that i can ref to paragraph
-
+\newcommand{\myfontsize}{\footnotesize}
 
 \title{Using unsupervised machine learning as a tool for polyp detection in the GI tract}
 %\subtitle{}
@@ -90,7 +92,7 @@
 %\input{conclusion/conclusion.tex}
 
 \chapter{Future Work} \label{cap:future}
-%\input{future/future.tex}
+\input{future/future.tex}
 
 %\chapter{Appendix}
 
