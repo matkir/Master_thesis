@@ -9,8 +9,11 @@
 \usepackage{graphicx, chngpage}
 \usepackage{geometry}
 \usepackage{todonotes}
+
 \usepackage[backend=biber,style=authoryear]{biblatex}
-\addbibresource{bibliography.bib}
+\addbibresource{bibl.bib}
+
+
 \usepackage{multicol}
 \usepackage[toc,page]{appendix}
 \usepackage{ dsfont } %MATH SYMBOLS
@@ -33,6 +36,8 @@
 %\usepackage{pgfkeys, pgfplots, pgfmath, pgfcore}
 \usepackage{placeins}
 \usepackage{blkarray}
+\usepackage{pdfpages}
+
 
 %\theoremstyle{definition}
 %\newtheorem{exmp}{Example}[section]
@@ -48,6 +53,7 @@
 %\bibliography{library}
 %\geometry{textwidth=370pt}
 %\geometry{textwidth=420pt}
+\bibliography{bibl}
 
 \begin{document}
 \duoforside[dept={Department of Informatics},program={Informatics: Technical and Scientific Applications},long]
@@ -94,12 +100,15 @@
 \chapter{Future Work} \label{cap:future}
 \input{future/future.tex}
 
-%\chapter{Appendix}
 
 
 \backmatter{}
-\printbibliography
+\printbibliography{}
 
+
+\chapter{Appendix}
+\includepdf[pages={1-3}]{appendix/PaperMediaEval.pdf}
+\includepdf[pages={1-6}]{appendix/PaPerIEEE.pdf}
 %\begin{appendices}
 %\chapter{The preparation Process} \label{ap}
 %\input{preparation.tex}

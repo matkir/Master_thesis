@@ -52,9 +52,9 @@ Pathological findings are the group of images that are especially important to d
 \paragraph{Esophagitis}
 Esophagitis is an inflammation oesophagus near the Z-line. Usually, the oesophagus is composed of a mucosal lining and circular smooth muscle fibres, but when a patient has a condition like a gastroesophageal reflux disease the area can become inflamed. 
 Clinically, detection of this inflammation is necessary for treatment initiation to relieve the symptoms and to prevent further development that can lead to more complications.
+\cite{Goodfellow-et-al-2016}
 
-
-\paragraph{polyps}
+\paragraph{Polyps}
 Polyps are lesions in the bowel detectable as mucosal outgrowths. There are multiple types of polyps that are either flat, elevated, or pedunculated. Polyps are distinguishable from normal mucosa as they have a different colour and surface texture. Most of these bowel anomalies are harmless, but they have, as discussed in the introduction, the possibility to become cancerous. 
 There is a big focus dedicated to the removal and detection of there polyps as they are a significant threat to cancer of not treated in time. Because of the different shape and rate of outgrowth, medical staff overlook a small, but significant part of the polyps during routine procedures. 
 This rate of error was the most significant driving force for investing in computer-aided medical diagnosis, and subsequently creating the Kvasir dataset.
@@ -176,13 +176,25 @@ esdtgfgv
 \section{Metrics}
 To discern the results of our experiments we introduce multiple metrics and tables to get an indication of our success. 
 The main dataset we used for training, Kvasir, was split into k number of folds, using k-fold cross-validation. 
-K-fold cross-validation is a tool used in statistics and machine learning to help to get an accurate representation of the data based on an average of the dataset.  In machine learning, it is a powerful tool that can help with adapting to new datasets and prevent overfitting. 
-Take the Kvasir dataset containing 8000 images with 1000 images from each class. We can choose a value for the number of folds, 'k', to be 6. This means that we split our dataset into six pieces before training.  With the six pieces, we assign one of them as a test set, and we assign the four other for training and validation. We then train our data five times, using four folds for training and the last fold for validation during training. For each training run we rotate the validation set, so each of the five folds is used for validation once. \todo{img of k fold}
+K-fold cross-validation is a tool used in statistics and machine learning to help to get an accurate representation of the data based on finding a statistical average of the dataset.  In machine learning, it is a powerful tool that can help with adapting to new datasets and prevent overfitting. 
+We recall that the Kvasir dataset contains 8000 images, with 1000 of each class. 
+In our testing we split the dataset up in k=6 folds. This means that we split our dataset into six pieces before training.  With the six folds, we assign one of them as a test set, and we assign the four other for training and validation. We then train our data five times, using four folds for training and the last fold for validation during training. For each training run we rotate the validation set, so each of the five folds is used for validation once. \todo{img of k fold}
+
+\begin{figure}[h]
+\hspace*{-1cm}                                                           
+\centering
+\includegraphics[scale=0.4]{experiments/figures/KfoldKvasir_compressed.png}
+\caption{The Kvasir divided in to 6 folds}
+\label{fig:KfoldKvasir}
+\end{figure}
 
 The advantage of this method is that we maximise the utility of the dataset. We find the distribution of the dataset that hopefully covers the most significant range of the unseen data. 
-\subsection{presantation of data, confusion matrix}
+
+\subsection{Presentation of data, confusion matrix}
 With k-fold cross-validation, we end up with the dataset that scored the highest during the final validation step.  There are multiple ways to calculate metrics for how well a dataset is doing,  but they all are a comparison of the predicted class versus the true class.  
-Take for instance the case with the 8-class dataset Kvasir, where we predict an image to be of class 3, which in the real world be normal-z-line, while the actual True class is 5, and this might be esophagitis.\todo{rewrite}
+%A:dyed-lifted-polyps , B:dyed-resection-margins , C:esophagitis , D:normal-cecum , E:normal-pylorus , F:normal-z-line , G:polyps , H:ulcerative-colitis , I:non-polyp
+
+Take for instance the case with the 8-class dataset Kvasir, where we predict an image to be normal-cecum. We translate this to an integer representation of, for instance, class 3. In our example the actual True class is normal-z-line, here represented as 5. 
 
 We can represent this as 
 \[
@@ -191,52 +203,69 @@ We can represent this as
 \end{bmatrix}
 \]
 Storing value pairs like this can very quickly get cluttered and unorganised.
-The most common way to store these value pairs is to use a confusion matrix.  We initiate the matrix as a \textit{NxN} matrix where N is the total number of classes.
-\[
-\begin{bmatrix}
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
-\end{bmatrix}
-\]
+The most common way to store these value pairs is to use a confusion matrix.  We initiate the matrix as a \textit{$N \times N$} matrix where N is the total number of classes as shown in Figure \ref{mat:emptyCM}
 
-After we have initisialised the confusion matrix, we add each value pair as to the matrix at is corresoponding postition.  Given the pair \[\begin{bmatrix}
- 3 & 5\\ 
-\end{bmatrix}\]
-we add one to the posistion corresoponding to (x=3,y=5).  Another example could be given the pair where we guessed class 0 and the true class was 0 \[\begin{bmatrix}
- 0 & 0\\ 
-\end{bmatrix}\], we add one to the matrix at position (x=0,y=0). Witch 2 examples we get the following confusion matrix.
-\[
-\begin{bmatrix}
- 1 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  1 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
- 0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
-\end{bmatrix}
-\]
-As we fill in the matrix with more predictions we can start to draw conclusions from it. After appoximently 1600 evaluations, our result might at the end look like this.
-\[
-\begin{bmatrix}
- 195 & 50 &  0 &  0 &  0 &  0 &  2  & 1\\
-   4 & 148&  1 &  0 &  0 &  0 &  0  & 0\\
-   0 &  0 & 152&  0 &  3 & 40 &  0  & 5\\
-   0 &  1 &  0 &198 &  0 &  0 & 13  & 4\\
-   0 &  0 &  0 & 0  &195 &  1 &  5  & 2\\
-   0 &  0 & 47 & 0  &  1 &159 &  0  & 0\\
-   1 &  0 &  0 & 0  &  0 &  0 & 172 &  8\\
-   0 &  1 &  0 & 2  &  1 &  0 &  8  & 180\\
-\end{bmatrix}
-\]
-We can see that the highest numbers lie around the diagonal. This centralisation means that most of our results were classified correctly, as values at the diagonal are the same x and y values, and subsequently a correct prediction. 
+\begin{figure}
+    \centering
+    \[
+    \begin{bmatrix}
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+    \end{bmatrix}
+    \]
+    \caption{An empty confusion matrix}
+    \label{mat:emptyCM}
+\end{figure}
+
+
+
+After we have initialised the confusion matrix, we add each value pair as to the matrix at is corresponding position.  
+Given the pair $\begin{bmatrix} 3 & 5 \end{bmatrix}$ we add one to the position corresponding to (x=3,y=5). 
+ Another example could be given the pair where we guessed class 0 and the true class was 0:  $\begin{bmatrix}  0 & 0 \end{bmatrix}$, we add one to the matrix at position (x=0,y=0). Witch 2 examples we get the following confusion matrix shown in Figure \ref{mat:nonemptyCM}
+
+\begin{figure}
+    \centering
+    \[
+    \begin{bmatrix}
+     1 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  1 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+     0 & 0 &  0 &  0 &  0 &  0 &  0 &  0\\
+    \end{bmatrix}
+    \]
+    \caption{The confusion matrix with [3 5] and [0 0] inserted }
+    \label{mat:nonemptyCM}
+\end{figure}
+
+As we fill in the matrix with more predictions we can start to draw conclusions from it. After approximately 1600 evaluations, our result might at the end look like this.
+\begin{figure}
+    \centering
+    \[
+    \begin{bmatrix}
+     195 & 50 &  0 &  0 &  0 &  0 &  2  & 1\\
+       4 & 148&  1 &  0 &  0 &  0 &  0  & 0\\
+       0 &  0 & 152&  0 &  3 & 40 &  0  & 5\\
+       0 &  1 &  0 &198 &  0 &  0 & 13  & 4\\
+       0 &  0 &  0 & 0  &195 &  1 &  5  & 2\\
+       0 &  0 & 47 & 0  &  1 &159 &  0  & 0\\
+       1 &  0 &  0 & 0  &  0 &  0 & 172 &  8\\
+       0 &  1 &  0 & 2  &  1 &  0 &  8  & 180\\
+    \end{bmatrix}
+    \]
+    \caption{The confusion matrix with  almost 1600 predictions}
+    \label{mat:FullCM}
+\end{figure}
+We can see that the majority of predictions lie around the diagonal. This centralisation means that most of our results were classified correctly, as values at the diagonal are the same x and y values, and subsequently a correct prediction. 
 We can also discern something about the four primary metrics associated with a value in the matrix.\\
 
 \textbf{True Positive (TP): } True positive for a specific class is when it is predicted positive, and the True label is also positive.  In the Kvasir dataset, we have a True positive result if, for the class polyp, we predict a polyp.\\
@@ -253,58 +282,102 @@ For our multiclass confusion table, we can look at the four metrics like this
 \centering
 \includegraphics[scale=0.7]{experiments/figures/confusionmatrix.png}
 \caption{
-Confusion matrix with eight classes, here True positive is marked in green, False Negative and False positive marked in red, and False negative in blue.
+Confusion matrix with eight classes, here True positive is marked in green, False Negative and False positive marked in red, and True negative in blue.
 }
 \label{fig:confusionmatrix}
 \end{figure}
 
 
 \subsection{common Metrics}
-When evaluating our results, we use a set of common metrics used in the field of statistics and machine learning.  The metrics are Recall (REC), Precision (PREC), Specificity (SPEC), Accuracy (ACC), Matthews correlation coefficient (MCC), and F1 score (F1). 
+When evaluating our results, we use a set of common metrics used in the field of statistics and machine learning.  The metrics we will be using in this thesis are Recall (REC), Precision (PREC), Specificity (SPEC), Accuracy (ACC), Matthews correlation coefficient (MCC), and F1 score (F1). 
 
 
 \vspace{5px}
-\textbf{Accuracy:}  Accuracy is one of the simplest metrics to understand. It describes how many of our predictions were correct out of the total predictions made. It is the most common metric given its simplicity both in calculation and understanding. 
-In general when our data is balanced, and we only have a few classes, we can get away with using accuracy. 
-In this project, we use accuracy during the training step as a metric of success.
+\textbf{Accuracy:}  
+Accuracy is simply the percentage of the predictions that were classified correctly.
+It describes how many of our predictions were correct out of the total predictions made as shown in equation \ref{eq:ACC}. It is the most common metric given its simplicity both in calculation and understanding. 
+In general when our data is balanced, and we only have a few classes, we can get away with using accuracy.
+A pitfall with accuracy is the lack of comprehensive overview of the data, as it is just a summation without respect to classes involved.
+In this project, we use accuracy during the training step as a metric of success. 
  \begin{equation}
 ACC=\frac{TP+TN}{TP+TN+FP+FN}
+\label{eq:ACC}
 \end{equation}
 
 \vspace{5px}
-\textbf{Recall:}  Recall is the probability of detection . In a binary classification set, it measures the proportion of actual positives that are correctly identified as such. 
+\textbf{Recall:}  
+Recall is the probability of detection, or sensitivity.
+This metric is a measure of the fraction of relevant instances that have been retrieved over the total amount of relevant instances for a binary classification example.
 For our medical image classification, this metric can help us understand how our algorithms work by looking at classes where we have small anomalies in the images, like the case with polyps.
 %\todo{ "Detector Performance Analysis Using ROC Curves – MATLAB & Simulink Example". www.mathworks.com. Retrieved 11 August 2016.}
+
 \begin{equation}
-TPR=\frac{TP}{TP+FN}
+REC=\frac{TP}{TP+FN}
+\label{eq:REC}
 \end{equation}
+
+
+
 
 \vspace{5px}
 \textbf{Specificity:} Specificity measures the proportions of our samples that were correctly identified as negative, when the true class were also negative. 
+Specificity is related to recall as an opposite in the binary class example.
+Equation \ref{eq:SPEC} shows the equation used for specificity.
 \begin{equation}
 TPR=\frac{TN}{TN+FP}
+\label{eq:SPEC}
 \end{equation}
+
+
 
 \vspace{5px}
 \textbf{Precision:}
+Precicion is the meassure of relevance in the binary classification case.
+As we can see from equation \ref{eq:PREC} the formula is similar to recall, but it only looks at the positive samples. 
+\begin{equation}
+PREC=\frac{TP}{TP+FP}
+\label{eq:PREC}
+\end{equation}
 
 
 
 \vspace{5px}
 \textbf{F1 score:}
-F1 score
+F1 score is a combination of precision and recall. It is one of the most common metric to compare the performance of statistical models.
+Equation \ref{eq:F1} shows the F1 score as it is most commonly used.
+
+\begin{equation}
+F1=\frac{precision \times recall}{precision + recall}
+\label{eq:F1}
+\end{equation}
+
+
 
 \vspace{5px}
 \textbf{Matthews correlation coefficient:}
+Matthews correlation coefficient is a metric that takes all four possible states of TP, TN, FN and FP in to account. As with the F1 score, the Matthews correlation coefficient gives a score that is based on a more complete understanding of the data compared to how metrics like recall and precision only looks at a subset of the data.
+
+Equation \ref{eq:MCC} shows the formula. It can output a score from -1 to 1, where 1 is a correct classification and -1 a total incorrect prediction. A score of 0 shows no statistical relevance in the result we have.
+\begin{equation}
+MCC=\frac{TP \times TN - FP \times FN}{\sqrt{(TP + FP)(TP + FN)(TN + FP)(TN + FN)}}
+\label{eq:MCC}
+\end{equation}
+
+
+
+
+
+
 
 \subsection{Singleclass vs Multiclass Metrics}
 
 The metrics presented are, in general, a solid way to present the validity of a model. However, not all metrics presented is the same when switching between single and multiclass classification.  Metrics like Accuracy is designed to work for multiclass classification, given that there is only one way to calculate the score.
 \begin{equation}
-\frac{sum(diag(covariance_matrix))}{sum(covariance_matrix))}
+\frac{\sum (diag(Covarience Matrix))}{\sum(Covariance Matrix)}
+\label{eq:ACCalt}
 \end{equation}
 
-The problem with multiclass metrics arises when there is more than one way to calculate the metrics needed, this can be for instance Recall and Specificity, where we have multiple ways to add together the classwise scores. The three most common ways to calculate the average are:
+The problem with multiclass metrics arises when there is more than one way to calculate the metrics needed, this can be for instance Recall and Specificity, where we have multiple ways to add together the class-wise scores. The three most common ways to calculate the average are:
 
 \textbf{Micro average}: calculates the mean value of each of the binary metrics and averages the result over the total number of samples. 
 Micro average ignores all class frequencies and gives us a metric based on all samples gathered. Micro-averaging may be preferred in multilabel settings, including multiclass classification where a majority class is to be ignored.\\
@@ -322,10 +395,16 @@ In addition to looking at the Macro average of precision and recall, we want to 
 For instance, a focus we have in this thesis is to give a score on how predictable polyp detection is, and on that case, we want to discuss the True positive rate (TPR) of the polyp detection and not the TPR of the non-polyp classes. 
 
 Take for instance the matrix shown in \todo{fig}\\
-\begin{verbatim}
-[[10 1]
- [3 12]]
-\end{verbatim}
+\[
+\begin{bmatrix}
+ 10 & 1 \\
+ 3 & 12 \\
+\end{bmatrix}
+\]
+
+
+
+
 Here we can calculate the weighted average recall to be \textbf{x}. This can be an interesting observation in itself, but often the first or second True label is much more important relative to the other.  In a more practical example: We are more interested in finding areas with polyps when we know they are present, compared knowing there is not a polyp in an area when none are present. 
 
 These Metrics becomes a more prominent topic when it comes to inpainting. With inpainting, we take areas with no relevant information and makes it into areas that are similar to the rest of the image. Given that we can inpaint over polyps by mistake, or that we might train our classifiers to not look in certain areas when classifying, we have an interest if also comparing single cases of recall and precision included to the average values.
