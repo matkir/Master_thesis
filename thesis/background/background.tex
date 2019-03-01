@@ -18,13 +18,13 @@ Another example is the invention and usage of gastro-stick-with-camera.
 
 
 \subsection{Endoscopy and Colonoscopy}
-Gastrointestinal endoscopies are one of the most common medical examinations where the mucosa of the patient is visualised via a camera through the whole of the GI tract. \todo{cite:https://www.ncbi.nlm.nih.gov/pubmed/24085634}
+Gastrointestinal endoscopies are one of the most common medical examinations where the mucosa of the patient is visualised via a camera through the whole of the GI tract. \cite{Holme13}
 Today the medical staff working with the visual screening of the intestinal tract use primarily two different methods: colonoscopy and gastroscopy. 
 Colonoscopy is the practice of inserting a colonoscope into the rectum and moving through the large intestine towards the small intestine.  Gastroscopy is the practice of inserting a camera via the mouth to get a visualisation through the stomach.
 
 The endoscopic tool used for this visualisation is made out of a flexible tube with a charged coupled device (CCD) working as a camera at the end. In addition to the light sensing chip, there is also an optical fibre to transport light to the camera. At the other end, the colonoscope is connected to a device that records the video, and a light source for the optical fibre.
 The video from the CCD is shown live for the medical staff for the doctors to analyse.
-%\todo{cite:https://www.who.int/medical_devices/innovation/colonoscope.pdf}
+\cite{Colonoscope}
 
 
 \subsection{pill cam}
@@ -46,12 +46,17 @@ We have now looked at the medical perspective of colonoscopy. We see that the pr
 
 \section{Machine Learning}
 We have looked at the challenges that the medical staff has when it comes to detecting polyps, and how it is solved today.
-However, to truly understand how automated systems like Mirmir\todo{cite} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are after.  
+However, to truly understand how automated systems like Mirmir~\cite{Steven2018MimirPaper} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are after.  
 
 Machine learning is a broad term, but can, in short, be summarised by:\\
 \vspace{10px}
 
-\textit{ A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with the experience E. } \cite{MitchellTomM1997Ml}\\
+\begin{quote}
+ A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with the experience E. \cite{MitchellTomM1997Ml}
+
+\end{quote} 
+\label{ML}
+
 
 \vspace{10px}
 A few things of note from this quote is the variables mentioned in the quote. Experience e is the stored knowledge the program has gotten. It is in most cases just numbers used to approximate a solution given an input, to try to get it as close to the right answer. This approximation is made for every task T until we are happy with the result.
@@ -63,31 +68,29 @@ As the amount of experience increase, both for us and the machine, the performan
 We have talked about machine learning in broad terms at this point. We have drawn a parallel between how humans learn, and how machines gather experience.  Now we will look into the most popular machine learning techniques, and show the machine learning algorithms stores the experience gathered.
  
 \subsection{Machine learning types}
-With a basis in the quote from \cite{MitchellTomM1997Ml} \todo{fix}, we have a broad definition of what machine learning can be.
+With a basis in the quote from the machine learning book from Tom Mitchell~\cite{MitchellTomM1997Ml} , we have a broad definition of what machine learning can be.
 As long as we have a model trying to complete a task based on previous experience, it can be called machine learning. Though just like humans, we have multiple ways to gather and retain information.
 
 Figure \ref{fig:ML_types} shows a chart over the three most common categories within the field of machine learning. 
 
     \begin{figure}[h]
         \centering
-        \includegraphics[scale=0.3]{background/figures/ML_types.png}
+        \includegraphics[scale=0.6]{background/figures/ML_types.png}
         \caption{The three main types of machine learning and their subtypes}
     \label{fig:ML_types} 
     \end{figure}
 
-We have three subcategories of machine learning: Supervised, Unsupervised, and Reinforcement learning. \todo{more}
+We have three subcategories of machine learning: Supervised, Unsupervised, and Reinforcement learning. 
+We will now present the three methods briefly, then we will look at famous examples that helped shape machine learning types and algorithms we are using today.
 
-\subsubsection{supervised machine learning}
-Supervised machine learning is the simplest form of machine learning to understand. It is also the most prominent where x\% is and \todo{finish and cite}
-
-Supervised machine learning functions have the objective of, given an input-output pair, approximate the input to be as close to the output.  \todo{ Stuart J. Russell, Peter Norvig (2010) Artificial Intelligence: A Modern Approach, Third Edition, Prentice Hall ISBN 9780136042594.}
-Alternatively, in simpler terms, given an input x, produce an answer as close as possible to the output y.
+\subsubsection{Supervised machine learning}
+Supervised machine learning concerns the iterative process of labelling data based on previously labelled data.  Supervised machine learning functions have the objective of, given an input-output pair, approximate the input to be as close to the output.~\cite{AI:ModernApproach} Alternatively, in simplistic terms, given an input x, produce an answer as close as possible to the output y.
 A supervised algorithm analyses the training data and produces an inferred function, which can be used to map new data entries. 
 
-\todo{steps}
-\todo{more info}
-\textbf{Supervised learning:} is the act of training with data that has an answer or a label. The learning algorithm can get supervision while training on the task. An example of a supervised task is to recognise handwritten numbers, or differentiate between dogs and cats. The task is considered supervised if the images come with the correct label in the data set. These  examples are typical classification examples, where the task is to identify the right group to classify the data to %TODO more
-A simpler classification assignment is binary classification, where the target is (often) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian or International. In the last example, the classification changes from binary to multi-class if we sort the cars on every nationality, and not just Norwegian/non-Norwegian. Another type of a supervised learning task is regression. Regression is the act of prediction given prior data. Examples of regression are everything from the prediction of stock prices, to house prices in an area, to\\ %TODO more
+
+Examples of supervised tasks are to recognise handwritten numbers, or differentiate between different car models. The task is considered supervised if the images come with the correct label in the data set. 
+A more straightforward classification assignment is binary classification, where the target is (often) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian or International. In the last example, the classification changes from binary to multi-class if we sort the cars on every nationality, and not just Norwegian/non-Norwegian. Another type concerning supervised learning tasks is regression. Regression is the act of prediction given prior data. Examples of regression are the prediction of stock prices, to house prices in an area, to predicting patterns in the weather.
+
 \begin{figure}
     \centering
     \includegraphics[scale=0.5]{figures/class_vs_reg.png}
@@ -96,11 +99,12 @@ A simpler classification assignment is binary classification, where the target i
   
 
 
-\subsubsection{unsupervised machine learning}
-\textbf{Unsupervised learning:} is the act of training without any supervision, on the sense that we do not give the algorithm the answer to the training data set. %TODO more 
-Since we do not have categorised data in unsupervised learning, we often %TODO more
-Types of unsupervised learning can, for instance, be clustering, the act of sorting data based on similarity.
-An example of this can be if we want to sort plants based on species, or we are detecting anomalies in a dataset. Unsupervised learning can be used for PCA %TODO CITE 
+\subsubsection{Unsupervised machine learning}
+Unsupervised learning is the act of training without any supervision, on the sense that we do not give the algorithm the same input-output pair as in supervised learning. 
+Since we do not have categorised data in unsupervised learning, we often want the algorithms to find some underlying structure of the data, rather than classifying it.
+Types of unsupervised learning can, for instance, be clustering, the act of sorting data based on similarity or it can be dimentionality reduction, the act of simplify or compress the data.
+
+An example of this can be if we want to sort plants based on species, or we are detecting anomalies in a dataset. Unsupervised learning can be used for PCA~ %TODO \cite{}
 or other dimensionality reduction methods.\\
 A third method to used unsupervised learning is the adversarial route, where we use machine learning to make similar looking data to the original data set. 
         
@@ -115,12 +119,19 @@ In the description of supervised vs unsupervised we looked at a specific branch 
       
 \begin{itemize}
     \item subsfication
-    \item r to the pillcam projression 
+    \item r to the pillcam progression 
     \item transcription/translation
     \item de-noising /finding missing inputs
     \end{itemize}
       
-\subsubsection{rienforcement learning}
+\subsubsection{Reinforcement learning}
+Is the area in machine learning that is concerned with how a software agent ought to take actions.
+The actions taken is based on the environment and it is influenced by the objective to get the maximum reward.
+It is closely influenced by behaviorism, with the fact that the agent want to constantly maximize the reward obtained. 
+
+Successful types of reinforcement learning alogrithms are, for instance, Deep Recurrent Q-Learning~\cite{DBLP:journals/corr/HausknechtS15}, State–action–reward–state–action (SARSA)~\cite{Rummery94on-lineq-learning}.
+
+Reinforcement learning algorithms like these can not be categorized under either supervised or unsupervised machine learning. \todo{more?}
 
 
 \subsubsection{Famous machine learning types}
@@ -164,35 +175,33 @@ After this, we look into a more advanced example utilising a Generative adversar
 
     
 \section{How machine learning works}   
-\todo{tell that this is loosely based on deeplearningbook, basic machine learning}
+%\todo{tell that this is loosely based on deeplearningbook, basic machine learning}
 One of the easiest to understand tasks in machine learning is the process of regression. As stated earlier, regression is a process of approximation given prior input.
-
 We start with one of the simplest forms of approximation, namely linear approximation. In linear approximation, we are interested in finding the function that best defines our data using only a polynomial of the first degree.  First, we recall that a first-order function is always on the form
 \begin{equation}
 y = ax +b 
 \end{equation}
-Where x is input, y is output and the constants a and b  defines the function.
+Where x is input, y is output and the constants a and b defines the function.
     
-\begin{figure}
+\begin{figure}[h]
 \centering
-\includegraphics[scale=0.05]{background/figures/linear_regression.png}
-\caption{Example of linear regression in Geogebra Here the red line is the best approxmiation of a y value, given an x value.} 
+\includegraphics[scale=0.1]{background/figures/linear_regression.png}
+\caption{Example of linear regression in Geogebra Here the red line is the best approximation of a y value, given an x value.} 
 \label{fig:geogebra}
 \end{figure} %credit AK for img
-\todo{cite geogebra}.
-Figure \ref{geogebra} shows an ideal example of linear regression. Here we approximate the values of our model with the straight line defined by choosing the right slope (a) and the right constant (b).
+Figure \ref{fig:geogebra} shows an ideal example of linear regression. Here we approximate the values of our model with the straight line defined by choosing the right slope (a) and the right constant (b).
 With the knowledge of math, we look into how to do it computationally with the help of simple machine learning. 
 
- 
-We can recall from the quote by \cite{MitchellTomM1997Ml} that we gain experience E by doing a task T. In our example we choose to store our experience as its done in equation \ref{eq:ML_lin}.
+
+We can recall from the quote \ref{ML} by \cite{MitchellTomM1997Ml} that we gain experience E by doing a task T. In our example we choose to store our experience as its done in equation \ref{eq:ML_lin}.
     
 \begin{equation}
 y=W^{(1)}x+W^{(2)}\\
 \label{eq:ML_lin}
 \end{equation}
 
-Here, like before, our output is y, and our input is x. We have replaced a and b with new placeholders $W^{(1)}$ \& $W^{(2)}$.
-Now our goal is to, given a task T, gain experience E and store it in $W^{(1)}$ and $W^{(2)}$. With our values for $W^{(1)}$ \& $W^{(2)}$ we want the best performance P.  The best performance here is defined as getting the smallest difference between the predicted output data and the actual output data. 
+Here, like before, our output is y, and our input is x. We have replaced a and b with new placeholders $W^{(1)}$ and $W^{(2)}$.
+Now our goal is to, given a task T, gain experience E and store it in $W^{(1)}$ and $W^{(2)}$. With our values for $W^{(1)}$ and $W^{(2)}$ we want the best performance P.  The best performance here is defined as getting the smallest difference between the predicted output data and the actual output data. 
 
 
 The most prominent way of calculating this error is to use the mean square error between the predicted and actual output of the data. 
@@ -200,62 +209,78 @@ The most prominent way of calculating this error is to use the mean square error
      MSE=\frac{1}{2m} \sum_i (\hat{y}-y)_i^2
 \end{equation}
 Where $m$ is the number of samples, $y$ is the real output, and $\hat{y}$ is the predicted output. The 2 in the denominator is just a constant to make the derivation of the formula easier.\\
-    
 From this, we can intuitively see that the error tends towards 0 when $\hat{y}$=$y$. We can also note, because of the squaring in the formula, that the error is only based on L2 distance between $\hat{y}$ and $y$.\\
-
-Now that we have an error, we need a way to improve it \todo{more about GDEC}
-At this point, we have a way to store experience E (in  $W^{(1)}$ \& $W^{(2)}$), measure performance P (in the MSE), and we have tasks T (in the form of input-output pairs).
-
-
+Now that we have an error, we need a way to improve it.
+At this point, we have a way to store experience E (in  $W^{(1)}$ and $W^{(2)}$), measure performance P (in the MSE), and we have tasks T (in the form of input-output pairs).
 Given an input-output pair, we will now look at how to use machine learning to better approximate the next input-output pair.
 
-   
+\vspace{5px}
 Lets start with: 
 \begin{equation}
-    x=\left[ \begin{array}{c} 1\\ 2\\ 3\\ \end{array} \right]
+    x=\left[ \begin{array}{c} 1\\ 2\\ 3\\ \end{array} \right],
     y=\left[\begin{array}{c} 1.5\\2\\ 2.5\\\end{array}\right]
 \end{equation}
-with the weights $W^{(1)}=0$ and $W^{(2)}=0$
-Using the formula \ref{eq:ML_lin} we can calculate  $\hat{y}$ to be
+As we can discern from this formula, our ideal model would lie at $y=0.5x + 1$. This means that our ideal weights would be  $W^{(1)}=0.5$ and $W^{(2)}=1$
+In our initial formula we set the the weights $W^{(1)}=1$ and $W^{(2)}=0$\\
+Using the formula \ref{eq:ML_lin} with the input $x$ values we can calculate  $\hat{y}$ to be:
 \begin{equation}
-    \hat{y}=\left[\begin{array}{c} 0\\0\\ 0\\\end{array}\right]
+    \hat{y}=\left[\begin{array}{c} 1\\ 2\\ 3\\ \end{array}\right]
 \end{equation}
-
 We can now calculate the performance by applying the mean square error function. Using \ref{MSE_form} gives us a loss of:
 \begin{equation}
-   \frac{1}{2*3} ({(1.5-0)}^2+{(2-0)}^2+{(2.5-0)}^2)=2.08
+   \frac{1}{2*3} \left( {(1.5-1)}^2+{(2-1)}^2+{(2.5-1)}^2 \right) = 3.29
 \end{equation}
-With our new found error, we need a way to use this to update our weights $W^{(1)}$ \& $W^{(2)}$ to get a better estimate. 
+With our new found error, we need a way to use this to update our weights $W^{(1)}$ and $W^{(2)}$ to get a better estimate. 
     
 
 The most common way to update our weights is to use gradient descent. 
-Gradient descent is a first order iterative optimisation algorithm \todo{cite Wikipedia GD} for finding the minimum of a function. In our case, we are looking for the minimum value of the MSE function. Gradient descent is defined as (simplified for our example):
+Gradient descent is a first order iterative optimisation algorithm for finding the minimum of a function~\cite{robbins1951}. In our case, we are looking for the minimum value of the MSE function. Gradient descent is defined as (simplified for our example):
 \begin{equation}
     a_{n+1}= a_{n} - \gamma \nabla F(a_{n})
+    \label{gradientdecent}
 \end{equation}
-Where $\nabla$F() is the derivate of function in question, a is the input at step n, and $\gamma$ is a learning rate set to a small number. 
+Where $\nabla$F is the derivative of function in question, a is the input at step n, and $\gamma$ is a learning rate set to a small number. 
 
-Derivating \ref{MSE_form} and using a learning rate of 1 we get the following. 
+Derivating \ref{MSE_form} and using a learning rate of 0.5 we get the following. 
 \begin{equation}
-\label{MSE_deriv_w0}
-     \nabla F_{W^0} = \frac{d}{d_{W^{0}} } \frac{1}{2m} \sum_i (\hat{y}-y)_i^2 \\
-     \nabla F_{W^0} = \frac{1}{m} \sum_i (\hat{y}-y)_i\\
+	\label{MSE_deriv_w0}
+	\begin{split}
+    \nabla F_{W^{(0)}} &= \frac{d}{d_{W^{(0)}} } \frac{1}{2m} \sum_i (\hat{y}-y)_i^2 \\
+     &= \frac{1}{m} \sum_{i}{(\hat{y}-y)}_{i} \cdot x_i\\
+     &= \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x + w^{(1)}-y)}_{i} \cdot x_i\\
+	\end{split}
 \end{equation}
 
 \begin{equation}
-     \nabla F_{W^1} = \frac{d}{d_{W^{1}} } \frac{1}{2m} \sum_i (\hat{y}-y)_i^2 \\
-     \nabla F_{W^1} = \frac{1}{m} \sum_i (\hat{y}-y)_i \dot \hat{y}\\
+	\label{MSE_deriv_w1}
+	\begin{split}
+     \nabla F_{W^{(1)}} &= \frac{d}{d_{W^{(1)}} } \frac{1}{2m} \sum_i (\hat{y}-y)_i^2 \\
+				    &= \frac{1}{m} \sum_{i}{(\hat{y}-y)}_{i} \\
+				    &= \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x + w^{(1)}-y)}_{i}\\
+    \end{split}
 \end{equation}
+Inserting \ref{MSE_deriv_w0} and \ref{MSE_deriv_w1} in to \ref{gradientdecent} gives us the two following formulas for $W^{(1)}$ and $W^{(2)}$
+\begin{equation}
+	\label{GD_W0}
+	\begin{split}
+    W^{(0)}  &= W^{(0)} - \gamma \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x_i + w^{(1)}-y)}_{i} \cdot x_i \\
+     		 &= 1 - 0.5 \cdot \frac{1}{3}  \sum (-0.5+1+1.5)  \\
+     		 &= 0.583\\
+	\end{split}
+\end{equation}
+\begin{equation}
+	\label{GD_W0}
+	\begin{split}
+    W^{(1)}  &= W^{(1)} - \gamma \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x_i + w^{(1)}-y)}_{i} \\
+     		 &= 0 - 0.5 \cdot \frac{1}{3} \sum (-0.5+0+0.5) \\
+     		 &= 0\\
+	\end{split}
+\end{equation}
+
+After one iteration of gradient descent, we see the weights becoming closer to the desired result. With more iterations the closer the weights will get to the point that gives the smallest error. 
 
  
-    
-    
-    
-    
-    \subsubsection{Feed forward}
-    
-    \subsubsection{Loss and gradient decent }
-
+We looked at an example using the formula for a linear approximation. In the real world there are only a handful problems that can be solved by doing a linear approximation.
 
     
 
@@ -414,7 +439,7 @@ A major problem in machine learning is the act of overfitting the data. We say t
 \end{figure}
 
 
-Dropout, first proposed by Srivastava et al.\todo{http://jmlr.org/papers/v15/srivastava14a.bib}, in 2014 was used to prevent overfitting of neural networks (As seen in figure \ref{fig:dropout}).
+Dropout, first proposed by Srivastava et al.\cite{JMLR:v15:srivastava14a}, in 2014 was used to prevent overfitting of neural networks (As seen in figure \ref{fig:dropout}).
 Dropout layers in the CNN will randomly cut a certain amount of connections in a layer. The amount is usually between 25\% and 50\% of the connections. The result of the use of dropout is that the network can not rely on only a few numbers of weights during training since there is a chance the input from the weight will be cut at random intervals. 
 
 This random cutting forces the network to spread out the essential weights throughout the network. 
@@ -464,11 +489,11 @@ Now we can transfer this to a more relevant example by making an image as input 
 \subsection{Advaserial neural networks}
 \paragraph{This is explaining GANS, put me in the right place} %%TODO CITE: http://www.deeplearningbook.org/contents/generative_models.html and Goodfellow at al. 2014
 Now that we have looked at autoencoders we can take it a step further. 
-generative adversarial models can be used as a generator of new data and can have some resemblance to autoencoders \ref{Explaining_autoencoders}, especially variational autoencoders %TODO cite VAE, ref VAE
+generative adversarial models can be used as a generator of new data and can have some resemblance to autoencoders \ref{Explaining_autoencoders}, especially variational autoencoders. \cite{Goodfellowetal2016} %TODO cite VAE, ref VAE
 
 The difference lies in that adversarial networks is based on game theoretic scenarios in which a generator network is competing against an advasery. 
 The generator produces samples $x=g(z;\theta^{(g)})$, where $g$ is the network given the weights $\theta$. Then the discriminator network predicts if a sample is drawn from the dataset or from the generator.
-More spessific, it gives a probably given by $d(x;\theta^{(d)})$ , and determins if $x$ is from the generator or the data-set. 
+More spessific, it gives a probably given by $d(x;\theta^{(d)})$ , and determines if $x$ is from the generator or the data-set. 
 Since we have two networks competing against each other we can look at this as a Zero-sum game with the generators payoff is determined by $v(\theta^{(g)},\theta^{(d)})$, and the discriminators payoff is determined by $-v(\theta^{(g)},\theta^{(d)})$.
 \textit{$v$ is here a function that is determined by both the success rate of the discriminator and the generator, the most commonly used is}
 \begin{equation} %TODO: CITE First gan paper on formula

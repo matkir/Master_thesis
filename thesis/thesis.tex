@@ -10,8 +10,8 @@
 \usepackage{geometry}
 \usepackage{todonotes}
 
-\usepackage[backend=biber,style=authoryear]{biblatex}
-\addbibresource{bibl.bib}
+\usepackage[backend=bibtex,style=ieee]{biblatex}
+\bibliography{bibliography}
 
 
 \usepackage{multicol}
@@ -26,14 +26,12 @@
 \usepackage{textcomp}    
 \usepackage{amsmath}    
 \usepackage{subcaption}   
-%\expandafter\def\csname ver@subfig.sty\endcsname{}
 \usepackage{float}    
 \usepackage{blindtext}
 \usepackage{lipsum}
 \usepackage{tikz}                           
 \usepackage{tikzscale}                      
 \usepackage{tkz-graph} 
-%\usepackage{pgfkeys, pgfplots, pgfmath, pgfcore}
 \usepackage{placeins}
 \usepackage{blkarray}
 \usepackage{pdfpages}
@@ -53,7 +51,6 @@
 %\bibliography{library}
 %\geometry{textwidth=370pt}
 %\geometry{textwidth=420pt}
-\bibliography{bibl}
 
 \begin{document}
 \duoforside[dept={Department of Informatics},program={Informatics: Technical and Scientific Applications},long]
@@ -71,6 +68,7 @@
 
 
 \mainmatter{}
+
 
 \chapter{Introduction} \label{cap:introduction}
 \input{introduction/introduction.tex}
@@ -103,7 +101,8 @@
 
 
 \backmatter{}
-\printbibliography{}
+\printbibliography
+
 
 
 \chapter{Appendix}
