@@ -774,7 +774,7 @@ When we are looking at the models, we use the base case results as a reference p
 Atribute                                                                              & Value   \\
 \midrule
 Max Number of epochs                                                                  & 20      \\
-\begin{tabular}[c]{@{}l@{}}Patience vaiting for \\ validation to improve\end{tabular} & 3       \\
+\begin{tabular}[c]{@{}l@{}}Patience for \\ validation to improve\end{tabular} & 3       \\
 Folds                                                                                 & 6       \\
 Image size                                                                            & 256x256 \\
 Batch size                                                                            & 6   \\   
@@ -1749,12 +1749,44 @@ between gan and ae
 
 \FloatBarrier
 
+\clearpage
+\section{Inceptionresnetv2}
+In addition to just testing our results with the Densenet121, we wanted to see if the results were replicable with other networks. We present our result from InceptionResnetV2 (IRV2) as a base of comparison versus the Densenet121 model. 
 
-\subsection{Inceptionresnetv2}
 
+As mentioned earlier, Densenet is a model with more parameters, and hence needs more time to train compared to the Densenet architecture. 
+For the IRV2 model, we used greater patience while training to ensure that the model did not underfit, or skipped essential features when training.
+The stats for the IRV2 training is shown in Table \ref{tab:TrainingAttrIRV2}.
+
+
+
+\begin{table}[h]
+\caption{Training attributes for Inceptionresnetv2 base model }
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Atribute                & Value   \\
+\midrule
+Max Number of epochs    & 20      \\
+Patience for validation & 4       \\
+Folds                   & 6       \\
+Image size              & 256x256 \\
+Batch size              & 24      \\   
+\bottomrule
+\end{tabular}
+\end{center}
+\label{tab:TrainingAttrIRV2}
+\end{table}
+
+From the previous tests in done on the same datasets with the IRV2 network, we had gotten inconclusive results when the training patience was too low \ref{Mathias2019IEEpaper}. With the patience of four we, on average, train longer and hence get a more stable result without overfitting.
+\clearpage
+\subsection{Inceptionresnetv2 base model}
+
+We present the results with InceptionResNetV2 in table \ref{fig:results_IRV2_base}.
+This Table shows the base case result with the larger Inceptionresnetv2 model. 
 
 \begin{figure}[h]
-\caption{InceptionResNetV2}
+\caption{InceptionResNetV2 Base results}
 \myfontsize
 %\advance\leftskip-1.5cm
 \caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
@@ -1765,14 +1797,14 @@ between gan and ae
 \begin{blockarray}{ccc}
 & G & I  \\
 \begin{block}{c[cc]}
-        G&1563 &  38\\
-        I& 365 &  318\\
+        G&1142 &  113\\
+        I& 786 &  243\\
 \end{block}
 \end{blockarray}
  \]         
 
 \caption{Baseline Confusion matrix for the CVC 356 dataset}
-\label{mat:cvc356_CM_base}
+\label{mat:cvc356_CM_IRV2_base}
 \end{subfigure}
 \begin{subfigure}[b]{0.49\textwidth}  
 \scriptsize     
@@ -1780,52 +1812,51 @@ between gan and ae
 \begin{blockarray}{ccccccccc}
 & A & B & C & D & E & F & G & H \\
 \begin{block}{c[cccccccc]}
-		A& 157&   9 &  0 &  0 &  0 &  0 &  2 &  0\\
-        B&  7  &157  & 0  & 0  & 0  & 0  & 0  & 0\\
-        C&  0  & 0 &145  & 0  & 1 & 27 &  0  & 0\\
-        D&  0  & 0 &  0 & 158 &  0 &  0 &  0  &  3\\
-        E&  0  & 0  & 0 &  0 & 161 &  0 &  2  &  1\\
-        F&  0  & 0 & 21 &  0 &  3& 139 &  0 &  0\\
-        G&  2  & 0 &  0 &  4 &  0 &  0 & 158 &  0\\
-        H&  0  & 0  & 0 &  4 &  1 &  0 &  4 & 162\\
+A&132 & 2 & 0 & 0 & 0 & 0 & 1 & 0\\
+B& 31 & 163 & 0 & 0 & 0 & 0 & 0 & 0\\
+C&  0 & 0 & 124 & 0 & 0 & 15 & 0 & 0\\
+D&  0 & 0 & 0 & 160 & 0 & 0 & 4 & 6\\
+E&  0 & 0 & 2 & 0 & 166 & 1 & 1 & 1\\
+F&  0 & 0 & 39 & 0 & 0 & 150 & 1 & 0\\
+G&  3 & 0 & 0 & 1 & 0 & 0 & 146 & 1\\
+H&  0 & 1 & 1 & 5 & 0 & 0 & 13 & 158\\
 \end{block}
 \end{blockarray}
  \]        
         
         
 \caption{Baseline Confusion matrix for the Kvasir dataset}
-\label{mat:kvasir_CM_base}
+\label{mat:kvasir_CM_IRV2_base}
 \end{subfigure}
 \begin{subfigure}[b]{0.25\textwidth}
         \[
 \begin{blockarray}{ccc}
 & G & I  \\
 \begin{block}{c[cc]}
- 		G&1564 & 4362\\
-        I&365  & 5663\\
+ 		G&1142 & 4857\\
+        I&787  & 5168\\
 \end{block}
 \end{blockarray}
 \]   
 \caption{Baseline Confusion matrix for the CVC 12k dataset}
-\label{mat:cvc12k_CM_base}
+\label{mat:cvc12k_CM_IRV2_base}
 \end{subfigure}
 \caption{Confusion matrices for the three datasets}
-\label{mat:CM_base}
+\label{mat:CM_IRV2_base}
 \begin{subfigure}[b]{0.25\textwidth}
 \begin{tabular}{ll}      
         \toprule
         \multicolumn{2}{c}{CVC 356 dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.2005 \\
+        F1  		& 0.5342 \\
+        Precicion  	& 0.6375 \\
+        Recall     	& 0.5731 \\
+        Accuracy	& 0.6064 \\
         \bottomrule
         \end{tabular}
 \caption{The CVC 356 dataset Metrics}
-\label{tab:cvc356_metrics_base}
+\label{tab:cvc356_metrics_IRV2_base}
 \end{subfigure}%
 \begin{subfigure}[b]{0.49\textwidth}
     	\centering
@@ -1833,40 +1864,528 @@ between gan and ae
         \toprule
         \multicolumn{2}{c}{Kvasir dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.89 \\
+        F1  		& 0.902 \\
+        Precicion  	& 0.9029 \\
+        Recall     	& 0.9083 \\
+        Accuracy	& 0.9029 \\
         \bottomrule
 \end{tabular}
 \caption{The Kvasir dataset\\ Metrics}
-\label{tab:kvasir_metrics_base}
+\label{tab:kvasir_metrics_IRV2_base}
 \end{subfigure}%
 \begin{subfigure}[b]{0.25\textwidth}
         \begin{tabular}{ll}
         \toprule
         \multicolumn{2}{c}{CVC 12k dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.0791 \\
+        F1  		& 0.4675 \\
+        Precicion  	& 0.5538 \\
+        Recall     	& 0.5291 \\
+        Accuracy	& 0.5279 \\
         \bottomrule
         \end{tabular}
 \caption{The CVC 12k dataset Metrics}
-\label{tab:cvc12k_metrics_base}
+\label{tab:cvc12k_metrics_IRV2_base}
 \end{subfigure}
 \caption{The baseline confusion matrixes}
-\label{fig:BaselineCM}
+\label{fig:results_IRV2_base}
 %\advance\rightskip-1.5cm
 \end{figure}
-
 \FloatBarrier
 
+From the results we see the general score compared to a Densenet model as being lower by a reasonable margin. We can also discern that the base case has an MCC value close to 0 when evaluating on the CVC12k dataset.
+\todo{better comparison beteween this and base DN121.}
+
+\clearpage
+\subsection{Inceptionresnetv2 Inpainted Corner}
+
+For the first comparison, we look at the dataset with the inpainted corner. We present both the work done by the GAN and the Autoencoder. 
+
+\begin{figure}[h]
+\caption{InceptionResNetV2 Inpainted corners with  the GAN results}
+\myfontsize
+%\advance\leftskip-1.5cm
+\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
+
+\begin{subfigure}[b]{0.25\textwidth}
+     
+\[
+\begin{blockarray}{ccc}
+& G & I  \\
+\begin{block}{c[cc]}
+        G&1489 &  188\\
+        I& 439 &  168\\
+\end{block}
+\end{blockarray}
+ \]         
+
+\caption{GAN corners Confusion matrix for the CVC 356 dataset}
+\label{mat:cvc356_CM_IRV2_GAN_CORNER}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}  
+\scriptsize     
+\[
+\begin{blockarray}{ccccccccc}
+& A & B & C & D & E & F & G & H \\
+\begin{block}{c[cccccccc]}
+A&155 & 8 & 0 & 0 & 0 & 0 & 2 & 0\\
+B& 10 & 158 & 0 & 0 & 0 & 0 & 0 & 0\\
+C&  0 & 0 & 133 & 0 & 0 & 43 & 0 & 2\\
+D&  0 & 0 & 0 & 162 & 0 & 0 & 3 & 1\\
+E&  0 & 0 & 1 & 0 & 166 & 0 & 8 & 0\\
+F&  0 & 0 & 31 & 0 & 0 & 123 & 1 & 0\\
+G&  0 & 0 & 0 & 2 & 0 & 0 & 143 & 0\\
+H&  1 & 0 & 1 & 2 & 0 & 0 & 9 & 163\\
+\end{block}
+\end{blockarray}
+ \]        
+        
+        
+\caption{GAN corners Confusion matrix for the Kvasir dataset}
+\label{mat:kvasir_CM_IRV2_GAN_CORNER}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+        \[
+\begin{blockarray}{ccc}
+& G & I  \\
+\begin{block}{c[cc]}
+ 		G&1490 & 3507\\
+        I&439  & 6518\\
+\end{block}
+\end{blockarray}
+\]   
+\caption{GAN corners Confusion matrix for the CVC 12k dataset}
+\label{mat:cvc12k_CM_IRV2_GAN_CORNER}
+\end{subfigure}
+\caption{Confusion matrices for the three datasets}
+\label{mat:CM_IRV2_GAN_CORNER}
+\begin{subfigure}[b]{0.25\textwidth}
+\begin{tabular}{ll}      
+        \toprule
+        \multicolumn{2}{c}{CVC 356 dataset}        \\
+        \midrule
+        MCC 		& 0.2005 \\
+        F1  		& 0.5875 \\
+        Precicion  	& 0.6221 \\
+        Recall     	& 0.5823 \\
+        Accuracy	& 0.7255 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 356 dataset Metrics}
+\label{tab:cvc356_metrics_IRV2_GAN_CORNER}
+\end{subfigure}%
+\begin{subfigure}[b]{0.49\textwidth}
+    	\centering
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{Kvasir dataset}        \\
+        \midrule
+        MCC 		& 0.8927 \\
+        F1  		& 0.9056 \\
+        Precicion  	& 0.9059 \\
+        Recall     	& 0.9072 \\
+        Accuracy	& 0.9059 \\
+        \bottomrule
+\end{tabular}
+\caption{The Kvasir dataset\\ Metrics}
+\label{tab:kvasir_metrics_IRV2_GAN_CORNER}
+\end{subfigure}%
+\begin{subfigure}[b]{0.25\textwidth}
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{CVC 12k dataset}        \\
+        \midrule
+        MCC 		& 0.3152 \\
+        F1  		& 0.5989 \\
+        Precicion  	& 0.7113 \\
+        Recall     	& 0.6175 \\
+        Accuracy	& 0.6699 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 12k dataset Metrics}
+\label{tab:cvc12k_metrics_IRV2_GAN_CORNER}
+\end{subfigure}
+\caption{The inpainted corner with GAN confusion matrixes}
+\label{fig:results_IRV2_GAN_CORNER}
+%\advance\rightskip-1.5cm
+\end{figure}
+\FloatBarrier
+
+Our results from figure \ref{fig:results_IRV2_GAN_CORNER} shows a clear advantage when evaluating the results on the CVC 12K dataset while keeping the result the same on the CVC 256 and Kvasir dataset. 
+We can not draw any clear conclutions.
+
+
+
+\begin{figure}[h]
+\caption{InceptionResNetV2 Inpainted corners with  the AE results}
+\myfontsize
+%\advance\leftskip-1.5cm
+\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
+
+\begin{subfigure}[b]{0.25\textwidth}
+     
+\[
+\begin{blockarray}{ccc}
+& G & I  \\
+\begin{block}{c[cc]}
+        G&225  &  49\\
+        I& 1703 &  307\\
+\end{block}
+\end{blockarray}
+ \]         
+
+\caption{AE corners Confusion matrix for the CVC 356 dataset}
+\label{mat:cvc356_CM_IRV2_AE_CORNER}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}  
+\scriptsize     
+\[
+\begin{blockarray}{ccccccccc}
+& A & B & C & D & E & F & G & H \\
+\begin{block}{c[cccccccc]}
+A&158 & 23 & 0 & 1 & 0 & 0 & 0 & 1\\
+B&  8 & 143 & 0 & 0 & 0 & 0 & 1 & 1\\
+C&  0 & 0 & 107 & 0 & 0 & 11 & 0 & 0\\
+D&  0 & 0 & 0 & 160 & 0 & 0 & 8 & 4\\
+E&  0 & 0 & 0 & 0 & 163 & 0 & 0 & 1\\
+F&  0 & 0 & 58 & 0 & 1 & 155 & 0 & 0\\
+G&  0 & 0 & 0 & 1 & 2 & 0 & 157 & 2\\
+H&  0 & 0 & 1 & 4 & 0 & 0 & 0 & 157\\
+\end{block}
+\end{blockarray}
+ \]        
+        
+        
+\caption{AE corners Confusion matrix for the Kvasir dataset}
+\label{mat:kvasir_CM_IRV2_AE_CORNER}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+        \[
+\begin{blockarray}{ccc}
+& G & I  \\
+\begin{block}{c[cc]}
+ 		G&225 & 491\\
+        I&1704  & 9534\\
+\end{block}
+\end{blockarray}
+\]   
+\caption{AE corners Confusion matrix for the CVC 12k dataset}
+\label{mat:cvc12k_CM_IRV2_AE_CORNER}
+\end{subfigure}
+\caption{Confusion matrices for the three datasets}
+\label{mat:CM_IRV2_AE_CORNER}
+\begin{subfigure}[b]{0.25\textwidth}
+\begin{tabular}{ll}      
+        \toprule
+        \multicolumn{2}{c}{CVC 356 dataset}        \\
+        \midrule
+        MCC 		& -0.0234 \\
+        F1  		& 0.2319 \\
+        Precicion  	& 0.4895 \\
+        Recall     	& 0.487 \\
+        Accuracy	& 0.2329 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 356 dataset Metrics}
+\label{tab:cvc356_metrics_IRV2_AE_CORNER}
+\end{subfigure}%
+\begin{subfigure}[b]{0.49\textwidth}
+    	\centering
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{Kvasir dataset}        \\
+        \midrule
+        MCC 		& 0.8913 \\
+        F1  		& 0.9026 \\
+        Precicion  	& 0.9036 \\
+        Recall     	& 0.9114 \\
+        Accuracy	& 0.9036 \\
+        \bottomrule
+\end{tabular}
+\caption{The Kvasir dataset\\ Metrics}
+\label{tab:kvasir_metrics_IRV2_AE_CORNER}
+\end{subfigure}%
+\begin{subfigure}[b]{0.25\textwidth}
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{CVC 12k dataset}        \\
+        \midrule
+        MCC 		& 0.1049 \\
+        F1  		& 0.5335 \\
+        Precicion  	& 0.5338 \\
+        Recall     	& 0.5813 \\
+        Accuracy	& 0.8164 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 12k dataset Metrics}
+\label{tab:cvc12k_metrics_IRV2_AE_CORNER}
+\end{subfigure}
+\caption{The inpainted corner with AE confusion matrixes}
+\label{fig:results_IRV2_AE_CORNER}
+%\advance\rightskip-1.5cm
+\end{figure}
+\FloatBarrier
+
+Our results from figure \ref{fig:results_IRV2_AE_CORNER} shows the same advantage when evaluating the results on the CVC 12K dataset.
+In we got a lower score when evaluating our data on the CVC 356 dataset compared to the base case.
+
+We can conclude that the act of inpainting the corners to remove sparseness gives the same result with IRV2 as with Densenet.
+We see no clear advantage to inpaint the corners when using either method or model for inpainting.
+
+
+
+
+
+
+
+\subsection{Inceptionresnetv2 Inpainted Square}
+
+Here we present the results from the dataset with the inpainted green square, both with the Autoencoder and the GAN.  
+Based on our hypothesis we expect the same improvement here as we had in our Densenet model.  
+ 
+
+\begin{figure}[h]
+\caption{InceptionResNetV2 Inpainted square with  the GAN results}
+\myfontsize
+%\advance\leftskip-1.5cm
+\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
+
+\begin{subfigure}[b]{0.25\textwidth}
+     
+\[
+\begin{blockarray}{ccc}
+& G & I  \\
+\begin{block}{c[cc]}
+        G&1871 &  174\\
+        I& 57 &  182\\
+\end{block}
+\end{blockarray}
+ \]         
+
+\caption{GAN square Confusion matrix for the CVC 356 dataset}
+\label{mat:cvc356_CM_IRV2_GAN_SQUARE}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}  
+\scriptsize     
+\[
+\begin{blockarray}{ccccccccc}
+& A & B & C & D & E & F & G & H \\
+\begin{block}{c[cccccccc]}
+A&147 & 9 & 0 & 0 & 0 & 0 & 1 & 0\\
+B& 15 & 157 & 0 & 0 & 0 & 0 & 0 & 1\\
+C&  0 & 0 & 135 & 0 & 0 & 19 & 0 & 0\\
+D&  1 & 0 & 0 & 165 & 0 & 0 & 18 & 18\\
+E&  0 & 0 & 0 & 0 & 166 & 4 & 3 & 0\\
+F&  0 & 0 & 31 & 0 & 0 & 143 & 0 & 0\\
+G&  2 & 0 & 0 & 0 & 0 & 0 & 140 & 2\\
+H&  1 & 0 & 0 & 1 & 0 & 0 & 4 & 145\\
+\end{block}
+\end{blockarray}
+ \]        
+        
+        
+\caption{GAN square Confusion matrix for the Kvasir dataset}
+\label{mat:kvasir_CM_IRV2_GAN_SQUARE}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+        \[
+\begin{blockarray}{ccc}
+& G & I  \\
+\begin{block}{c[cc]}
+ 		G&1872 & 7821\\
+        I&57  & 2204\\
+\end{block}
+\end{blockarray}
+\]   
+\caption{GAN square Confusion matrix for the CVC 12k dataset}
+\label{mat:cvc12k_CM_IRV2_GAN_SQUARE}
+\end{subfigure}
+\caption{Confusion matrices for the three datasets}
+\label{mat:CM_IRV2_GAN_SQUARE}
+\begin{subfigure}[b]{0.25\textwidth}
+\begin{tabular}{ll}      
+        \toprule
+        \multicolumn{2}{c}{CVC 356 dataset}        \\
+        \midrule
+        MCC 		& 0.5708 \\
+        F1  		& 0.7768 \\
+        Precicion  	& 0.7408 \\
+        Recall     	& 0.8382 \\
+        Accuracy	& 0.8989 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 356 dataset Metrics}
+\label{tab:cvc356_metrics_IRV2_GAN_SQUARE}
+\end{subfigure}%
+\begin{subfigure}[b]{0.49\textwidth}
+    	\centering
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{Kvasir dataset}        \\
+        \midrule
+        MCC 		& 0.8888 \\
+        F1  		& 0.9019 \\
+        Precicion  	& 0.9021 \\
+        Recall     	& 0.9064 \\
+        Accuracy	& 0.9021 \\
+        \bottomrule
+\end{tabular}
+\caption{The Kvasir dataset\\ Metrics}
+\label{tab:kvasir_metrics_IRV2_GAN_SQUARE}
+\end{subfigure}%
+\begin{subfigure}[b]{0.25\textwidth}
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{CVC 12k dataset}        \\
+        \midrule
+        MCC 		& 0.1788 \\
+        F1  		& 0.3405 \\
+        Precicion  	& 0.5952 \\
+        Recall     	& 0.584 \\
+        Accuracy	& 0.341 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 12k dataset Metrics}
+\label{tab:cvc12k_metrics_IRV2_GAN_SQUARE}
+\end{subfigure}
+\caption{The inpainted square with GAN confusion matrixes}
+\label{fig:results_IRV2_GAN_SQUARE}
+%\advance\rightskip-1.5cm
+\end{figure}
+\FloatBarrier
+
+Our results from figure \ref{fig:results_IRV2_GAN_CORNER} shows a clear advantage when evaluating the results on the CVC 12K dataset while keeping the result the same on the CVC 256 and Kvasir dataset. 
+We can not draw any clear conclutions.
+
+
+
+\begin{figure}[h]
+\caption{InceptionResNetV2 Inpainted square with the AE results}
+\myfontsize
+%\advance\leftskip-1.5cm
+\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
+
+\begin{subfigure}[b]{0.25\textwidth}
+     
+\[
+\begin{blockarray}{ccc}
+& G & I  \\
+\begin{block}{c[cc]}
+        G&1784  &  195\\
+        I& 144 &  161\\
+\end{block}
+\end{blockarray}
+ \]         
+
+\caption{AE square Confusion matrix for the CVC 356 dataset}
+\label{mat:cvc356_CM_IRV2_AE_SQUARE}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}  
+\scriptsize     
+\[
+\begin{blockarray}{ccccccccc}
+& A & B & C & D & E & F & G & H \\
+\begin{block}{c[cccccccc]}
+A&149 & 12 & 0 & 0 & 0 & 0 & 2 & 0\\
+B& 16 & 154 & 2 & 0 & 0 & 0 & 0 & 0\\
+C&  0 & 0 & 138 & 0 & 0 & 40 & 0 & 0\\
+D&  0 & 0 & 0 & 158 & 0 & 0 & 14 & 7\\
+E&  0 & 0 & 0 & 0 & 159 & 1 & 3 & 0\\
+F&  0 & 0 & 22 & 0 & 2 & 116 & 0 & 0\\
+G&  1 & 0 & 1 & 5 & 1 & 4 & 142 & 2\\
+H&  0 & 0 & 3 & 3 & 4 & 5 & 5 & 157\\
+\end{block}
+\end{blockarray}
+ \]        
+        
+        
+\caption{AE square Confusion matrix for the Kvasir dataset}
+\label{mat:kvasir_CM_IRV2_AE_SQUARE}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+        \[
+\begin{blockarray}{ccc}
+& G & I  \\
+\begin{block}{c[cc]}
+ 		G&1785 & 6055\\
+        I&144  & 3970\\
+\end{block}
+\end{blockarray}
+\]   
+\caption{AE square Confusion matrix for the CVC 12k dataset}
+\label{mat:cvc12k_CM_IRV2_AE_SQUARE}
+\end{subfigure}
+\caption{Confusion matrices for the three datasets}
+\label{mat:CM_IRV2_AE_SQUARE}
+\begin{subfigure}[b]{0.25\textwidth}
+\begin{tabular}{ll}      
+        \toprule
+        \multicolumn{2}{c}{CVC 356 dataset}        \\
+        \midrule
+        MCC 		& 0.4026 \\
+        F1  		& 0.7002 \\
+        Precicion  	& 0.6888 \\
+        Recall     	& 0.7147 \\
+        Accuracy	& 0.8516 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 356 dataset Metrics}
+\label{tab:cvc356_metrics_IRV2_AE_SQUARE}
+\end{subfigure}%
+\begin{subfigure}[b]{0.49\textwidth}
+    	\centering
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{Kvasir dataset}        \\
+        \midrule
+        MCC 		& 0.867  \\
+        F1  		& 0.8822 \\
+        Precicion  	& 0.8833 \\
+        Recall     	& 0.8836 \\
+        Accuracy	& 0.8833 \\
+        \bottomrule
+\end{tabular}
+\caption{The Kvasir dataset\\ Metrics}
+\label{tab:kvasir_metrics_IRV2_AE_SQUARE}
+\end{subfigure}%
+\begin{subfigure}[b]{0.25\textwidth}
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{CVC 12k dataset}        \\
+        \midrule
+        MCC 		& 0.2488 \\
+        F1  		& 0.4635 \\
+        Precicion  	& 0.6607 \\
+        Recall     	& 0.5963 \\
+        Accuracy	& 0.4814 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 12k dataset Metrics}
+\label{tab:cvc12k_metrics_IRV2_AE_SQUARE}
+\end{subfigure}
+\caption{The inpainted square with AE confusion matrixes}
+\label{fig:results_IRV2_AE_SQUARE}
+%\advance\rightskip-1.5cm
+\end{figure}
+\FloatBarrier
+
+
+Figure \ref{fig:results_IRV2_GAN_SQUARE} shows a definite improvement compared to the base case IRV2 model when using the inpainted dataset generated by the GAN. Both for the CVC 356 dataset as well for the CVC 12k dataset we have genuine improvements.
+
+The Autoencoder shows similar good results in the same datasets as with the GAN in figure \ref{fig:results_IRV2_AE_SQUARE}. 
+
+From our results, we can conclude with the fact that the IRV2 model manages to generalise itself better when presented with the inpainted data, just as we concluded with the Densenet model.
+
+
+
+\section{Classification results}
+\section{Classification results}
+\section{Classification results}
+\section{Classification results}
+\section{Classification results}
+\section{Classification results}
 \section{Classification results}
 From the results, we see that inpainting the green square gives a better MCC score, compared to the base case When dealing with the images at 256 resolution. 
 
