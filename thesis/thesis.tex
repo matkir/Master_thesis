@@ -44,6 +44,24 @@
 %\setcounter{secnumdepth}{6} %this is so that i can ref to paragraph
 \newcommand{\myfontsize}{\footnotesize}
 
+\usepackage{thmtools}
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=0.6em,
+headpunct=:
+]{mystyle}
+\declaretheorem[style=mystyle, name=Hypothesis, preheadhook={\renewcommand{\thehyp}{H\textsubscript{\arabic{hyp}}}}]{hyp}
+
+\usepackage{cleveref}
+\crefname{hyp}{hypothesis}{hypotheses}
+\Crefname{hyp}{Hypothesis}{Hypotheses}
+
+
+
+
 \title{Using unsupervised machine learning as a tool for polyp detection in the GI tract}
 %\subtitle{}
 \author{Mathias Kirkerod}
@@ -53,6 +71,7 @@
 %\geometry{textwidth=420pt}
 
 \begin{document}
+\setcounter{hyp}{-1}
 \duoforside[dept={Department of Informatics},program={Informatics: Technical and Scientific Applications},long]
 
 \frontmatter{}
