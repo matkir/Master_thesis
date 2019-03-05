@@ -803,7 +803,7 @@ The stats for the Densenet training routine is shown in Table \ref{tab:TrainingA
 
 
 \begin{table}[h]
-\caption{Training attributes for Inceptionresnetv2 base model }
+\caption{Training attributes for Densenet121 base model }
 \begin{center}
 \begin{tabular}{ll}
 \toprule
@@ -826,9 +826,11 @@ The parameters used are to get the optimal amount of training without overfittin
 \clearpage
 \subsection{Densenet121 base model}
 
+We present the results with Densenet121 in table \ref{fig:results_IRV2_base}.
+This Table shows the base case result with the Densenet121 model. 
 
 \begin{figure}[h]
-\caption{Base Case}
+\caption{Densenet121 Base results}
 \myfontsize
 %\advance\leftskip-1.5cm
 \caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
@@ -837,16 +839,16 @@ The parameters used are to get the optimal amount of training without overfittin
      
 \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
-        G&1563 &  38\\
-        I& 365 &  318\\
+        I&1310 &  37\\
+        G& 618 &  319\\
 \end{block}
 \end{blockarray}
  \]         
 
 \caption{Baseline Confusion matrix for the CVC 356 dataset}
-\label{mat:cvc356_CM_base}
+\label{mat:cvc356_CM_DN121_base}
 \end{subfigure}
 \begin{subfigure}[b]{0.49\textwidth}  
 \scriptsize     
@@ -854,52 +856,51 @@ The parameters used are to get the optimal amount of training without overfittin
 \begin{blockarray}{ccccccccc}
 & A & B & C & D & E & F & G & H \\
 \begin{block}{c[cccccccc]}
-		A& 157&   9 &  0 &  0 &  0 &  0 &  2 &  0\\
-        B&  7  &157  & 0  & 0  & 0  & 0  & 0  & 0\\
-        C&  0  & 0 &145  & 0  & 1 & 27 &  0  & 0\\
-        D&  0  & 0 &  0 & 158 &  0 &  0 &  0  &  3\\
-        E&  0  & 0  & 0 &  0 & 161 &  0 &  2  &  1\\
-        F&  0  & 0 & 21 &  0 &  3& 139 &  0 &  0\\
-        G&  2  & 0 &  0 &  4 &  0 &  0 & 158 &  0\\
-        H&  0  & 0  & 0 &  4 &  1 &  0 &  4 & 162\\
+A&150 & 6 & 0 & 0 & 0 & 0 & 1 & 0\\
+B& 14 & 160 & 0 & 0 & 0 & 0 & 0 & 0\\
+C&  0 & 0 & 130 & 0 & 1 & 19 & 0 & 0\\
+D&  0 & 0 & 0 & 162 & 0 & 0 & 1 & 3\\
+E&  0 & 0 & 0 & 0 & 164 & 0 & 0 & 0\\
+F&  0 & 0 & 36 & 0 & 0 & 147 & 1 & 0\\
+G&  1 & 0 & 0 & 3 & 1 & 0 & 161 & 2\\
+H&  1 & 0 & 0 & 1 & 0 & 0 & 2 & 161\\
 \end{block}
 \end{blockarray}
  \]        
         
         
 \caption{Baseline Confusion matrix for the Kvasir dataset}
-\label{mat:kvasir_CM_base}
+\label{mat:kvasir_CM_DN121_base}
 \end{subfigure}
 \begin{subfigure}[b]{0.25\textwidth}
         \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
- 		G&1564 & 4362\\
-        I&365  & 5663\\
+ 		I&1311 & 3553\\
+        G&618  & 6472\\
 \end{block}
 \end{blockarray}
 \]   
 \caption{Baseline Confusion matrix for the CVC 12k dataset}
-\label{mat:cvc12k_CM_base}
+\label{mat:cvc12k_CM_DN121_base}
 \end{subfigure}
 \caption{Confusion matrices for the three datasets}
-\label{mat:CM_base}
+\label{mat:CM_DN121_base}
 \begin{subfigure}[b]{0.25\textwidth}
 \begin{tabular}{ll}      
         \toprule
         \multicolumn{2}{c}{CVC 356 dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.4244 \\
+        F1  		& 0.6467 \\
+        Precicion  	& 0.7878 \\
+        Recall     	& 0.6565 \\
+        Accuracy	& 0.7132 \\
         \bottomrule
         \end{tabular}
 \caption{The CVC 356 dataset Metrics}
-\label{tab:cvc356_metrics_base}
+\label{tab:cvc356_metrics_DN121_base}
 \end{subfigure}%
 \begin{subfigure}[b]{0.49\textwidth}
     	\centering
@@ -907,70 +908,69 @@ The parameters used are to get the optimal amount of training without overfittin
         \toprule
         \multicolumn{2}{c}{Kvasir dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.9202 \\
+        F1  		& 0.9299 \\
+        Precicion  	& 0.93 \\
+        Recall     	& 0.9313  \\
+        Accuracy	& 0.93 \\
+        
         \bottomrule
 \end{tabular}
 \caption{The Kvasir dataset\\ Metrics}
-\label{tab:kvasir_metrics_base}
+\label{tab:kvasir_metrics_DN121_base}
 \end{subfigure}%
 \begin{subfigure}[b]{0.25\textwidth}
         \begin{tabular}{ll}
         \toprule
         \multicolumn{2}{c}{CVC 12k dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.2435  \\
+        F1  		& 0.5711 \\
+        Precicion  	& 0.6626 \\
+        Recall     	& 0.5912 \\
+        Accuracy	& 0.6511 \\
         \bottomrule
         \end{tabular}
 \caption{The CVC 12k dataset Metrics}
-\label{tab:cvc12k_metrics_base}
+\label{tab:cvc12k_metrics_DN121_base}
 \end{subfigure}
 \caption{The baseline confusion matrixes}
-\label{fig:BaselineCM}
+\label{fig:results_DN121_base}
 %\advance\rightskip-1.5cm
 \end{figure}
 
+
 \FloatBarrier
 \noindent
-Matrix \ref{mat:CM_base} shows the evaluation of the test set on each of the three datasets used. 
+
+
+Matrix \ref{mat:CM_DN121_base} shows the evaluation of the test set on each of the three datasets used. 
 On the Kvasir dataset, we used five folds for training and validation, and the last sixth fold for the testing. That left us with 1342 images divided evenly between the classes. 
-In this Confusion matrix, we see that most of the samples lie throughout the diagonal, which, as we recall, is the correct classification.
-We 
 
-For the CVC 12k results we have wrong. 
+\paragraph{CVC 356}
+The CVC 356 base case MCC lies at 0.42 with an accuracy of 71\%. 
+From the Confusion matrix we can discern that most polyps were classified correctly, except for the case that 37 of the images did not classify as a polyp when it was. Moreover, we also had 618 cases of non-polyps classified as polyps.
 
+\paragraph{The Kvasir}
+In this Confusion matrix, we see that most of the samples lie throughout the diagonal, which, as we recall, is the correct classification. 
+The Kvasir base case MCC lies at 0.92 which coincides with an near perfect accuracy given the complexity of the dataset.
 
+\paragraph{CVC 12k}
+The CVC 356 base case MCC lies at 0.24 with an accuracy of 65\%. 
+From the Confusion matrix we can discern that most polyps were classified correctly, though a third of the polyps were misclassified.
 
-
-
-
-Here we can see that the oesophagus and z-line sucks. 
-
-We in general need models that do this. 
-
-Next, we are looking at CVC12k. As described in chapter \todo{refdatasets} we only have two classes: polyp and non-polyp.
 
 
 
 
 
 \subsection{Corners inpainted result}
-This dataset is our first dataset, connected to our first hypothesis. Here the corners were inpainted only.  
-From our hypothesis, we would expect the best result to come from the Kvasir test set since the area we remove is not just dataset specific for Kvasir.
+Based on Hypothesis \ref{hyp:b} we would expect the act of inpainting the corner in the images to give Kvasir a higher score complared to the baseline. In addition, we could see improvement in both CVC 356 and CVC 12k.
+We present the GAN followed by the Autoencoder and evaluate them together.
 
 
-
-\begin{figure}[h]
-\caption{Corners inpainted with autoencoder}
+\begin{figure}
+\caption{Densenet121 Inpainted corners with the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
 \caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
@@ -979,16 +979,16 @@ From our hypothesis, we would expect the best result to come from the Kvasir tes
      
 \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
-        G&1563 &  38\\
-        I& 365 &  318\\
+        I&1647 &  179\\
+        G& 281 &  177\\
 \end{block}
 \end{blockarray}
  \]         
 
-\caption{Baseline Confusion matrix for the CVC 356 dataset}
-\label{mat:cvc356_CM_base}
+\caption{GAN corners Confusion matrix for the CVC 356 dataset}
+\label{mat:cvc356_CM_DN121_GAN_CORNER}
 \end{subfigure}
 \begin{subfigure}[b]{0.49\textwidth}  
 \scriptsize     
@@ -996,52 +996,51 @@ From our hypothesis, we would expect the best result to come from the Kvasir tes
 \begin{blockarray}{ccccccccc}
 & A & B & C & D & E & F & G & H \\
 \begin{block}{c[cccccccc]}
-		A& 157&   9 &  0 &  0 &  0 &  0 &  2 &  0\\
-        B&  7  &157  & 0  & 0  & 0  & 0  & 0  & 0\\
-        C&  0  & 0 &145  & 0  & 1 & 27 &  0  & 0\\
-        D&  0  & 0 &  0 & 158 &  0 &  0 &  0  &  3\\
-        E&  0  & 0  & 0 &  0 & 161 &  0 &  2  &  1\\
-        F&  0  & 0 & 21 &  0 &  3& 139 &  0 &  0\\
-        G&  2  & 0 &  0 &  4 &  0 &  0 & 158 &  0\\
-        H&  0  & 0  & 0 &  4 &  1 &  0 &  4 & 162\\
+A&157 & 12 & 0 & 0 & 0 & 0 & 0 & 0\\
+B&  8 & 154 & 0 & 0 & 0 & 0 & 0 & 0\\
+C&  0 & 0 & 116 & 0 & 0 & 11 & 0 & 0\\
+D&  0 & 0 & 0 & 162 & 0 & 0 & 3 & 5\\
+E&  0 & 0 & 1 & 0 & 166 & 0 & 3 & 0\\
+F&  0 & 0 & 49 & 0 & 0 & 155 & 1 & 0\\
+G&  1 & 0 & 0 & 2 & 0 & 0 & 158 & 2\\
+H&  0 & 0 & 0 & 2 & 0 & 0 & 1 & 159\\
 \end{block}
 \end{blockarray}
  \]        
         
         
-\caption{Baseline Confusion matrix for the Kvasir dataset}
-\label{mat:kvasir_CM_base}
+\caption{GAN corners Confusion matrix for the Kvasir dataset}
+\label{mat:kvasir_CM_DN121_GAN_CORNER}
 \end{subfigure}
 \begin{subfigure}[b]{0.25\textwidth}
         \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
- 		G&1564 & 4362\\
-        I&365  & 5663\\
+ 		I&1648 & 4699\\
+        G&281  & 5326\\
 \end{block}
 \end{blockarray}
 \]   
-\caption{Baseline Confusion matrix for the CVC 12k dataset}
-\label{mat:cvc12k_CM_base}
+\caption{GAN corners Confusion matrix for the CVC 12k dataset}
+\label{mat:cvc12k_CM_DN121_GAN_CORNER}
 \end{subfigure}
 \caption{Confusion matrices for the three datasets}
-\label{mat:CM_base}
+\label{mat:CM_DN121_GAN_CORNER}
 \begin{subfigure}[b]{0.25\textwidth}
 \begin{tabular}{ll}      
         \toprule
         \multicolumn{2}{c}{CVC 356 dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.3184 \\
+        F1  		& 0.6562 \\
+        Precicion  	& 0.6757 \\
+        Recall     	& 0.6442 \\
+        Accuracy	& 0.7986 \\
         \bottomrule
         \end{tabular}
 \caption{The CVC 356 dataset Metrics}
-\label{tab:cvc356_metrics_base}
+\label{tab:cvc356_metrics_DN121_GAN_CORNER}
 \end{subfigure}%
 \begin{subfigure}[b]{0.49\textwidth}
     	\centering
@@ -1049,152 +1048,197 @@ From our hypothesis, we would expect the best result to come from the Kvasir tes
         \toprule
         \multicolumn{2}{c}{Kvasir dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.914 \\
+        F1  		& 0.9233 \\
+        Precicion  	& 0.9239 \\
+        Recall     	& 0.9287 \\
+        Accuracy	& 0.9239 \\
         \bottomrule
 \end{tabular}
 \caption{The Kvasir dataset\\ Metrics}
-\label{tab:kvasir_metrics_base}
+\label{tab:kvasir_metrics_DN121_GAN_CORNER}
 \end{subfigure}%
 \begin{subfigure}[b]{0.25\textwidth}
         \begin{tabular}{ll}
         \toprule
         \multicolumn{2}{c}{CVC 12k dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.2842 \\
+        F1  		& 0.5398 \\
+        Precicion  	& 0.6928 \\
+        Recall     	& 0.6048 \\
+        Accuracy	& 0.5834 \\
         \bottomrule
         \end{tabular}
 \caption{The CVC 12k dataset Metrics}
-\label{tab:cvc12k_metrics_base}
+\label{tab:cvc12k_metrics_DN121_GAN_CORNER}
 \end{subfigure}
-\caption{The baseline confusion matrixes}
-\label{fig:BaselineCM}
-%\advance\rightskip-1.5cm
-\end{figure}
-
-between gan and ae
-
-\begin{figure}[h]
-\caption{Corners inpainted with GAN}
-\myfontsize
-%\advance\leftskip-1.5cm
-\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
-
-\begin{subfigure}[b]{0.25\textwidth}
-     
-\[
-\begin{blockarray}{ccc}
-& G & I  \\
-\begin{block}{c[cc]}
-        G&1563 &  38\\
-        I& 365 &  318\\
-\end{block}
-\end{blockarray}
- \]         
-
-\caption{Baseline Confusion matrix for the CVC 356 dataset}
-\label{mat:cvc356_CM_base}
-\end{subfigure}
-\begin{subfigure}[b]{0.49\textwidth}  
-\scriptsize     
-\[
-\begin{blockarray}{ccccccccc}
-& A & B & C & D & E & F & G & H \\
-\begin{block}{c[cccccccc]}
-		A& 157&   9 &  0 &  0 &  0 &  0 &  2 &  0\\
-        B&  7  &157  & 0  & 0  & 0  & 0  & 0  & 0\\
-        C&  0  & 0 &145  & 0  & 1 & 27 &  0  & 0\\
-        D&  0  & 0 &  0 & 158 &  0 &  0 &  0  &  3\\
-        E&  0  & 0  & 0 &  0 & 161 &  0 &  2  &  1\\
-        F&  0  & 0 & 21 &  0 &  3& 139 &  0 &  0\\
-        G&  2  & 0 &  0 &  4 &  0 &  0 & 158 &  0\\
-        H&  0  & 0  & 0 &  4 &  1 &  0 &  4 & 162\\
-\end{block}
-\end{blockarray}
- \]        
-        
-        
-\caption{Baseline Confusion matrix for the Kvasir dataset}
-\label{mat:kvasir_CM_base}
-\end{subfigure}
-\begin{subfigure}[b]{0.25\textwidth}
-        \[
-\begin{blockarray}{ccc}
-& G & I  \\
-\begin{block}{c[cc]}
- 		G&1564 & 4362\\
-        I&365  & 5663\\
-\end{block}
-\end{blockarray}
-\]   
-\caption{Baseline Confusion matrix for the CVC 12k dataset}
-\label{mat:cvc12k_CM_base}
-\end{subfigure}
-\caption{Confusion matrices for the three datasets}
-\label{mat:CM_base}
-\begin{subfigure}[b]{0.25\textwidth}
-\begin{tabular}{ll}      
-        \toprule
-        \multicolumn{2}{c}{CVC 356 dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-        \end{tabular}
-\caption{The CVC 356 dataset Metrics}
-\label{tab:cvc356_metrics_base}
-\end{subfigure}%
-\begin{subfigure}[b]{0.49\textwidth}
-    	\centering
-        \begin{tabular}{ll}
-        \toprule
-        \multicolumn{2}{c}{Kvasir dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-\end{tabular}
-\caption{The Kvasir dataset\\ Metrics}
-\label{tab:kvasir_metrics_base}
-\end{subfigure}%
-\begin{subfigure}[b]{0.25\textwidth}
-        \begin{tabular}{ll}
-        \toprule
-        \multicolumn{2}{c}{CVC 12k dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-        \end{tabular}
-\caption{The CVC 12k dataset Metrics}
-\label{tab:cvc12k_metrics_base}
-\end{subfigure}
-\caption{The baseline confusion matrixes}
-\label{fig:BaselineCM}
+\caption{The inpainted corner with GAN confusion matrixes}
+\label{fig:results_DN121_GAN_CORNER}
 %\advance\rightskip-1.5cm
 \end{figure}
 \FloatBarrier
+
+%Our results from figure \ref{fig:results_IRV2_GAN_CORNER} shows a clear advantage when evaluating the results on the CVC 12K dataset while keeping the result the same on the CVC 256 and Kvasir dataset. %We can not draw any clear conclutions.
+
+
+
+\begin{figure}
+\caption{Densenet121 Inpainted corners with the AE results}
+\myfontsize
+%\advance\leftskip-1.5cm
+\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
+
+\begin{subfigure}[b]{0.25\textwidth}
+     
+\[
+\begin{blockarray}{ccc}
+& I & G  \\
+\begin{block}{c[cc]}
+        I&1746 & 106\\
+        G&  182 & 250\\
+\end{block}
+\end{blockarray}
+ \]         
+
+\caption{AE corners Confusion matrix for the CVC 356 dataset}
+\label{mat:cvc356_CM_DN121_AE_CORNER}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}  
+\scriptsize     
+\[
+\begin{blockarray}{ccccccccc}
+& A & B & C & D & E & F & G & H \\
+\begin{block}{c[cccccccc]}
+A&150 & 9 & 0 & 0 & 0 & 0 & 1 & 0\\
+B& 12 & 157 & 0 & 0 & 0 & 0 & 0 & 0\\
+C&  0 & 0 & 141 & 0 & 0 & 21 & 0 & 0\\
+D&  1 & 0 & 0 & 160 & 0 & 0 & 4 & 2\\
+E&  0 & 0 & 0 & 0 & 166 & 0 & 1 & 0\\
+F&  0 & 0 & 25 & 0 & 0 & 145 & 0 & 0\\
+G&  3 & 0 & 0 & 3 & 0 & 0 & 157 & 2\\
+H&  0 & 0 & 0 & 3 & 0 & 0 & 3 & 162\\
+\end{block}
+\end{blockarray}
+ \]        
+        
+        
+\caption{AE corners Confusion matrix for the Kvasir dataset}
+\label{mat:kvasir_CM_DN121_AE_CORNER}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+        \[
+\begin{blockarray}{ccc}
+& I & G  \\
+\begin{block}{c[cc]}
+ 		I&1747 & 5227\\
+        G&182  & 4798\\
+\end{block}
+\end{blockarray}
+\]   
+\caption{AE corners Confusion matrix for the CVC 12k dataset}
+\label{mat:cvc12k_CM_DN121_AE_CORNER}
+\end{subfigure}
+\caption{Confusion matrices for the three datasets}
+\label{mat:CM_DN121_AE_CORNER}
+\begin{subfigure}[b]{0.25\textwidth}
+\begin{tabular}{ll}      
+        \toprule
+        \multicolumn{2}{c}{CVC 356 dataset}        \\
+        \midrule
+        MCC 		& 0.563 \\
+        F1  		& 0.7792 \\
+        Precicion  	& 0.8039 \\
+        Recall     	& 0.7607 \\
+        Accuracy	& 0.8739 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 356 dataset Metrics}
+\label{tab:cvc356_metrics_DN121_AE_CORNER}
+\end{subfigure}%
+\begin{subfigure}[b]{0.49\textwidth}
+    	\centering
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{Kvasir dataset}        \\
+        \midrule
+        MCC 		& 0.9226 \\
+        F1  		& 0.9321 \\
+        Precicion  	& 0.9322 \\
+        Recall     	& 0.9322 \\
+        Accuracy	& 0.9322 \\
+        \bottomrule
+\end{tabular}
+\caption{The Kvasir dataset\\ Metrics}
+\label{tab:kvasir_metrics_DN121_AE_CORNER}
+\end{subfigure}%
+\begin{subfigure}[b]{0.25\textwidth}
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{CVC 12k dataset}        \\
+        \midrule
+        MCC 		& 0.2867 \\
+        F1  		& 0.516  \\
+        Precicion  	& 0.6921 \\
+        Recall     	& 0.607 \\
+        Accuracy	& 0.5475 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 12k dataset Metrics}
+\label{tab:cvc12k_metrics_DN121_AE_CORNER}
+\end{subfigure}
+\caption{The inpainted corner with AE confusion matrixes}
+\label{fig:results_DN121_AE_CORNER}
+%\advance\rightskip-1.5cm
+\end{figure}
+\FloatBarrier
+
+%
+Figure \ref{fig:results_DN121_AE_CORNER} and \ref{fig:results_DN121_GAN_CORNER}  shows the evaluation of the test set on each of the three datasets used both for the Autoencoder and GAN. 
+
+\paragraph{CVC 356}
+We got the highest MCC from the Autoencoder with a score of 0.56 compared to a score of 0.31 from the GAN.
+In general the Autoencoder has a higher score overall compared to the GAN, where the Autoencoder reaches a higher score than the base case, and the GAN does not.
+
+
+\paragraph{The Kvasir}
+When evaluating our results on the Kvasir dataset we see similar scores for both the GAN and Autoencoder with 0.91 and 0.92 respectively. Here the Autoencoder reaches a higher score than the base case, though the margin is too small to significant.
+
+\paragraph{CVC 12k}
+The MCC scores for the GAN and Autoencoder both reaches a higher value than the base case. When inpainting the corners we see an increase in MCC value of 0.04 for both methods, giving some indication that removing areas with sparse information might give a higher classification score on other datasets with the same sparse areas.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1202,9 +1246,13 @@ between gan and ae
 \subsection{Square inpainted result}
 
 
+We can recall from Hypothesis \ref{hyp:a} that removing dataset specific artefacts we will achieve a higher classification score when evaluation our models on previously unseen datasets.
+We expect the Kvasir dataset not show any improvements, though both the CVC 356 and the CVC 12k dataset we expect to improve compared to the base case. 
+We present the GAN followed by the Autoencoder and evaluate them together.
 
-\begin{figure}[h]
-\caption{Square inpainted with Autoencoder}
+
+\begin{figure}
+\caption{Densenet121 Inpainted green square with the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
 \caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
@@ -1213,16 +1261,16 @@ between gan and ae
      
 \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
-        G&1563 &  38\\
-        I& 365 &  318\\
+        I&1848 &  92\\
+        G& 80 &  264\\
 \end{block}
 \end{blockarray}
  \]         
 
-\caption{Baseline Confusion matrix for the CVC 356 dataset}
-\label{mat:cvc356_CM_base}
+\caption{GAN green square Confusion matrix for the CVC 356 dataset}
+\label{mat:cvc356_CM_DN121_GAN_SQUARE}
 \end{subfigure}
 \begin{subfigure}[b]{0.49\textwidth}  
 \scriptsize     
@@ -1230,52 +1278,51 @@ between gan and ae
 \begin{blockarray}{ccccccccc}
 & A & B & C & D & E & F & G & H \\
 \begin{block}{c[cccccccc]}
-		A& 157&   9 &  0 &  0 &  0 &  0 &  2 &  0\\
-        B&  7  &157  & 0  & 0  & 0  & 0  & 0  & 0\\
-        C&  0  & 0 &145  & 0  & 1 & 27 &  0  & 0\\
-        D&  0  & 0 &  0 & 158 &  0 &  0 &  0  &  3\\
-        E&  0  & 0  & 0 &  0 & 161 &  0 &  2  &  1\\
-        F&  0  & 0 & 21 &  0 &  3& 139 &  0 &  0\\
-        G&  2  & 0 &  0 &  4 &  0 &  0 & 158 &  0\\
-        H&  0  & 0  & 0 &  4 &  1 &  0 &  4 & 162\\
+A&157 & 13 & 0 & 0 & 0 & 0 & 0 & 0\\
+B&  7 & 153 & 0 & 0 & 0 & 0 & 0 & 0\\
+C&  0 & 0 & 146 & 0 & 1 & 37 & 0 & 0\\
+D&  0 & 0 & 0 & 161 & 0 & 0 & 8 & 4\\
+E&  0 & 0 & 1 & 0 & 165 & 1 & 1 & 0\\
+F&  0 & 0 & 19 & 0 & 0 & 128 & 0 & 0\\
+G&  2 & 0 & 0 & 3 & 0 & 0 & 153 & 0\\
+H&  0 & 0 & 0 & 2 & 0 & 0 & 4 & 162\\
 \end{block}
 \end{blockarray}
  \]        
         
         
-\caption{Baseline Confusion matrix for the Kvasir dataset}
-\label{mat:kvasir_CM_base}
+\caption{GAN green square Confusion matrix for the Kvasir dataset}
+\label{mat:kvasir_CM_DN121_GAN_SQUARE}
 \end{subfigure}
 \begin{subfigure}[b]{0.25\textwidth}
         \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
- 		G&1564 & 4362\\
-        I&365  & 5663\\
+ 		I&1849 & 6850\\
+        G&  80 & 3175\\
 \end{block}
 \end{blockarray}
 \]   
-\caption{Baseline Confusion matrix for the CVC 12k dataset}
-\label{mat:cvc12k_CM_base}
+\caption{GAN green square Confusion matrix for the CVC 12k dataset}
+\label{mat:cvc12k_CM_DN121_GAN_SQUARE}
 \end{subfigure}
 \caption{Confusion matrices for the three datasets}
-\label{mat:CM_base}
+\label{mat:CM_DN121_GAN_SQUARE}
 \begin{subfigure}[b]{0.25\textwidth}
 \begin{tabular}{ll}      
         \toprule
         \multicolumn{2}{c}{CVC 356 dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.71 \\
+        F1  		& 0.8549 \\
+        Precicion  	& 0.85 \\
+        Recall     	& 0.86 \\
+        Accuracy	& 0.9247  \\         
         \bottomrule
         \end{tabular}
 \caption{The CVC 356 dataset Metrics}
-\label{tab:cvc356_metrics_base}
+\label{tab:cvc356_metrics_DN121_GAN_SQUARE}
 \end{subfigure}%
 \begin{subfigure}[b]{0.49\textwidth}
     	\centering
@@ -1283,507 +1330,228 @@ between gan and ae
         \toprule
         \multicolumn{2}{c}{Kvasir dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.9116 \\
+        F1  		& 0.9222  \\
+        Precicion  	& 0.9224 \\
+        Recall     	& 0.9237 \\
+        Accuracy	& 0.9224 \\
         \bottomrule
 \end{tabular}
 \caption{The Kvasir dataset\\ Metrics}
-\label{tab:kvasir_metrics_base}
+\label{tab:kvasir_metrics_DN121_GAN_SQUARE}
 \end{subfigure}%
 \begin{subfigure}[b]{0.25\textwidth}
         \begin{tabular}{ll}
         \toprule
         \multicolumn{2}{c}{CVC 12k dataset}        \\
         \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
+        MCC 		& 0.2275 \\
+        F1  		& 0.4131 \\
+        Precicion  	& 0.6376 \\
+        Recall     	& 0.594 \\
+        Accuracy	& 0.4203 \\
         \bottomrule
         \end{tabular}
 \caption{The CVC 12k dataset Metrics}
-\label{tab:cvc12k_metrics_base}
+\label{tab:cvc12k_metrics_DN121_GAN_SQUARE}
 \end{subfigure}
-\caption{The baseline confusion matrixes}
-\label{fig:BaselineCM}
+\caption{The inpainted green square with GAN confusion matrixes}
+\label{fig:results_DN121_GAN_SQUARE}
 %\advance\rightskip-1.5cm
 \end{figure}
-
-between gan and ae
-
-\begin{figure}[h]
-\caption{square inpainted with GAN}
-\myfontsize
-%\advance\leftskip-1.5cm
-\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
-
-\begin{subfigure}[b]{0.25\textwidth}
-     
-\[
-\begin{blockarray}{ccc}
-& G & I  \\
-\begin{block}{c[cc]}
-        G&1563 &  38\\
-        I& 365 &  318\\
-\end{block}
-\end{blockarray}
- \]         
-
-\caption{Baseline Confusion matrix for the CVC 356 dataset}
-\label{mat:cvc356_CM_base}
-\end{subfigure}
-\begin{subfigure}[b]{0.49\textwidth}  
-\scriptsize     
-\[
-\begin{blockarray}{ccccccccc}
-& A & B & C & D & E & F & G & H \\
-\begin{block}{c[cccccccc]}
-		A& 157&   9 &  0 &  0 &  0 &  0 &  2 &  0\\
-        B&  7  &157  & 0  & 0  & 0  & 0  & 0  & 0\\
-        C&  0  & 0 &145  & 0  & 1 & 27 &  0  & 0\\
-        D&  0  & 0 &  0 & 158 &  0 &  0 &  0  &  3\\
-        E&  0  & 0  & 0 &  0 & 161 &  0 &  2  &  1\\
-        F&  0  & 0 & 21 &  0 &  3& 139 &  0 &  0\\
-        G&  2  & 0 &  0 &  4 &  0 &  0 & 158 &  0\\
-        H&  0  & 0  & 0 &  4 &  1 &  0 &  4 & 162\\
-\end{block}
-\end{blockarray}
- \]        
-        
-        
-\caption{Baseline Confusion matrix for the Kvasir dataset}
-\label{mat:kvasir_CM_base}
-\end{subfigure}
-\begin{subfigure}[b]{0.25\textwidth}
-        \[
-\begin{blockarray}{ccc}
-& G & I  \\
-\begin{block}{c[cc]}
- 		G&1564 & 4362\\
-        I&365  & 5663\\
-\end{block}
-\end{blockarray}
-\]   
-\caption{Baseline Confusion matrix for the CVC 12k dataset}
-\label{mat:cvc12k_CM_base}
-\end{subfigure}
-\caption{Confusion matrices for the three datasets}
-\label{mat:CM_base}
-\begin{subfigure}[b]{0.25\textwidth}
-\begin{tabular}{ll}      
-        \toprule
-        \multicolumn{2}{c}{CVC 356 dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-        \end{tabular}
-\caption{The CVC 356 dataset Metrics}
-\label{tab:cvc356_metrics_base}
-\end{subfigure}%
-\begin{subfigure}[b]{0.49\textwidth}
-    	\centering
-        \begin{tabular}{ll}
-        \toprule
-        \multicolumn{2}{c}{Kvasir dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-\end{tabular}
-\caption{The Kvasir dataset\\ Metrics}
-\label{tab:kvasir_metrics_base}
-\end{subfigure}%
-\begin{subfigure}[b]{0.25\textwidth}
-        \begin{tabular}{ll}
-        \toprule
-        \multicolumn{2}{c}{CVC 12k dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-        \end{tabular}
-\caption{The CVC 12k dataset Metrics}
-\label{tab:cvc12k_metrics_base}
-\end{subfigure}
-\caption{The baseline confusion matrixes}
-\label{fig:BaselineCM}
-%\advance\rightskip-1.5cm
-\end{figure}
-
 \FloatBarrier
+
+
+
+\begin{figure}
+\caption{Densenet121 Inpainted green square with the AE results}
+\myfontsize
+%\advance\leftskip-1.5cm
+\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
+
+\begin{subfigure}[b]{0.25\textwidth}
+     
+\[
+\begin{blockarray}{ccc}
+& I & G  \\
+\begin{block}{c[cc]}
+        I&1746 & 106\\
+        G&  182 & 250\\
+\end{block}
+\end{blockarray}
+ \]         
+
+\caption{AE green square Confusion matrix for the CVC 356 dataset}
+\label{mat:cvc356_CM_DN121_AE_SQUARE}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}  
+\scriptsize     
+\[
+\begin{blockarray}{ccccccccc}
+& A & B & C & D & E & F & G & H \\
+\begin{block}{c[cccccccc]}
+A&150 & 9 & 0 & 0 & 0 & 0 & 1 & 0\\
+B& 12 & 157 & 0 & 0 & 0 & 0 & 0 & 0\\
+C&  0 & 0 & 141 & 0 & 0 & 21 & 0 & 0\\
+D&  1 & 0 & 0 & 160 & 0 & 0 & 4 & 2\\
+E&  0 & 0 & 0 & 0 & 166 & 0 & 1 & 0\\
+F&  0 & 0 & 25 & 0 & 0 & 145 & 0 & 0\\
+G&  3 & 0 & 0 & 3 & 0 & 0 & 157 & 2\\
+H&  0 & 0 & 0 & 3 & 0 & 0 & 3 & 162\\
+\end{block}
+\end{blockarray}
+ \]        
+        
+        
+\caption{AE green square Confusion\\ matrix for the Kvasir dataset}
+\label{mat:kvasir_CM_DN121_AE_SQUARE}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+        \[
+\begin{blockarray}{ccc}
+& I & G  \\
+\begin{block}{c[cc]}
+ 		I&1747 & 5227\\
+        G&182  & 4798\\
+\end{block}
+\end{blockarray}
+\]   
+\caption{AE green square Confusion matrix for the CVC 12k dataset}
+\label{mat:cvc12k_CM_DN121_AE_SQUARE}
+\end{subfigure}
+\caption{Confusion matrices for the three datasets}
+\label{mat:CM_DN121_AE_SQUARE}
+\begin{subfigure}[b]{0.25\textwidth}
+\begin{tabular}{ll}      
+        \toprule
+        \multicolumn{2}{c}{CVC 356 dataset}        \\
+        \midrule
+        MCC 		& 0.6072 \\
+        F1  		& 0.8017 \\
+        Precicion  	& 0.8248 \\
+        Recall      & 0.7837 \\
+        Accuracy	& 0.8879 \\
+        \bottomrule
+            
+        \end{tabular}
+\caption{The CVC 356 dataset Metrics}
+\label{tab:cvc356_metrics_DN121_AE_SQUARE}
+\end{subfigure}%
+\begin{subfigure}[b]{0.49\textwidth}
+    	\centering
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{Kvasir dataset}        \\
+        \midrule
+        MCC 		& 0.9158 \\
+        F1  		& 0.9262  \\
+        Precicion  	& 0.9262 \\
+        Recall     	& 0.9271  \\
+        Accuracy	& 0.9262 \\
+        \bottomrule
+\end{tabular}
+\caption{The Kvasir dataset\\ Metrics}
+\label{tab:kvasir_metrics_DN121_AE_SQUARE}
+\end{subfigure}%
+\begin{subfigure}[b]{0.25\textwidth}
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{CVC 12k dataset}        \\
+        \midrule
+        MCC 		& 0.2029 \\
+        F1  		& 0.4185  \\
+        Precicion  	& 0.6257 \\
+        Recall     	& 0.5819 \\
+        Accuracy	& 0.4287 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 12k dataset Metrics}
+\label{tab:cvc12k_metrics_DN121_AE_SQUARE}
+\end{subfigure}
+\caption{The inpainted green square with AE confusion matrixes}
+\label{fig:results_DN121_AE_SQUARE}
+%\advance\rightskip-1.5cm
+\end{figure}
+\FloatBarrier
+
+%
+Figure \ref{fig:results_DN121_GAN_SQUARE} and \ref{fig:results_DN121_AE_SQUARE} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
+
+\paragraph{CVC 356}
+As this is a dataset unseen by the classifier during training, we would expect, given that Hypothesis \ref{hyp:a} is True, that the classification score would be higher than the base case.
+Here we have \textit{significantly} higher score with both the GAN and Autoencoder. 
+The GAN reached a MCC score of 0.71 compared to the base case of 42. The Autoencoder also beat the base case with a large margin, given the MCC score of 0.60.
+
+This highly suggest that our hypothesis about removing dataset-specific artefacts to improve accuracy is indeed correct. 
+
+\paragraph{The Kvasir}
+As with the previous tests we see little change in the scores when evaluation on the Kvasir dataset.
+Here both the GAN and the Autoencoder got a lower score compared to the base, though only with a small margin.
+
+
+\paragraph{CVC 12k}
+As with the CVC 356 dataset the CVC 12k dataset is unseen by the classifier during training. 
+Here, both the GAN and Autoencoder reaches a lower MCC value when evaluation on the dataset. 
+\todo{This disproves hyp:a}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \subsection{Both inpainted result}
 
 
 
-\begin{figure}[h]
-\caption{Both inpainted with Autoencoder}
-\myfontsize
-%\advance\leftskip-1.5cm
-\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
-
-\begin{subfigure}[b]{0.25\textwidth}
-     
-\[
-\begin{blockarray}{ccc}
-& G & I  \\
-\begin{block}{c[cc]}
-        G&1563 &  38\\
-        I& 365 &  318\\
-\end{block}
-\end{blockarray}
- \]         
-
-\caption{Baseline Confusion matrix for the CVC 356 dataset}
-\label{mat:cvc356_CM_base}
-\end{subfigure}
-\begin{subfigure}[b]{0.49\textwidth}  
-\scriptsize     
-\[
-\begin{blockarray}{ccccccccc}
-& A & B & C & D & E & F & G & H \\
-\begin{block}{c[cccccccc]}
-		A& 157&   9 &  0 &  0 &  0 &  0 &  2 &  0\\
-        B&  7  &157  & 0  & 0  & 0  & 0  & 0  & 0\\
-        C&  0  & 0 &145  & 0  & 1 & 27 &  0  & 0\\
-        D&  0  & 0 &  0 & 158 &  0 &  0 &  0  &  3\\
-        E&  0  & 0  & 0 &  0 & 161 &  0 &  2  &  1\\
-        F&  0  & 0 & 21 &  0 &  3& 139 &  0 &  0\\
-        G&  2  & 0 &  0 &  4 &  0 &  0 & 158 &  0\\
-        H&  0  & 0  & 0 &  4 &  1 &  0 &  4 & 162\\
-\end{block}
-\end{blockarray}
- \]        
-        
-        
-\caption{Baseline Confusion matrix for the Kvasir dataset}
-\label{mat:kvasir_CM_base}
-\end{subfigure}
-\begin{subfigure}[b]{0.25\textwidth}
-        \[
-\begin{blockarray}{ccc}
-& G & I  \\
-\begin{block}{c[cc]}
- 		G&1564 & 4362\\
-        I&365  & 5663\\
-\end{block}
-\end{blockarray}
-\]   
-\caption{Baseline Confusion matrix for the CVC 12k dataset}
-\label{mat:cvc12k_CM_base}
-\end{subfigure}
-\caption{Confusion matrices for the three datasets}
-\label{mat:CM_base}
-\begin{subfigure}[b]{0.25\textwidth}
-\begin{tabular}{ll}      
-        \toprule
-        \multicolumn{2}{c}{CVC 356 dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-        \end{tabular}
-\caption{The CVC 356 dataset Metrics}
-\label{tab:cvc356_metrics_base}
-\end{subfigure}%
-\begin{subfigure}[b]{0.49\textwidth}
-    	\centering
-        \begin{tabular}{ll}
-        \toprule
-        \multicolumn{2}{c}{Kvasir dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-\end{tabular}
-\caption{The Kvasir dataset\\ Metrics}
-\label{tab:kvasir_metrics_base}
-\end{subfigure}%
-\begin{subfigure}[b]{0.25\textwidth}
-        \begin{tabular}{ll}
-        \toprule
-        \multicolumn{2}{c}{CVC 12k dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-        \end{tabular}
-\caption{The CVC 12k dataset Metrics}
-\label{tab:cvc12k_metrics_base}
-\end{subfigure}
-\caption{The baseline confusion matrixes}
-\label{fig:BaselineCM}
-%\advance\rightskip-1.5cm
-\end{figure}
 
 
-between gan and ae
+%\subsection{double image size}
 
-\begin{figure}[h]
-\caption{Both inpainted with GAN}
-\myfontsize
-%\advance\leftskip-1.5cm
-\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
-
-\begin{subfigure}[b]{0.25\textwidth}
-     
-\[
-\begin{blockarray}{ccc}
-& G & I  \\
-\begin{block}{c[cc]}
-        G&1563 &  38\\
-        I& 365 &  318\\
-\end{block}
-\end{blockarray}
- \]         
-
-\caption{Baseline Confusion matrix for the CVC 356 dataset}
-\label{mat:cvc356_CM_base}
-\end{subfigure}
-\begin{subfigure}[b]{0.49\textwidth}  
-\scriptsize     
-\[
-\begin{blockarray}{ccccccccc}
-& A & B & C & D & E & F & G & H \\
-\begin{block}{c[cccccccc]}
-		A& 157&   9 &  0 &  0 &  0 &  0 &  2 &  0\\
-        B&  7  &157  & 0  & 0  & 0  & 0  & 0  & 0\\
-        C&  0  & 0 &145  & 0  & 1 & 27 &  0  & 0\\
-        D&  0  & 0 &  0 & 158 &  0 &  0 &  0  &  3\\
-        E&  0  & 0  & 0 &  0 & 161 &  0 &  2  &  1\\
-        F&  0  & 0 & 21 &  0 &  3& 139 &  0 &  0\\
-        G&  2  & 0 &  0 &  4 &  0 &  0 & 158 &  0\\
-        H&  0  & 0  & 0 &  4 &  1 &  0 &  4 & 162\\
-\end{block}
-\end{blockarray}
- \]        
-        
-        
-\caption{Baseline Confusion matrix for the Kvasir dataset}
-\label{mat:kvasir_CM_base}
-\end{subfigure}
-\begin{subfigure}[b]{0.25\textwidth}
-        \[
-\begin{blockarray}{ccc}
-& G & I  \\
-\begin{block}{c[cc]}
- 		G&1564 & 4362\\
-        I&365  & 5663\\
-\end{block}
-\end{blockarray}
-\]   
-\caption{Baseline Confusion matrix for the CVC 12k dataset}
-\label{mat:cvc12k_CM_base}
-\end{subfigure}
-\caption{Confusion matrices for the three datasets}
-\label{mat:CM_base}
-\begin{subfigure}[b]{0.25\textwidth}
-\begin{tabular}{ll}      
-        \toprule
-        \multicolumn{2}{c}{CVC 356 dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-        \end{tabular}
-\caption{The CVC 356 dataset Metrics}
-\label{tab:cvc356_metrics_base}
-\end{subfigure}%
-\begin{subfigure}[b]{0.49\textwidth}
-    	\centering
-        \begin{tabular}{ll}
-        \toprule
-        \multicolumn{2}{c}{Kvasir dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-\end{tabular}
-\caption{The Kvasir dataset\\ Metrics}
-\label{tab:kvasir_metrics_base}
-\end{subfigure}%
-\begin{subfigure}[b]{0.25\textwidth}
-        \begin{tabular}{ll}
-        \toprule
-        \multicolumn{2}{c}{CVC 12k dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-        \end{tabular}
-\caption{The CVC 12k dataset Metrics}
-\label{tab:cvc12k_metrics_base}
-\end{subfigure}
-\caption{The baseline confusion matrixes}
-\label{fig:BaselineCM}
-%\advance\rightskip-1.5cm
-\end{figure}
-\FloatBarrier
-
-
-
-\subsection{double image size}
-
-
-\begin{figure}[h]
-\caption{Double image size}
-\myfontsize
-%\advance\leftskip-1.5cm
-\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
-
-\begin{subfigure}[b]{0.25\textwidth}
-     
-\[
-\begin{blockarray}{ccc}
-& G & I  \\
-\begin{block}{c[cc]}
-        G&1563 &  38\\
-        I& 365 &  318\\
-\end{block}
-\end{blockarray}
- \]         
-
-\caption{Baseline Confusion matrix for the CVC 356 dataset}
-\label{mat:cvc356_CM_base}
-\end{subfigure}
-\begin{subfigure}[b]{0.49\textwidth}  
-\scriptsize     
-\[
-\begin{blockarray}{ccccccccc}
-& A & B & C & D & E & F & G & H \\
-\begin{block}{c[cccccccc]}
-		A& 157&   9 &  0 &  0 &  0 &  0 &  2 &  0\\
-        B&  7  &157  & 0  & 0  & 0  & 0  & 0  & 0\\
-        C&  0  & 0 &145  & 0  & 1 & 27 &  0  & 0\\
-        D&  0  & 0 &  0 & 158 &  0 &  0 &  0  &  3\\
-        E&  0  & 0  & 0 &  0 & 161 &  0 &  2  &  1\\
-        F&  0  & 0 & 21 &  0 &  3& 139 &  0 &  0\\
-        G&  2  & 0 &  0 &  4 &  0 &  0 & 158 &  0\\
-        H&  0  & 0  & 0 &  4 &  1 &  0 &  4 & 162\\
-\end{block}
-\end{blockarray}
- \]        
-        
-        
-\caption{Baseline Confusion matrix for the Kvasir dataset}
-\label{mat:kvasir_CM_base}
-\end{subfigure}
-\begin{subfigure}[b]{0.25\textwidth}
-        \[
-\begin{blockarray}{ccc}
-& G & I  \\
-\begin{block}{c[cc]}
- 		G&1564 & 4362\\
-        I&365  & 5663\\
-\end{block}
-\end{blockarray}
-\]   
-\caption{Baseline Confusion matrix for the CVC 12k dataset}
-\label{mat:cvc12k_CM_base}
-\end{subfigure}
-\caption{Confusion matrices for the three datasets}
-\label{mat:CM_base}
-\begin{subfigure}[b]{0.25\textwidth}
-\begin{tabular}{ll}      
-        \toprule
-        \multicolumn{2}{c}{CVC 356 dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-        \end{tabular}
-\caption{The CVC 356 dataset Metrics}
-\label{tab:cvc356_metrics_base}
-\end{subfigure}%
-\begin{subfigure}[b]{0.49\textwidth}
-    	\centering
-        \begin{tabular}{ll}
-        \toprule
-        \multicolumn{2}{c}{Kvasir dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-\end{tabular}
-\caption{The Kvasir dataset\\ Metrics}
-\label{tab:kvasir_metrics_base}
-\end{subfigure}%
-\begin{subfigure}[b]{0.25\textwidth}
-        \begin{tabular}{ll}
-        \toprule
-        \multicolumn{2}{c}{CVC 12k dataset}        \\
-        \midrule
-        MCC & 0.9    \\
-        Accuracy                         & 1      \\
-        Recall                              & 0.5    \\
-        Precicion                        & 0.2143 \\
-        Accuracy                        & 0.1234 \\
-        F1                                     & 0.1234\\
-        \bottomrule
-        \end{tabular}
-\caption{The CVC 12k dataset Metrics}
-\label{tab:cvc12k_metrics_base}
-\end{subfigure}
-\caption{The baseline confusion matrixes}
-\label{fig:BaselineCM}
-%\advance\rightskip-1.5cm
-\end{figure}
 
 \FloatBarrier
 
-\clearpage
 \section{Inceptionresnetv2}
 In addition to just testing our results with the Densenet121, we wanted to see if the results were replicable with other networks. We present our result from InceptionResnetV2 (IRV2) as a base of comparison versus the Densenet121 model. 
 
@@ -1829,10 +1597,10 @@ This Table shows the base case result with the larger Inceptionresnetv2 model.
      
 \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
-        G&1142 &  113\\
-        I& 786 &  243\\
+        I&1142 &  113\\
+        G& 786 &  243\\
 \end{block}
 \end{blockarray}
  \]         
@@ -1867,8 +1635,8 @@ H&  0 & 1 & 1 & 5 & 0 & 0 & 13 & 158\\
 \begin{blockarray}{ccc}
 & G & I  \\
 \begin{block}{c[cc]}
- 		G&1142 & 4857\\
-        I&787  & 5168\\
+ 		I&1142 & 4857\\
+        G&787  & 5168\\
 \end{block}
 \end{blockarray}
 \]   
@@ -1947,10 +1715,10 @@ For the first comparison, we look at the dataset with the inpainted corner. We p
      
 \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
-        G&1489 &  188\\
-        I& 439 &  168\\
+        I&1489 &  188\\
+        G& 439 &  168\\
 \end{block}
 \end{blockarray}
  \]         
@@ -1983,10 +1751,10 @@ H&  1 & 0 & 1 & 2 & 0 & 0 & 9 & 163\\
 \begin{subfigure}[b]{0.25\textwidth}
         \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
- 		G&1490 & 3507\\
-        I&439  & 6518\\
+ 		I&1490 & 3507\\
+        G&439  & 6518\\
 \end{block}
 \end{blockarray}
 \]   
@@ -2062,10 +1830,10 @@ We can not draw any clear conclutions.
      
 \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
-        G&225  &  49\\
-        I& 1703 &  307\\
+        I&225  &  49\\
+        G& 1703 &  307\\
 \end{block}
 \end{blockarray}
  \]         
@@ -2098,10 +1866,10 @@ H&  0 & 0 & 1 & 4 & 0 & 0 & 0 & 157\\
 \begin{subfigure}[b]{0.25\textwidth}
         \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
- 		G&225 & 491\\
-        I&1704  & 9534\\
+ 		I&225 & 491\\
+        G&1704  & 9534\\
 \end{block}
 \end{blockarray}
 \]   
@@ -2190,10 +1958,10 @@ Based on our hypothesis we expect the same improvement here as we had in our Den
      
 \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
-        G&1871 &  174\\
-        I& 57 &  182\\
+        I&1871 &  174\\
+        G& 57 &  182\\
 \end{block}
 \end{blockarray}
  \]         
@@ -2226,10 +1994,10 @@ H&  1 & 0 & 0 & 1 & 0 & 0 & 4 & 145\\
 \begin{subfigure}[b]{0.25\textwidth}
         \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
- 		G&1872 & 7821\\
-        I&57  & 2204\\
+ 		I&1872 & 7821\\
+        G&57  & 2204\\
 \end{block}
 \end{blockarray}
 \]   
@@ -2305,10 +2073,10 @@ We can not draw any clear conclutions.
      
 \[
 \begin{blockarray}{ccc}
-& G & I  \\
+& I & G  \\
 \begin{block}{c[cc]}
-        G&1784  &  195\\
-        I& 144 &  161\\
+        I&1784  &  195\\
+        G& 144 &  161\\
 \end{block}
 \end{blockarray}
  \]         
@@ -2343,8 +2111,8 @@ H&  0 & 0 & 3 & 3 & 4 & 5 & 5 & 157\\
 \begin{blockarray}{ccc}
 & G & I  \\
 \begin{block}{c[cc]}
- 		G&1785 & 6055\\
-        I&144  & 3970\\
+ 		I&1785 & 6055\\
+        G&144  & 3970\\
 \end{block}
 \end{blockarray}
 \]   
