@@ -1,7 +1,7 @@
 \section{Background and Motivation}
 
 \subsection{Introduction}
-Cancer is, today, the second leading cause of death in the world, only behind cardiovascular diseases.  %TODO CITE
+Cancer is today, the second leading cause of death in the world, only behind cardiovascular diseases.  %TODO CITE
 It is one of the leading causes of mortality worldwide, with approximately 14 million new cases in 2012.\cite{WHOCANCER}
 It is defined as a disease that has an abnormal cell growth with the potential to spread into other parts of the body.\cite{WhatIsCancer}
 Contrary to normal cells, cancer cells are often invasive, and it will spread if not treated. 
@@ -17,7 +17,7 @@ In either external or internal cases, cancer is by definition this uncontrollabl
 
 
 \textbf{Statistics on cancer}\\
-Since cancer is, in practice, just a cell division error, it has the opportunity to hit anyone, at any age. Because of this, it is a heavily reseached area, both in Norway, and the rest of the world.
+Since cancer is, in practice, just a cell division error, it has the opportunity to hit anyone, at any age. Because of this, it is a heavily researched area, both in Norway, and the rest of the world.
 In 200X we spent 22Y million dollars worldwide on cancer research. 
 Despite being such a researched area, it is still one of the top causes of human death. 
 Some types of cancer, like \todo{} cancer, is one of the simpler forms of cancer to treat, and at this point, those kind of cancers are non-fatal. 
@@ -124,5 +124,74 @@ Colonoscopy is performed with a camera-stick that is inserted into the GI tract 
     
 \section{Problem definition}
 \section{Research Method}
-\section{Main contriburors and related work}
+https://dl.acm.org/citation.cfm?id=63239
+https://dl.acm.org/citation.cfm?id=63239
+https://dl.acm.org/citation.cfm?id=63239
+https://dl.acm.org/citation.cfm?id=63239
+https://dl.acm.org/citation.cfm?id=63239
+https://dl.acm.org/citation.cfm?id=63239
+
+\section{Main contributors and related work}
+The work presented in this thesis builds upon the work done by the following publications.
+
+
+EIR - A Medical Multimedia System for Efficient
+Computer Aided Diagnosis by Riegler \todo{cite PhD Michael.}
+
+The thesis of Hicks and subsequent publications made by Hicks et al. is the foundation for this thesis. In Hicks's thesis, the author gives an introduction into the 'black box' that is machine learning and tries to decode how the medical images affect the neural network's decisions. 
+The thesis shows how the use of saliency maps can help with the understanding of deep convolutional networks, and it showed how dataset specific artefacts could affect the classification.
+
+
+The paper, x by Hicks et al. show how removing the dataset-specific artefacts referenced in his thesis gave a better accuracy when it came to classifying images from the GI tract.
+
+
+The papers submitted by Pathak et al. and Denton et al. and their work on using Generative Adversarial Networks with regards to inpainting are implemented and improved for this dataset-specific task.
+
+Denton et al. in the paper \textit{SEMI-SUPERVISED LEARNING WITH
+CONTEXT-CONDITIONAL GENERATIVE
+ADVERSARIAL NETWORKS} shows in detail how to use neural networks with an adversarial approach to inpaint areas in images. In their paper, they propose an Encoder-Decoder approach with realistic looking inpaining results.
+
+
+Pathak et al. shows, in the publication \textit{Context Encoders: Feature Learning by Inpainting} a network and results close the work done by Denton et al. Using a similar Encoder-Decoder network as Denton et al. they achieved similar results inpainting areas in images from the Imagenet dataset\todo{refimagenet}
+
+Our work with Generative Adversarial Networks in this thesis has drawn inspiration from both papers and improved the work to better suit the medical image domain.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Outline}
+The thesis is organised as follows:
+
+\paragraph{Chapter 2: Background}
+We give more background information about medical practice and machine learning.
+We talk about how modern hospitals administer colonoscopies and give insight into how we find polyps and remove them. Here we also present how these hospitals perform (DIGITAL DIAGNOSIS), and the potions that are on the market at the present date. 
+We give an introduction to machine learning and its uses, both the history and present-day applications. We will look at the most successful type of machine learning, and give a brief tour into how it works, and how it can be applied to data.
+We round off this chapter by looking at how machine learning and medical colonoscopy can work together to help with the detection of anomalies in the GI tract.
+
+\paragraph{Chapter 3: Methodology }
+We describe the methodology by presenting the datasets we use in this thesis, the methods used when inpainting images, and the design of the experiments and programs. 
+We will first look at the Kvasir dataset and go into detail about the creation and attributes with the dataset. We will look at the CVC 356 and the CVC 12k dataset and compare them to the Kvasir dataset.
+After discerning the dataset-specific artefacts from the datasets, we look at the options for inpainting the dataset based on the artefacts we want to remove. 
+Lastly, we look into the whole process from preprocessing to classifying.
+
+
+\paragraph{Chapter 4: Experiments}
+We give a review of the metrics we use to evaluate our results, followed by the results of the inpainting and classification.
+
+
+\paragraph{Chapter 5: Conclusion}
+ Finally, we summarise and conclude this thesis.
+We also present ideas and suggestions for further studies surrounding
+the findings in this thesis and present final remarks about the research.
+

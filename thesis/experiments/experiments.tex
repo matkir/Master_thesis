@@ -1543,6 +1543,283 @@ Here, both the GAN and Autoencoder reaches a lower MCC value when evaluation on 
 
 \subsection{Both inpainted result}
 
+In addition to test the two hypothesises separately we, as we recall, want to test both types of inpainting at the same time.
+When testing both inpainting types we can not draw any predictions reliably, given that we do not know if the two methods interfere with each other. 
+
+We present the GAN inpainting of both the areas followed by the same inpainting with the Autoencoder.
+
+
+\begin{figure}
+\caption{Densenet121 Inpainted both areas with the GAN results}
+\myfontsize
+%\advance\leftskip-1.5cm
+\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
+
+\begin{subfigure}[b]{0.25\textwidth}
+     
+\[
+\begin{blockarray}{ccc}
+& I & G  \\
+\begin{block}{c[cc]}
+        I&1916 &  129\\
+        G& 12 &  227\\
+\end{block}
+\end{blockarray}
+ \]         
+
+\caption{GAN both areas Confusion matrix for the CVC 356 dataset}
+\label{mat:cvc356_CM_DN121_GAN_BOTH}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}  
+\scriptsize     
+\[
+\begin{blockarray}{ccccccccc}
+& A & B & C & D & E & F & G & H \\
+\begin{block}{c[cccccccc]}
+A&159 & 7 & 0 & 0 & 0 & 0 & 2 & 1\\
+B&  7 & 158 & 0 & 0 & 0 & 0 & 0 & 0\\
+C&  0 & 0 & 118 & 0 & 0 & 8 & 0 & 0\\
+D&  0 & 0 & 0 & 161 & 0 & 0 & 3 & 4\\
+E&  0 & 0 & 1 & 0 & 164 & 0 & 3 & 0\\
+F&  0 & 0 & 47 & 0 & 0 & 158 & 1 & 0\\
+G&  0 & 0 & 0 & 0 & 1 & 0 & 154 & 0\\
+H&  0 & 1 & 0 & 5 & 1 & 0 & 3 & 161\\
+\end{block}
+\end{blockarray}
+ \]        
+        
+        
+\caption{GAN both areas Confusion matrix for the Kvasir dataset}
+\label{mat:kvasir_CM_DN121_GAN_BOTH}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+        \[
+\begin{blockarray}{ccc}
+& I & G  \\
+\begin{block}{c[cc]}
+ 		I&1917 & 7851\\
+        G&  12 & 2174\\
+\end{block}
+\end{blockarray}
+\]   
+\caption{GAN both areas Confusion matrix for the CVC 12k dataset}
+\label{mat:cvc12k_CM_DN121_GAN_BOTH}
+\end{subfigure}
+\caption{Confusion matrices for the three datasets}
+\label{mat:CM_DN121_GAN_BOTH}
+\begin{subfigure}[b]{0.25\textwidth}
+\begin{tabular}{ll}      
+        \toprule
+        \multicolumn{2}{c}{CVC 356 dataset}        \\
+        \midrule
+        MCC 		& 0.7483 \\
+        F1  		& 0.8638 \\
+        Precicion  	& 0.8157 \\
+        Recall      & 0.9434 \\
+        Accuracy	& 0.9383  \\         
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 356 dataset Metrics}
+\label{tab:cvc356_metrics_DN121_GAN_BOTH}
+\end{subfigure}%
+\begin{subfigure}[b]{0.49\textwidth}
+    	\centering
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{Kvasir dataset}        \\
+        \midrule
+        MCC 		& 0.9192 \\
+        F1  		& 0.9278  \\
+        Precicion  	& 0.9285 \\
+        Recall     	& 0.9339 \\
+        Accuracy	& 0.9285 \\
+        \bottomrule
+\end{tabular}
+\caption{The Kvasir dataset\\ Metrics}
+\label{tab:kvasir_metrics_DN121_GAN_BOTH}
+\end{subfigure}%
+\begin{subfigure}[b]{0.25\textwidth}
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{CVC 12k dataset}        \\
+        \midrule
+        MCC 		& 0.2005 \\
+        F1  		& 0.3419 \\
+        Precicion  	& 0.6053 \\
+        Recall     	& 0.5954 \\
+        Accuracy	& 0.3422 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 12k dataset Metrics}
+\label{tab:cvc12k_metrics_DN121_GAN_BOTH}
+\end{subfigure}
+\caption{The inpainted both areas with GAN confusion matrixes}
+\label{fig:results_DN121_GAN_BOTH}
+%\advance\rightskip-1.5cm
+\end{figure}
+\FloatBarrier
+
+
+
+\begin{figure}
+\caption{Densenet121 Inpainted both areas with the AE results}
+\myfontsize
+%\advance\leftskip-1.5cm
+\caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
+
+\begin{subfigure}[b]{0.25\textwidth}
+     
+\[
+\begin{blockarray}{ccc}
+& I & G  \\
+\begin{block}{c[cc]}
+        I&1889 & 238\\
+        G&  39 & 118\\
+\end{block}
+\end{blockarray}
+ \]         
+
+\caption{AE both areas Confusion matrix for the CVC 356 dataset}
+\label{mat:cvc356_CM_DN121_AE_BOTH}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}  
+\scriptsize     
+\[
+\begin{blockarray}{ccccccccc}
+& A & B & C & D & E & F & G & H \\
+\begin{block}{c[cccccccc]}
+A&149 & 11 & 0 & 0 & 0 & 0 & 1 & 0\\
+B& 11 & 155 & 0 & 0 & 0 & 0 & 0 & 0\\
+C&  0 & 0 & 143 & 0 & 0 & 25 & 1 & 0\\
+D&  0 & 0 & 0 & 156 & 0 & 0 & 0 & 2\\
+E&  0 & 0 & 0 & 0 & 166 & 1 & 2 & 1\\
+F&  0 & 0 & 23 & 0 & 0 & 140 & 0 & 0\\
+G&  4 & 0 & 0 & 5 & 0 & 0 & 154 & 3\\
+H&  2 & 0 & 0 & 5 & 0 & 0 & 8 & 160\\
+\end{block}
+\end{blockarray}
+ \]        
+        
+        
+\caption{AE both areas Confusion\\ matrix for the Kvasir dataset}
+\label{mat:kvasir_CM_DN121_AE_BOTH}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+        \[
+\begin{blockarray}{ccc}
+& I & G  \\
+\begin{block}{c[cc]}
+ 		I&1890 & 7452\\
+        G&39  & 2573\\
+\end{block}
+\end{blockarray}
+\]   
+\caption{AE both areas Confusion matrix for the CVC 12k dataset}
+\label{mat:cvc12k_CM_DN121_AE_BOTH}
+\end{subfigure}
+\caption{Confusion matrices for the three datasets}
+\label{mat:CM_DN121_AE_SQUARE}
+\begin{subfigure}[b]{0.25\textwidth}
+\begin{tabular}{ll}      
+        \toprule
+        \multicolumn{2}{c}{CVC 356 dataset}        \\
+        \midrule
+        MCC 		& 0.4462 \\
+        F1  		& 0.6959 \\
+        Precicion  	& 0.6556 \\
+        Recall      & 0.8198 \\
+        Accuracy	& 0.8787 \\
+        \bottomrule    
+        \end{tabular}
+\caption{The CVC 356 dataset Metrics}
+\label{tab:cvc356_metrics_DN121_AE_BOTH}
+\end{subfigure}%
+\begin{subfigure}[b]{0.49\textwidth}
+    	\centering
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{Kvasir dataset}        \\
+        \midrule
+        MCC 		& 0.9097 \\
+        F1  		& 0.9209  \\
+        Precicion  	& 0.9209 \\
+        Recall     	& 0.9213  \\
+        Accuracy	& 0.9209 \\
+        \bottomrule
+\end{tabular}
+\caption{The Kvasir dataset\\ Metrics}
+\label{tab:kvasir_metrics_DN121_AE_BOTH}
+\end{subfigure}%
+\begin{subfigure}[b]{0.25\textwidth}
+        \begin{tabular}{ll}
+        \toprule
+        \multicolumn{2}{c}{CVC 12k dataset}        \\
+        \midrule
+        MCC 		& 0.2105 \\
+        F1  		& 0.3713  \\
+        Precicion  	& 0.6182 \\
+        Recall     	& 0.5937 \\
+        Accuracy	& 0.3733 \\
+        \bottomrule
+        \end{tabular}
+\caption{The CVC 12k dataset Metrics}
+\label{tab:cvc12k_metrics_DN121_AE_BOTH}
+\end{subfigure}
+\caption{The inpainted both areas with AE confusion matrixes}
+\label{fig:results_DN121_AE_BOTH}
+%\advance\rightskip-1.5cm
+\end{figure}
+\FloatBarrier
+
+%
+Figure \ref{fig:results_DN121_GAN_BOTH} and \ref{fig:results_DN121_AE_BOTH} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
+
+\paragraph{CVC 356}
+
+As this is a dataset unseen by the classifier during training, we would expect, given that Hypothesis \ref{hyp:a} is True, that the classification score would be higher than the base case.
+Here we have \textit{significantly} higher score with both the GAN and Autoencoder. 
+The GAN reached a MCC score of 0.71 compared to the base case of 42. The Autoencoder also beat the base case with a large margin, given the MCC score of 0.60.
+
+This highly suggest that our hypothesis about removing dataset-specific artefacts to improve accuracy is indeed correct. \todo{this text is not done yet!}
+
+\paragraph{The Kvasir}
+As with the previous tests we see little change in the scores when evaluation on the Kvasir dataset.
+Here both the GAN and the Autoencoder got a lower score compared to the base, though only with a small margin.
+\todo{this text is not done yet!}
+
+\paragraph{CVC 12k}
+As with the CVC 356 dataset the CVC 12k dataset is unseen by the classifier during training. 
+Here, both the GAN and Autoencoder reaches a lower MCC value when evaluation on the dataset. 
+\todo{this text is not done yet!}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2183,6 +2460,36 @@ From our results, we can conclude with the fact that the IRV2 model manages to g
 
 
 \section{Classification results based on the Densenet model}
+
+
+\iffalse
+\begin{table}[]
+\centering
+\footnotesize
+\caption*{\small \textbf{BC}: Black corner. \textbf{GS}: Green square. \textbf{BC+GS}: Black corner and Green square}
+\begin{center}
+\begin{tabular}{clllll}
+\caption{CVC 356 DenseNet121} 
+\toprule
+Dataset label            & MCC    & F1     & Precision & Recall & Accuracy \\
+\midrule
+\multicolumn{1}{c|}{I}   & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
+\multicolumn{1}{c|}{II}  & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
+\multicolumn{1}{c|}{III} & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
+\multicolumn{1}{c|}{IV}  & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
+\multicolumn{1}{c|}{V}   & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
+\multicolumn{1}{c|}{VI}  & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
+\multicolumn{1}{c|}{VII} & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
+\bottomrule
+\end{tabular}%
+\end{center}
+
+\label{tab:summary_CVC356_DN121}
+\end{table}
+
+\fi
+
+
 \section{Classification results based on the InceptionResnetV2 model}
 
 \section{Classification results}
