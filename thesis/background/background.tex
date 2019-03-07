@@ -27,21 +27,17 @@ The video from the CCD is shown live for the medical staff for the doctors to an
 \cite{Colonoscope}
 
 
-\subsection{pill cam}
-
-
-
-
-
-
-\subsection{Medical images/data/other}
-
-
-    
-\subsection{Systems in place for detection}
-
 \subsection{summary}
 We have now looked at the medical perspective of colonoscopy. We see that the practice has not changed since the introduction of the colonoscope and that the best chance of detection is manually looking at images by professional medical staff. We have also taken a look into the automatic detection methods being experimented with today.
+
+
+\section{CAD - Computer aided diagnosis}
+\begin{itemize}
+	\item Already used methods
+	\item medico and other work
+	\item overfitting and artefacts
+\end{itemize}
+
     
 
 \section{Machine Learning}
@@ -116,13 +112,7 @@ A third method to used unsupervised learning is the adversarial route, where we 
 
 In the description of supervised vs unsupervised we looked at a specific branch of machine learning: Classification. Classification is, as the name implies, the task of getting data sorted into groups of similarity. 
       
-      
-\begin{itemize}
-    \item subsfication
-    \item r to the pillcam progression 
-    \item transcription/translation
-    \item de-noising /finding missing inputs
-    \end{itemize}
+
       
 \subsubsection{Reinforcement learning}
 Is the area in machine learning that is concerned with how a software agent ought to take actions.
@@ -134,7 +124,7 @@ Successful types of reinforcement learning alogrithms are, for instance, Deep Re
 Reinforcement learning algorithms like these can not be categorized under either supervised or unsupervised machine learning. \todo{more?}
 
 
-\subsubsection{Famous machine learning types}
+\subsubsection{Well known machine learning algorithms}
 Now that we have a basis on the three types of machine learning we can go into more detail on the most successful types of machine learning used both now and in the past. 
 Machine learning was coined as a term as early as in the 10000 century. The first concept was of the \todo{more}
 
@@ -174,7 +164,7 @@ After this, we look into a more advanced example utilising a Generative adversar
 
 
     
-\section{How machine learning works}   
+\section{The basic concept of machine learning}   
 %\todo{tell that this is loosely based on deeplearningbook, basic machine learning}
 One of the easiest to understand tasks in machine learning is the process of regression. As stated earlier, regression is a process of approximation given prior input.
 We start with one of the simplest forms of approximation, namely linear approximation. In linear approximation, we are interested in finding the function that best defines our data using only a polynomial of the first degree.  First, we recall that a first-order function is always on the form
@@ -546,6 +536,13 @@ The concept behind a Contextencoder is to take the whole image as input to an en
       
       
 \section{The problem at hand / Summary}
+\begin{itemize}
+	\item Stevens paper about inpainting
+	\item Konstantins paper about the cross dataset evaluation
+\end{itemize}
+
+
+
       Now that we have the definition of machine learning and the current task, we can focus on the task at hand; finding polyps. In an ideal world\footnote{Ideal as in the only disease, we could get in  the GI tract was cancer originating
       from polyps which looked exactly the same} we have a
       Classification problem with only two classes: Non-polyp and polyp. 
@@ -556,6 +553,55 @@ The concept behind a Contextencoder is to take the whole image as input to an en
         \item random forests
         \item knn
       \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \iffalse
 \section{In painting}

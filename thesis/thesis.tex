@@ -37,13 +37,37 @@
 \usepackage{pdfpages}
 
 
-%\theoremstyle{definition}
-%\newtheorem{exmp}{Example}[section]
-%\newtheorem{defi}{Definition}[section]
+
+
+%%%LISTINGS
+\usepackage{minted}
+\usepackage{xcolor}
+
+\definecolor{LightGray}{gray}{0.9}
+%\definecolor{DarkGray}{gray}{0.1}
+
+%\pagecolor{DarkGray}
+
+\usemintedstyle{borland}
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+
+
+
+
 
 %\setcounter{secnumdepth}{6} %this is so that i can ref to paragraph
+
+%%%%% MY OWN FONT SIZE
 \newcommand{\myfontsize}{\footnotesize}
 
+
+%%%%%%%%%% FOR MY THEOREMS
 \usepackage{thmtools}
 \declaretheoremstyle[
 spaceabove=6pt, spacebelow=6pt,

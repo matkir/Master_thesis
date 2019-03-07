@@ -2,13 +2,13 @@ With our background in both machine learning and \todo{medical background} we ca
 We will first look at the language and packages used in the creation of this thesis. We will go in depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
 
 Then we will look at the setup of the complete program. Here we will go in-depth into both the different preprocessing algorithms, and take a look at the transfer learning network used during classifying.
-
+\section{Birds eye view (Chapter removed when written)}
 
 \section{Libraries} 
 In this chapter, we will discuss the foundation of our code, important external libraries, and the setup and execution of our project.  
 We will first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we will look into the wrapper we use to get a higher level of abstraction over our code, together with custom wrapper functions that are used by our wrapper. 
 
-\subsection{python}
+\subsection{Python}
 When doing machine learning, the most popular languages, in no particular order, are Python, Java, R, C++, and C \todo{cite}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base and user-friendliness. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
 Right now Python is the leading language for machine learning. Driven by this, there is considerable focus into making it faster, to compete with already fast languages, like the C family. 
 
@@ -18,7 +18,7 @@ Mainly because of the excellent support when it comes to machine learning, and t
 
 
 
-\subsection{tensorflow}
+\subsection{Tensorflow}
 Arguably the biggest reason for the success of machine learning in python lies in Tensorflow.\todo{cite} Tensorflow is a machine learning package developed by Google in \todo{year} and has since then become the leading framework for machine learning worldwide \todo{cote}.  
 Tensorflow is in use by companies like AMD, Nvidia, eBay and Snapchat. 
 
@@ -35,7 +35,7 @@ As stated, Python, and subsequently machine learning in Python, would be much sl
 
 
 
-\subsection{keras}
+\subsection{Keras}
 One of the least attractive things with tensorflow is its unnecessary complexity.  Even though Tensorflow offers more abstraction compared to running the code in pure C, the Tensorflow library can be unnecessarily complex.
 As a result of this, many external libraries try to simplify many of the complexities that accompany tensorflow. 
 Libraries like TFlearn was made as a modular and transparent deep learning library on top of tensorflow. It gives a higher-level API to Tensoflow to reduce complexity and speed up experiments. \todo{cite TFLEARN}
@@ -54,64 +54,210 @@ This thesis relies on Keras as a wrapper for tensorflow. As stated, the use of m
 
 
 
-\subsection{Custom functions for Keras, tensorflow and python}
-\subsubsection{CWFC layer}
-\subsubsection{Spectral conv?}
-\subsubsection{Masklaod}
-\subsubsection{self attention}
-\subsubsection{masked loss}
-\subsubsection{subpixel}
+
     
-\subsection{Additional packs in Keras made by me}
+\section{Custom functions for Keras, tensorflow and python}
+\subsection{CWFC layer}
+A problem often encountered when working with autoencoders which are not undercomplete is the fact that they learn to represent the data flawlessly. \cite{OvercompleteAE} 
+When this problem arises, the network does not learn the fundamental features that define the dataset and instead passes the signal through the network without any consideration of the input data.
+This flaw will often defeat the purpose of the algorithm, so data scientists often put in safeguards, like undercompleteness or regulisers, to combat this lack of feature learning. 
+This problem extends to other types of generator networks where there are not sufficient compression or regularisation in the layers of the network.
+Even though this problem often is solved by compressing the network into a space that can not contain the information exactly, the network does not always learn the features that define the network. 
+
+We propose a custom ``channel-wise fully-connected layer'' in Keras to help with the problem of correctly learning features. This layer is based on the work done by Pathak et al. in their paper on content encoders\cite{Pathak_2016}.
+
+The channel wise fully connected layer is primarily used in the GAN to transfer information within each feature map, without using convolutions to do it. As we recall, fully connected layers are often not suitable because of the large size of the weight layer associated with it. This layer is essentially a fully connected layer with groups, where the goal is to propagate the information within each feature map.
+Given the latent space of $n \times n$ with $m$ feature maps, by not connecting the feature maps together in the fully connected layer we achieve a parameter reduction from $m^2n^4$ to $mn^4$ (ignoring bias terms) \cite{Pathak_2016}
+
+With the ``channel-wise fully-connected layer'' the network can learn features from the entirety of the image, and not just local regions as it would with just convolutions. 
+
+Listing \ref{listing:CWDense} shows the source code used for the channel-wise fully-connected layer.
+
+\begin{listing}[h]
+\begin{minted}[fontsize=\footnotesize]{python}
+from keras.engine.topology import Layer
+import keras.backend as K
+
+class CWDense(Layer):
+    def __init__(self, **kwargs):
+        super(CWDense, self).__init__(**kwargs)
+    
+    def build(self,input_shape):
+        _, self.width, self.height, self.n_feat_map = input_shape
+        self.kernel = self.add_weight("CWDense",
+                                        shape=(self.n_feat_map,
+                                        self.width*self.height,
+                                        self.width*self.height),
+                                        initializer='glorot_uniform',
+                                        trainable=True)        
+        super(CWDense, self).build(input_shape)
+
+    def call(self, x):
+        x = tf.reshape( x, [-1, self.width*self.height, self.n_feat_map] )
+        x = tf.transpose( x, [2,0,1] )
+
+        x = K.dot(x,self.kernel)
+
+        x = tf.transpose(x, [1,2,0])
+        x = tf.reshape( x, [-1, self.height, self.width, self.n_feat_map] )
+        return x
+
+\end{minted}
+\caption{The channel-wise fully-connected layer source code}
+\label{listing:CWDense}
+\end{listing}
+
+\subsection{Subpixel}
+When working with the generative adversarial network, we wanted to achieve more realistic representations at a reasonable image size. 
+Making large scale images in generative adversarial networks has been a challenge that has only recently been cracked. \cite{DBLP:journals/corr/DentonCSF15} \cite{DBLP:journals/corr/abs-1809-11096}
+As an early measure to fix this problem, we experimented with the use of a Sub-pixel layer as presented by Shi et al.~\cite{DBLP:journals/corr/ShiCHTABRW16} to give a more realistic output compared to just a standard conv-tanh layer.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8]{methodology/figures/SubPixel.png}
+\caption{How the layers in the sub pixel layer is stacked. Recreated from the SubPixel paper by Shi et al.~\cite{DBLP:journals/corr/ShiCHTABRW16}}
+\label{fig:SubPixel}
+\end{figure}
 
 
 
-\newpage
+
+
+
+%\subsection{Spectral conv?}
+\subsection{Masklaod}
+\subsection{self attention}
+There are features in the images that are more important than others. One of the things we often want to preserve when we recreate images are hard edges. To get a semantically meaningful image,  we often want to differentiate between background and the mucosa. 
+To see if the network can learn the features needed we are Introducing the Self Attention layer to help with this. 
+
+
+\begin{listing}[h]
+\begin{minted}[fontsize=\footnotesize]{python}
+class Attention(Layer): 
+    def __init__(self, filters, **kwargs):
+        self.filters = filters
+        super(Attention, self).__init__(**kwargs)
+
+    def build(self,filters):
+        self.kernelf = self.add_weight(name='kernelf', 
+                                      shape=(1,1,self.filters,self.filters),
+                                      initializer='uniform',trainable=True)
+        self.kernelg = self.add_weight(name='kernelg', 
+                                      shape=(1,1,self.filters,self.filters),
+                                      initializer='uniform',trainable=True)
+        self.kernelh = self.add_weight(name='kernelh', 
+                                      shape=(1,1,self.filters,self.filters),
+                                      initializer='uniform',trainable=True)
+        super(Attention, self).build(filters)
+
+    def call(self, x):
+        f = K.conv2d(x, self.kernelf, strides=1, padding="same")
+        g = K.conv2d(x, self.kernelg, strides=1, padding="same")
+        h = K.conv2d(x, self.kernelh, strides=1, padding="same")
+        f = tf.transpose(f,perm=[0,1,2,3])
+        i = f*g
+        j = K.softmax(i)
+        k = j*h
+        return k
+
+\end{minted}
+\caption{The self attention layer source code}
+\label{listing:Attention}
+\end{listing}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{methodology/figures/attention.png}
+\caption{How the layers in the Self-Attention layer is stacked. Recreated from the Self-Attention  paper by Zhang et al.~\cite{DBLP:journals/corr/selfattention}}
+\label{fig:Attention}
+\end{figure}
+
+        
+\subsection{masked loss}
+
+\section{Stabilising the GAN}
+Before we ended up with the model we used in the thesis we ran multiple experiments to make the generative adversarial network stable for training. 
+In contrast to the autoencoder, the GAN does not use the ground truth as a reference point. Where the autoencoder always has a gradient based on the input data, the generator in the GAN gets its learning gradient from another network.
+
+This lack of a ground truth gives the GAN many pitfalls that cause the training process to crash \footnote{Crashing is not the right word to use, but the result is the same: The learning process stops.}.
+
+
+\paragraph{Normalise the inputs}
+One of the first measures we did to prevent training collapse was to normalise the inputs. Instead of using images in the range 0 to 255 in pixel values we switched the values to  -1 to 1. 
+Later, when the images were generated, we switched out the standard sigmoid output layer with a tanh output layer. As we wanted the output to be between -1 and 1, this was necessary, as the sigmoid only outputs between 0 and 1.
+
+\paragraph{Using gaussian noise}
+perhaps write about this
+
+
+
+\paragraph{Normalising the batches}
+One of the most significant challenges we encountered when training the adversarial network was the use of correct normalisation. 
+
+The practice of training the discriminator with real and fake samples separately gave higher stability overall. 
+
+The use of instance normalisation gave a better result compared to using batch normalisation. We believe this is contributed to the fact that the discriminator learned that the average pixel value was lower for the whole batch since the area inpainted had 0 as the pixel value.
+
+The final model ended up not using batch or instance-normalisation. 
+
+
+
+\paragraph{Avoiding sparse and vanishing gradients}
+Most of the well-known networks use the ReLu\cite{Nair/2010/RLU/3104322.3104425} activation function \cite{DBLP:journals/corr/SimonyanZ14a} \cite{DBLP:journals/corr/SzegedyIV16} 
+\cite{DBLP:journals/corr/HeZRS15}.
+We saw the best result when we used non-sparse gradients during training. 
+Instead of using ReLu we used the slightly modified LeakyReLu \cite{Maas2013RectifierNI}.
+
+\todo{mention RReLu, but the number of parameters not worth it.}
+
+In addition to trying to remove sparse gradients, we also wanted to address the problem with vanishing gradients during training. Given that we have fully saturated pixels (with the value of 1 or 255) and we have fully darkened pixels (with the value of -1 or 0) we, at the end of the experimentation phase, ended up removing the tanh layer. 
+The removal of the tanh layer meant that the pixel values could be arbitrary on both positive and negative value, so we had to clip the value not to get an error at test time. 
+
+
+
+
 \section{Design of the inpainting experiments}
 When inpainting we have multiple hypotheses we want to test to see how it affects the results. We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. Based on the hardware limitations \todo{more}
 
 When generating the datasets, we use the Kvasir dataset as a base exclusively. When using only the Kvasir dataset, we have the CVC sets for testing. This selection of image source was made intentionally to have a fundamentally different test and training set, and the more differences between testing and training set the more of an indication of generalisation. 
 
-\begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.6\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{experiments/figures/leftframe.jpg}
-         \caption{$y=x$}
-         \label{fig:y equals x}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.6\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{experiments/figures/greenframe.jpg}
-         \caption{$y=3sinx$}
-         \label{fig:three sin x}
-     \end{subfigure}
-        \caption{Three simple graphs}
-        \label{fig:three graphs}
-\end{figure}
+%image used to be here
 
-Figure \todo{ref} shows three different image types from the Kvasir dataset. 
-Image (a) shows the image class esophagitis. This image shows one of the main problems with the Kvasir dataset when it comes to dataset specific artefacts. In addition to the cut corners, we have an extra wide area to the left of the image containing non-relevant information like name, sex, and other comments. We can recall from chapter \todo{find where} that the area to the left does not contain any relevant information for the classification and subsequently can only give false information during classification. 
+Figure \ref{fig:KvasirAnomalies} shows two different image types from the Kvasir dataset. 
+Figure \ref{fig:LargeLeftBlack} shows the image class esophagitis. This image shows one of the main problems with the Kvasir dataset when it comes to dataset specific artefacts. In addition to the cut corners, we have an extra wide area to the left of the image containing non-relevant information like name, sex, and other comments. We can recall from chapter \todo{find where} that the area to the left does not contain any relevant information for the classification and subsequently can only give false information during classification. 
 Another example of dataset-specific artefacts is in the image (b). In this image, we have the same cut corners as in most colonoscopy images. However, we also have an additional green square in the bottom left corner.
 
 \begin{figure}
      \centering
-     \begin{subfigure}[b]{0.5\textwidth}
+     \begin{subfigure}[b]{0.4\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{experiments/figures/noleftframe.jpg}
-         \caption{$y=x$}
-         \label{fig:y equals x}
+         \includegraphics[height=5cm,width=\textwidth]{experiments/figures/leftframe.jpg}
+         \caption{Example of an image with a large area without relevant medical information}
+         \label{fig:LargeLeftBlack}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.5\textwidth}
+     \begin{subfigure}[b]{0.4\textwidth}
+         \centering
+         \includegraphics[height=6cm,width=\textwidth]{experiments/figures/greenframe.jpg}
+         \caption{Example of an image with green square occluding the parts of the GI tract}
+         \label{fig:GreenSquareOccluding}
+     \end{subfigure}     
+     \hfill
+     \begin{subfigure}[b]{0.4\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{experiments/figures/noleftframe.jpg}
+         \caption{The same image as in Figure \ref{fig:LargeLeftBlack} with the non-relevant information removed}
+         \label{fig:LargeLeftBlackFIX}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{experiments/figures/nogreenframe.jpg}
-         \caption{$y=3sinx$}
-         \label{fig:three sin x}
+         \caption{The same image as in Figure \ref{fig:GreenSquareOccluding} with the green square inpainted}
+         \label{fig:GreenSquareOccludingFIX}
      \end{subfigure}
-        \caption{Three simple graphs}
-        \label{fig:three graphs}
+        \caption{Images where the troubling areas are removed before training}
+        \label{fig:KvasirAnomaliesFIX}
 \end{figure}
 
 

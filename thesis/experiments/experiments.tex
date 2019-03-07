@@ -8,10 +8,9 @@ To show and explain the experiments, we need to look at the datasets we have to 
 
 In this thesis, we primarily use four datasets to train and evaluate our results.
 
-
+\iffalse
 
 \subsection{kvasir}
-
 
 
 As we recall from the introduction chapter, oesophagal, stomach and colorectal cancer accounts for about 2.8 million new cases and 1.8 million deaths per year, and this number is increasing as the population gets older.   With automatic detection of diseases by use of computers being prominent, but a still unexplored field of research the dataset Kvasir was made.
@@ -24,6 +23,7 @@ The Cancer Registry of Norway work provides new knowledge about cancer preventio
 \cite{runeMedico2018}
 
 Kvasir is a dataset containing images from inside the gastrointestinal tract containing three anatomical landmarks, in the form of the Z-line (a), the Pylorus (b) and the Cecum (c). Also, the Kvasir dataset includes two categories of images related to endoscopic polyp removal, Dyed and Lifted Polyps (d) and Dyed Resection Margins (e), and lastly, three classes, Esophagitis (g), Polyps (h), and Ulcerative Colitis (i), containing images of pathological findings.
+
 
 \subsubsection{Anatomical Landmarks}
 The definition of an anatomical landmark is a feature that is easily recognisable through an endoscope. For the medical staff they are essential for navigating the GI tract, and the assist as a reference point both for a physical location, and to describe the position for a relevant finding.
@@ -89,6 +89,7 @@ The
 
 \subsection{CVC-12k}
 \subsection{CVC-612}
+
 esdtgfgv
 
  
@@ -172,7 +173,7 @@ esdtgfgv
 
 
     %=============================================
-
+\fi
 \section{Metrics}
 To discern the results of our experiments we introduce multiple metrics and tables to get an indication of our success. 
 The main dataset we used for training, Kvasir, was split into k number of folds, using k-fold cross-validation. 
