@@ -1,17 +1,16 @@
 In this chapter, we will present the background and motivation of our thesis.
 We start with our background in medical procedures, looking at how doctors perform colonoscopies, mainly from a gastrointestinal perspective.
-Then will then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then our focus is moved to how doctors use computer-aided diagnosis (CAD) today to help with the screening. Lastly, we look at current models for CAD made both by Simula.
+Then will then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then our focus is moved to how doctors use computer-aided diagnosis (CAD) today to help with the screening. 
 
-After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can \'learn\' and discuss different areas we can use and the areas we are using machine learning today.
+After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can ``learn'' and discuss different areas we can use and the areas we are using machine learning today.
 We will then go in depth into the examples and look at the most common machine learning models. We will look at the most common form of machine learning, namely neural networks, and show the structure that is most used in this type of machine learning. 
 
- With this in mind, we will look
-at neural networks, especially convolutional neural networks, and how they work.
+With this in mind, we will look at neural networks, especially convolutional neural networks, and how they work.
 
-Lastly, we will combine the need for computer-aided diagnosis with machine learning.
+Lastly, we will combine the need for computer-aided diagnosis with machine learning. \todo{need some reworking}
 
 \section{The Medical Background}
-In the field of medical diagnosis, there are always new and interesting methods being researched to help the medical staff when it comes to patient \textit{rate of survival}, and quality of life. 
+In the field of medical diagnosis, there are always new and interesting methods being researched to help the medical staff when it comes to patient rate of survival, and quality of life. 
 Everything from x to y is ways the medical industry has done to improve the survival rates of their patients.
 In the last decade \textit{comuters and cameras came to help us.}
 Another example is the invention and usage of gastro-stick-with-camera.
@@ -32,6 +31,11 @@ We have now looked at the medical perspective of colonoscopy. We see that the pr
 
 
 \section{CAD - Computer aided diagnosis}
+During the colonoscopy, the medical staff uses digital imaging for the inspection. 
+
+\textbf{EIR}
+
+
 \begin{itemize}
 	\item Already used methods
 	\item medico and other work
@@ -164,7 +168,7 @@ After this, we look into a more advanced example utilising a Generative adversar
 
 
     
-\section{The basic concept of machine learning}   
+\subsection{The basic concept of machine learning}   
 %\todo{tell that this is loosely based on deeplearningbook, basic machine learning}
 One of the easiest to understand tasks in machine learning is the process of regression. As stated earlier, regression is a process of approximation given prior input.
 We start with one of the simplest forms of approximation, namely linear approximation. In linear approximation, we are interested in finding the function that best defines our data using only a polynomial of the first degree.  First, we recall that a first-order function is always on the form
@@ -333,8 +337,8 @@ The first multilayer network at the time used backpropagation in the same way de
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.2]{background/figures/neural_network.png}
-\caption{THIS IMAGE IS SHAME(LESS)LY taken from the internetz, draw own so the lawyers don't get you!}
+\includegraphics[scale=0.7]{background/figures/neural_network.png}
+\caption{Simple illustration of a multilayer perceptron with three inputs, one hidden layer with four nodes, and one output layer with three nodes.}
 \label{fig:mlnn}
 \end{figure}
 
@@ -439,45 +443,65 @@ Dropout does, in practice, the same as an L1 or L2 regularizer.
 
 
 \section{Complex Neural Network models}
-At this point, we have looked at the most crucial parts of a convolutional neural network individually.
+We have looked at the basic concept of the neural network, and a more in-depth look into the convolutional neural network and the relevant layers.
+Our primary focus has been from a computer vision perspective, where we have looked at image classification. 
+To get a better insight into the act of inpainting, we need to present two other types of network, namely the Autoencoder \cite{Rumelhart:1986:LIR:104279.104293} and the generative adversarial network \cite{Goodfellow:2014:GAN:2969033.2969125}.
+
+We often base both models on the convolutional architecture, to have the option to work with image and video data. 
+Both networks are a type of unsupervised learning, where the goal is to either recreate or construct data based on the training data.
+
+
 
 \subsection{Autoencoders}
 \label{Explaining_autoencoders}
-%%TODO CITE: http://www.deeplearningbook.org/contents/autoencoders.html
-In the realm of image-generating one of the simplest networks to train and use is the Autoencoder.
-In 19999 Mathias et al. \todo{cite} proposed a encoder-decoder network where the task was to recreate the original input as an output. 
+ An autoencoder is a neural network that is trained to recreate a copy of the input given. 
+As with the networks explained at this point, it has an input, some number of hidden layers and an output. The network can be considered to have two internal structures, the encoder (denoted as $h=f(x)$) and decoder (denoted as $r=g(h)$) shown in figure \ref{fig:simpleAE}.
+The general goal of the autoencoder is to recreate the input $g(f(x)) = x$, but in the real world, we often add restrictions to make the autoencoder unable to copy the input perfectly. Because of this restriction, the autoencoder is forced to prioritise particular properties of the data. Figure \ref{fig:simpleAE} shows the general structure of the autoencoder.
 
-In this thesis we are using an autoencoder to do this thing \todo{fix}
-
-
-We can do this by having an encoder, $h=f(x)$, connected to a decoder, $r=g(h)$. 
-An autoencoder has the job to set $g(f(x))=x$ over the whole input, but in most cases, this is not a practical program. We often give the autoencoder the restriction
-that it has to map the input through a latent space that has a smaller dimension than the input dataset.\\
-This type of network is called an under-complete autoencoder.\\
-\vspace{10px}
-\begin{figure}[ht!]
+\begin{figure}
     \centering
-    \includegraphics[scale=0.5]{background/figures/SimpleAE.png}
-    \caption{The general structure of an autoencoder, mapping $\textbf{x}$ through $\textbf{h}$ to an output $\textbf{r}$.}
+    \includegraphics[scale=0.6]{background/figures/SimpleAE.png}
+    \caption{The general structure of an autoencoder, encoding $\textbf{x}$ with $\textbf{f}$, then decoding $\textbf{h}$ with $\textbf{g}$ to an output $\textbf{x}$.}
+    \label{fig:simpleAE}
 \end{figure}
 
-As with supervised classifiers, we can use gradient descent to optimise the model. This is because we are trying to recreate the input $\textbf{x}$ from out output $\widetilde{\textbf{x}}$\\
-      
-This can simply be done by minimizing the loss function\\
+Traditionally, autoencoders were used for tasks like feature learning and dimensionality reduction, though with the rise in computing power, autoencoders are now in use at the forefront of generative modelling.
+
+
+To use an autoencoder for generative modelling, we need to set an objective for autoencoder to achieve.
+A when generating new images we can propose regulisers to the latent space between the encoder and the decoder. The reguliser might be that the output of the latent space layer should follow a Gaussian noise pattern. 
+This type of autoencoder is called a variational autoencoder. Variational autoencoders have the advantage of being able to create new completely unseen data if Gaussian noise is inputted at the latent space, effectively cutting out the encoder and supplying random noise instead.
+
+
+
+Another way to use an autoencoder for generative modelling is by masking areas in the input data the model used to train on, and give the unmasked data as the target output.
+Figure \ref{fig:AEinpainting} shows the general concept of an inpainting Autoencoder.
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.6]{background/figures/AE_for_inpainting.png}
+    \caption{Autoencoder where the goal is to inpaint the masked area}
+    \label{fig:AEinpainting}
+\end{figure}
+
+
+
+As with supervised classifiers, autoencoders use gradient descent to optimise  the result, as the model work to recreate the input $\textbf{x}$ from out output $\widetilde{\textbf{x}}$\\    
+We achieve this by minimising the loss function:\\
 \begin{equation}
-    L(\textbf{x},g(f(\textbf{x})))
+    \mathcal{L}(\textbf{x},g(f(\textbf{x})))
+    \label{eq:AEloss}
 \end{equation}
+As this is a problem where the goal is to minimise error, autoencoders often use mean square error or mean absolute error as the optimiser for the gradient descent. 
+Figure \ref{fig:AEinpainting} show a visual example of equation \ref{eq:AEloss}.
 
-with for instance MSE with gradient descent. \todo{explain MSE, and general loss on an earlier time}\\
-Now we can transfer this to a more relevant example by making an image as input and use convolutions to reduce the dimensionality in the encoder and increase the dimensionality in the encoder.
-\begin{figure}[t]
-    \centering
-    \includegraphics[scale=0.5]{background/figures/CAE.png}
-    \caption{Convolutional autoencoder with an RGB image as input, and the reconstructed image as output.}
-\end{figure}
+
     
 \subsection{Advaserial neural networks}
 \paragraph{This is explaining GANS, put me in the right place} %%TODO CITE: http://www.deeplearningbook.org/contents/generative_models.html and Goodfellow at al. 2014
+
 Now that we have looked at autoencoders we can take it a step further. 
 generative adversarial models can be used as a generator of new data and can have some resemblance to autoencoders \ref{Explaining_autoencoders}, especially variational autoencoders. \cite{Goodfellowetal2016} %TODO cite VAE, ref VAE
 
@@ -515,8 +539,10 @@ The concept behind a Contextencoder is to take the whole image as input to an en
 
 
         
+   
+\section{The problem at hand / Summary}
       
-\section{Explain how the ML-methods can be used with the polyps}
+\subsubsection{Explain how the ML-methods can be used with the polyps}
     When you work with machine learning a lot of the job is to make the data as clear as possible. \\
     Imagine that you want to do something as simple as reading an analogue clock. The \"straight forward\" way to do it is to make a convolutional neural network to look at the dials. This will require a much more complex network compared to if you could convert the angle of the dials to degrees and have that as an input to your model.
 
@@ -534,8 +560,11 @@ The concept behind a Contextencoder is to take the whole image as input to an en
     
     \todo{adress the problem with lack of data, and talk about how machine learning can help, machine learning.}
       
-      
-\section{The problem at hand / Summary}
+   
+
+
+
+
 \begin{itemize}
 	\item Stevens paper about inpainting
 	\item Konstantins paper about the cross dataset evaluation

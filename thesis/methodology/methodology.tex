@@ -126,7 +126,7 @@ As an early measure to fix this problem, we experimented with the use of a Sub-p
 
 %\subsection{Spectral conv?}
 \subsection{Masklaod}
-\subsection{self attention}
+\subsection{Self attention}
 There are features in the images that are more important than others. One of the things we often want to preserve when we recreate images are hard edges. To get a semantically meaningful image,  we often want to differentiate between background and the mucosa. 
 To see if the network can learn the features needed we are Introducing the Self Attention layer to help with this. 
 
@@ -172,8 +172,9 @@ class Attention(Layer):
 \label{fig:Attention}
 \end{figure}
 
-        
-\subsection{masked loss}
+
+
+\subsection{Masked loss}
 
 \section{Stabilising the GAN}
 Before we ended up with the model we used in the thesis we ran multiple experiments to make the generative adversarial network stable for training. 
@@ -216,7 +217,7 @@ The removal of the tanh layer meant that the pixel values could be arbitrary on 
 
 
 
-\section{Design of the inpainting experiments}
+\section{Design of the inpainting algorithms}
 When inpainting we have multiple hypotheses we want to test to see how it affects the results. We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. Based on the hardware limitations \todo{more}
 
 When generating the datasets, we use the Kvasir dataset as a base exclusively. When using only the Kvasir dataset, we have the CVC sets for testing. This selection of image source was made intentionally to have a fundamentally different test and training set, and the more differences between testing and training set the more of an indication of generalisation. 
@@ -225,7 +226,7 @@ When generating the datasets, we use the Kvasir dataset as a base exclusively. W
 
 Figure \ref{fig:KvasirAnomalies} shows two different image types from the Kvasir dataset. 
 Figure \ref{fig:LargeLeftBlack} shows the image class esophagitis. This image shows one of the main problems with the Kvasir dataset when it comes to dataset specific artefacts. In addition to the cut corners, we have an extra wide area to the left of the image containing non-relevant information like name, sex, and other comments. We can recall from chapter \todo{find where} that the area to the left does not contain any relevant information for the classification and subsequently can only give false information during classification. 
-Another example of dataset-specific artefacts is in the image (b). In this image, we have the same cut corners as in most colonoscopy images. However, we also have an additional green square in the bottom left corner.
+%Another example of dataset-specific artefacts is in the image (b). In this image, we have the same cut corners as in most colonoscopy images. However, we also have an additional green square in the bottom left corner.
 
 \begin{figure}
      \centering
