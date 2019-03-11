@@ -4,9 +4,29 @@ Finally, for each model, we will evaluate it for the datasets we have presented.
 
 \section{Datasets}
 To show and explain the experiments, we need to look at the datasets we have to evaluate our results. 
-\todo{something about Simula already researching on this}
+In this thesis, we primarily use three datasets to train and evaluate our results. Here we will look at the different datasets. We will comment on similarities and differences. 
 
-In this thesis, we primarily use four datasets to train and evaluate our results.
+
+\paragraph{kvasir}
+Kvasir is a Multi-Class Image Dataset for Computer Aided Gastrointestinal Disease Detection made in Norway. The data is gathered from the Vestre Viken Health Trust, and it contains not only polyps but also two other findings, two classes related to polyp removal and three anatomical landmarks in the GI tract.
+The dataset contains the eight classes mentioned above with 1000 samples for each of them.  In the Kvasir dataset, we have primarily two dataset specific artefacts and one artefact often seen in colonoscopy images. The first two artefacts are text and the green box in the lower left corner. The last artefact is the rounded edges; this kind of frame is a shared feature between all three datasets.
+Over 60\% of the dataset contains images with text, and text is represented in all classes. The text is located on the left side of the images, and it is always white.
+The green square is present in 38\% of the images but only in 5 of the classes. Figure \ref{fig:Kvasir} shows a sample with images from each class. The classes with images containing green squares are also the same images that contain green squares in the figure.
+As we can see in Figure \ref{fig:Kvasir} all images got the rounded corners.
+
+
+\paragraph{CVC 356}
+CVC 356 dataset is an publicly available dataset
+
+ 
+
+
+\paragraph{CVC 12k}
+
+
+
+
+
 
 \iffalse
 
@@ -94,86 +114,116 @@ esdtgfgv
 
  
     
-
+\fi
 
 %============================================
 
-    \begin{figure}[h!]
+    \begin{figure}
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includegraphics[width=\textwidth]{experiments/images/dyed-lifted-polyps.jpg}
-            \caption[Is this in use]%
-            {{\small  }}    
-            \label{fig:polypAEGREEN}
+            \caption{{\small Dyed lifted polyps }}    
+            \label{fig:kvasir-dyed-lifted-polyps}
         \end{subfigure}
         \qquad
         \begin{subfigure}[b]{0.4\textwidth}  
             \centering 
             \includegraphics[width=\textwidth]{experiments/images/dyed-resection-margins.jpg}
-            \caption[Hate to be this guy]%
-            {{\small }}    
-            \label{fig:polypGAN}
+            \caption{{\small Dyed resection margins }}    
+            \label{fig:kvasir-dyed-resection-margins}
         \end{subfigure}
         \qquad\vfill%\vskip\baselineskip
         \begin{subfigure}[b]{0.4\textwidth}   
             \centering 
             \includegraphics[width=\textwidth]{experiments/images/esophagitis.jpg}
-            \caption[]%
-            {{\small }}    
-            \label{fig:zAE}
+            \caption{{\small Esophagitis}}    
+            \label{fig:kvasir-esophagitis}
         \end{subfigure}
         \qquad%\hfill%\quad
         \begin{subfigure}[b]{0.4\textwidth}   
             \centering 
             \includegraphics[width=\textwidth]{experiments/images/normal-cecum.jpg}
-            \caption[]%
-            {{\small }}    
-            \label{fig:zGAN}
+            \caption{{\small Normal cecum}}    
+            \label{fig:kvasir-normal-cecum}
         \end{subfigure}
         \qquad
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includegraphics[width=\textwidth]{experiments/images/normal-pylorus.jpg}
-            \caption[Is this in use]%
-            {{\small  }}    
-            \label{fig:polypAEGREEN}
+            \caption{{\small Normal pylorus }}    
+            \label{fig:kvasir-normal-pylorus}
         \end{subfigure}
         \qquad
         \begin{subfigure}[b]{0.4\textwidth}  
             \centering 
             \includegraphics[width=\textwidth]{experiments/images/normal-z-line.jpg}
-            \caption[Hate to be this guy]%
-            {{\small }}    
-            \label{fig:polypGAN}
+            \caption{{\small Normal z line}}    
+            \label{fig:kvasir-normal-z-line}
         \end{subfigure}
         \qquad\vfill%\vskip\baselineskip
         \begin{subfigure}[b]{0.4\textwidth}   
             \centering 
             \includegraphics[width=\textwidth]{experiments/images/polyps.jpg}
-            \caption[]%
-            {{\small }}    
-            \label{fig:zAE}
+            \caption{{\small Polyps}}    
+            \label{fig:kvasir-polyps}
         \end{subfigure}
         \qquad%\hfill%\quad
         \begin{subfigure}[b]{0.4\textwidth}   
             \centering 
             \includegraphics[width=\textwidth]{experiments/images/ulcerative-colitis.jpg}
-            \caption[]%
-            {{\small }}    
-            \label{fig:zGAN}
+            \caption{{\small ulcerative-colitis}}    
+            \label{fig:kvasir-ulcerative-colitis}
         \end{subfigure}
-        \caption[ ]
-        {\small New text here} 
-        \label{fig:GC1GREEN}
+        \caption{\small The Kvasir dataset with each of the eight classes} 
+        \label{fig:Kvasir}
     \end{figure}
     
    
-\FloatBarrier
 
+
+
+    \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[height=5.5cm,width=\textwidth]{methodology/figures/CVC356polyp.jpg}
+            \caption{{\small Polyp }}    
+            \label{fig:CVC356polyp}
+        \end{subfigure}
+        \qquad
+        \begin{subfigure}[b]{0.45\textwidth}  
+            \centering 
+            \includegraphics[height=5.5cm,width=\textwidth]{methodology/figures/CVC356NONpolyp.jpg}
+            \caption{{\small Non-polyp }}    
+            \label{fig:CVC356NONpolyp}
+        \end{subfigure}
+         \caption{\small The two classes from the CVC 356 dataset} 
+        \label{fig:CVC356}
+	\end{figure}
+        
+    \begin{figure}
+        \centering       
+        \begin{subfigure}[b]{0.45\textwidth}   
+            \centering 
+            \includegraphics[height=5.5cm,width=\textwidth]{methodology/figures/CVC12kpolyp.jpg}
+            \caption{{\small Polyp}}    
+            \label{fig:CVC12kpolyp}
+        \end{subfigure}
+        \qquad%\hfill%\quad
+        \begin{subfigure}[b]{0.45\textwidth}   
+            \centering 
+            \includegraphics[height=5.5cm,width=\textwidth]{methodology/figures/CVC12kNONpolyp.jpg}
+            \caption{{\small Non-polyp}}    
+            \label{fig:CVC12kNONpolyp}
+        \end{subfigure}
+        \caption{\small The two classes from the CVC 12k dataset} 
+        \label{fig:Kvasir}
+    \end{figure}
+    
 
     %=============================================
-\fi
+\FloatBarrier
 \section{Metrics}
 To discern the results of our experiments we introduce multiple metrics and tables to get an indication of our success. 
 The main dataset we used for training, Kvasir, was split into k number of folds, using k-fold cross-validation. 
@@ -416,25 +466,25 @@ These Metrics becomes a more prominent topic when it comes to inpainting. With i
 
 \clearpage
 \section{Setup of experiments}
-We propose the following hypothesis.
+As we recall, we proposed the following hypothesis.
 \vspace{10px}
 
 \noindent
-\begin{hyp} \label{hyp:a}
+\textbf{Hypothesis \ref{hyp:a}:}
 When classifying images, we will get the best result when we have images with the least amount of sparse information. 
 Hence by removing areas with sparse information,
 we will see an increase in classification performance compared to not removing areas.
-\end{hyp}
 
+\vspace{5px}
 \noindent
 and
+\vspace{5px}
 
 \noindent 
-\begin{hyp} \label{hyp:b}
+\textbf{Hypothesis \ref{hyp:b}:}
 When training a classifier, we will get a higher
 mode of generalisation of our results when removing the dataset
 specific artefacts compared to not removing artefacts.
-\end{hyp}
 \vspace{5px}
 
 In this thesis, we will set up our experiments to test our two hypothesises. 
@@ -755,19 +805,13 @@ We are now looking at the results when using the newly created datasets when tra
 The model used for the classifier is the same for all the datasets. We use the same learning rate, the same model, and the same parameters for early stopping of the training.  In this section we will first go through the model, then we will look at the results for each of the runs.
 
 \subsection{models}
-The clssification models was as follows.
+The classification models was as follows.
 First, we supply info about the model. This information is for instance batch size, type of network, and choice of an optimiser. 
 
 The network chosen is loaded with the imagenet weights. With the model loaded into memory, a global average pooling layer is added, followed by a fully connected layer with the number of nodes equal to the number of classes in the input dataset and a softmax activation step.
 
 With the model loaded we complete it by adding the desired optimiser, and set parameters like batch size, learning rate, validation patience, and image size.
 
-\begin{figure}[h!]
-        \centering
-        \includegraphics[scale=0.7]{experiments/figures/model.png}
-        \caption{ The model we use for classifying with the most important options for the learning process. }
-    \label{fig:KTLmodel}
-\end{figure}
 
 \todo{here we talk about K-fold}
 
@@ -2461,42 +2505,154 @@ From our results, we can conclude with the fact that the IRV2 model manages to g
 
 
 \section{Classification results based on the Densenet model}
+\Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} shows the summary of the results gathered from the Densenet model.
+Here we see x and y, and this is good. 
+Maybe something with our hyps?
 
 
-\iffalse
-\begin{table}[]
+
+\begin{table}
 \centering
-\footnotesize
-\caption*{\small \textbf{BC}: Black corner. \textbf{GS}: Green square. \textbf{BC+GS}: Black corner and Green square}
-\begin{center}
-\begin{tabular}{clllll}
-\caption{CVC 356 DenseNet121} 
+\caption*{\small 
+\textbf{I}: Base Case. 
+\textbf{II}: GAN Green square.
+\textbf{III}: GAN Black corner. 
+\textbf{IV}: GAN Both inpainted.
+\textbf{V}: AE Green square.
+\textbf{VI}: AE Black corner.
+\textbf{VII}: AE Both inpainted.
+}
+\myfontsize
+\caption{DenseNet121 CVC 356}
+\begin{tabular}{lccccc}
 \toprule
-Dataset label            & MCC    & F1     & Precision & Recall & Accuracy \\
+\multicolumn{1}{c}
+{Dataset} 	 & MCC 	  & F1  & Precision & Recall & Accuracy \\ 
 \midrule
-\multicolumn{1}{c|}{I}   & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
-\multicolumn{1}{c|}{II}  & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
-\multicolumn{1}{c|}{III} & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
-\multicolumn{1}{c|}{IV}  & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
-\multicolumn{1}{c|}{V}   & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
-\multicolumn{1}{c|}{VI}  & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
-\multicolumn{1}{c|}{VII} & 0.3184 & 0.6562 & 0.6757    & 0.6442 & 0.7986   \\
+I                 & 0.4244 & 0.6467 & 0.7878 & 0.6565 & 0.7132\\ 
+II                & 0.7100 & 0.8549 & 0.8500 & 0.8600 & 0.9247\\ 
+III               & 0.3184 & 0.6562 & 0.6757 & 0.6442 & 0.7986\\ 
+IV                & 0.7483 & 0.8638 & 0.8157 & 0.9434 & 0.9383\\ 
+V                 & 0.6072 & 0.8017 & 0.8248 & 0.7837 & 0.8879\\ 
+VI                & 0.563  & 0.7792 & 0.8039 & 0.7607 & 0.8739\\ 
+VII               & 0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\ 
 \bottomrule
-\end{tabular}%
-\end{center}
-
+\end{tabular}
 \label{tab:summary_CVC356_DN121}
+\vspace{10px}
+
+\caption{DenseNet121 CVC 356}
+\begin{tabular}{lccccc}
+\toprule
+\multicolumn{1}{c}
+{Dataset} 	 & MCC 	  & F1  & Precision & Recall & Accuracy \\ 
+\midrule
+I                 & 0.4244 & 0.6467 & 0.7878 & 0.6565 & 0.7132\\ 
+II                & 0.7100 & 0.8549 & 0.8500 & 0.8600 & 0.9247\\ 
+III               & 0.3184 & 0.6562 & 0.6757 & 0.6442 & 0.7986\\ 
+IV                & 0.7483 & 0.8638 & 0.8157 & 0.9434 & 0.9383\\ 
+V                 & 0.6072 & 0.8017 & 0.8248 & 0.7837 & 0.8879\\ 
+VI                & 0.563  & 0.7792 & 0.8039 & 0.7607 & 0.8739\\ 
+VII               & 0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\ 
+\bottomrule
+\end{tabular}
+\label{tab:summary_KVASIR_DN121}
+\vspace{10px}
+\caption{DenseNet121 CVC 356}
+\begin{tabular}{lccccc}
+\toprule
+\multicolumn{1}{c}
+{Dataset} 	 & MCC 	  & F1  & Precision & Recall & Accuracy \\ 
+\midrule
+I                 & 0.4244 & 0.6467 & 0.7878 & 0.6565 & 0.7132\\ 
+II                & 0.7100 & 0.8549 & 0.8500 & 0.8600 & 0.9247\\ 
+III               & 0.3184 & 0.6562 & 0.6757 & 0.6442 & 0.7986\\ 
+IV                & 0.7483 & 0.8638 & 0.8157 & 0.9434 & 0.9383\\ 
+V                 & 0.6072 & 0.8017 & 0.8248 & 0.7837 & 0.8879\\ 
+VI                & 0.563  & 0.7792 & 0.8039 & 0.7607 & 0.8739\\ 
+VII               & 0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\ 
+\bottomrule
+\end{tabular}
+\label{tab:summary_CVC12k_DN121}
 \end{table}
 
-\fi
 
 
 \section{Classification results based on the InceptionResnetV2 model}
+\Cref{tab:summary_CVC356_IRV2,tab:summary_KVASIR_IRV2,tab:summary_CVC12k_IRV2} shows the summary of the results gathered from the IRV2 model.
+Here we see x and y, and this is good. 
+Maybe something with our hyps?
 
-\section{Classification results}
-\section{Classification results}
-\section{Classification results}
-\section{Classification results}
+
+
+\begin{table}
+\centering
+\caption*{\small 
+\textbf{I}: Base Case. 
+\textbf{II}: GAN Green square.
+\textbf{III}: GAN Black corner. 
+\textbf{IV}: GAN Both inpainted.
+\textbf{V}: AE Green square.
+\textbf{VI}: AE Black corner.
+\textbf{VII}: AE Both inpainted.
+}
+\myfontsize
+\caption{IRV21 CVC 356}
+\begin{tabular}{lccccc}
+\toprule
+\multicolumn{1}{c}
+{Dataset} 	 & MCC 	  & F1  & Precision & Recall & Accuracy \\ 
+\midrule
+I                 & 0.4244 & 0.6467 & 0.7878 & 0.6565 & 0.7132\\ 
+II                & 0.7100 & 0.8549 & 0.8500 & 0.8600 & 0.9247\\ 
+III               & 0.3184 & 0.6562 & 0.6757 & 0.6442 & 0.7986\\ 
+IV                & 0.7483 & 0.8638 & 0.8157 & 0.9434 & 0.9383\\ 
+V                 & 0.6072 & 0.8017 & 0.8248 & 0.7837 & 0.8879\\ 
+VI                & 0.563  & 0.7792 & 0.8039 & 0.7607 & 0.8739\\ 
+VII               & 0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\ 
+\bottomrule
+\end{tabular}
+\label{tab:summary_CVC356_IRV2}
+\vspace{10px}
+
+\caption{IRV2 CVC 356}
+\begin{tabular}{lccccc}
+\toprule
+\multicolumn{1}{c}
+{Dataset} 	 & MCC 	  & F1  & Precision & Recall & Accuracy \\ 
+\midrule
+I                 & 0.4244 & 0.6467 & 0.7878 & 0.6565 & 0.7132\\ 
+II                & 0.7100 & 0.8549 & 0.8500 & 0.8600 & 0.9247\\ 
+III               & 0.3184 & 0.6562 & 0.6757 & 0.6442 & 0.7986\\ 
+IV                & 0.7483 & 0.8638 & 0.8157 & 0.9434 & 0.9383\\ 
+V                 & 0.6072 & 0.8017 & 0.8248 & 0.7837 & 0.8879\\ 
+VI                & 0.563  & 0.7792 & 0.8039 & 0.7607 & 0.8739\\ 
+VII               & 0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\ 
+\bottomrule
+\end{tabular}
+\label{tab:summary_KVASIR_IRV2}
+\vspace{10px}
+\caption{IRV2 CVC 356}
+\begin{tabular}{lccccc}
+\toprule
+\multicolumn{1}{c}
+{Dataset} 	 & MCC 	  & F1  & Precision & Recall & Accuracy \\ 
+\midrule
+I                 & 0.4244 & 0.6467 & 0.7878 & 0.6565 & 0.7132\\ 
+II                & 0.7100 & 0.8549 & 0.8500 & 0.8600 & 0.9247\\ 
+III               & 0.3184 & 0.6562 & 0.6757 & 0.6442 & 0.7986\\ 
+IV                & 0.7483 & 0.8638 & 0.8157 & 0.9434 & 0.9383\\ 
+V                 & 0.6072 & 0.8017 & 0.8248 & 0.7837 & 0.8879\\ 
+VI                & 0.563  & 0.7792 & 0.8039 & 0.7607 & 0.8739\\ 
+VII               & 0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\ 
+\bottomrule
+\end{tabular}
+\label{tab:summary_CVC12k_IRV2}
+\end{table}
+
+
+
+
 \section{Classification results}
 From the results, we see that inpainting the green square gives a better MCC score, compared to the base case When dealing with the images at 256 resolution. 
 

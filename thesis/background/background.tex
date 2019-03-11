@@ -453,7 +453,7 @@ Both networks are a type of unsupervised learning, where the goal is to either r
 
 
 \subsection{Autoencoders}
-\label{Explaining_autoencoders}
+\label{cha:Explaining_autoencoders}
  An autoencoder is a neural network that is trained to recreate a copy of the input given. 
 As with the networks explained at this point, it has an input, some number of hidden layers and an output. The network can be considered to have two internal structures, the encoder (denoted as $h=f(x)$) and decoder (denoted as $r=g(h)$) shown in figure \ref{fig:simpleAE}.
 The general goal of the autoencoder is to recreate the input $g(f(x)) = x$, but in the real world, we often add restrictions to make the autoencoder unable to copy the input perfectly. Because of this restriction, the autoencoder is forced to prioritise particular properties of the data. Figure \ref{fig:simpleAE} shows the general structure of the autoencoder.
