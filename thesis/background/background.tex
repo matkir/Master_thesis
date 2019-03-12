@@ -1,17 +1,15 @@
-In this chapter, we will present the background and motivation of our thesis.
+In this chapter, we will present the background and \textit{motivation maybe} of our thesis.
 We start with our background in medical procedures, looking at how doctors perform colonoscopies, mainly from a gastrointestinal perspective.
-Then will then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then our focus is moved to how doctors use computer-aided diagnosis (CAD) today to help with the screening. 
+Then will then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then we shift our focus to how doctors use computer-aided diagnosis (CAD) today to help with the screening. 
 
-After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can ``learn'' and discuss different areas we can use and the areas we are using machine learning today.
-We will then go in depth into the examples and look at the most common machine learning models. We will look at the most common form of machine learning, namely neural networks, and show the structure that is most used in this type of machine learning. 
-
+After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can ``learn'' and discuss different areas we can use and the areas we are using machine learning today. We will then go in depth into the examples and look at the most common machine learning models. We will look at the most common form of machine learning, namely neural networks, and look into the most frequent use case of this type of algorithm.
 With this in mind, we will look at neural networks, especially convolutional neural networks, and how they work.
 
-Lastly, we will combine the need for computer-aided diagnosis with machine learning. \todo{need some reworking}
+Lastly, we will combine the need for computer-aided diagnosis with machine learning, looking at where previous models fall short and why that is the case.
 
 \section{The Medical Background}
-In the field of medical diagnosis, there are always new and interesting methods being researched to help the medical staff when it comes to patient rate of survival, and quality of life. 
-Everything from x to y is ways the medical industry has done to improve the survival rates of their patients.
+In the field of medical diagnosis, there are always new and interesting methods being researched to help the medical staff when it comes to the patient rate of survival, and quality of life. 
+Everything from penicillin to MRI is ways the medical industry has done to improve the survival rates of their patients. \todo{perhaps cite?}
 In the last decade \textit{comuters and cameras came to help us.}
 Another example is the invention and usage of gastro-stick-with-camera.
 
@@ -21,9 +19,7 @@ Gastrointestinal endoscopies are one of the most common medical examinations whe
 Today the medical staff working with the visual screening of the intestinal tract use primarily two different methods: colonoscopy and gastroscopy. 
 Colonoscopy is the practice of inserting a colonoscope into the rectum and moving through the large intestine towards the small intestine.  Gastroscopy is the practice of inserting a camera via the mouth to get a visualisation through the stomach.
 
-The endoscopic tool used for this visualisation is made out of a flexible tube with a charged coupled device (CCD) working as a camera at the end. In addition to the light sensing chip, there is also an optical fibre to transport light to the camera. At the other end, the colonoscope is connected to a device that records the video, and a light source for the optical fibre.
-The video from the CCD is shown live for the medical staff for the doctors to analyse.
-\cite{Colonoscope}
+The endoscopic tool used for this visualisation is made out of a flexible tube with a charged coupled device (CCD) working as a camera at the end. In addition to the light sensing chip, there is also an optical fibre to transport light to the camera. At the other end, the colonoscope is connected to a device that records the video, and a light source for the optical fibre. The video from the CCD is shown live for the medical staff for the doctors to analyse. \cite{Colonoscope}
 
 
 \subsection{summary}
@@ -31,24 +27,25 @@ We have now looked at the medical perspective of colonoscopy. We see that the pr
 
 
 \section{CAD - Computer aided diagnosis}
+\label{cha:CAD}
 During the colonoscopy, the medical staff uses digital imaging for the inspection. 
 
 \textbf{EIR}
 
 
 \begin{itemize}
-	\item Already used methods
-	\item medico and other work
-	\item overfitting and artefacts
+    \item Already used methods
+    \item medico and other work
+    \item overfitting and artefacts
 \end{itemize}
 
     
 
 \section{Machine Learning}
 We have looked at the challenges that the medical staff has when it comes to detecting polyps, and how it is solved today.
-However, to truly understand how automated systems like Mirmir~\cite{Steven2018MimirPaper} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are after.  
+However, to truly understand how automated systems like Mirmir~\cite{Steven2018MimirPaper} \todo{is this going to become talked about at this point} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are after.  
 
-Machine learning is a broad term, but can, in short, be summarised by:\\
+Machine learning is a broad term, but we summarise it with the quote from  Tom M. Mitchell in his machine learning book from 1997:\\
 \vspace{10px}
 
 \begin{quote}
@@ -59,7 +56,7 @@ Machine learning is a broad term, but can, in short, be summarised by:\\
 
 
 \vspace{10px}
-A few things of note from this quote is the variables mentioned in the quote. Experience e is the stored knowledge the program has gotten. It is in most cases just numbers used to approximate a solution given an input, to try to get it as close to the right answer. This approximation is made for every task T until we are happy with the result.
+A few things of note from this quote is the variables mentioned in the quote. Experience E is the stored knowledge the program has gotten. It is in most cases just numbers used to approximate a solution given an input, to try to get it as close to the right answer. This approximation is made for every task T until we are happy with the result.
 Lastly, to tell how well our program does we need a measure P that tells us how far away from the desired output we got.
    
 From this, we see that the goal of machine learning is to improve some performance P with experience. This behaviour is a mimicry of human learning, where we as humans need to practice on a task to improve on it.
@@ -68,108 +65,100 @@ As the amount of experience increase, both for us and the machine, the performan
 We have talked about machine learning in broad terms at this point. We have drawn a parallel between how humans learn, and how machines gather experience.  Now we will look into the most popular machine learning techniques, and show the machine learning algorithms stores the experience gathered.
  
 \subsection{Machine learning types}
-With a basis in the quote from the machine learning book from Tom Mitchell~\cite{MitchellTomM1997Ml} , we have a broad definition of what machine learning can be.
-As long as we have a model trying to complete a task based on previous experience, it can be called machine learning. Though just like humans, we have multiple ways to gather and retain information.
+With a basis in the quote from the machine learning book from Tom Mitchell~\cite{MitchellTomM1997Ml}, we have a broad definition of what machine learning can be.
+As long as we have a model trying to complete a task based on previous experience, it can be called machine learning. Though just like in humans, machine learning has multiple ways to gather and retain information.
 
 Figure \ref{fig:ML_types} shows a chart over the three most common categories within the field of machine learning. 
 
     \begin{figure}[h]
         \centering
         \includegraphics[scale=0.6]{background/figures/ML_types.png}
-        \caption{The three main types of machine learning and their subtypes}
+        \caption{The three main types of machine learning and their most common subtypes}
     \label{fig:ML_types} 
     \end{figure}
 
 We have three subcategories of machine learning: Supervised, Unsupervised, and Reinforcement learning. 
-We will now present the three methods briefly, then we will look at famous examples that helped shape machine learning types and algorithms we are using today.
+We will now present the three methods briefly. Then we will look at famous examples that helped shape machine learning types and algorithms we are using today.
 
 \subsubsection{Supervised machine learning}
 Supervised machine learning concerns the iterative process of labelling data based on previously labelled data.  Supervised machine learning functions have the objective of, given an input-output pair, approximate the input to be as close to the output.~\cite{AI:ModernApproach} Alternatively, in simplistic terms, given an input x, produce an answer as close as possible to the output y.
 A supervised algorithm analyses the training data and produces an inferred function, which can be used to map new data entries. 
 
 
-Examples of supervised tasks are to recognise handwritten numbers, or differentiate between different car models. The task is considered supervised if the images come with the correct label in the data set. 
-A more straightforward classification assignment is binary classification, where the target is (often) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian or International. In the last example, the classification changes from binary to multi-class if we sort the cars on every nationality, and not just Norwegian/non-Norwegian. Another type concerning supervised learning tasks is regression. Regression is the act of prediction given prior data. Examples of regression are the prediction of stock prices, to house prices in an area, to predicting patterns in the weather.
+Examples of supervised tasks are to recognise handwritten numbers, or differentiate between different car models. We consider a task supervised if the images come with the correct label in the data set. 
+A more straightforward classification assignment is binary classification, where the target is (often) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian or International. In the last example, the classification changes from binary to multi-class if we sort the cars on every nationality, and not just Norwegian/non-Norwegian. Another type concerning supervised learning tasks is regression. Regression is the act of prediction given prior data. Examples of regression are the prediction of stock prices, to estimating house prices, to predicting the weather.
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.5]{figures/class_vs_reg.png}
-    \caption{Left: Example of binary classification. Right: Example of regression} 
+    \caption{The two main areas of supervised learning. \\ Left: Example of binary classification. Right: Example of regression} 
 \end{figure}
   
 
 
 \subsubsection{Unsupervised machine learning}
-Unsupervised learning is the act of training without any supervision, on the sense that we do not give the algorithm the same input-output pair as in supervised learning. 
+Unsupervised learning is the act of training without any supervision, in the sense that we do not give the algorithm the next output to the given input as we do in supervised learning. 
 Since we do not have categorised data in unsupervised learning, we often want the algorithms to find some underlying structure of the data, rather than classifying it.
-Types of unsupervised learning can, for instance, be clustering, the act of sorting data based on similarity or it can be dimentionality reduction, the act of simplify or compress the data.
+Types of unsupervised learning can, for instance, be clustering, the act of sorting data based on similarity or it can be dimensionality reduction, the act of simplifying or compress the data.
 
-An example of this can be if we want to sort plants based on species, or we are detecting anomalies in a dataset. Unsupervised learning can be used for PCA~ %TODO \cite{}
-or other dimensionality reduction methods.\\
+An example of this can be if we want to sort plants based on similarity, or we are detecting anomalies in a dataset. We often use unsupervised learning for principal component analysis (PCA)~\cite{doi:10.1080/14786440109462720} or other dimensionality reduction methods.
 A third method to used unsupervised learning is the adversarial route, where we use machine learning to make similar looking data to the original data set. 
         
 \begin{figure}
     \centering
     \includegraphics[scale=0.5]{figures/cluster_pca.png}
-    \caption{Left: Example of binary clustering. Right: Example of principal component analysis} 
+    \caption{The two main areas of unsupervised learning. \\ Left: Example of binary clustering. Right: Example of principal component analysis} 
 \end{figure}
 
-In the description of supervised vs unsupervised we looked at a specific branch of machine learning: Classification. Classification is, as the name implies, the task of getting data sorted into groups of similarity. 
+ 
       
 
       
 \subsubsection{Reinforcement learning}
-Is the area in machine learning that is concerned with how a software agent ought to take actions.
-The actions taken is based on the environment and it is influenced by the objective to get the maximum reward.
-It is closely influenced by behaviorism, with the fact that the agent want to constantly maximize the reward obtained. 
+Reinforcement learning is the area in machine learning that is concerned with how a software agent ought to take actions.
+The agent bases its actions on the environment, and it is influenced by an objective to get the maximum reward.
+It is closely influenced by behaviourism, with the fact that the agent wants to maximise the reward obtained continually. 
 
 Successful types of reinforcement learning alogrithms are, for instance, Deep Recurrent Q-Learning~\cite{DBLP:journals/corr/HausknechtS15}, State–action–reward–state–action (SARSA)~\cite{Rummery94on-lineq-learning}.
 
-Reinforcement learning algorithms like these can not be categorized under either supervised or unsupervised machine learning. \todo{more?}
+%Reinforcement learning algorithms like these cannot be categorised under either supervised or unsupervised machine learning. \todo{more?}
 
 
 \subsubsection{Well known machine learning algorithms}
 Now that we have a basis on the three types of machine learning we can go into more detail on the most successful types of machine learning used both now and in the past. 
-Machine learning was coined as a term as early as in the 10000 century. The first concept was of the \todo{more}
+Machine learning was coined as a term as early as in the 1950s by Alan Turing. The first concept was related to the Turing machine and is now considered a foreshadowing of genetic algorithms.~\cite{10.1093/mind/LIX.236.433}
 
+\vspace{5px}
 
-In more recent times, when the first computers came, a common type of machine learning was the K-nearest neighbour algorithm.
-\todo{fast}
-\todo{no training}
-\todo{talk about it as a clustering method, classification}
-\todo{proposed by}
+Forward to 1967, the Nearest Neighbour algorithm was created, which is considered the start of basic pattern recognition. The Nearest neighbour algorithm is a type of machine learning that requires no prior training, making it fast and deterministic.
 
 \vspace{5px}
 
 Another early adoption of machine learning was in the form of regression. Regression is the statistical concept of estimating the relationships among variables. It is in heavy use today, and one of the core concept we use machine learning for today. 
-Legendre first used regression in 1805 with his method of least squares.\todo{cite} The least square methods were first done by hand, and it was at the time one best models, backed by math, to estimate the relationship between an input and a subsequent output. 
-\todo{find out how much I need to write here}
-
+Legendre first used regression in 1805 with his method of least squares\todo{cite}. The least square methods were initially being done by hand, and it was at the time one best models, backed by math, to estimate the relationship between an input and a subsequent output. 
+\todo{find out how much is needed to write here}
 Today regression analysis is widely used in statistics and informatics, and there is a significant overlap between the two research fields. While often we can make analytical models when working with a dataset with few variables, machine learning has the possibility of making much more complex models.
 
 \vspace{5px}
 
 A newer and applied form of supervised machine learning is the support vector machine. The original support vector machine was invented by Vladimir N. Vapnik and Alexey Ya Chervonenkis in 1963. \todo{cite} 
 In 1992, Bernhard E. Boser, Isabelle M. Guyon and Vladimir N. Vapnik suggested ways to make the support vector machine work in multiclass examples by using kernels.  
-
 A support vector machine is a form of classifier where the goal is to divide two datasets by a line that is just between the data. 
 
+\vspace{5px}
 
-\vspace{5px} 
-\todo{perhaps NN}
-\todo{might be own chapter}
+Here is an example of a famous reinforcement learning thing.
 
 
-    
-We have now discussed the general structure of the three types of machine learning. For each of the three methods we have looked at designs that utilise their form of learning, and we have shown how they can be used in the real world.
-We have also looked into some successful algorithms through the ages, highlighting innovations that helped form our vast library of methods we can use to tackle problems we meet.
+\paragraph{Summary} 
+
+We have now discussed the general structure of the three types of machine learning. For each of the three methods, we have looked at designs that utilise their form of learning, showing their real-world applications.
+We have also looked into some successful algorithms through the ages, highlighting innovations that helped form our vast library of methods we can use to tackle statistical problems we meet.
 We will now first go more in-depth into how a general machine learning algorithm works, giving a rundown on how a simple algorithm works from start to end.
-After this, we look into a more advanced example utilising a Generative adversarial network as a template.
-
+After this, we look into more advanced examples of modern machine learning algothroms that forms a basis in this thesis.
 
     
 \subsection{The basic concept of machine learning}   
-%\todo{tell that this is loosely based on deeplearningbook, basic machine learning}
 One of the easiest to understand tasks in machine learning is the process of regression. As stated earlier, regression is a process of approximation given prior input.
 We start with one of the simplest forms of approximation, namely linear approximation. In linear approximation, we are interested in finding the function that best defines our data using only a polynomial of the first degree.  First, we recall that a first-order function is always on the form
 \begin{equation}
@@ -199,7 +188,7 @@ Now our goal is to, given a task T, gain experience E and store it in $W^{(1)}$ 
 
 
 The most prominent way of calculating this error is to use the mean square error between the predicted and actual output of the data. 
-\begin{equation}\label{MSE_form}
+\begin{equation}\label{eq:MSE_form}
      MSE=\frac{1}{2m} \sum_i (\hat{y}-y)_i^2
 \end{equation}
 Where $m$ is the number of samples, $y$ is the real output, and $\hat{y}$ is the predicted output. The 2 in the denominator is just a constant to make the derivation of the formula easier.\\
@@ -220,7 +209,7 @@ Using the formula \ref{eq:ML_lin} with the input $x$ values we can calculate  $\
 \begin{equation}
     \hat{y}=\left[\begin{array}{c} 1\\ 2\\ 3\\ \end{array}\right]
 \end{equation}
-We can now calculate the performance by applying the mean square error function. Using \ref{MSE_form} gives us a loss of:
+We can now calculate the performance by applying the mean square error function. Using \ref{eq:MSE_form} gives us a loss of:
 \begin{equation}
    \frac{1}{2*3} \left( {(1.5-1)}^2+{(2-1)}^2+{(2.5-1)}^2 \right) = 3.29
 \end{equation}
@@ -235,53 +224,49 @@ Gradient descent is a first order iterative optimisation algorithm for finding t
 \end{equation}
 Where $\nabla$F is the derivative of function in question, a is the input at step n, and $\gamma$ is a learning rate set to a small number. 
 
-Derivating \ref{MSE_form} and using a learning rate of 0.5 we get the following. 
+Derivating \ref{eq:MSE_form} and using a learning rate of 0.5 we get the following. 
 \begin{equation}
-	\label{MSE_deriv_w0}
-	\begin{split}
+    \label{MSE_deriv_w0}
+    \begin{split}
     \nabla F_{W^{(0)}} &= \frac{d}{d_{W^{(0)}} } \frac{1}{2m} \sum_i (\hat{y}-y)_i^2 \\
      &= \frac{1}{m} \sum_{i}{(\hat{y}-y)}_{i} \cdot x_i\\
      &= \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x + w^{(1)}-y)}_{i} \cdot x_i\\
-	\end{split}
+    \end{split}
 \end{equation}
 
 \begin{equation}
-	\label{MSE_deriv_w1}
-	\begin{split}
+    \label{MSE_deriv_w1}
+    \begin{split}
      \nabla F_{W^{(1)}} &= \frac{d}{d_{W^{(1)}} } \frac{1}{2m} \sum_i (\hat{y}-y)_i^2 \\
-				    &= \frac{1}{m} \sum_{i}{(\hat{y}-y)}_{i} \\
-				    &= \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x + w^{(1)}-y)}_{i}\\
+                    &= \frac{1}{m} \sum_{i}{(\hat{y}-y)}_{i} \\
+                    &= \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x + w^{(1)}-y)}_{i}\\
     \end{split}
 \end{equation}
 Inserting \ref{MSE_deriv_w0} and \ref{MSE_deriv_w1} in to \ref{gradientdecent} gives us the two following formulas for $W^{(1)}$ and $W^{(2)}$
 \begin{equation}
-	\label{GD_W0}
-	\begin{split}
+    \label{GD_W0}
+    \begin{split}
     W^{(0)}  &= W^{(0)} - \gamma \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x_i + w^{(1)}-y)}_{i} \cdot x_i \\
-     		 &= 1 - 0.5 \cdot \frac{1}{3}  \sum (-0.5+1+1.5)  \\
-     		 &= 0.583\\
-	\end{split}
+              &= 1 - 0.5 \cdot \frac{1}{3}  \sum (-0.5+1+1.5)  \\
+              &= 0.583\\
+    \end{split}
 \end{equation}
 \begin{equation}
-	\label{GD_W0}
-	\begin{split}
+    \label{GD_W0}
+    \begin{split}
     W^{(1)}  &= W^{(1)} - \gamma \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x_i + w^{(1)}-y)}_{i} \\
-     		 &= 0 - 0.5 \cdot \frac{1}{3} \sum (-0.5+0+0.5) \\
-     		 &= 0\\
-	\end{split}
+              &= 0 - 0.5 \cdot \frac{1}{3} \sum (-0.5+0+0.5) \\
+              &= 0\\
+    \end{split}
 \end{equation}
 
-After one iteration of gradient descent, we see the weights becoming closer to the desired result. With more iterations the closer the weights will get to the point that gives the smallest error. 
+After one iteration of gradient descent, we see the weights becoming closer to the desired result. With more iterations the closer the weights will get to the point that gives the smallest error\footnote{As long as the learning rate is small enough}. 
 
  
-We looked at an example using the formula for a linear approximation. In the real world there are only a handful problems that can be solved by doing a linear approximation.
+We looked at an example using the formula for a linear approximation. In the real world, there are only a handful of problems that we solve by making a linear approximation. We will now look into more advanced types of approximations made with machine learning.
 
     
 
-   
-      
-
-    
 \section{Neural Networks}
 We have looked at different types of machine learning, and we have gone in depth into how a linear regression model works. In this chapter, we want to get further insight into how we can make more complex models, and we will look into the most popular method for machine learning, namely Neural Networks. 
 After the rundown on how neural networks are built up and how they operate, we will look into convolutional neural networks. In the end, we will look at successful networks, mainly made for image classification.
@@ -290,7 +275,7 @@ After the rundown on how neural networks are built up and how they operate, we w
 \subsection{The perceptron}
 \label{chap:perceptron}
 To explain how a neural net operates, we first need to look at the most fundamental structure present in every type of neural network, namely the Perceptron.
-The fist perceptron was introduced by \todo{who} in \todo{find when}, and it was made as an attempt to mimic the human neuron.  
+Frank Rosenblatt introduced the first perceptron in 1957 as an attempt to mimic the human neuron\cite{perceptron}.  
 
 
 \begin{figure}[h]
@@ -321,7 +306,7 @@ First, we get numerical data from, either other perceptrons or from an input. We
 
 \textbf{Step 3:} we sum every input to a scalar. \\
 
-\textbf{Step 4:} We apply an activation function. This can be a simple sigmoid function or tanh function, but the most common is the Rectified linear unit (ReLu) \todo{cite} \\ 
+\textbf{Step 4:} We apply an activation function. This can be a simple sigmoid function or tanh function, but the most common is the Rectified linear unit (ReLu)\cite{ReLu} \\ 
 
 \textbf{Step 5:} The output of the activation function $a_{(j,0)}-a_{(j,n)}$ is sent to the next perceptron. 
 
@@ -329,11 +314,10 @@ First, we get numerical data from, either other perceptrons or from an input. We
 
 
 
-\subsection{Multilayer perceptrons}
-The neural network was a proposal made by Warren McCulloch and Walter Pitts (1943) \todo{cite}  created a computational model for neural networks based on mathematics and algorithms called threshold logic. 
-\todo{talk about the single neuron made by that dude}
+\subsection{Multilayer perceptrons}\label{cha:MLP}
+The neural network was a proposal made by Warren McCulloch and Walter Pitts (1943) \cite{roweis2000nonlinear}  created a computational model for neural networks based on mathematics and algorithms called threshold logic. 
 
-The first multilayer network at the time used backpropagation in the same way described in \todo{find formula}.
+The first multilayer network at the time used backpropagation in the same way described in \ref{eq:MSE_form}.
 
 \begin{figure}[h]
 \centering
@@ -355,11 +339,11 @@ In this figure, we have four things we need to look into.
     
 \subsection{Convolutional neural networks}
 The multilayer perceptron we have discussed is a strong tool that can learn a multitude of decision boundaries, and subsequently learn to classify thousands of different classes. 
-As we get more data and more classes, the networks needed to solve our problem grows. We can recall from chapter \todo{ref chapter on MLP} that the number of weights between neurons is \todo{insert math}. As the number of perceptrons per layer in our neural networks increases, the total amount of storage space increases by a factor of 4 \todo{fix this}
+As we get more data and more classes, the networks needed to solve our problem grows. We can recall from chapter \cite{cha:MLP} that the number of weights between neurons is \todo{insert math}. As the number of perceptrons per layer in our neural networks increases, the total amount of storage space increases by a factor of 4 \todo{fix this}
 
 Another problem with the standard MLP is the fact that it is spatially dependent. Given an input $x$, the output, $y$, of the MLP will vary a lot if we shift the input data by one place, or if we flip the data. In some cases, this is something we want in our machine learning algorithms, but more often than not, this behaviour is not a desirable outcome.
 
-Given the downsides we have with regards to memory usage and non-spatiality in our multilayer perceptrons, we present Kunihiko Fukushima \todo{cite} solution to solve both complications.
+Given the downsides we have with regards to memory usage and non-spatiality in our multilayer perceptrons, we present Kunihiko Fukushima \cite{Fukushima1980} solution to solve both complications.
 
 Convolutional neural networks are the most popular form for image recognition, segmentation, and classification \todo{cite, IEEE paper got cites}
 
@@ -522,66 +506,178 @@ Lets look at a gan in detail. \\
     \caption{The idea behind a GAN. Here the generator samples from a random (Gaussian) distribution and generates samples that the discriminator classifies as real or fake}
 \end{figure}
     
-%\subsection{Recurrent neural networks}
-%\subsection{LSTM}
-
-\subsubsection{Contextencoders}
-Inpainting can also be done with adversarial models, and using a network trained to do the task of inpainting can be a lot more powerful than using just an autoencoder\todo{ref} or the naive methods\todo{ref}.
-A contextencoder is building on the adversarial principle by using a generator/discriminator pair to fill in masked areas in an image. 
+\subsection{Transferlearning (might not be right place, but it should be in background)}
+ Transferlearning is, transferlearning does!     
     
-The concept behind a Contextencoder is to take the whole image as input to an encoder/decoder pair and \todo{finish}
+
+
      
-\subsubsection{CC-GANS}  
-%\subsection{Pixel CNN}
-      
-    
-
-
-
-        
    
 \section{The problem at hand / Summary}
-      
-\subsubsection{Explain how the ML-methods can be used with the polyps}
-    When you work with machine learning a lot of the job is to make the data as clear as possible. \\
-    Imagine that you want to do something as simple as reading an analogue clock. The \"straight forward\" way to do it is to make a convolutional neural network to look at the dials. This will require a much more complex network compared to if you could convert the angle of the dials to degrees and have that as an input to your model.
+We started the background chapter by looking at the medical procedure associated with a colonoscopy, and we went in-depth into how the medical staff work with digital equipment. We got some insight into the time and complexity invested in finding polyps when doing the said colonoscopy.
+We then looked at systems for computer-aided diagnosis and the prevalent systems that is in use today to help medical staff with polyp detection. 
+From this assessment, we saw that the polyp detection rate in datasets like Kvasir was relatively high, but the model overfitting was often the cause of the high-grade results. Though the advances in medical image diagnosis, the ability for models to generalise to other areas has not come far enough.
+We then took a close look at machine learning, from the building blocks in the perceptron to the complex pretrained neural networks used today in modern algorithms. 
 
-    \begin{figure}[ht]
-      \centering
-      \includegraphics[scale=0.5]{methods/figures/Clock.png}
-      \caption{A clock needs a more complex network compared to just the degrees}
-    \end{figure}
-    %TODO FIND ORIGinal source
-    The trick is often to make the data as refined as possible. 
-    Further, some of the techniques used are described.
-    
-    \todo{Here I need to talk about how preprocessing might help the problem, and make this a springboard into the next section: the problem at hand}
-    
-    
-    \todo{adress the problem with lack of data, and talk about how machine learning can help, machine learning.}
-      
-   
+As we noted in chapter \ref{cha:CAD} we, in modern medical diagnosis systems, lack the ability to adapt to new datasets from a different distribution than the training set. We have a strong belief that this is related to the fact that we overfit the data on the training set and the fact that we learn dataset-specific features not present in other unknown datasets.
+
+
+Hicks et al. in the paper ``find paper'' goes in-depth into the problem of overfitting with regards to the problem with dataset specific features. We can see from this paper that by removing dataset specific artefacts, the classification score increased when evaluating the model on previously unseen data.
+
+Proglov et al. in the paper ``in the paper'' shows similar results when training on the Kvasir dataset and evaluating the data on different datasets.
+
+
+In this thesis, we want to continue to explore this problem of lack of generalisation and find ways to improve models in that manner.
 
 
 
 
-\begin{itemize}
-	\item Stevens paper about inpainting
-	\item Konstantins paper about the cross dataset evaluation
-\end{itemize}
 
 
 
-      Now that we have the definition of machine learning and the current task, we can focus on the task at hand; finding polyps. In an ideal world\footnote{Ideal as in the only disease, we could get in  the GI tract was cancer originating
-      from polyps which looked exactly the same} we have a
-      Classification problem with only two classes: Non-polyp and polyp. 
-      
-      \begin{itemize}
-        \item SVM 
-        \item CNN 
-        \item random forests
-        \item knn
-      \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -633,6 +729,22 @@ The concept behind a Contextencoder is to take the whole image as input to an en
 
 
 \iffalse
+\subsubsection{Explain how the ML-methods can be used with the polyps}
+When you work with machine learning a lot of the job is to make the data as clear as possible. \\
+Imagine that you want to do something as simple as reading an analogue clock. The ``straight forward'' way to do it is to make a convolutional neural network to look at the dials. This will require a much more complex network compared to if you could convert the angle of the dials to degrees and have that as an input to your model.
+
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[scale=0.5]{methods/figures/Clock.png}
+      \caption{A clock needs a more complex network compared to just the degrees}
+    \end{figure}
+    %TODO FIND ORIGinal source
+    The trick is often to make the data as refined as possible. 
+    Further, some of the techniques used are described.
+    
+
+
+
 \section{In painting}
   We have discussed the importance of good input data, and the potential benefits to resource usage and ease of making a good model.
   So a priority when it comes to image classification is to have data without anomalies and other areas that can be interpreted as a feature for the classifier. 
