@@ -1,8 +1,8 @@
-In this chapter, we will present the background and \textit{motivation maybe} of our thesis.
+%In this chapter, we will present the background and \textit{motivation maybe} of our thesis.
 We start with our background in medical procedures, looking at how doctors perform colonoscopies, mainly from a gastrointestinal perspective.
 Then will then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then we shift our focus to how doctors use computer-aided diagnosis (CAD) today to help with the screening. 
 
-After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can ``learn'' and discuss different areas we can use and the areas we are using machine learning today. We will then go in depth into the examples and look at the most common machine learning models. We will look at the most common form of machine learning, namely neural networks, and look into the most frequent use case of this type of algorithm.
+After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can ``learn'' and discuss different areas we can use and the areas we are using machine learning today. We will then go in depth into the examples and look at the most common machine learning models. We will look at the most state of the art form of machine learning, namely neural networks, and look into the most frequent use case of this type of algorithm.
 With this in mind, we will look at neural networks, especially convolutional neural networks, and how they work.
 
 Lastly, we will combine the need for computer-aided diagnosis with machine learning, looking at where previous models fall short and why that is the case.
@@ -310,7 +310,7 @@ First, we get numerical data from, either other perceptrons or from an input. We
 
 \textbf{Step 5:} The output of the activation function $a_{(j,0)}-a_{(j,n)}$ is sent to the next perceptron. 
 
-\todo{talk about why we use an activation function}
+
 
 
 
@@ -329,9 +329,9 @@ The first multilayer network at the time used backpropagation in the same way de
 Figure \ref{fig:mlnn} shows the basic structure of a multilayer network.
 In this figure, we have four things we need to look into.
 
-\subsection{Feed forward and backpropagation through a neural network}
+\subsection{Feed forward and backpropagation through a neural network (MICHAEL OR PAAL: DO I KEEP THIS CHAPTER)}
 \todo{looked at how MLP works, let us look at back-and-forward prop}
-
+\todo{talk about why we use an activation function}
 
 
 
@@ -345,7 +345,7 @@ Another problem with the standard MLP is the fact that it is spatially dependent
 
 Given the downsides we have with regards to memory usage and non-spatiality in our multilayer perceptrons, we present Kunihiko Fukushima \cite{Fukushima1980} solution to solve both complications.
 
-Convolutional neural networks are the most popular form for image recognition, segmentation, and classification \todo{cite, IEEE paper got cites}
+Convolutional neural networks are the most popular form for image recognition, segmentation, and classification \cite{NIPS2012_4824} \cite{Long_2015_CVPR}.
 
 When building a convolutional neural network we often use multiple layers stacked on opt of each other to give the network traits that a regular multilayer perceptron could not achieve. By far the most essential layer of the convolutional neural network is the convolutional layer.
 
@@ -484,30 +484,45 @@ Figure \ref{fig:AEinpainting} show a visual example of equation \ref{eq:AEloss}.
 
     
 \subsection{Advaserial neural networks}
-\paragraph{This is explaining GANS, put me in the right place} %%TODO CITE: http://www.deeplearningbook.org/contents/generative_models.html and Goodfellow at al. 2014
+As an alternative to using autoencoders for generative modelling, we introduce the generative adversarial network proposed by Goodfellow et al. \cite{Goodfellow:2014:GAN:2969033.2969125}.
 
-Now that we have looked at autoencoders we can take it a step further. 
-generative adversarial models can be used as a generator of new data and can have some resemblance to autoencoders \ref{Explaining_autoencoders}, especially variational autoencoders. \cite{Goodfellowetal2016} %TODO cite VAE, ref VAE
+Generative adversarial networks described in the original article by Goodfellow et al. consist of two components: a generative model G that captures the data distribution, and a discriminator model D that estimates the probability that the sample from G is fake, and does not come from the training data. The training procedure for the generator is to maximise the probability of the discriminator to make mistakes.
+The generator-discriminator network resembles a two-player game where both parties want to ``win'' over the other.
+As we are using multilayer perceptrons in our network, we can use backpropagation to train both the generator and discriminator. 
 
-The difference lies in that adversarial networks is based on game theoretic scenarios in which a generator network is competing against an advasery. 
-The generator produces samples $x=g(z;\theta^{(g)})$, where $g$ is the network given the weights $\theta$. Then the discriminator network predicts if a sample is drawn from the dataset or from the generator.
+In mathematical terms:
+The generator produces samples $x=g(z;\theta^{(g)})$, where $g$ is the network given the weights $\theta$. Then the discriminator network predicts if a sample is drawn from the dataset or the generator.
 More spessific, it gives a probably given by $d(x;\theta^{(d)})$ , and determines if $x$ is from the generator or the data-set. 
 Since we have two networks competing against each other we can look at this as a Zero-sum game with the generators payoff is determined by $v(\theta^{(g)},\theta^{(d)})$, and the discriminators payoff is determined by $-v(\theta^{(g)},\theta^{(d)})$.
+
 \textit{$v$ is here a function that is determined by both the success rate of the discriminator and the generator, the most commonly used is}
-\begin{equation} %TODO: CITE First gan paper on formula
+\begin{equation} 
     v(\theta^{(g)},\theta^{(d)}) \; = \; \mathds{E}_{x\sim p_{data}}\log{d(x)} + \mathds{E}_{x\sim p_{model}}\log{(1 - d(x))} 
 \end{equation}
-as derived from Goodfellow et al. %TODO cite 
-      
-Lets look at a gan in detail. \\
+as derived from Goodfellow et al. Generative adversarial networks paper \cite{Goodfellow:2014:GAN:2969033.2969125}.
+
+
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.5]{background/figures/simpleGAN.png}
-    \caption{The idea behind a GAN. Here the generator samples from a random (Gaussian) distribution and generates samples that the discriminator classifies as real or fake}
+    \includegraphics[scale=0.6]{background/figures/GAN.png}
+    \caption{The basic concept of the generative adversarial network}
+    \label{fig:GAN}
 \end{figure}
     
-\subsection{Transferlearning (might not be right place, but it should be in background)}
- Transferlearning is, transferlearning does!     
+\subsection{Transfer learning}
+Neural networks are prone to overfitting when training on a small dataset or over to many iterations. We often have problems with the fact that we need to train a network for a long time for it to learn the features associated with the data, though we often learn the bias in the dataset either in addition or instead of the features that define the dataset.
+
+The most obvious solution is to gather more training data to prevent this overfitting, or to use regulisers to force the network to diversify the layer weights. 
+
+In this thesis, we have chosen to use transfer learning to address this problem. Transfer learning is the process of using knowledge from similar problems to help solve the current goal.  If we want to classify different trucks, we can use our knowledge about cars to help the classification.
+Similarly, we can use general models to help solve our specific problem.
+
+Since we are using Keras as a wrapper for our machine learning, all the networks supplied by the Keras package comes with a pretrained option based on the Imagenet dataset.\todo{cite image net and transfer learning}
+
+
+Take for instance the well-known InceptionResNetV2. We can either import the model with uninitialised weights, meaning they will be set as we load the model or we can use one of the pretrained models such as imagenet or another custom network.
+
+
     
 
 

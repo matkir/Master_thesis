@@ -1,9 +1,11 @@
-With our background in both machine learning and \todo{medical background} we can now look at how we want to solve the problems associated with setting up a system for medical diagnosis.  
-We will first look at the language and packages used in the creation of this thesis. We will go in depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
-
+With our background in both medical background and machine learning, we can now look at how we want to solve the problems associated with setting up a system for medical diagnosis.  
+We will first get a birds-eye view of the objective of this thesis, looking at the hypothesises behind this thesis, and take a look into how we can test the proposed hypothesises.
+We will look at the language and packages used in the creation of this thesis. We will go in depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
 Then we will look at the setup of the complete program. Here we will go in-depth into both the different preprocessing algorithms, and take a look at the transfer learning network used during classifying.
-\section{Birds eye view (Chapter removed when written)}
-\todo{we have 2 hps, put them here.}
+
+\section{ Bird's eye view (Chapter possibly removed when written)}
+In the summary of the background chapter, we looked at two articles published by Pogorelov et al. and Hicks et al. where they discussed the effect of overfitting and the consequences of dataset-specific artefacts.
+To help solve these predicaments we present the following two hypothesises:
 
 \noindent
 \begin{hyp} \label{hyp:a}
@@ -22,6 +24,12 @@ mode of generalisation of our results when removing the dataset
 specific artefacts compared to not removing artefacts.
 \end{hyp}
 \vspace{5px}
+
+
+
+We will use this as a basis for our work, and look into how we want to solve the same problems encountered. 
+As described in the background chapter, we will use convolutional neural networks to augment and classify the datasets. We will first talk about the programming language in question followed by a rundown of the libraries and their dependencies.
+We will end this chapter by looking at the programs used for inpainting and classification.
 
 \section{Libraries} 
 In this chapter, we will discuss the foundation of our code, important external libraries, and the setup and execution of our project.  
@@ -411,6 +419,7 @@ As figure \ref{fig:masks} shows, we use cropped versions when inpainting corners
 
 
 \section{Design of the transfer learning experiments}
+\label{cha:classifier}
 The second part of the thesis is to check the success of the inpainted models. 
 We use a convolutional neural net to achieve this.
 
