@@ -159,6 +159,7 @@ After this, we look into more advanced examples of modern machine learning algot
 
     
 \subsection{The basic concept of machine learning}   
+\label{cha:concept}
 One of the easiest to understand tasks in machine learning is the process of regression. As stated earlier, regression is a process of approximation given prior input.
 We start with one of the simplest forms of approximation, namely linear approximation. In linear approximation, we are interested in finding the function that best defines our data using only a polynomial of the first degree.  First, we recall that a first-order function is always on the form
 \begin{equation}
@@ -274,31 +275,68 @@ After the rundown on how neural networks are built up and how they operate, we w
 
 \subsection{The perceptron}
 \label{chap:perceptron}
-To explain how a neural net operates, we first need to look at the most fundamental structure present in every type of neural network, namely the Perceptron.
-Frank Rosenblatt introduced the first perceptron in 1957 as an attempt to mimic the human neuron\cite{perceptron}.  
+To explain how a neural net operates, we first need to look at the most fundamental structure present in every type of neural network, namely the perceptron.
+Frank Rosenblatt introduced the first perceptron in 1957 as an attempt to mimic the human neuron~\cite{perceptron}.  
 
 
-\begin{figure}[h]
+\begin{figure}
         \centering
         \includegraphics[scale=0.5]{background/figures/neuron.jpg}
-        \caption{https://socratic.org/questions/how-is-a-neuron-adapted-to-perform-its-function}
+        \caption{https://socratic.org/questions/how-is-a-neuron-adapted-to-perform-its-function, this image needs to be replaced, og i need to find the open source.}
         \label{fig:neuron}
 \end{figure}
-\todo{non-linear problems  }
 
-Figure \ref{fig:neuron} shows how a human neuron looks like, and in which direction the signal goes. Each neuron is connected to multiple other neurons by connecting the dendrites to other neighbouring neurons. 
+
+Figure \ref{fig:neuron} shows how a human neuron looks like, and in which direction the signal goes. Each neuron is connected to multiple other neurons by connecting the dendrites to other neighbouring neurons forming a pathway for the electrical signals to flow. 
 When a signal is sent, the dendrites register the signal and sends it through the axon out to the axon terminal. At the axon terminal, other neurons pick up the electrical signal and pass it through their axon.
-This flow of electricity is the fundamental way different part of our brain communicates, and the different pathways the signals can take represent how we learn. 
+This flow of electricity is the fundamental way different part of our brain communicates, and the different pathways the signals can take represent how we learn. The original idea behind the perceptron and this branch of machine learning is to mimic this process of making pathways throughout the network as a way to learn from experience.
 
-\begin{figure}[h]
+
+\begin{figure}
         \centering
         \includegraphics[scale=0.5]{background/figures/perceptron.png}
         \caption{Simple perceptron}
     \label{fig:perceptron}
 \end{figure}
 
-We can now look at the perceptron in figure \ref{fig:perceptron}, as we can discern, this mathematical model has the same structure, and we have the same flow as we would in the human brain. 
-First, we get numerical data from, either other perceptrons or from an input. We add it together and send it out on the other side. We will now look more in depth how this is done, and show how the mathematics behind it works. \\
+
+
+
+With the biological neuron as a reference point, we can now look more in-depth into the mathematical equivalent. 
+Figure \ref{fig:perceptron}, shows the equivalent in the realm of computer science, having the same flow from the input to the output. 
+The perceptron does however not work with electrical signals. Instead, it works with numbers representing this signal. This abstraction gives the perceptron the ability to have arbitrary high values, as well as negative ones. 
+We multiply the input signals to the perceptron with an associated weight. In biological terms, this weight is equivalent to the strength of the connection between the two neurons trying to communicate. We sum together the weighted inputs and apply a threshold function. In the first perceptron the internal function were:
+
+
+\begin{equation}
+    \label{eq:tresh}
+ f_{out}=   \left\{
+\begin{array}{ll}
+		1 \ \ if \ \ \textbf{w} \cdot \textbf{x} + b > 0, \\
+     	0 \ \ otherwise \\
+\end{array} 
+\right. 
+\end{equation}
+where $\textbf{w}$  is a vector of real-valued weights, $\textbf{w} \cdot \textbf{x}$ is the dot product $\sum _{i=1}^{m}w_{i}x_{i}$, where m is the number of inputs to the perceptron, and b a constant bias. 
+
+
+The general formula of the perceptron is unchanged, though we have moved away from the ``0-1 output'' perceptron in favour for more complex output functions like the sigmoid in the 1990s\todo{cite}, and the ReLu, and tanh in the 2000s\todo{cite}. 
+
+\begin{equation}
+    \label{eq:ReLu}
+ f_{out}=   max\left\{
+\begin{array}{ll}
+		\textbf{w} \cdot \textbf{x} + b \\
+     	0 \\
+\end{array} 
+\right. 
+\end{equation}
+The typical ReLu preceptron.
+
+
+
+\subsection{Feed forward and backpropagation}
+The general concept of the learning process is similar to the one we presented in chapter \ref{cha:concept}.
 
 \textbf{Step 1:} our perceptron gets signals $a_{(i,0)}-a_{(i,n)}$ where $n$ is the number of inputs to the perceptron.\\
 
@@ -310,10 +348,11 @@ First, we get numerical data from, either other perceptrons or from an input. We
 
 \textbf{Step 5:} The output of the activation function $a_{(j,0)}-a_{(j,n)}$ is sent to the next perceptron. 
 
+\todo{rewrite to be correct}
 
 
 
-
+\todo{non-linear problems  }
 \subsection{Multilayer perceptrons}\label{cha:MLP}
 The neural network was a proposal made by Warren McCulloch and Walter Pitts (1943) \cite{roweis2000nonlinear}  created a computational model for neural networks based on mathematics and algorithms called threshold logic. 
 
