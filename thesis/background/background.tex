@@ -370,7 +370,7 @@ The first multilayer network at the time used backpropagation with gradient dece
 \end{figure}
 
 
-Figure \ref{fig:mlnn} shows the basic structure of a multilayer network. This model has one hidden layer, with the standard input and output layers. In our figure, each of the nodes is a perceptron\footnote{In reality, the input layer does not usually behave as a perceptron. The input layer is only there to propagate the signal to the neurons further into the network.} as described in chapter \ref{cha:perceptron}.
+Figure \ref{fig:mlnn} shows the basic structure of a multilayer network. This model has one hidden layer, with the standard input and output layers. In our figure, each of the nodes is a perceptron\footnote{In reality, the input layer does not usually behave as a perceptron with an activation function. The input layer is only there to propagate the signal to the neurons further into the network.} as described in chapter \ref{cha:perceptron}.
 
 The advantage of using the multilayer structure proposed by McCulloch and Pitts is the fact that we do not only have a linear boundary classification model. By using the multilayer structure the network is able to, for instance, tackle the XOR problem, not solvable by a single layer neural network.\todo{cite}
 
@@ -383,7 +383,7 @@ Talk about the chain rule.
     
 \subsection{Convolutional neural networks}
 The multilayer perceptron we have discussed is a strong tool that can learn a multitude of decision boundaries, and subsequently learn to classify thousands of different classes. 
-As we get more data and more classes, the networks needed to solve our problem grows. We can recall from chapter \cite{cha:MLP} that the number of weights between neurons is \todo{insert math}. As the number of perceptrons per layer in our neural networks increases, the total amount of storage space increases by a factor of 4 \todo{fix this}
+As we get more data and more classes, the networks needed to solve our problem grows. We can recall from chapter \ref{cha:MLP} that the number of weights between neurons is \todo{insert math}. As the number of perceptrons per layer in our neural networks increases, the total amount of storage space increases by a factor of 4 \todo{fix this}
 
 Another problem with the standard MLP is the fact that it is spatially dependent. Given an input $x$, the output, $y$, of the MLP will vary a lot if we shift the input data by one place, or if we flip the data. In some cases, this is something we want in our machine learning algorithms, but more often than not, this behaviour is not a desirable outcome.
 
@@ -405,7 +405,7 @@ When applying the convolutional layer to an input vector, we take each of the F 
 For each position of the filter, we multiply the image value with the filter and sum the result. The scalar made by this multiplication is the value passed on to the next layer at that specific point.
 Figure \ref{fig:conv_opp} shows the this convolution process after 3 sliding operations with a $(3 \times 3)$ filter.
  
-\begin{figure}[t]
+\begin{figure}[h]
         \centering
         \includegraphics[scale=0.5]{background/figures/Conv_filter.png}
         \caption{The values calculated when a convolutional filter after 4 sliding window operations, here the number of inputs does not represent how many inputs there usually is in an image}
@@ -416,8 +416,15 @@ Figure \ref{fig:conv_opp} shows the this convolution process after 3 sliding ope
 As we can see from this architecture, we can only change when weights in the filter matrix, as there are no other variables in the convolutional operation. Using this sliding window technique gives us the benefit that the filter only gathers information from the local area, and subsequently makes the convolutional operation non-spatially dependent.  
 
 \subsubsection{Activation layers}
-As we discussed in chapter \ref{chap:perceptron}, in addition to summing the inputs and passing them on, we need to apply an activation function to the output. The same problem with our desire to make non-linear problems apply in the CNN model. 
+As we discussed in chapter \ref{cha:perceptron}, in addition to summing the inputs and passing them on, we need to apply an activation function to the output. The same problem with our desire to make non-linear problems apply in the CNN model. 
 To apply an activation layer to a CNN, we take every value in the matrix and apply the activation function separately to every data-point. 
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.8]{background/figures/activations.png}
+        \caption{Activation functions from -2 to 2 on each axis. \\ From left to right: ReLu, Tanh, Sigmoid}
+        \label{fig:conv_opp}
+\end{figure}
 
 \subsubsection{Pooling}
 Pooling layers, often also called downsampling layers, are commonly also found in CNN's. 
@@ -436,18 +443,25 @@ Pooling layers do generally not have any weights associated with them. This lack
 \todo{unpooling}
 
 \subsubsection{Normalisation}
-Normalisation layers are one of the newer addition to the CNN models. The normalisation layers, as with the pooling layers does not contain any weights, ad subsequently only change the data based on the statistics of the data. 
+Training deep neural networks can often be complicated with the fact that the distribution of each layer changes during training, as the parameters of the previous layers change. In some cases, this constant shift of input values slows down the training by requiring a lower learning rate to keep the network stable.
+We refer to this problem as internal covariate shift, and we use normalisation as a tool to correct for it. \cite{DBLP:journals/corr/IoffeS15}
+
+The most common way to normalise the data is to use batch normalisation. When calculating the batch normalisation, we take the following steps presented in S. Ioffe and C. Szegedy publication: ``Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift''~\cite{DBLP:journals/corr/IoffeS15} 
+
+\vspace{5px}
+\noindent \textbf{Input:} Values of x over a mini-batch: $\mathcal{B} = \{x1...m\}$;\\
+\noindent Parameters to be learned: $\gamma, \beta$\\
+\noindent \textbf{Output:} $\{y_i = \text{BN}_{\gamma,\beta}(x_i)\}$\\
+\begin{align*}
+\mu_{\beta} &\leftarrow \frac{1}{m} \sum_{i=1}^{m} x_i   \tag{mini-batch mean}\\
+\sigma_{\beta}^2 &\leftarrow \frac{1}{m} \sum_{i=1}^{m} (x_i-\mu_{\beta})^2 \tag{mini-batch variance}\\
+\widehat{x_i} &\leftarrow \frac{x_i - \mu_{\beta}}{\sqrt{\sigma_{\beta}^2+\epsilon}} \tag{normalise}\\
+y_i &\leftarrow \gamma\widehat{x_i}  + \beta \equiv \text{BN}_{\gamma,\beta}(x_i) \tag{scale and shift}
+\end{align*}
+\label{eq:BN}
 
 
-
-In CNN models the most used type of normalisation is batch normalisation.
-
-\begin{itemize}
-\item Learning faster
-\item Increase Accuracy
-\end{itemize}
-
-
+In the original paper we the writers saw a significant reduction in the number of epochs needed to train the network, as well as increased accuracy.
 
 
 \subsubsection{Dropout}
@@ -466,7 +480,7 @@ Dropout layers in the CNN will randomly cut a certain amount of connections in a
 
 This random cutting forces the network to spread out the essential weights throughout the network. 
 Even though dropout does not explicitly change the weights, it implicitly forces the stong weights to be eavenly distributed throughout the network. 
-Dropout does, in practice, the same as an L1 or L2 regularizer. 
+Dropout does, in practice, the same as an L1 or L2 regularizer. \todo{cite}
 
 
 
