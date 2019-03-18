@@ -221,7 +221,7 @@ The most common way to update our weights is to use gradient descent.
 Gradient descent is a first order iterative optimisation algorithm for finding the minimum of a function~\cite{robbins1951}. In our case, we are looking for the minimum value of the MSE function. Gradient descent is defined as (simplified for our example):
 \begin{equation}
     a_{n+1}= a_{n} - \gamma \nabla F(a_{n})
-    \label{gradientdecent}
+    \label{eq:gradientdecent}
 \end{equation}
 Where $\nabla$F is the derivative of function in question, a is the input at step n, and $\gamma$ is a learning rate set to a small number. 
 
@@ -243,7 +243,7 @@ Derivating \ref{eq:MSE_form} and using a learning rate of 0.5 we get the followi
                     &= \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x + w^{(1)}-y)}_{i}\\
     \end{split}
 \end{equation}
-Inserting \ref{MSE_deriv_w0} and \ref{MSE_deriv_w1} in to \ref{gradientdecent} gives us the two following formulas for $W^{(1)}$ and $W^{(2)}$
+Inserting \ref{MSE_deriv_w0} and \ref{MSE_deriv_w1} in to \ref{eq:gradientdecent} gives us the two following formulas for $W^{(1)}$ and $W^{(2)}$
 \begin{equation}
     \label{GD_W0}
     \begin{split}
@@ -274,7 +274,7 @@ After the rundown on how neural networks are built up and how they operate, we w
 
 
 \subsection{The perceptron}
-\label{chap:perceptron}
+\label{cha:perceptron}
 To explain how a neural net operates, we first need to look at the most fundamental structure present in every type of neural network, namely the perceptron.
 Frank Rosenblatt introduced the first perceptron in 1957 as an attempt to mimic the human neuron~\cite{perceptron}.  
 
@@ -335,28 +335,32 @@ The typical ReLu preceptron.
 
 
 
-\subsection{Feed forward and backpropagation}
+\subsection{Feed forward and backpropagation through a perceptron}
 The general concept of the learning process is similar to the one we presented in chapter \ref{cha:concept}.
 
-\textbf{Step 1:} our perceptron gets signals $a_{(i,0)}-a_{(i,n)}$ where $n$ is the number of inputs to the perceptron.\\
+\noindent \textbf{Step 1:} our perceptron gets signals $x_{(i,0)}-x_{(i,n)}$ where $n$ is the number of inputs to the perceptron.\\
 
-\textbf{Step 2:} each of our signals $a_{(i,0)}-a_{(i,n)}$ is multiplied by a weight $W^{(0)}$ -  $W^{(n)}$. \\
+\noindent \textbf{Step 2:} each of our signals $a_{(i,0)}-a_{(i,n)}$ is multiplied by a weight $W^{(0)}$ -  $W^{(n)}$. \\
 
-\textbf{Step 3:} we sum every input to a scalar. \\
+\noindent \textbf{Step 3:} we sum every input to a scalar. \\
 
-\textbf{Step 4:} We apply an activation function. This can be a simple sigmoid function or tanh function, but the most common is the Rectified linear unit (ReLu)\cite{ReLu} \\ 
+\noindent \textbf{Step 4:} We apply an activation function. (ReLu, tanh, Sigmoid)\\
 
-\textbf{Step 5:} The output of the activation function $a_{(j,0)}-a_{(j,n)}$ is sent to the next perceptron. 
+\noindent \textbf{Step 5:} Output the result $a_{(j,0)}$.\\
 
-\todo{rewrite to be correct}
+\noindent \textbf{Step 6:} Look at the error between the output $a_{(j,0)}$ and the expected output and apply a loss function. (MSE, Binary crossentropy)\\
+
+\noindent \textbf{Step 7:} Take the error and backpropagate it using gradient decent (Equation \ref{eq:gradientdecent}).\\
 
 
 
-\todo{non-linear problems  }
-\subsection{Multilayer perceptrons}\label{cha:MLP}
+
+
+\subsection{Multilayer perceptrons}
+\label{cha:MLP}
 The neural network was a proposal made by Warren McCulloch and Walter Pitts (1943) \cite{roweis2000nonlinear}  created a computational model for neural networks based on mathematics and algorithms called threshold logic. 
 
-The first multilayer network at the time used backpropagation in the same way described in \ref{eq:MSE_form}.
+The first multilayer network at the time used backpropagation with gradient decent in the same way described in \ref{eq:gradientdecent}.
 
 \begin{figure}[h]
 \centering
@@ -365,13 +369,14 @@ The first multilayer network at the time used backpropagation in the same way de
 \label{fig:mlnn}
 \end{figure}
 
-Figure \ref{fig:mlnn} shows the basic structure of a multilayer network.
-In this figure, we have four things we need to look into.
 
-\subsection{Feed forward and backpropagation through a neural network (MICHAEL OR PAAL: DO I KEEP THIS CHAPTER)}
-\todo{looked at how MLP works, let us look at back-and-forward prop}
-\todo{talk about why we use an activation function}
+Figure \ref{fig:mlnn} shows the basic structure of a multilayer network. This model has one hidden layer, with the standard input and output layers. In our figure, each of the nodes is a perceptron\footnote{In reality, the input layer does not usually behave as a perceptron. The input layer is only there to propagate the signal to the neurons further into the network.} as described in chapter \ref{cha:perceptron}.
 
+The advantage of using the multilayer structure proposed by McCulloch and Pitts is the fact that we do not only have a linear boundary classification model. By using the multilayer structure the network is able to, for instance, tackle the XOR problem, not solvable by a single layer neural network.\todo{cite}
+
+
+\subsection{Feed forward and backpropagation through a neural network}
+Talk about the chain rule.
 
 
 
