@@ -2798,9 +2798,12 @@ H&  0 & 0 & 0 & 2 & 1 & 0 & 1 & 157\\
 
 \section{Classification results based on the Densenet model}
 \Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} shows the summary of the results gathered from the Densenet model.
-Here we see x and y, and this is good. 
-Maybe something with our hyps?
 
+FFor the CVC 256 dataset, we can see a considerable improvement when inpainting in general. The results coincide well with our hypothesis \ref{hyp:b}, and we can argue that hypothesis \ref{hyp:a} also holds some ground when evaluated on this dataset.
+
+For the Kvasir dataset, we do not expect the same result as we would for a dataset not seen by the classifier. We hypothesised that model \textbf{III} and \textbf{VI} would get us the best results, as they only removed areas with sparse information. From the results, we can see a slight improvement to the results when evaluated on the datasets, but not to any extent to prove hypothesis \ref{hyp:a}.
+
+Fro the CVC 12k dataset we see the most significant change when we removed sparse areas as opposed to removing dataset specific artefacts. As the MCC rose with 0.08 for both the datasets and no others, it seems like removing dataset specific artefacts does not always give the best results.
 
 
 \begin{table}[h]
@@ -2873,9 +2876,14 @@ Did i take the step i wanted was it just a state of mind i feel sorry for my sel
 
 \section{Classification results based on the InceptionResnetV2 model}
 \Cref{tab:summary_CVC356_IRV2,tab:summary_KVASIR_IRV2,tab:summary_CVC12k_IRV2} shows the summary of the results gathered from the IRV2 model.
-Here we see x and y, and this is good. 
-Maybe something with our hyps?
+For the CVC 256 dataset, we can see the same considerable improvement when inpainting the dataset-specific artefacts. We see that we can, with this model, double the MCC score with the GAN dataset.
+A significant difference in the InceptionResNetV2 model compared to the Densenet model is the fact that some of the results did considerably worse than the base case. 
 
+
+The Kvasir dataset shows minimal to no improvement. We can conclude that, when using a network not hyperparameter optimised to the dataset, inpainting shows no real benefit.
+
+
+For the CVC 12k dataset every model shows improvement compared to the base case, with the highest score for the GAN removing dataset specific features. Though all the scores are low compared to the CVC 356 dataset, we can get double MCC when using inpainting.
 
 
 \begin{table}[h]
@@ -2908,7 +2916,7 @@ VII               & 0.2590 & 0.5594 & 0.6776 & 0.5944 & 0.6278\\
 \label{tab:summary_CVC356_IRV2}
 \vspace{10px}
 
-\caption{IRV2 CVC 356}
+\caption{IRV2 Kvasir}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -2925,7 +2933,7 @@ VII               & 0.9017 & 0.9134 & 0.9134 & 0.9178 & 0.9134\\
 \end{tabular}
 \label{tab:summary_KVASIR_IRV2}
 \vspace{10px}
-\caption{IRV2 CVC 356}
+\caption{IRV2 CVC 12k}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -2981,7 +2989,7 @@ VII               & v0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\
 \label{tab:summary_CVC356_DN121512px}
 \vspace{10px}
 
-\caption{DN121 $512 \times 512$px CVC 356}
+\caption{DN121 $512 \times 512$px Kvasir}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -2998,7 +3006,7 @@ VII               & v0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\
 \end{tabular}
 \label{tab:summary_KVASIR_DN121512px}
 \vspace{10px}
-\caption{DN121 $512 \times 512$px CVC 356}
+\caption{DN121 $512 \times 512$px CVC 12k}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
