@@ -851,9 +851,8 @@ Batch size is set to 24 because of reasons. \\ \todo{todo}
 
 
 \subsection{Densenet121 base model}
-
-We present the results with Densenet121 in table \ref{fig:results_IRV2_base}.
-This Table shows the base case result with the Densenet121 model. 
+We present the results from  the Densenet121 network in table \ref{fig:results_IRV2_base}.
+This Table shows the base case result with the Densenet121 model, meaning the network got the unaugmented dataset. 
 
 \begin{figure}[h]
 %\caption{Densenet121 Base results}
@@ -971,32 +970,33 @@ H&  1 & 0 & 0 & 1 & 0 & 0 & 2 & 161\\
 
 
 
-
 \noindent
 The Matrices in Figure \ref{fig:results_DN121_base} shows the evaluation of the test set on each of the three datasets used. 
-On the Kvasir dataset, we used five folds for training and validation, and the last sixth fold for the testing. That left us with 1342 images divided evenly between the classes. 
+On the Kvasir dataset, we used five folds for training and validation, and the last sixth fold for the testing. That left us with 1342 images divided evenly between the classes. The CVC datasets were only used for training and hence did not need k fold cross-validation.
 
 \paragraph{CVC 356}
 The CVC 356 base case MCC lies at 0.42 with an accuracy of 71\%. 
-From the Confusion matrix we can discern that most polyps were classified correctly, except for the case that 37 of the images did not classify as a polyp when it was. Moreover, we also had 618 cases of non-polyps classified as polyps.
+From the Confusion matrix, we can discern that most polyps were classified correctly, except for the case that 37 of the images did not classify as a polyp when it was. Moreover, we also had 618 cases of non-polyps classified as polyps.
+In a vacuum, the results are adequate, showing a high accuracy on an unseen dataset.  
 
 \paragraph{The Kvasir}
 In this Confusion matrix, we see that most of the samples lie throughout the diagonal, which, as we recall, is the correct classification. 
-The Kvasir base case MCC lies at 0.92 which coincides with an near perfect accuracy given the complexity of the dataset.
+The Kvasir base case MCC lies at 0.92 which coincides with a near perfect accuracy given the complexity of the dataset. 
+The misclassification is between the esophagitis class, and the normal-z-line class, which is already a notoriously different class do differentiate.
+There is also a small mixup between dyed lifted polyps and dyed resection margins, another notoriously different classification task. 
+
 
 \paragraph{CVC 12k}
 The CVC 356 base case MCC lies at 0.24 with an accuracy of 65\%. 
-From the Confusion matrix we can discern that most polyps were classified correctly, though a third of the polyps were misclassified.
-
+From the Confusion matrix, we can discern that most polyps were classified correctly, though a third of the polyps were misclassified.
 
 
 
 
 \FloatBarrier
 \subsection{Corners inpainted result}
-Based on Hypothesis \ref{hyp:b} we would expect the act of inpainting the corner in the images to give Kvasir a higher score complared to the baseline. In addition, we could see improvement in both CVC 356 and CVC 12k.
-We present the GAN followed by the Autoencoder and evaluate them together.
-
+Based on Hypothesis \ref{hyp:b} we would expect the act of inpainting the corner in the images to give Kvasir a higher score compared to the baseline. Also, we should see improvement in both CVC 356 and CVC 12k.
+We present the dataset created by the  GAN followed by the dataset created by the Autoencoder evaluated with the Densenet121 model.
 
 \begin{figure}[h]
 %\caption{Densenet121 Inpainted corners with the GAN results}
@@ -1111,8 +1111,6 @@ H&  0 & 0 & 0 & 2 & 0 & 0 & 1 & 159\\
 %\advance\rightskip-1.5cm
 \end{figure}
 \FloatBarrier
-
-%Our results from figure \ref{fig:results_IRV2_GAN_CORNER} shows a clear advantage when evaluating the results on the CVC 12K dataset while keeping the result the same on the CVC 256 and Kvasir dataset. %We can not draw any clear conclutions.
 
 
 
@@ -1231,15 +1229,17 @@ H&  0 & 0 & 0 & 3 & 0 & 0 & 3 & 162\\
 
 
 %
-Figure \ref{fig:results_DN121_GAN_CORNER} and \ref{fig:results_DN121_AE_CORNER} shows the evaluation of the test set on each of the three datasets used both for the Autoencoder and GAN. 
+\noindent Figure \ref{fig:results_DN121_GAN_CORNER} and \ref{fig:results_DN121_AE_CORNER} shows the evaluation of the test set on each of the three datasets made by both the Autoencoder and GAN. 
 
 \paragraph{CVC 356}
 We got the highest MCC from the Autoencoder with a score of 0.56 compared to a score of 0.31 from the GAN.
-In general the Autoencoder has a higher score overall compared to the GAN, where the Autoencoder reaches a higher score than the base case, and the GAN does not.
+In general, the Autoencoder has a higher score overall compared to the GAN, where the Autoencoder reaches a higher score than the base case, and the GAN does not.
+This difference indicates that the way the Autoencoder inpaints sparsly covered areas gives an edge in this use case. 
 
 
 \paragraph{The Kvasir}
 When evaluating our results on the Kvasir dataset we see similar scores for both the GAN and Autoencoder with 0.91 and 0.92 respectively. Here the Autoencoder reaches a higher score than the base case, though the margin is too small to significant.
+We can discern that the number of small errors throughout the confusion matrices increases, indicating that the inpainted areas negatively help with classification.
 
 \paragraph{CVC 12k}
 The MCC scores for the GAN and Autoencoder both reaches a higher value than the base case. When inpainting the corners we see an increase in MCC value of 0.04 for both methods, giving some indication that removing areas with sparse information might give a higher classification score on other datasets with the same sparse areas.
@@ -1279,13 +1279,15 @@ The MCC scores for the GAN and Autoencoder both reaches a higher value than the 
 
 
 
+
+
 \FloatBarrier
-\subsection{Square inpainted result}
+\subsection{Green square inpainted result}
 
 
-We can recall from Hypothesis \ref{hyp:a} that removing dataset specific artefacts we will achieve a higher classification score when evaluation our models on previously unseen datasets.
-We expect the Kvasir dataset not show any improvements, though both the CVC 356 and the CVC 12k dataset we expect to improve compared to the base case. 
-We present the GAN followed by the Autoencoder and evaluate them together.
+We can recall from Hypothesis \ref{hyp:b} that removing dataset specific artefacts we will achieve a higher classification score when evaluating our models on previously unseen datasets.
+In this experiment, we expect the Kvasir dataset not show any improvements, though both the CVC 356 and the CVC 12k dataset we hope to improve compared to the base case. 
+We present the dataset created by the GAN followed by the dataset created by the Autoencoder and evaluate their performance with the Densenet model together.
 
 
 \begin{figure}[h]
@@ -1519,25 +1521,26 @@ H&  0 & 0 & 0 & 3 & 0 & 0 & 3 & 162\\
 \end{figure}
 
 
-%
-Figure \ref{fig:results_DN121_GAN_SQUARE} and \ref{fig:results_DN121_AE_SQUARE} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
+%\noindent Figure \ref{fig:results_DN121_GAN_SQUARE} and \ref{fig:results_DN121_AE_SQUARE} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
 
 \paragraph{CVC 356}
-As this is a dataset unseen by the classifier during training, we would expect, given that Hypothesis \ref{hyp:a} is True, that the classification score would be higher than the base case.
+As this is a dataset unseen by the classifier during training, we would expect, given that Hypothesis \ref{hyp:b} is True, that the classification score would be higher than the base case.
 Here we have \textit{significantly} higher score with both the GAN and Autoencoder. 
-The GAN reached a MCC score of 0.71 compared to the base case of 42. The Autoencoder also beat the base case with a large margin, given the MCC score of 0.60.
+The GAN reached an MCC score of 0.71 compared to the base case of 42. The Autoencoder also beat the base case with a large margin, given the MCC score of 0.60. 
+For both models, we see an increase in the recall, suggesting the number of mismatches decreased.\todo{redundant} 
 
-This highly suggest that our hypothesis about removing dataset-specific artefacts to improve accuracy is indeed correct. 
+The results highly suggest that our hypothesis about removing dataset-specific artefacts to improve accuracy is indeed correct. 
 
 \paragraph{The Kvasir}
-As with the previous tests we see little change in the scores when evaluation on the Kvasir dataset.
-Here both the GAN and the Autoencoder got a lower score compared to the base, though only with a small margin.
+As with the previous tests we see little change in the scores when evaluated on the Kvasir dataset.
+Here both the GAN and the Autoencoder got a lower score compared to the base, though only with a small margin. Just like with the experiment with the corners inpainted, inpainting the green square does little to nothing with classification when the classifier already overfits.
 
 
 \paragraph{CVC 12k}
-As with the CVC 356 dataset the CVC 12k dataset is unseen by the classifier during training. 
-Here, both the GAN and Autoencoder reaches a lower MCC value when evaluation on the dataset. 
-\todo{This disproves hyp:a}
+As with the CVC 356 dataset, the CVC 12k dataset is unseen by the classifier during training. 
+Here, both the GAN and Autoencoder reaches a lower MCC value when evaluated on the dataset. 
+This result is a direct contradiction to the hypothesis \ref{hyp:b}, showing that removing dataset specific artefacts does not always yield better scores.
+\todo{talk more about this?}
 
 
 
@@ -1586,10 +1589,10 @@ Here, both the GAN and Autoencoder reaches a lower MCC value when evaluation on 
 
 
 \FloatBarrier
-\subsection{Both inpainted result}
+\subsection{Combined corners and dataset specific artefacts inpainted result}
 
-In addition to test the two hypothesises separately we, as we recall, want to test both types of inpainting at the same time.
-When testing both inpainting types we can not draw any predictions reliably, given that we do not know if the two methods interfere with each other. 
+In addition to testing the two hypothesises separately we, as we recall, want to check both types of inpainting at the same time.
+When testing both inpainting types, we do not draw any predictions, given that we do not know if the two methods interfere with each other. 
 
 We present the GAN inpainting of both the areas followed by the same inpainting with the Autoencoder.
 
@@ -1827,23 +1830,22 @@ H&  2 & 0 & 0 & 5 & 0 & 0 & 8 & 160\\
 Figure \ref{fig:results_DN121_GAN_BOTH} and \ref{fig:results_DN121_AE_BOTH} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
 
 \paragraph{CVC 356}
+Evaluating on the CVC 356 dataset we see the most significant increase in the MCC score compared to the other models. 
+We have, compared to the base case, a 76\% increase in MCC score, from 0.42 to 0.74
+This increase shows that there might be some viability to do more inpainting when training a model for unseen data.
+In addition to getting the highest score for evaluation, we also got one of the lowest scores too. 
+The main difference in score is most likely the result of the precision of the autoencoder being much lower than the precision of the GAN.
+The difference in score can also be the result of variation within the K-fold transfer learning.
 
-As this is a dataset unseen by the classifier during training, we would expect, given that Hypothesis \ref{hyp:a} is True, that the classification score would be higher than the base case.
-Here we have \textit{significantly} higher score with both the GAN and Autoencoder. 
-The GAN reached a MCC score of 0.71 compared to the base case of 42. The Autoencoder also beat the base case with a large margin, given the MCC score of 0.60.
 
-This highly suggest that our hypothesis about removing dataset-specific artefacts to improve accuracy is indeed correct. \todo{this text is not done yet!}
 
 \paragraph{The Kvasir}
-As with the previous tests we see little change in the scores when evaluation on the Kvasir dataset.
-Here both the GAN and the Autoencoder got a lower score compared to the base, though only with a small margin.
-\todo{this text is not done yet!}
+As with the previous tests we see little change in the scores when evaluating on the Kvasir dataset.
+
+
 
 \paragraph{CVC 12k}
-As with the CVC 356 dataset the CVC 12k dataset is unseen by the classifier during training. 
-Here, both the GAN and Autoencoder reaches a lower MCC value when evaluation on the dataset. 
-\todo{this text is not done yet!}
-
+Both lower, that proves little
 
 
 
