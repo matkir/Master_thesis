@@ -2,7 +2,7 @@
 
 \textbf{Topic, challenge, solution}\\
 Cancer is today, the second leading cause of death in the world, only behind cardiovascular diseases.  %TODO CITE
-It is one of the leading causes of mortality worldwide, with approximately 14 million new cases in 2012.\cite{WHOCANCER}
+It is one of the leading causes of mortality worldwide, with approximately 14 million new cases in 2012~\cite{WHOCANCER}.
 %It is defined as a disease that has an abnormal cell growth with the potential to spread into other parts of the body.\cite{WhatIsCancer}
 Contrary to normal cells, cancer cells are often invasive, and it will spread if not treated. 
 In contrast to many other diseases, cancer does not start from a foreign entity (such as a bacteria or virus), but it is often from a malfunctioning cell that starts dividing rapidly. 
@@ -16,56 +16,20 @@ In either external or internal cases, cancer is by definition this uncontrollabl
 
 
 
-\textbf{Statistics on cancer}\\
+\paragraph{Statistics on cancer}
 Since cancer is, in practice, just a cell division error, it has the opportunity to hit anyone, at any age. Because of this, it is a heavily researched area, both in Norway, and the rest of the world.
 In 200X we spent 22Y million dollars worldwide on cancer research. 
 Despite being such a researched area, it is still one of the top causes of human death. 
-Some types of cancer, like \todo{} cancer, is one of the simpler forms of cancer to treat, and at this point, those kind of cancers are non-fatal. 
-\textit{The most common types of cancer in males are lung cancer, prostate cancer, colorectal cancer and stomach cancer.\cite{stewart2014world}}
+Some types of cancer, like \todo{cancer} cancer, is one of the simpler forms of cancer to treat, and at this point, those kind of cancers are non-fatal. 
+\textit{The most common types of cancer in males are lung cancer, prostate cancer, colorectal cancer and stomach cancer~\cite{stewart2014world}.}
     
-\textbf{colorectal cancer}\\
+\paragraph{Colorectal cancer}
 Humans can get cancer in every major organ, but some types of cancer are more common than others.    
 For instance cancer in the gastrointestinal tract (GI) is one of the more common places to get cancer. Colorectal cancer is just behind x as the most common cancer for men, and it has a mortality rate of x in the first y years. %TODO CITE 
 We often call this 5-year survival rate for z. Z is the standard way to measure the life expectancy of a patient diagnosed with cancer. 
-    
 
-\textbf{polyps}\\
-Colorectal cancer often starts in polyps. 
-Polyps are, polyps do.
+\paragraph{CAD}
 
-\textbf{CAD}
-
-\textbf{Generalisable model is needed}
-
-
-\textbf{Our solution to the problem}
-
-    
-    
-\section{Problem definition}
-\section{Research Method}
-For this thesis, we have decided to use the Association for Computing Machinery's (ACM) methodology for our research. The article ``Computing as a discipline'' presents the discipline of computing into three main categories. ~\cite{Denning:1989:CD:63238.63239}. 
-\begin{itemize}
-\item Theory
-\item Abstraction
-\item Design
-\end{itemize}
-Our work falls partly under all three categories.
-
-\paragraph{Theory}
-In this thesis, we touch upon the theory behind machine learning. More specifically deep learning and convolutional neural networks. We identify the problems regarding overfitting and the lack of generalisability.
-
-\paragraph{Abstraction}
-The experiments done in this thesis falls under this category. In addition, we have the hypothesises and methodology as part of the abstraction.
-
-\paragraph{Design}
-The thesis, except for the published papers, does not fall as much under design. Though future work would be to implement the system into SAGA\todo{citesaga}, the majority of the work only show the theoretical results. 
-
-
-
-
-
-\section{Main contributors and related work}
 The work presented in this thesis builds upon the work done by the following publications.
 
 
@@ -90,6 +54,66 @@ Pathak et al. shows, in the publication \textit{Context Encoders: Feature Learni
 
 Our work with Generative Adversarial Networks in this thesis has drawn inspiration from both papers and improved the work to better suit the medical image domain.
 
+
+
+\paragraph{Generalisable model is needed}
+Though high score not generalisable
+
+\paragraph{Our solution to the problem}
+We propose systems to fix this. 
+    
+    
+\section{Problem statement}
+Based on the introduction presented in the previous section, we indicate that we still have room for improvement when making computer-aided diagnosis. 
+Based on the previous work done in the research area, we \todo{more}
+
+
+\noindent
+\begin{hyp} \label{hyp:a}
+When classifying images, we will get the best result when we have images with the least amount of sparse information. 
+Hence by removing areas with sparse information,
+we will see an increase in classification performance compared to not removing areas.
+\end{hyp}
+
+\noindent
+and
+
+\noindent 
+\begin{hyp} \label{hyp:b}
+When training a classifier, we will get a higher
+mode of generalisation of our results when removing the dataset
+specific artefacts compared to not removing artefacts.
+\end{hyp}
+\vspace{5px}
+
+
+\section{Research Method}
+For this thesis, we have decided to use the Association for Computing Machinery's (ACM) methodology for our research. The article ``Computing as a discipline'' presents the discipline of computing into three main categories~\cite{Denning:1989:CD:63238.63239}. 
+\begin{itemize}
+\item Theory
+\item Abstraction
+\item Design
+\end{itemize}
+Our work falls partly under all three categories.
+
+\paragraph{Theory}
+In this thesis, we touch upon the theory behind machine learning. More specifically deep learning and convolutional neural networks. We identify the problems regarding overfitting and the lack of generalisability.
+
+\paragraph{Abstraction}
+The experiments done in this thesis falls under this category. In addition, we have the hypothesises and methodology as part of the abstraction.
+
+\paragraph{Design}
+The thesis, except for the published papers, does not fall as much under design. Though future work would be to implement the system into SAGA\todo{citesaga}, the majority of the work only show the theoretical results. 
+
+
+
+
+
+\section{Main contributors and related work}
+
+
+
+Here we will talk about what we achieved.
 
 
 

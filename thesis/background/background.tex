@@ -15,11 +15,11 @@ Another example is the invention and usage of gastro-stick-with-camera.
 
 
 \subsection{Endoscopy and Colonoscopy}
-Gastrointestinal endoscopies are one of the most common medical examinations where the mucosa of the patient is visualised via a camera through the whole of the GI tract. \cite{Holme13}
+Gastrointestinal endoscopies are one of the most common medical examinations where the mucosa of the patient is visualised via a camera through the whole of the GI tract~\cite{Holme13}.
 Today the medical staff working with the visual screening of the intestinal tract use primarily two different methods: colonoscopy and gastroscopy. 
 Colonoscopy is the practice of inserting a colonoscope into the rectum and moving through the large intestine towards the small intestine.  Gastroscopy is the practice of inserting a camera via the mouth to get a visualisation through the stomach.
 
-The endoscopic tool used for this visualisation is made out of a flexible tube with a charged coupled device (CCD) working as a camera at the end. In addition to the light sensing chip, there is also an optical fibre to transport light to the camera. At the other end, the colonoscope is connected to a device that records the video, and a light source for the optical fibre. The video from the CCD is shown live for the medical staff for the doctors to analyse. \cite{Colonoscope}
+The endoscopic tool used for this visualisation is made out of a flexible tube with a charged coupled device (CCD) working as a camera at the end. In addition to the light sensing chip, there is also an optical fibre to transport light to the camera. At the other end, the colonoscope is connected to a device that records the video, and a light source for the optical fibre. The video from the CCD is shown live for the medical staff for the doctors to analyse~\cite{Colonoscope}.
 
 
 \subsection{summary}
@@ -45,11 +45,11 @@ During the colonoscopy, the medical staff uses digital imaging for the inspectio
 We have looked at the challenges that the medical staff has when it comes to detecting polyps, and how it is solved today.
 However, to truly understand how automated systems like Mirmir~\cite{Steven2018MimirPaper} \todo{is this going to become talked about at this point} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are after.  
 
-Machine learning is a broad term, but we summarise it with the quote from  Tom M. Mitchell in his machine learning book from 1997:\\
+Machine learning is a broad term, but we summarise it with the quote from  Tom M. Mitchell in his machine learning book from 1997~\cite{MitchellTomM1997Ml}:\\
 \vspace{10px}
 
 \begin{quote}
- A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with the experience E. \cite{MitchellTomM1997Ml}
+ A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with the experience E.
 
 \end{quote} 
 \label{ML}
@@ -358,7 +358,7 @@ The general concept of the learning process is similar to the one we presented i
 
 \subsection{Multilayer perceptrons}
 \label{cha:MLP}
-The neural network was a proposal made by Warren McCulloch and Walter Pitts (1943) \cite{roweis2000nonlinear}  created a computational model for neural networks based on mathematics and algorithms called threshold logic. 
+The neural network was a proposal made by Warren McCulloch and Walter Pitts (1943) ~\cite{roweis2000nonlinear}  created a computational model for neural networks based on mathematics and algorithms called threshold logic. 
 
 The first multilayer network at the time used backpropagation with gradient decent in the same way described in \ref{eq:gradientdecent}.
 
@@ -387,9 +387,9 @@ As we get more data and more classes, the networks needed to solve our problem g
 
 Another problem with the standard MLP is the fact that it is spatially dependent. Given an input $x$, the output, $y$, of the MLP will vary a lot if we shift the input data by one place, or if we flip the data. In some cases, this is something we want in our machine learning algorithms, but more often than not, this behaviour is not a desirable outcome.
 
-Given the downsides we have with regards to memory usage and non-spatiality in our multilayer perceptrons, we present Kunihiko Fukushima \cite{Fukushima1980} solution to solve both complications.
+Given the downsides we have with regards to memory usage and non-spatiality in our multilayer perceptrons, we present Kunihiko Fukushima~\cite{Fukushima1980} solution to solve both complications.
 
-Convolutional neural networks are the most popular form for image recognition, segmentation, and classification \cite{NIPS2012_4824} \cite{Long_2015_CVPR}.
+Convolutional neural networks are the most popular form for image recognition, segmentation, and classification~\cite{NIPS2012_4824}~\cite{Long_2015_CVPR}.
 
 When building a convolutional neural network we often use multiple layers stacked on opt of each other to give the network traits that a regular multilayer perceptron could not achieve. By far the most essential layer of the convolutional neural network is the convolutional layer.
 
@@ -444,7 +444,7 @@ Pooling layers do generally not have any weights associated with them. This lack
 
 \subsubsection{Normalisation}
 Training deep neural networks can often be complicated with the fact that the distribution of each layer changes during training, as the parameters of the previous layers change. In some cases, this constant shift of input values slows down the training by requiring a lower learning rate to keep the network stable.
-We refer to this problem as internal covariate shift, and we use normalisation as a tool to correct for it. \cite{DBLP:journals/corr/IoffeS15}
+We refer to this problem as internal covariate shift, and we use normalisation as a tool to correct for it~\cite{DBLP:journals/corr/IoffeS15}.
 
 The most common way to normalise the data is to use batch normalisation. When calculating the batch normalisation, we take the following steps presented in S. Ioffe and C. Szegedy publication: ``Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift''~\cite{DBLP:journals/corr/IoffeS15} 
 
@@ -475,7 +475,7 @@ A major problem in machine learning is the act of overfitting the data. We say t
 \end{figure}
 
 
-Dropout, first proposed by Srivastava et al.\cite{JMLR:v15:srivastava14a}, in 2014 was used to prevent overfitting of neural networks (As seen in figure \ref{fig:dropout}).
+Dropout, first proposed by Srivastava et al.~\cite{JMLR:v15:srivastava14a}, in 2014 was used to prevent overfitting of neural networks (As seen in figure \ref{fig:dropout}).
 Dropout layers in the CNN will randomly cut a certain amount of connections in a layer. The amount is usually between 25\% and 50\% of the connections. The result of the use of dropout is that the network can not rely on only a few numbers of weights during training since there is a chance the input from the weight will be cut at random intervals. 
 
 This random cutting forces the network to spread out the essential weights throughout the network. 
@@ -487,7 +487,7 @@ Dropout does, in practice, the same as an L1 or L2 regularizer. \todo{cite}
 \section{Complex Neural Network models}
 We have looked at the basic concept of the neural network, and a more in-depth look into the convolutional neural network and the relevant layers.
 Our primary focus has been from a computer vision perspective, where we have looked at image classification. 
-To get a better insight into the act of inpainting, we need to present two other types of network, namely the Autoencoder \cite{Rumelhart:1986:LIR:104279.104293} and the generative adversarial network \cite{Goodfellow:2014:GAN:2969033.2969125}.
+To get a better insight into the act of inpainting, we need to present two other types of network, namely the Autoencoder~\cite{Rumelhart:1986:LIR:104279.104293} and the generative adversarial network~\cite{Goodfellow:2014:GAN:2969033.2969125}.
 
 We often base both models on the convolutional architecture, to have the option to work with image and video data. 
 Both networks are a type of unsupervised learning, where the goal is to either recreate or construct data based on the training data.
@@ -542,7 +542,7 @@ Figure \ref{fig:AEinpainting} show a visual example of equation \ref{eq:AEloss}.
 
     
 \subsection{Advaserial neural networks}
-As an alternative to using autoencoders for generative modelling, we introduce the generative adversarial network proposed by Goodfellow et al. \cite{Goodfellow:2014:GAN:2969033.2969125}.
+As an alternative to using autoencoders for generative modelling, we introduce the generative adversarial network proposed by Goodfellow et al.~\cite{Goodfellow:2014:GAN:2969033.2969125}.
 
 Generative adversarial networks described in the original article by Goodfellow et al. consist of two components: a generative model G that captures the data distribution, and a discriminator model D that estimates the probability that the sample from G is fake, and does not come from the training data. The training procedure for the generator is to maximise the probability of the discriminator to make mistakes.
 The generator-discriminator network resembles a two-player game where both parties want to ``win'' over the other.
@@ -557,7 +557,7 @@ Since we have two networks competing against each other we can look at this as a
 \begin{equation} 
     v(\theta^{(g)},\theta^{(d)}) \; = \; \mathds{E}_{x\sim p_{data}}\log{d(x)} + \mathds{E}_{x\sim p_{model}}\log{(1 - d(x))} 
 \end{equation}
-as derived from Goodfellow et al. Generative adversarial networks paper \cite{Goodfellow:2014:GAN:2969033.2969125}.
+as derived from Goodfellow et al. Generative adversarial networks paper~\cite{Goodfellow:2014:GAN:2969033.2969125}.
 
 
 \begin{figure}[ht!]
