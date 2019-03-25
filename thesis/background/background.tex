@@ -445,20 +445,20 @@ Given that a standard computer usually have 8-16 GB of RAM, this one layer might
 
 Another problem with the standard MLP is the fact that it is spatially dependent. Given an input $x$, the output, $y$, of the MLP will vary a lot if we shift the input data by one place, or if we flip the data. In some cases, this is something we want in our machine learning algorithms, but more often than not, this behaviour is not a desirable outcome.
 Given the downsides we have with regards to memory usage and non-spatiality in our multilayer perceptrons, we present Kunihiko Fukushima~\cite{Fukushima1980} solution to solve both complications.
-Convolutional neural networks are the most popular form for image recognition, segmentation, and classification~\cite{NIPS2012_4824}~\cite{Long_2015_CVPR}.
+Convolutional neural networks (CNN) are the most popular form for image recognition, segmentation, and classification~\cite{NIPS2012_4824}~\cite{Long_2015_CVPR}.
 When building a convolutional neural network we often use multiple layers stacked on opt of each other to give the network traits that a regular multilayer perceptron could not achieve. By far the most essential layer of the convolutional neural network is the convolutional layer.
 
 
 \subsubsection{Convolutional layers}
 
-Convolutional networks work with filters as opposed to perceptrons with weights assigned before and after the input in the vertices between perceptron. Convolutional layers assign a weight to each position in a special filter matrix. This use of filters significantly reduces the number of weights between layers, since we now have weights that are not dependent on the input size, and only dependent on this matrix size.
+Convolutional networks work with filters as opposed to perceptrons with weights assigned before and after the input in the vertices between perceptron as shown in Figure \ref{fig:conv_opp}. Convolutional layers assign a weight to each position in a special filter matrix. This use of filters significantly reduces the number of weights between layers, since we now have weights that are not dependent on the input size, and only dependent on this matrix size.
 
 The three main parameters of a convolutional layer are the number of filters, kernel size and strides.
 When making a convolutional layer, we start by pseudo-randomly initialising a $ (F \times K \times K)$ matrix as our weights.
 In this matrix, F is the number of filters in the convolutional layer and K is the filter size. We can think of this as F filters of size $(K \times K)$ stacked on top of each other. 
 When applying the convolutional layer to an input vector, we take each of the F filters and slide it over the image. 
 For each position of the filter, we multiply the image value with the filter and sum the result. The scalar made by this multiplication is the value passed on to the next layer at that specific point.
-Figure \ref{fig:conv_opp} shows this convolution process after 3 sliding operations with a $(3 \times 3)$ filter.
+Figure \ref{fig:conv_opp} shows this convolution process after 3 sliding operations with a $(3 \times 3)$ filter. When sliding across the image we have the option to take larger strides for the sliding window, in practice this striding still ``see'' the entire image, but the number of output connections are $\frac{1}{stride}$.
  
 \begin{figure}[h]
         \centering
@@ -471,19 +471,20 @@ Figure \ref{fig:conv_opp} shows this convolution process after 3 sliding operati
 As we can see from this architecture, we can only change when weights in the filter matrix, as there are no other variables in the convolutional operation. Using this sliding window technique gives us the benefit that the filter only gathers information from the local area, and subsequently makes the convolutional operation non-spatially dependent.  
 
 \subsubsection{Activation layers}
-As we discussed in chapter \ref{cha:perceptron}, in addition to summing the inputs and passing them on, we need to apply an activation function to the output. The same problem with our desire to make non-linear problems apply in the CNN model. 
+As we discussed in section \ref{cha:perceptron}, in addition to summing the inputs and passing them on, we need to apply an activation function to the output. The same problem with our desire to make non-linear problems apply in the CNN model. 
 To apply an activation layer to a CNN, we take every value in the matrix and apply the activation function separately to every data-point. 
 
+In this thesis, our CNNs used only the three activation functions shown in Figure \ref{fig:activations}.
 \begin{figure}[h]
         \centering
         \includegraphics[scale=0.8]{background/figures/activations.png}
         \caption{Activation functions from -2 to 2 on each axis. \\ From left to right: ReLu, Tanh, Sigmoid}
-        \label{fig:conv_opp}
+        \label{fig:activations}
 \end{figure}
 
 \subsubsection{Pooling}
 Pooling layers, often also called downsampling layers, are commonly also found in CNN's. 
-Their primary role in the network is to reduce the spatial size of the data provided, and thus reducing the number of weights and variables used by the network.  
+Their primary role in the network is to reduce the spatial size of the data provided, and thus reducing the number of weights and variables used by the network. This reduction helps with reducing processing and memory costs.  
 The two most common pooling operations are max pooling and average pooling\todo{cite}. Both methods resemble convolutions in the way that they apply their function to a sliding filter over the data. 
  
 \begin{figure}[h]
@@ -501,9 +502,9 @@ Pooling layers do generally not have any weights associated with them. This lack
 Training deep neural networks can often be complicated with the fact that the distribution of each layer changes during training, as the parameters of the previous layers change. In some cases, this constant shift of input values slows down the training by requiring a lower learning rate to keep the network stable.
 We refer to this problem as internal covariate shift, and we use normalisation as a tool to correct for it~\cite{DBLP:journals/corr/IoffeS15}.
 
-The most common way to normalise the data is to use batch normalisation. When calculating the batch normalisation, we take the following steps presented in S. Ioffe and C. Szegedy publication: ``Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift''~\cite{DBLP:journals/corr/IoffeS15} 
+The most common way to normalise the data is to use batch normalisation. When calculating the batch normalisation, we take the following steps presented in S. Ioffe and C. Szegedy publication: ``Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift''~\cite{DBLP:journals/corr/IoffeS15}.
 
-\vspace{5px}
+\clearpage
 \noindent \textbf{Input:} Values of x over a mini-batch: $\mathcal{B} = \{x1...m\}$;\\
 \noindent Parameters to be learned: $\gamma, \beta$\\
 \noindent \textbf{Output:} $\{y_i = \text{BN}_{\gamma,\beta}(x_i)\}$\\
@@ -520,7 +521,7 @@ In the original paper we the writers saw a significant reduction in the number o
 
 
 \subsubsection{Dropout}
-A major problem in machine learning is the act of overfitting the data. We say that a model is overfitting to the data when it learns the bias that comes with the dataset. 
+A major problem in machine learning is the act of overfitting the data. We say that a model is overfitting to the data when it learns the bias that comes with the dataset as shown in Figure~\ref{fig:dropout}. \todo{more}
  
 \begin{figure}[h]
         \centering
@@ -531,16 +532,20 @@ A major problem in machine learning is the act of overfitting the data. We say t
 
 
 Dropout, first proposed by Srivastava et al.~\cite{JMLR:v15:srivastava14a}, in 2014 was used to prevent overfitting of neural networks (As seen in figure \ref{fig:dropout}).
-Dropout layers in the CNN will randomly cut a certain amount of connections in a layer. The amount is usually between 25\% and 50\% of the connections. The result of the use of dropout is that the network can not rely on only a few numbers of weights during training since there is a chance the input from the weight will be cut at random intervals. 
+Dropout layers in the CNN will randomly cut a certain number of connections in a layer. The number of cut connections is usually between 25\% and 50\% of the total. The result of the use of dropout is that the network can not rely on only a few numbers of weights during training since there is a chance the input from the weight will be cut at random intervals. 
 
 This random cutting forces the network to spread out the essential weights throughout the network. 
-Even though dropout does not explicitly change the weights, it implicitly forces the stong weights to be eavenly distributed throughout the network. 
-Dropout does, in practice, the same as an L1 or L2 regularizer. \todo{cite}
+Even though dropout does not explicitly change the weights, it implicitly forces the stong weights to be evenly distributed throughout the network. 
+
+Another popular way to combat overfitting is to add a weight regulariser like L1 or L2 distance penalty. This penalty gives the network weights an additional penalty based on their size.
+As we recall, big weights in the networks have the most significant influence on the result, as each weight is multiplied by the input. If the network finds some bias hidden in the dataset, it is much harder for it to exploit this discovery.
+This difficulty is because, with L1 or L2 regularisation, the network is also penalised for strong weights.
+Dropout does, in practice, the same as an L1 or L2 regulariser. \todo{cite}
 
 
 
 \section{Complex Neural Network models}
-We have looked at the basic concept of the neural network, and a more in-depth look into the convolutional neural network and the relevant layers.
+We have now looked at the basic concept of the neural network, and a more in-depth look into the convolutional neural network and the relevant layers.
 Our primary focus has been from a computer vision perspective, where we have looked at image classification. 
 To get a better insight into the act of inpainting, we need to present two other types of network, namely the Autoencoder~\cite{Rumelhart:1986:LIR:104279.104293} and the generative adversarial network~\cite{Goodfellow:2014:GAN:2969033.2969125}.
 
