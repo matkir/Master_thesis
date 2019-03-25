@@ -208,26 +208,25 @@ Where x is input, y is output and the constants a and b defines the function.
 \label{fig:regression_example}
 \end{figure} 
 Figure \ref{fig:regression_example} shows an ideal example of linear regression with the model we are solving. Here we approximate the values of our model with the straight line defined by choosing the right slope (a) and the right constant (b).
-With the knowledge of math, we look into how to do it computationally with the help of simple machine learning. 
+With the knowledge of math, we look into how to do it computationally with the help of machine learning. 
 
 
-We can recall from the quote \ref{ML} by \cite{MitchellTomM1997Ml} that we gain experience E by doing a task T. In our example, we choose to store our experience as its done in equation \ref{eq:ML_lin}.
+We can recall from the quote \ref{ML} by \cite{MitchellTomM1997Ml} that we gain experience E by doing a task T. In our example we choose to store our experience as its done in equation \ref{eq:ML_lin}.
     
 \begin{equation}
 y=W^{(0)}x+W^{(1)}\\
 \label{eq:ML_lin}
 \end{equation}
 
-Here, like before, our output is y, and our input is x. We have replaced a and b with new placeholders $W^{(0)}$ and $W^{(1)}$. In this example  $W^{(0)}$ and $W^{(1)}$ are constants, but in more complex examples $W$ would be matrices.
+\noindent Here, like before, our output is y, and our input is x. We have replaced ``a'' and ``b'' with new placeholders $W^{(0)}$ and $W^{(1)}$. In this example  $W^{(0)}$ and $W^{(1)}$ are constants, but in more complex examples, $W$ would be matrices.
 Now our goal is to, given a task T, gain experience E and store it in $W^{(0)}$ and $W^{(1)}$. With our values for $W^{(0)}$ and $W^{(1)}$ we want the best performance P.  The best performance here is defined as getting the smallest difference between the predicted output data and the actual output data. 
 
-
-The most prominent way of calculating this error is to use the mean square error between the predicted and actual output of the data. 
+\noindent The most prominent way of calculating this error is to use the mean square error between the predicted and actual output of the data. 
 \begin{equation}\label{eq:MSE_form}
      MSE=\frac{1}{2m} \sum_i (\hat{y}-y)_i^2
 \end{equation}
 Where $m$ is the number of samples, $y$ is the real output, and $\hat{y}$ is the predicted output. The 2 in the denominator is just a constant to make the derivation of the formula easier.\\
-From this, we can intuitively see that the error tends towards 0 when $\hat{y}$=$y$. We can also note, because of the squaring in the formula, that the error is only based on L2\footnote{The L2 distance is the euclidean distance between two points in a plane. L1 distance, often called Taxicab distance, taking the absolute value instead of the square root.} distance between $\hat{y}$ and $y$.\\
+From this, we can intuitively see that the error tends towards 0 when $\hat{y}$=$y$. We can also note, because of the squaring in the formula, that the error is only based on L2\footnote{The L2 distance is the Euclidean distance between two points in a plane. L1 distance, often called Taxicab distance, taking the absolute value instead of the square root.} distance between $\hat{y}$ and $y$.\\
 Now that we have an error, we need a way to improve it.
 At this point, we have a way to store experience E (in  $W^{(0)}$ and $W^{(1)}$), measure performance P (in the MSE), and we have tasks T (in the form of input-output pairs).
 Given an input-output pair, we will now look at how to use machine learning to better approximate the next input-output pair.
@@ -238,9 +237,9 @@ Lets start with:
     x=\left[ \begin{array}{c} 1\\ 2\\ 3\\ \end{array} \right],
     y=\left[\begin{array}{c} 1.5\\2\\ 2.5\\\end{array}\right]
 \end{equation}
-As we can discern from this formula, and by looking at the Figure \ref{fig:regression_example}, our ideal model would lie at $y=0.5x + 1$ as marked with the dotted red line. This means that our ideal weights would be  $W^{(0)}=0.5$ and $W^{(1)}=1$
-In our initial formula we set the the weights $W^{(0)}=1$ and $W^{(1)}=0.5$\\
-Using the formula \ref{eq:ML_lin} with the input $x$ values we can calculate  $\hat{y}$ to be:
+As we can discern from this formula, and by looking at the Figure \ref{fig:regression_example}, our ideal model would lie at $y=0.5x + 1$ as marked with the dotted red line. This means that our ideal weights would be  $W^{(0)}=0.5$ and $W^{(1)}=1$.
+In our initial formula, we set the the weights $W^{(0)}=1$ and $W^{(1)}=0.5$. To get the ideal formula, we would like $W^{(0)}$ decrease by a half and $W^{(1)}$ to increase by a half.
+Using the formula \ref{eq:ML_lin} with the input $x$ values we can calculate $\hat{y}$, given our weights, to be:
 \begin{equation}
     \hat{y}=\left[\begin{array}{c} 1.5\\ 2.5\\ 3.5\\ \end{array}\right]
 \end{equation}
@@ -257,7 +256,7 @@ Gradient descent is a first order iterative optimisation algorithm for finding t
     a_{n+1}= a_{n} - \gamma \nabla F(a_{n})
     \label{eq:gradientdecent}
 \end{equation}
-Where $\nabla$F is the derivative of function in question, a is the input at step n, and $\gamma$ is a learning rate set to a small number. The learning rate is an essential part of the calculation, as without it we would often calculate a the new weights too extreme for our problem. By introducing a learning rate, we take small, more controlled steps in the right direction. 
+Where $\nabla$F is the derivative of the function in question, a is the input at step n, and $\gamma$ is a learning rate set to a small number. The learning rate is an essential part of the calculation, as without it we would often calculate the new weights too extreme for our problem. By introducing a learning rate, we take small, more controlled steps in the right direction. 
 
 \noindent Derivating \ref{eq:MSE_form} and using a learning rate of 0.2 we get the following. 
 \begin{equation}
@@ -295,7 +294,7 @@ Where $\nabla$F is the derivative of function in question, a is the input at ste
     \end{split}
 \end{equation}
 
-The new weights gives us $\hat{y}$ to be:
+\noindent The new weights gives us $\hat{y}$ to be:
 \begin{equation}
     \hat{y}=\left[\begin{array}{c} 1.25\\ 1.85\\ 2.45\\ \end{array}\right]
 \end{equation}
@@ -310,8 +309,8 @@ We looked at an example using the formula for a linear approximation. In the rea
     
 
 \section{Neural Networks}
-We have looked at different types of machine learning, and we have gone in depth into how a linear regression model works. In this section, we want to get further insight into how we can make more complex models, and we will look into the most popular method for machine learning, namely Neural Networks. 
-After the rundown on how neural networks are built up and how they operate, we will look into convolutional neural networks. In the end, we will look at successful networks, mainly made for image classification.
+We have looked at different types of machine learning, and we have gone in depth into how a linear regression model works. In this section, we want to get further insight into how we can make more complex models, and we will look into the most popular method for machine learning, namely neural networks~\cite{haykin1994neural}. 
+After the rundown on how neural networks are built up and how they operate, we will look into convolutional neural networks. In the end, we will look at successful networks, mainly made for image generation and classification which is our target challenge in the medical domain. 
 
 
 \subsection{The perceptron}
@@ -320,10 +319,10 @@ To explain how a neural net operates, we first need to look at the most fundamen
 Frank Rosenblatt introduced the first perceptron in 1957 as an attempt to mimic the human neuron~\cite{perceptron}.  
 
 
-\begin{figure}
+\begin{figure}[h]
         \centering
-        \includegraphics[scale=0.5]{background/figures/neuron.jpg}
-        \caption{https://socratic.org/questions/how-is-a-neuron-adapted-to-perform-its-function, this image needs to be replaced, og i need to find the open source.}
+        \includegraphics[scale=0.3]{background/figures/neuron.png}
+        \caption{Image of a simplified neuron gathered from https://commons.wikimedia.org/wiki/File:Neuron.svg}
         \label{fig:neuron}
 \end{figure}
 
@@ -335,8 +334,8 @@ This flow of electricity is the fundamental way different part of our brain comm
 
 \begin{figure}
         \centering
-        \includegraphics[scale=0.5]{background/figures/perceptron.png}
-        \caption{Simple perceptron}
+        \includegraphics[scale=0.7]{background/figures/perceptron.png}
+        \caption{Simple perceptron that sends out an output that is the tanh of the the sum of the inputs}
     \label{fig:perceptron}
 \end{figure}
 
@@ -344,24 +343,24 @@ This flow of electricity is the fundamental way different part of our brain comm
 
 
 With the biological neuron as a reference point, we can now look more in-depth into the mathematical equivalent. 
-Figure \ref{fig:perceptron}, shows the equivalent in the realm of computer science, having the same flow from the input to the output. 
-The perceptron does however not work with electrical signals. Instead, it works with numbers representing this signal. This abstraction gives the perceptron the ability to have arbitrary high values, as well as negative ones. 
-We multiply the input signals to the perceptron with an associated weight. In biological terms, this weight is equivalent to the strength of the connection between the two neurons trying to communicate. We sum together the weighted inputs and apply a threshold function. In the first perceptron the internal function were:
+Figure \ref{fig:perceptron} shows the equivalent in the realm of computer science, having the same flow from the input to the output. 
+The perceptron does, however, not work with electrical signals. Instead, it works with numbers representing this signal. This abstraction gives the perceptron the ability to have arbitrary high values, as well as negative ones. 
+We multiply the input signals to the perceptron with an associated weight. In biological terms, this weight is equivalent to the strength of the connection between the two neurons trying to communicate. We sum together the weighted inputs and apply a threshold function. In the first perceptron, the internal function were:
 
 
 \begin{equation}
     \label{eq:tresh}
  f_{out}=   \left\{
 \begin{array}{ll}
-		1 \ \ if \ \ \textbf{w} \cdot \textbf{x} + b > 0, \\
+		1 \ \ if \ \ \textbf{W} \cdot \textbf{x} + b > 0, \\
      	0 \ \ otherwise \\
 \end{array} 
 \right. 
 \end{equation}
-where $\textbf{w}$  is a vector of real-valued weights, $\textbf{w} \cdot \textbf{x}$ is the dot product $\sum _{i=1}^{m}w_{i}x_{i}$, where m is the number of inputs to the perceptron, and b a constant bias. 
+where $\textbf{x}$ is the input, $\textbf{W}$ is a vector of real-valued weights, $\textbf{w} \cdot \textbf{x}$ is the dot product $\sum _{i=1}^{m}w_{i}x_{i}$, where m is the number of inputs to the perceptron, and b a constant bias. 
 
 
-The general formula of the perceptron is unchanged, though we have moved away from the ``0-1 output'' perceptron in favour for more complex output functions like the sigmoid in the 1990s\todo{cite}, and the ReLu, and tanh in the 2000s\todo{cite}. 
+The general formula of the perceptron is unchanged, though we have moved away from the ``0-1 output'' perceptron in favour for more complex output functions like the sigmoid in 1989~\cite{Funahashi:1989:ARC:71287.71290}, and the ReLu, and tanh in the 2000s\todo{cite}. 
 
 \begin{equation}
     \label{eq:ReLu}
@@ -377,19 +376,19 @@ The typical ReLu preceptron.
 
 
 \subsection{Feed forward and backpropagation through a perceptron}
-The general concept of the learning process is similar to the one we presented in chapter \ref{cha:concept}.
+The general concept of the learning process is similar to the one we presented in section \ref{cha:concept}.
 
 \noindent \textbf{Step 1:} our perceptron gets signals $x_{(i,0)}-x_{(i,n)}$ where $n$ is the number of inputs to the perceptron.\\
 
-\noindent \textbf{Step 2:} each of our signals $a_{(i,0)}-a_{(i,n)}$ is multiplied by a weight $W^{(0)}$ -  $W^{(n)}$. \\
+\noindent \textbf{Step 2:} each of our signals $x_{(i,0)}-x_{(i,n)}$ is multiplied by a weight $W^{(0,0)}$ -  $W^{(0,n)}$. \\
 
 \noindent \textbf{Step 3:} we sum every input to a scalar. \\
 
-\noindent \textbf{Step 4:} We apply an activation function. (ReLu, tanh, Sigmoid)\\
+\noindent \textbf{Step 4:} We apply an activation function. This activation function can be ReLu as in equation \ref{eq:ReLu}, or something like tanh or Sigmoid. Note that we do not use the threshold function in equation \ref{eq:tresh} as an activation function in modern neural networks, as it is not applicable for gradient descent.\\
 
-\noindent \textbf{Step 5:} Output the result $a_{(j,0)}$.\\
+\noindent \textbf{Step 5:} Output the result $f_{(j,0)}$.\\
 
-\noindent \textbf{Step 6:} Look at the error between the output $a_{(j,0)}$ and the expected output and apply a loss function. (MSE, Binary crossentropy)\\
+\noindent \textbf{Step 6:} Look at the error between the output $f_{(j,0)}$ and the expected output and apply a loss function. (MSE, Binary crossentropy \todo{introduce BC})\\
 
 \noindent \textbf{Step 7:} Take the error and backpropagate it using gradient decent (Equation \ref{eq:gradientdecent}).\\
 
@@ -401,7 +400,7 @@ The general concept of the learning process is similar to the one we presented i
 \label{cha:MLP}
 The neural network was a proposal made by Warren McCulloch and Walter Pitts (1943) ~\cite{roweis2000nonlinear}  created a computational model for neural networks based on mathematics and algorithms called threshold logic. 
 
-The first multilayer network at the time used backpropagation with gradient decent in the same way described in \ref{eq:gradientdecent}.
+The first multilayer network at the time used backpropagation with gradient decent in the same way described in equation \ref{eq:gradientdecent}.
 
 \begin{figure}[h]
 \centering
@@ -411,27 +410,42 @@ The first multilayer network at the time used backpropagation with gradient dece
 \end{figure}
 
 
-Figure \ref{fig:mlnn} shows the basic structure of a multilayer network. This model has one hidden layer, with the standard input and output layers. In our figure, each of the nodes is a perceptron\footnote{In reality, the input layer does not usually behave as a perceptron with an activation function. The input layer is only there to propagate the signal to the neurons further into the network.} as described in chapter \ref{cha:perceptron}.
+Figure \ref{fig:mlnn} shows the basic structure of a multilayer network. This model has one hidden layer and with the standard input and output layers. In our figure, each of the nodes is a perceptron\footnote{In reality, the input layer does not usually behave as a perceptron with an activation function. The input layer is only there to propagate the signal to the neurons further into the network.} as described in section \ref{cha:perceptron}.
 
-The advantage of using the multilayer structure proposed by McCulloch and Pitts is the fact that we do not only have a linear boundary classification model. By using the multilayer structure the network is able to, for instance, tackle the XOR problem, not solvable by a single layer neural network.\todo{cite}
+The advantage of using the multilayer structure proposed by McCulloch and Pitts is the fact that we do not only have a linear boundary classification model. By using the multilayer structure the network is able to, for instance, tackle the XOR problem, not solvable by a single layer neural network.\todo{cite} \todo{Do I want to talk about XOR?}
 
 
 \subsection{Feed forward and backpropagation through a neural network}
-Talk about the chain rule.
-
 
 
     
 \subsection{Convolutional neural networks}
-The multilayer perceptron we have discussed is a strong tool that can learn a multitude of decision boundaries, and subsequently learn to classify thousands of different classes. 
-As we get more data and more classes, the networks needed to solve our problem grows. We can recall from chapter \ref{cha:MLP} that the number of weights between neurons is \todo{insert math}. As the number of perceptrons per layer in our neural networks increases, the total amount of storage space increases by a factor of 4 \todo{fix this}
+The multilayer perceptron we have discussed is a robust tool that can learn a multitude of decision boundaries, and subsequently learn to classify thousands of different classes. 
+As we get more data and more classes, the networks needed to solve our problem grows. We can recall from section \ref{cha:MLP} that the number of weights between neurons is $i \cdot j$ where i is the first layer and j is the connected second layer. As the number of perceptrons per layer in our neural networks increases, the total amount of storage space increases too. 
+\begin{equation}
+    \label{eq:weights_l}
+     height_i \cdot width_i \cdot \ channels_i \cdot height_j \cdot width_j \cdot \ channels_j  = weights
+\end{equation}
+Given an image with height and width of 128 pixels connected to the same shape in a network with a fully connected layers, the total amount of weighs per connection  are:\\
+\begin{equation}
+    \label{eq:weights_n}
+     (128\cdot 128\cdot 3) \cdot (128\cdot 128\cdot 3) = 2415919104  
+\end{equation}
+
+Given that we are working with quadratic images, the number of weights increases with a factor of four as we increase the layer height and width. As we saw in equation \ref{eq:weights_n}, the number of parameters for a relatively small image is already $2.4 \cdot 10^9$, not including the bias on top.
+The models we use to store our data saves the weighs as float32, which means that each weight is 4 bytes of storage. That means that the total storage for this \textit{single} layer is:
+\begin{equation}
+    \label{eq:weights_GB}
+    4\text{b} \cdot 2.4 \cdot 10^9 = 9,66 \ \ \text{GB}
+\end{equation}
+Given that a standard computer usually have 8-16 GB of RAM, this one layer might not be able to load at all. 
+ 
+
+
 
 Another problem with the standard MLP is the fact that it is spatially dependent. Given an input $x$, the output, $y$, of the MLP will vary a lot if we shift the input data by one place, or if we flip the data. In some cases, this is something we want in our machine learning algorithms, but more often than not, this behaviour is not a desirable outcome.
-
 Given the downsides we have with regards to memory usage and non-spatiality in our multilayer perceptrons, we present Kunihiko Fukushima~\cite{Fukushima1980} solution to solve both complications.
-
 Convolutional neural networks are the most popular form for image recognition, segmentation, and classification~\cite{NIPS2012_4824}~\cite{Long_2015_CVPR}.
-
 When building a convolutional neural network we often use multiple layers stacked on opt of each other to give the network traits that a regular multilayer perceptron could not achieve. By far the most essential layer of the convolutional neural network is the convolutional layer.
 
 
