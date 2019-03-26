@@ -1,28 +1,81 @@
 With our background in both medical background and machine learning, we can now look at how we want to solve the problems associated with setting up a system for medical diagnosis.  
-We will first get a birds-eye view of the objective of this thesis, looking at the hypothesises behind this thesis, and take a look into how we can test the proposed hypothesises.
-We will look at the language and packages used in the creation of this thesis. We will go in depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
-Then we will look at the setup of the complete program. Here we will go in-depth into both the different preprocessing algorithms, and take a look at the transfer learning network used during classifying.
+We first get a birds-eye view of the objective of this thesis, looking at the hypothesises behind this thesis, and take a look into how we can test the proposed hypothesises.
+We look at the language and packages used in the creation of this thesis. We go in depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
+Then we look at the setup of the complete program. Here we will go in-depth into both the different preprocessing algorithms, and take a look at the transfer learning network used during classifying.
 
 \section{ Bird's eye view (Chapter possibly removed when written)}
 In the summary of the background chapter, we looked at two articles published by Pogorelov et al. and Hicks et al. where they discussed the effect of overfitting and the consequences of dataset-specific artefacts.
-To help solve these predicaments we present the following two hypothesises:
+To help solve these predicaments look back at the two hypotheises presented in section~\ref{cha:problemstatement}:
+
+Hypothesis~\ref{hyp:a} stated that sparse information in the images made it harder to classify the images correctly. Figure \ref{fig:Saliencymasks} from Hicks's paper shows the case where the black areas with sparse information affect the classification, based only on the black \todo{rewrite}
+
+Hypothesis~\ref{hyp:b} stated that dataset spessific artefacts creates false positives and negatives. This is clearly shown in \ref{fig:sal2}, where the classification is clearly affected by the green square in the image.
+
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{methodology/figures/sal1.png}
+         \caption{Original image that are classified}
+         \label{fig:sal1}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{methodology/figures/sal2.png}
+         \caption{Heatmap of the decision}
+         \label{fig:sal2}
+     \end{subfigure}     
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{methodology/figures/sal3.png}
+         \caption{Heatmap of the decision}
+         \label{fig:sal3}
+     \end{subfigure}
+     \caption{Saliency maps}
+     \label{fig:Saliencymasks}
+\end{figure}
+
+We can see by removing thing that things \todo{fix this}
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{methodology/figures/sal4.png}
+         \caption{Original image that are classified}
+         \label{fig:sal4}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{methodology/figures/sal5.png}
+         \caption{Heatmap of the decision}
+         \label{fig:sal5}
+     \end{subfigure}     
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{methodology/figures/sal7.png}
+         \caption{Heatmap of the decision}
+         \label{fig:sal7}
+     \end{subfigure}
+     \caption{Saliency maps}
+     \label{fig:Saliencymasks2}
+\end{figure}
 
 
 
-\todo{HERE WE NEED TO EXPLAIN H0 AND H1, BECAUSE I MOVED THEM TO THE INTRODUCTION.}
-\todo{HERE WE NEED TO EXPLAIN H0 AND H1, BECAUSE I MOVED THEM TO THE INTRODUCTION.}
-\todo{HERE WE NEED TO EXPLAIN H0 AND H1, BECAUSE I MOVED THEM TO THE INTRODUCTION.}
 
-
-
-
-We will use this as a basis for our work, and look into how we want to solve the same problems encountered. 
+We use this as a basis for our work, and look into how we want to solve the same problems encountered. 
 As described in the background chapter, we will use convolutional neural networks to augment and classify the datasets. We will first talk about the programming language in question followed by a rundown of the libraries and their dependencies.
-We will end this chapter by looking at the programs used for inpainting and classification.
+We end this chapter by looking at the programs used for inpainting and classification.
 
 \section{Libraries} 
 In this chapter, we will discuss the foundation of our code, important external libraries, and the setup and execution of our project.  
-We will first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we will look into the wrapper we use to get a higher level of abstraction over our code, together with custom wrapper functions that are used by our wrapper. 
+We first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we look into the wrapper we use to get a higher level of abstraction over our code, together with custom wrapper functions that are used by our wrapper. 
 
 \subsection{Python}
 When doing machine learning, the most popular languages, in no particular order, are Python, Java, R, C++, and C \todo{cite}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base and user-friendliness. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
@@ -411,6 +464,18 @@ As figure \ref{fig:masks} shows, we use cropped versions when inpainting corners
 \label{cha:classifier}
 The second part of the thesis is to check the success of the inpainted models. 
 We use a convolutional neural net to achieve this.
+
+
+
+\iffalse
+Since we are using Keras as a wrapper for our machine learning, all the networks supplied by the Keras package comes with a pretrained option based on the Imagenet dataset.\todo{cite image net and transfer learning}
+
+Take for instance the well-known InceptionResNetV2. We can either import the model with uninitialised weights, meaning they will be set as we load the model or we can use one of the pretrained models such as imagenet or another custom network.
+\fi
+
+
+
+
 
 
 \begin{figure}[h]
