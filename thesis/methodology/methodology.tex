@@ -73,244 +73,10 @@ We use this as a basis for our work, and look into how we want to solve the same
 As described in the background chapter, we will use convolutional neural networks to augment and classify the datasets. We will first talk about the programming language in question followed by a rundown of the libraries and their dependencies.
 We end this chapter by looking at the programs used for inpainting and classification.
 
-\section{Libraries} 
-In this chapter, we will discuss the foundation of our code, important external libraries, and the setup and execution of our project.  
-We first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we look into the wrapper we use to get a higher level of abstraction over our code, together with custom wrapper functions that are used by our wrapper. 
 
-\subsection{Python}
-When doing machine learning, the most popular languages, in no particular order, are Python, Java, R, C++, and C \todo{cite}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base and user-friendliness. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
-Right now Python is the leading language for machine learning. Driven by this, there is considerable focus into making it faster, to compete with already fast languages, like the C family. 
 
-Python is an interpreted, high-level, general-purpose programming language created in 1991.   It, like many other modern languages, is object-oriented and supports functional programming. 
 
-Mainly because of the excellent support when it comes to machine learning, and the general "easy to use and no compiling" we have chosen python as the base for our code in this thesis. 
 
-
-
-\subsection{Tensorflow}
-Arguably the biggest reason for the success of machine learning in python lies in Tensorflow.\todo{cite} Tensorflow is a machine learning package developed by Google in \todo{year} and has since then become the leading framework for machine learning worldwide \todo{cote}.  
-Tensorflow is in use by companies like AMD, Nvidia, eBay and Snapchat. 
-
-
-\todo{something about projects with python, and how may uses}
-
-Tensorflow is today a multi-language tool, but it had its origin in python. It is just in later years that other languages have gotten tensorflow support.  
-The data flows through a graph network, where the objects in the graph describe the mathematical operations used in the machine learning, and the edges between graphs are the multidimensional arrays storing the weights associated with the operation in question. The name Tensorflow is a combination of the flow we experience during calculation and the tensors between the mathematical operations. 
-
-As stated, Python, and subsequently machine learning in Python, would be much slower than a counterpart in C. Because of this, Tensorflow works as a layer of abstraction to code running in the C language. 
- 
-\todo{cpu vs gpu}
-\todo{, CNTK, or Theano}
-
-
-
-\subsection{Keras}
-One of the least attractive things with tensorflow is its unnecessary complexity.  Even though Tensorflow offers more abstraction compared to running the code in pure C, the Tensorflow library can be unnecessarily complex.
-As a result of this, many external libraries try to simplify many of the complexities that accompany tensorflow. 
-Libraries like TFlearn was made as a modular and transparent deep learning library on top of tensorflow. It gives a higher-level API to Tensoflow to reduce complexity and speed up experiments. \todo{cite TFLEARN}
-The most successful library for on top of Tensorflow is Keras \todo{cite keras}. 
-Just as TFlearn, Keras is a high-level package written in python. It is capable of running on top of TensorFlow, CNTK, or Theano, which is the tree most popular machine learning libraries at this time. 
-From their website they state that their four goals when creating Kears were:
-\textbf{User friendliness. }\\
-\textbf{Modularity. }\\
-\textbf{Easy extensibility.}\\ 
-\textbf{Work with Python. }\\
-
-One of the core elements of Keras that makes it a better choice than just running, for instance, Tensorflow, is the concept of a model. A model in Keras is a way to organise the layers of the network in a more organised way, giving a better understanding of how the network is set up, and how each layer type contributes to the graph. \todo{more}
-
-This thesis relies on Keras as a wrapper for tensorflow. As stated, the use of models and the simplicity of the language makes it an excellent choice of such a large project. Also, Keras has good support for convolutional operations which is the most used methods when managing images. Keras also has the most popular pretrained convolutional neural network models available in its package. \textit{Since one of our primary goal is to see how well our datasets generalise to the real world, transfer-learning will be a great tool to forgo unnecessary training}
-
-
-
-
-
-    
-\section{Custom functions for Keras, tensorflow and python}
-\subsection{CWFC layer}
-A problem often encountered when working with autoencoders which are not undercomplete is the fact that they learn to represent the data flawlessly. \cite{OvercompleteAE} 
-When this problem arises, the network does not learn the fundamental features that define the dataset and instead passes the signal through the network without any consideration of the input data.
-This flaw will often defeat the purpose of the algorithm, so data scientists often put in safeguards, like undercompleteness or regulisers, to combat this lack of feature learning. 
-This problem extends to other types of generator networks where there are not sufficient compression or regularisation in the layers of the network.
-Even though this problem often is solved by compressing the network into a space that can not contain the information exactly, the network does not always learn the features that define the network. 
-
-We propose a custom ``channel-wise fully-connected layer'' in Keras to help with the problem of correctly learning features. This layer is based on the work done by Pathak et al. in their paper on content encoders\cite{Pathak_2016}.
-
-The channel wise fully connected layer is primarily used in the GAN to transfer information within each feature map, without using convolutions to do it. As we recall, fully connected layers are often not suitable because of the large size of the weight layer associated with it. This layer is essentially a fully connected layer with groups, where the goal is to propagate the information within each feature map.
-Given the latent space of $n \times n$ with $m$ feature maps, by not connecting the feature maps together in the fully connected layer we achieve a parameter reduction from $m^2n^4$ to $mn^4$ (ignoring bias terms) \cite{Pathak_2016}
-
-With the ``channel-wise fully-connected layer'' the network can learn features from the entirety of the image, and not just local regions as it would with just convolutions. 
-
-Listing \ref{listing:CWDense} shows the source code used for the channel-wise fully-connected layer.
-
-\begin{listing}[h]
-\begin{minted}[fontsize=\footnotesize]{python}
-from keras.engine.topology import Layer
-import keras.backend as K
-
-class CWDense(Layer):
-    def __init__(self, **kwargs):
-        super(CWDense, self).__init__(**kwargs)
-    
-    def build(self,input_shape):
-        _, self.width, self.height, self.n_feat_map = input_shape
-        self.kernel = self.add_weight("CWDense",
-                                        shape=(self.n_feat_map,
-                                        self.width*self.height,
-                                        self.width*self.height),
-                                        initializer='glorot_uniform',
-                                        trainable=True)        
-        super(CWDense, self).build(input_shape)
-
-    def call(self, x):
-        x = tf.reshape( x, [-1, self.width*self.height, self.n_feat_map] )
-        x = tf.transpose( x, [2,0,1] )
-
-        x = K.dot(x,self.kernel)
-
-        x = tf.transpose(x, [1,2,0])
-        x = tf.reshape( x, [-1, self.height, self.width, self.n_feat_map] )
-        return x
-
-\end{minted}
-\caption{The channel-wise fully-connected layer source code}
-\label{listing:CWDense}
-\end{listing}
-
-\subsection{Subpixel}
-When working with the generative adversarial network, we wanted to achieve more realistic representations at a reasonable image size. 
-Making large scale images in generative adversarial networks has been a challenge that has only recently been cracked. \cite{DBLP:journals/corr/DentonCSF15} \cite{DBLP:journals/corr/abs-1809-11096}
-As an early measure to fix this problem, we experimented with the use of a Sub-pixel layer as presented by Shi et al.~\cite{DBLP:journals/corr/ShiCHTABRW16} to give a more realistic output compared to just a standard conv-tanh layer.
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.8]{methodology/figures/SubPixel.png}
-\caption{How the layers in the sub pixel layer is stacked. Recreated from the SubPixel paper by Shi et al.~\cite{DBLP:journals/corr/ShiCHTABRW16}}
-\label{fig:SubPixel}
-\end{figure}
-
-
-
-
-
-
-%\subsection{Spectral conv?}
-\subsection{Masklaod}
-\subsection{Self attention}
-There are features in the images that are more important than others. One of the things we often want to preserve when we recreate images are hard edges. To get a semantically meaningful image,  we often want to differentiate between background and the mucosa. 
-To see if the network can learn the features needed we are Introducing the Self Attention layer to help with this. 
-
-
-\begin{listing}[h]
-\begin{minted}[fontsize=\footnotesize]{python}
-class Attention(Layer): 
-    def __init__(self, filters, **kwargs):
-        self.filters = filters
-        super(Attention, self).__init__(**kwargs)
-
-    def build(self,filters):
-        self.kernelf = self.add_weight(name='kernelf', 
-                                      shape=(1,1,self.filters,self.filters),
-                                      initializer='uniform',trainable=True)
-        self.kernelg = self.add_weight(name='kernelg', 
-                                      shape=(1,1,self.filters,self.filters),
-                                      initializer='uniform',trainable=True)
-        self.kernelh = self.add_weight(name='kernelh', 
-                                      shape=(1,1,self.filters,self.filters),
-                                      initializer='uniform',trainable=True)
-        super(Attention, self).build(filters)
-
-    def call(self, x):
-        f = K.conv2d(x, self.kernelf, strides=1, padding="same")
-        g = K.conv2d(x, self.kernelg, strides=1, padding="same")
-        h = K.conv2d(x, self.kernelh, strides=1, padding="same")
-        f = tf.transpose(f,perm=[0,1,2,3])
-        i = f*g
-        j = K.softmax(i)
-        k = j*h
-        return k
-
-\end{minted}
-\caption{The self attention layer source code}
-\label{listing:Attention}
-\end{listing}
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.4]{methodology/figures/attention.png}
-\caption{How the layers in the Self-Attention layer is stacked. Recreated from the Self-Attention  paper by Zhang et al.~\cite{DBLP:journals/corr/selfattention}}
-\label{fig:Attention}
-\end{figure}
-
-
-
-\subsection{Masked loss}
-A problem encountered for both the autoencoder and the GAN is what happens when the non-inpainted area gets too close to correct ground truth. 
-
-\begin{itemize}
-	\item 32 bit float
-	\item small-small = really small
-	\item really small squared is 0?
-	\item zero gives us weird gradients?
-	\item UNDERFLOW cuses bigass number
-	\item Wromng calculation causes biggass number
-\end{itemize}
-
-
-
-
-
-\section{Stabilising the GAN}
-Before we ended up with the model we used in the thesis we ran multiple experiments to make the generative adversarial network stable for training. 
-In contrast to the autoencoder, the GAN does not use the ground truth as a reference point. Where the autoencoder always has a gradient based on the input data, the generator in the GAN gets its learning gradient from another network.
-
-This lack of a ground truth gives the GAN many pitfalls that cause the training process to crash \footnote{Crashing is not the right word to use, but the result is the same: The learning process stops.}.
-
-
-\paragraph{Normalise the inputs}
-One of the first measures we did to prevent training collapse was to normalise the inputs. Instead of using images in the range 0 to 255 in pixel values we switched the values to  -1 to 1. 
-Later, when the images were generated, we switched out the standard sigmoid output layer with a tanh output layer. As we wanted the output to be between -1 and 1, this was necessary, as the sigmoid only outputs between 0 and 1.
-
-\paragraph{Using gaussian noise}
-perhaps write about this
-
-
-
-\paragraph{Normalising the batches}
-One of the most significant challenges we encountered when training the adversarial network was the use of correct normalisation. 
-
-The practice of training the discriminator with real and fake samples separately gave higher stability overall. 
-
-The use of instance normalisation gave a better result compared to using batch normalisation. We believe this is contributed to the fact that the discriminator learned that the average pixel value was lower for the whole batch since the area inpainted had 0 as the pixel value.
-
-The final model ended up not using batch or instance-normalisation. 
-
-
-
-\paragraph{Avoiding sparse and vanishing gradients}
-Most of the well-known networks use the ReLu\cite{Nair/2010/RLU/3104322.3104425} activation function \cite{DBLP:journals/corr/SimonyanZ14a} \cite{DBLP:journals/corr/SzegedyIV16} 
-\cite{DBLP:journals/corr/HeZRS15}.
-We saw the best result when we used non-sparse gradients during training. 
-Instead of using ReLu we used the slightly modified LeakyReLu \cite{Maas2013RectifierNI}.
-
-\todo{mention RReLu, but the number of parameters not worth it.}
-
-In addition to trying to remove sparse gradients, we also wanted to address the problem with vanishing gradients during training. Given that we have fully saturated pixels (with the value of 1 or 255) and we have fully darkened pixels (with the value of -1 or 0) we, at the end of the experimentation phase, ended up removing the tanh layer. 
-The removal of the tanh layer meant that the pixel values could be arbitrary on both positive and negative value, so we had to clip the value not to get an error at test time. 
-
-
-
-\paragraph{Avoiding residual and inception layers}
-When training the GAN experiments shows that the usage of both residual \cite{Rumelhart:1986:LIR:104279.104293} and inception \cite{DBLP:journals/corr/SzegedyLJSRAEVR14} models does note contribute to a good result when training the GAN.
-
-Residual modules primary strength is that they always send the image/signal throughout the network in addition to the standard layers. Instead of the network needing to generate the whole image for each layer, the network instead adds or subtract from the original image for each layer.
-This modification to the original image might seem reasonable when it comes to inpainting, but in reality, this does not work.  Given an image where we want to change only the inpainted area, the image is about 80\% unchanged. The network could focus on just filling in the inpainted area in theory, but in practice, the network tries to change the rest of the image in addition to the square. This incorrect inpainting gives us a generator that changes too much of the image and a discriminator that does not learn any important features since the input and output are relatively similar from the start.
-
-Inception modules primary strength is the fact that the gradient can flow throughout the path most suited to the problem at hand.
-We tested some training runs with inception modules, but the result was not impactful enough to continue to use this architecture.
-
-From multiple training runs, it seems like just a straight forward encoder-decoder network for the generator yielded the best result. While the best result for the decoder was to use convolutions with stride do downsample the signal.
-
-\todo{this might not be the right chapter for describing what layers are in the GAN, so please move}
 
 
 
@@ -459,6 +225,8 @@ As figure \ref{fig:masks} shows, we use cropped versions when inpainting corners
      \label{fig:masks}
 \end{figure}
 
+\subsection{summary}
+Here a wrap-up of the IP
 
 \section{Design of the transfer learning experiments}
 \label{cha:classifier}
@@ -484,6 +252,212 @@ Take for instance the well-known InceptionResNetV2. We can either import the mod
         \caption{ The model we use for classifying with the most important options for the learning process. }
     \label{fig:KTLmodel}
 \end{figure}
+
+
+\subsection{models}
+
+\subsection{pooling}
+
+
+\subsection{summary}
+Here a wrap-up of the IP
+
+
+
+
+
+
+
+
+
+
+
+\section{Libraries} 
+In this chapter, we will discuss the foundation of our code, important external libraries, and the setup and execution of our project.  
+We first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we look into the wrapper we use to get a higher level of abstraction over our code, together with custom wrapper functions that are used by our wrapper. 
+
+\subsection{Python}
+When doing machine learning, the most popular languages, in no particular order, are Python, Java, R, C++, and C \todo{cite}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base and user-friendliness. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
+Right now Python is the leading language for machine learning. Driven by this, there is considerable focus into making it faster, to compete with already fast languages, like the C family. 
+
+Python is an interpreted, high-level, general-purpose programming language created in 1991.   It, like many other modern languages, is object-oriented and supports functional programming. 
+
+Mainly because of the excellent support when it comes to machine learning, and the general "easy to use and no compiling" we have chosen python as the base for our code in this thesis. 
+
+
+
+\subsection{Tensorflow}
+Arguably the biggest reason for the success of machine learning in python lies in Tensorflow.\todo{cite} Tensorflow is a machine learning package developed by Google in \todo{year} and has since then become the leading framework for machine learning worldwide \todo{cote}.  
+Tensorflow is in use by companies like AMD, Nvidia, eBay and Snapchat. 
+
+
+\todo{something about projects with python, and how may uses}
+
+Tensorflow is today a multi-language tool, but it had its origin in python. It is just in later years that other languages have gotten tensorflow support.  
+The data flows through a graph network, where the objects in the graph describe the mathematical operations used in the machine learning, and the edges between graphs are the multidimensional arrays storing the weights associated with the operation in question. The name Tensorflow is a combination of the flow we experience during calculation and the tensors between the mathematical operations. 
+
+As stated, Python, and subsequently machine learning in Python, would be much slower than a counterpart in C. Because of this, Tensorflow works as a layer of abstraction to code running in the C language. 
+ 
+\todo{cpu vs gpu}
+\todo{, CNTK, or Theano}
+
+
+
+\subsection{Keras}
+One of the least attractive things with tensorflow is its unnecessary complexity.  Even though Tensorflow offers more abstraction compared to running the code in pure C, the Tensorflow library can be unnecessarily complex.
+As a result of this, many external libraries try to simplify many of the complexities that accompany tensorflow. 
+Libraries like TFlearn was made as a modular and transparent deep learning library on top of tensorflow. It gives a higher-level API to Tensoflow to reduce complexity and speed up experiments. \todo{cite TFLEARN}
+The most successful library for on top of Tensorflow is Keras \todo{cite keras}. 
+Just as TFlearn, Keras is a high-level package written in python. It is capable of running on top of TensorFlow, CNTK, or Theano, which is the tree most popular machine learning libraries at this time. 
+From their website they state that their four goals when creating Kears were:
+\textbf{User friendliness. }\\
+\textbf{Modularity. }\\
+\textbf{Easy extensibility.}\\ 
+\textbf{Work with Python. }\\
+
+One of the core elements of Keras that makes it a better choice than just running, for instance, Tensorflow, is the concept of a model. A model in Keras is a way to organise the layers of the network in a more organised way, giving a better understanding of how the network is set up, and how each layer type contributes to the graph. \todo{more}
+
+This thesis relies on Keras as a wrapper for tensorflow. As stated, the use of models and the simplicity of the language makes it an excellent choice of such a large project. Also, Keras has good support for convolutional operations which is the most used methods when managing images. Keras also has the most popular pretrained convolutional neural network models available in its package. \textit{Since one of our primary goal is to see how well our datasets generalise to the real world, transfer-learning will be a great tool to forgo unnecessary training}
+
+
+
+
+
+    
+\section{Custom functions for Keras, tensorflow and python}
+\subsection{CWFC layer}
+A problem often encountered when working with autoencoders which are not undercomplete is the fact that they learn to represent the data flawlessly. \cite{OvercompleteAE} 
+When this problem arises, the network does not learn the fundamental features that define the dataset and instead passes the signal through the network without any consideration of the input data.
+This flaw will often defeat the purpose of the algorithm, so data scientists often put in safeguards, like undercompleteness or regulisers, to combat this lack of feature learning. 
+This problem extends to other types of generator networks where there are not sufficient compression or regularisation in the layers of the network.
+Even though this problem often is solved by compressing the network into a space that can not contain the information exactly, the network does not always learn the features that define the network. 
+
+We propose a custom ``channel-wise fully-connected layer'' in Keras to help with the problem of correctly learning features. This layer is based on the work done by Pathak et al. in their paper on content encoders\cite{Pathak_2016}.
+
+The channel wise fully connected layer is primarily used in the GAN to transfer information within each feature map, without using convolutions to do it. As we recall, fully connected layers are often not suitable because of the large size of the weight layer associated with it. This layer is essentially a fully connected layer with groups, where the goal is to propagate the information within each feature map.
+Given the latent space of $n \times n$ with $m$ feature maps, by not connecting the feature maps together in the fully connected layer we achieve a parameter reduction from $m^2n^4$ to $mn^4$ (ignoring bias terms) \cite{Pathak_2016}
+
+With the ``channel-wise fully-connected layer'' the network can learn features from the entirety of the image, and not just local regions as it would with just convolutions. 
+
+Listing \ref{listing:CWDense} shows the source code used for the channel-wise fully-connected layer.
+
+\begin{minipage}{\linewidth}
+\begin{listing}
+\lstinputlisting[language=python]{methodology/CWDense.py}
+\caption{The channel-wise fully-connected layer source code}
+\label{listing:CWDense}
+\end{listing}
+\end{minipage}
+
+\subsection{Subpixel}
+When working with the generative adversarial network, we wanted to achieve more realistic representations at a reasonable image size. 
+Making large scale images in generative adversarial networks has been a challenge that has only recently been cracked. \cite{DBLP:journals/corr/DentonCSF15} \cite{DBLP:journals/corr/abs-1809-11096}
+As an early measure to fix this problem, we experimented with the use of a Sub-pixel layer as presented by Shi et al.~\cite{DBLP:journals/corr/ShiCHTABRW16} to give a more realistic output compared to just a standard conv-tanh layer.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{methodology/figures/SubPixel.png}
+\caption{How the layers in the sub pixel layer is stacked. Recreated from the SubPixel paper by Shi et al.~\cite{DBLP:journals/corr/ShiCHTABRW16}}
+\label{fig:SubPixel}
+\end{figure}
+
+
+
+
+
+
+\subsection{Masklaod}
+\subsection{Self attention}
+There are features in the images that are more important than others. One of the things we often want to preserve when we recreate images are hard edges. To get a semantically meaningful image,  we often want to differentiate between background and the mucosa. 
+To see if the network can learn the features needed we are Introducing the Self Attention layer to help with this. 
+
+\begin{minipage}{\linewidth}
+\begin{listing}
+\lstinputlisting[language=python]{methodology/SelfAttention.py}
+\caption{The self attention layer source code}
+\label{listing:Attention}
+\end{listing}
+\end{minipage}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{methodology/figures/attention.png}
+\caption{How the layers in the Self-Attention layer is stacked. Recreated from the Self-Attention  paper by Zhang et al.~\cite{DBLP:journals/corr/selfattention}}
+\label{fig:Attention}
+\end{figure}
+
+
+
+\subsection{Masked loss}
+A problem encountered for both the autoencoder and the GAN is what happens when the non-inpainted area gets too close to correct ground truth. 
+
+\begin{itemize}
+	\item 32 bit float
+	\item small-small = really small
+	\item really small squared is 0?
+	\item zero gives us weird gradients?
+	\item UNDERFLOW cuses bigass number
+	\item Wromng calculation causes biggass number
+\end{itemize}
+
+
+
+
+
+\section{Stabilising the GAN}
+Before we ended up with the model we used in the thesis we ran multiple experiments to make the generative adversarial network stable for training. 
+In contrast to the autoencoder, the GAN does not use the ground truth as a reference point. Where the autoencoder always has a gradient based on the input data, the generator in the GAN gets its learning gradient from another network.
+
+This lack of a ground truth gives the GAN many pitfalls that cause the training process to crash \footnote{Crashing is not the right word to use, but the result is the same: The learning process stops.}.
+
+
+\paragraph{Normalise the inputs}
+One of the first measures we did to prevent training collapse was to normalise the inputs. Instead of using images in the range 0 to 255 in pixel values we switched the values to  -1 to 1. 
+Later, when the images were generated, we switched out the standard sigmoid output layer with a tanh output layer. As we wanted the output to be between -1 and 1, this was necessary, as the sigmoid only outputs between 0 and 1.
+
+\paragraph{Using gaussian noise}
+perhaps write about this
+
+
+
+\paragraph{Normalising the batches}
+One of the most significant challenges we encountered when training the adversarial network was the use of correct normalisation. 
+
+The practice of training the discriminator with real and fake samples separately gave higher stability overall. 
+
+The use of instance normalisation gave a better result compared to using batch normalisation. We believe this is contributed to the fact that the discriminator learned that the average pixel value was lower for the whole batch since the area inpainted had 0 as the pixel value.
+
+The final model ended up not using batch or instance-normalisation. 
+
+
+
+\paragraph{Avoiding sparse and vanishing gradients}
+Most of the well-known networks use the ReLu\cite{Nair/2010/RLU/3104322.3104425} activation function \cite{DBLP:journals/corr/SimonyanZ14a} \cite{DBLP:journals/corr/SzegedyIV16} 
+\cite{DBLP:journals/corr/HeZRS15}.
+We saw the best result when we used non-sparse gradients during training. 
+Instead of using ReLu we used the slightly modified LeakyReLu \cite{Maas2013RectifierNI}.
+
+\todo{mention RReLu, but the number of parameters not worth it.}
+
+In addition to trying to remove sparse gradients, we also wanted to address the problem with vanishing gradients during training. Given that we have fully saturated pixels (with the value of 1 or 255) and we have fully darkened pixels (with the value of -1 or 0) we, at the end of the experimentation phase, ended up removing the tanh layer. 
+The removal of the tanh layer meant that the pixel values could be arbitrary on both positive and negative value, so we had to clip the value not to get an error at test time. 
+
+
+
+\paragraph{Avoiding residual and inception layers}
+When training the GAN experiments shows that the usage of both residual \cite{Rumelhart:1986:LIR:104279.104293} and inception \cite{DBLP:journals/corr/SzegedyLJSRAEVR14} models does note contribute to a good result when training the GAN.
+
+Residual modules primary strength is that they always send the image/signal throughout the network in addition to the standard layers. Instead of the network needing to generate the whole image for each layer, the network instead adds or subtract from the original image for each layer.
+This modification to the original image might seem reasonable when it comes to inpainting, but in reality, this does not work.  Given an image where we want to change only the inpainted area, the image is about 80\% unchanged. The network could focus on just filling in the inpainted area in theory, but in practice, the network tries to change the rest of the image in addition to the square. This incorrect inpainting gives us a generator that changes too much of the image and a discriminator that does not learn any important features since the input and output are relatively similar from the start.
+
+Inception modules primary strength is the fact that the gradient can flow throughout the path most suited to the problem at hand.
+We tested some training runs with inception modules, but the result was not impactful enough to continue to use this architecture.
+
+From multiple training runs, it seems like just a straight forward encoder-decoder network for the generator yielded the best result. While the best result for the decoder was to use convolutions with stride do downsample the signal.
+
+\todo{this might not be the right chapter for describing what layers are in the GAN, so please move}
+
+
 
  
 \section{Describe code}
