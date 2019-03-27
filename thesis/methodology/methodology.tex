@@ -1,17 +1,21 @@
 With our background in both medical background and machine learning, we can now look at how we want to solve the problems associated with setting up a system for medical diagnosis.  
-We first get a birds-eye view of the objective of this thesis, looking at the hypothesises behind this thesis, and take a look into how we can test the proposed hypothesises.
-We look at the language and packages used in the creation of this thesis. We go in depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
-Then we look at the setup of the complete program. Here we will go in-depth into both the different preprocessing algorithms, and take a look at the transfer learning network used during classifying.
+We first get a birds-eye view of the objective of this thesis, looking at the hypothesises behind this thesis, and take a look into how we can test the proposed hypothesises. We look at the proposed program setup to test the hypothesises both for classification and generation.
+Then we look at the language and packages suitable for this project. We go in-depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
+
+%Then we look at the setup of the complete program. Here we will go in-depth into both the different preprocessing algorithms, and take a look at the transfer learning network used during classifying.
 
 \section{ Bird's eye view (Chapter possibly removed when written)}
 In the summary of the background chapter, we looked at two articles published by Pogorelov et al. and Hicks et al. where they discussed the effect of overfitting and the consequences of dataset-specific artefacts.
-To help solve these predicaments look back at the two hypotheises presented in section~\ref{cha:problemstatement}:
+To help solve these predicaments look back at the two hypothesises presented in section~\ref{cha:problemstatement}:
 
-Hypothesis~\ref{hyp:a} stated that sparse information in the images made it harder to classify the images correctly. Figure \ref{fig:Saliencymasks} from Hicks's paper shows the case where the black areas with sparse information affect the classification, based only on the black \todo{rewrite}
-As shown in the paper, 
+\vspace{2px}
+Hypothesis~\ref{hyp:a} stated that sparse information in the images made it harder to classify the images correctly. Figure \ref{fig:Saliencymasks} from Hicks's paper shows the case where the black areas with sparse information affect the classification. As we can see, the black areas trigger as a ``positive'' in some om the saliency maps. We can interpret this as the network learning features not useful for the classification. 
+Our quest is to check the validity of this hypothesis. We propose to test the classification of images with and without areas with sparse information.
 
 
-Hypothesis~\ref{hyp:b} stated that dataset spessific artefacts creates false positives and negatives. This is clearly shown in \ref{fig:sal2}, where the classification is clearly affected by the green square in the image.
+\vspace{5px}
+Hypothesis~\ref{hyp:b} stated that dataset specific artefacts create false positives and negatives. This error is clearly shown in \ref{fig:sal2}, where the classification is affected by the green square in the image. 
+As long as the classification is affected by dataset specific artefacts, the ability to adapt the dataset to new use cases might suffer.  
 
 
 \begin{figure}
@@ -39,8 +43,6 @@ Hypothesis~\ref{hyp:b} stated that dataset spessific artefacts creates false pos
      \caption{Saliency maps}
      \label{fig:Saliencymasks}
 \end{figure}
-
-We can see by removing thing that things \todo{fix this}
 
 \begin{figure}
      \centering
@@ -70,19 +72,22 @@ We can see by removing thing that things \todo{fix this}
 
 
 
-We use this as a basis for our work, and look into how we want to solve the same problems encountered. 
+We note that \ref{hyp:a} concerns both training and testing on the same dataset, while \ref{hyp:b} is more concerned about the generalisability of the model, and hence the goal is to use different datasets for training and testing. 
+
+
 As described in the background chapter, we will use convolutional neural networks to augment and classify the datasets. We will first talk about the programming language in question followed by a rundown of the libraries and their dependencies.
 We end this chapter by looking at the programs used for inpainting and classification.
+\todo{talk more about the differnt images in relation to steven.}
 
 
-
-
-
+To test the two hypotheses, we first need new datasets to compare against a base case. In addition to the dataset with sparse information and dataset-specific artefacts, we need similar looking datasets without these unwanted features. In an ideal scenario, we would have the same dataset without the features added post-capture. \todo{more}
+We want to do inpainting\todo{more}
 
 
 
 \section{Design of the inpainting algorithms}
-When inpainting we have multiple hypotheses we want to test to see how it affects the results. We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. Based on the hardware limitations \todo{more?}
+\todo{we use inpainting as a tool to make the datasets that we need to test the hyps}
+ we have multiple hypotheses we want to test to see how it affects the results. We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. 
 
 When generating the datasets, we use the Kvasir dataset as a base exclusively. When using only the Kvasir dataset, we have the CVC sets for testing. This selection of image source was made intentionally to have a fundamentally different test and training set, and the more differences between testing and training set the more of an indication of generalisation. 
 
@@ -391,6 +396,10 @@ To see if the network can learn the features needed we are Introducing the Self 
 
 \subsection{Masked loss}
 A problem encountered for both the autoencoder and the GAN is what happens when the non-inpainted area gets too close to correct ground truth. 
+As most of the image remains unchanged between the input-output space the loss for most of the image approaches 0 while the inpainted area stays at a high loss value for most of the training. 
+As we recall from section \ref{cha:convNet}, we store our data as float32. 
+\todo{more}
+
 
 \begin{itemize}
 	\item 32 bit float
@@ -470,7 +479,7 @@ We will now go more in-depth into the two networks used for generating the new d
 The autoencoder we used to generate the datasets used in this thesis bears a resemblance to the standard autoencoder proposed in chapter \ref{cha:Explaining_autoencoders}.
 
 \paragraph{loss, optimiser}
-To get the autoencoder to give the best result, we have chosen to use the mean square error loss\ref{MSE_form} and the Adam\cite{adam} optimiser.
+To get the autoencoder to give the best result, we have chosen to use the mean square error loss\ref{eq:MSE_form} and the Adam\cite{adam} optimiser.
 The mean square error was a logical choice since we already have the ground truth and we only want to recreate the inpainted area based on what used to be there before the masking.
 The Adam optimiser was chosen by the widespread usage in machine learning, coupled with the fact that it works well with sparse gradiens.
 
