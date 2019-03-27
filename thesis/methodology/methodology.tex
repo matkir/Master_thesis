@@ -236,9 +236,12 @@ Here a wrap-up of the IP
 
 \section{Design of the transfer learning experiments}
 \label{cha:classifier}
-The second part of the thesis is to check the success of the inpainted models. 
-We use a convolutional neural net to achieve this.
+To test the hypothesises we need a system in place to compare the datasets we generate with inpainting. As we recall, both our hypothesis is based on an improvement on a base score. 
+To see if we have any improvement we propose to use a classifier based on transfer learning to see how the newly generated datasets gives a better classification score compared to the base dataset without augmentations.
 
+We want to test our system with a range of different models and classifiers to test the validity of the system, and to make sure that our results are not just good out-layers.
+
+Figure \ref{fig:KTLmodel} shows the general structure of the transfer learning model we use in this thesis. We have made \todo{more} 
 
 
 \iffalse
