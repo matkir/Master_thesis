@@ -357,7 +357,7 @@ Listing \ref{listing:CWDense} shows the source code used for the channel-wise fu
 
 \subsection{Subpixel}
 When working with the generative adversarial network, we wanted to achieve more realistic representations at a reasonable image size. 
-Making large scale images in generative adversarial networks has been a challenge that has only recently been cracked. \cite{DBLP:journals/corr/DentonCSF15} \cite{DBLP:journals/corr/abs-1809-11096}
+Making large scale images in generative adversarial networks has been a challenge that has only recently been cracked~\cite{DBLP:journals/corr/DentonCSF15}~\cite{DBLP:journals/corr/abs-1809-11096}.
 As an early measure to fix this problem, we experimented with the use of a Sub-pixel layer as presented by Shi et al.~\cite{DBLP:journals/corr/ShiCHTABRW16} to give a more realistic output compared to just a standard conv-tanh layer.
 
 \begin{figure}
@@ -373,6 +373,9 @@ As an early measure to fix this problem, we experimented with the use of a Sub-p
 
 
 \subsection{Masklaod}
+The most common way to load the dataset is to use the ML packs default ting.
+I made my own thing to do this. i got cutting cropping graytone and rotating
+
 \subsection{Self attention}
 There are features in the images that are more important than others. One of the things we often want to preserve when we recreate images are hard edges. To get a semantically meaningful image,  we often want to differentiate between background and the mucosa. 
 To see if the network can learn the features needed we are Introducing the Self Attention layer to help with this. 
@@ -397,18 +400,23 @@ To see if the network can learn the features needed we are Introducing the Self 
 \subsection{Masked loss}
 A problem encountered for both the autoencoder and the GAN is what happens when the non-inpainted area gets too close to correct ground truth. 
 As most of the image remains unchanged between the input-output space the loss for most of the image approaches 0 while the inpainted area stays at a high loss value for most of the training. 
-As we recall from section \ref{cha:convNet}, we store our data as float32. 
-\todo{more}
+As we recall from section \ref{cha:convNet}, we store our data as float32, and as the loss gets smaller and smaller, the squaring of the float32 gives at some point a number so small that the loss flips to a large integer and subsequently ruins the run. 
+
+\todo{perhaps talk about the flip with image.}
 
 
-\begin{itemize}
-	\item 32 bit float
-	\item small-small = really small
-	\item really small squared is 0?
-	\item zero gives us weird gradients?
-	\item UNDERFLOW cuses bigass number
-	\item Wromng calculation causes biggass number
-\end{itemize}
+To improve the stability we have modified the loss to only apply on the areas we inpaint, leaving the rest of the image withou a gradient to improve itself with.
+Listing \ref{listing:maskedMSE} shows the source code for the masked MSE. 
+For each point in the MSE we apply a binary mask, of the mask is zero, the point is not considered during backpropagation.
+
+
+\begin{minipage}{\linewidth}
+\begin{listing}
+\lstinputlisting[language=python]{methodology/maskedMSE.py}
+\caption{The self attention layer source code}
+\label{listing:maskedMSE}
+\end{listing}
+\end{minipage}
 
 
 
@@ -484,26 +492,19 @@ The mean square error was a logical choice since we already have the ground trut
 The Adam optimiser was chosen by the widespread usage in machine learning, coupled with the fact that it works well with sparse gradiens.
 
 \paragraph{encoder}
-The input to the autoencoder were the masked images at $256 \times 256$px to compress the information in the ecoder we imply used convolutions with a stride of 2.
+The input to the autoencoder were the masked images at $256 \times 256$px to compress the information in the encoder we imply used convolutions with a stride of 2. An option to using stride for the downsampling would be to use pooling, as described in section \ref{cha:pool}. Here, there are still room for experimentation.
 
-Input(InputLayer)         (None, 256, 256, 3)      0 \\
-conv2d(Conv2D)            (None, 64, 64, 32)       51232    \\ 
-conv2d(Conv2D)            (None, 32, 32, 64)       204864    \\
-conv2d(Conv2D)            (None, 16, 16, 128)      204928\\  \todo{do i keep this???}
+
 
 \paragraph{decoder}
-After 
+between the encoder and decoder we added a 25\% dropout layer. This layer is the only reguliser in the network, though since the job were to inpaint and not recreate, the autoencoder needed information about a rather large area of the image, and hence had little possibility to overfit.
 
-dropout (Dropout)          (None, 16, 16, 128)       0         \\
-(UpSampling2 (None, 32, 32, 128)       0         \\
-conv2d (Conv2D)            (None, 32, 32, 256)       7373056   \\
-(UpSampling2 (None, 64, 64, 256)       0    \\     
-conv2d (Conv2D)            (None, 64, 64, 128)       1605760   \\
-(UpSampling2 (None, 128, 128, 128)     0       \\ 
-conv2d (Conv2D)            (None, 128, 128, 32)      102432    \\
-(UpSampling2 (None, 256, 256, 32)      0       \\  
-conv2d (Conv2D)            (None, 256, 256, 3)       867 \\
+Upsampling could either be achieved with upconvolution or with upsampling.
+Using upconvolution gives the network more variables (as the filters use weights, and upsampling does not), and hence would require more training. 
 
+In this thesis we achieved the greatest results by using upsampling compared to upconvolution, though we can not rule out that upsampling would be better with more complex images, or at larger image sizes.
+
+\vspace{5px}
 
 To describe the model we will look at the example where we try to inpaint the green square in the image, and nothing else.
 
@@ -538,7 +539,13 @@ We feed \ref{fig:AErep} into the autoencoder consisting of convolutional layers,
 
 
 \subsection{Generative adversarial network}
-The gan used the same generator discriminator elements as the Goodfellow gan, but does not take in noise\todo{the best version does}
+The gan used the same generator discriminator elements as the Goodfellow gan, however the most significant difference is the fact that our model does not generate the image from Gaussian noise.
+
+Instead of the standard Gaussian noise as input to the generator, the inpainted image is taken as input. Here, as in the autoencoder, we use stride to downsample the image. 
+
+
+\todo{perhaps draw the shape?}
+
 
 
 \subsection{Transfer learning classifier}
@@ -589,7 +596,18 @@ When training we did some extra steps at the end, namely added global average po
 
 
 \section{Describe project}
-Here i am going to explain the projects
+Here i am going to explain the projects\\
+Here i am going to explain the projects\\
+Here i am going to explain the projects\\
+Here i am going to explain the projects\\
+Here i am going to explain the projects\\
+Here i am going to explain the projects\\
+Here i am going to explain the projects\\
+Here i am going to explain the projects\\
+Here i am going to explain the projects\\
+Here i am going to explain the projects\\
+Here i am going to explain the projects\\
+
 \section{Summary}
 At this point, we have described the reasoning behind using python, tensorflow and Keras for our machine learning. 
 After this we looked into the filters used for training our models, and what type of preprocessing we wanted to do in addition to the inpainting. We looked at the advantages and disadvantages of preprocessing the Trest data, as opposed to just preprocessing the training data.

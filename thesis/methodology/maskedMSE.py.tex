@@ -1,0 +1,10 @@
+import keras.backend as K
+
+def masked_mse(mask_value):
+    def f(y_true, y_pred):
+        mask_true = K.cast(mask_value,K.floatx())
+        masked_squared_error = K.square(mask_true *(y_true - y_pred))
+        masked_mse = K.sum(masked_squared_error) / K.sum(mask_true)
+        return masked_mse
+    f.__name__ = 'Masked MSE'
+    return f
