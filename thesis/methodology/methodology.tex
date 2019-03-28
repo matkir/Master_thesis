@@ -205,23 +205,30 @@ When training we need images that are already inpainted as a reference point. We
 By removing the corners, we have an image where we know the whole ground truth, and the data is coming from the right distribution.
 As figure \ref{fig:masks} shows, we use cropped versions when inpainting corners, and we use images without the green square when inpainting the left corner.
 
-\begin{figure}
+\begin{figure}[h!]
      \centering
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[t]{0.4\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{methodology/figures/nomask.png}
+         \caption{Image from the original non-augmented dataset}
+         \label{fig:CornerMask}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[t]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/cornermask.png}
          \caption{Green area shows the area masked in the first of the generated datasets}
          \label{fig:CornerMask}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[t]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/greenmask.png}
          \caption{Green area shows the area masked by the second of the datasets}
          \label{fig:GreenMask}
      \end{subfigure}     
      \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[t]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/bothmask.png}
          \caption{Green area shows the area masked by the third of the datasets}
