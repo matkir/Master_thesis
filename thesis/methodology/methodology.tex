@@ -72,22 +72,26 @@ As long as the classification is affected by dataset specific artefacts, the abi
 
 
 
-We note that \ref{hyp:a} concerns both training and testing on the same dataset, while \ref{hyp:b} is more concerned about the generalisability of the model, and hence the goal is to use different datasets for training and testing. 
+We note that \ref{hyp:a} concerns both training and testing on the same dataset, while \ref{hyp:b} is more concerned about the generalisability of the model, and hence the goal is to use different datasets for training and testing, as well as testing at the training set. 
 
 
-As described in the background chapter, we will use convolutional neural networks to augment and classify the datasets. We will first talk about the programming language in question followed by a rundown of the libraries and their dependencies.
-We end this chapter by looking at the programs used for inpainting and classification.
+
+%As described in the background chapter, we will use convolutional neural %networks to augment and classify the datasets. We will first talk about the programming language in question followed by a rundown of the libraries and their dependencies.
+%We end this chapter by looking at the programs used for inpainting and classification.
 \todo{talk more about the differnt images in relation to steven.}
 
 
-To test the two hypotheses, we first need new datasets to compare against a base case. In addition to the dataset with sparse information and dataset-specific artefacts, we need similar looking datasets without these unwanted features. In an ideal scenario, we would have the same dataset without the features added post-capture. \todo{more}
-We want to do inpainting\todo{more}
+To test the two hypotheses, we first need new datasets to compare against a base case. In addition to the dataset with sparse information and dataset-specific artefacts, we need similar looking datasets without these unwanted features. In an ideal scenario, we would have the same dataset without the features added post-capture. 
 
+When it comes to real machine learning gathering (labelled) data for the training is often a challenging task. In this thesis, we have decided to focus our attention in to modifying existing data instead of finding new data. 
+
+We propose to use unsupervised machine learning to inpaint the areas with dataset specific artefacts as well as sparse areas. We then propose a transfer learning network to classify the newly created images. 
+
+\todo{More here i feel}
 
 
 \section{Design of the inpainting algorithms}
-\todo{we use inpainting as a tool to make the datasets that we need to test the hyps}
- we have multiple hypotheses we want to test to see how it affects the results. We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. 
+We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. 
 
 When generating the datasets, we use the Kvasir dataset as a base exclusively. When using only the Kvasir dataset, we have the CVC sets for testing. This selection of image source was made intentionally to have a fundamentally different test and training set, and the more differences between testing and training set the more of an indication of generalisation. 
 
