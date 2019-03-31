@@ -41,7 +41,7 @@ The work done by Hicks et al. shows that deep learning has great applications wh
 
 In this thesis, we explore these topics. We will look at methods into how to counteract overfitting of medical data, as well as methods in to help to generalise models to better adapt to new unseen datasets.
 
-
+\clearpage
 \section{Problem statement}
 \label{cha:problemstatement}
 Based on the introduction presented in the previous section, we indicate that we still have room for improvement when making computer-aided diagnosis. Based on the previous work done in the research area~\cite{25956}~\cite{25953}, we present the following two hypothesises as a basis for the thesis:
@@ -51,7 +51,7 @@ Based on the introduction presented in the previous section, we indicate that we
 \begin{hyp} \label{hyp:a}
 When classifying images, we will get the best result when we have images with the least amount of sparse information. 
 Hence by removing areas with sparse information,
-we will see an increase in classification performance compared to not removing areas.
+we will see an increase in classification performance compared to not removing the areas.
 \end{hyp}
 
 \noindent
@@ -66,8 +66,13 @@ specific artefacts compared to not removing artefacts.
 \vspace{5px}
 
 
-Our objective in this thesis is to explore the following hypothesises to show their validity, and 
+Our objective in this thesis is to explore the following two hypothesises to show their validity.
 
+The research questions for this thesis are the following:\\
+
+\textit{1. Can inpainting of sparse areas in datasets help with training and classification done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+
+\textit{2. Can inpainting of dataset-specific artefacts help with classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
 
 \section{Scope and Limitations}
 Based on the hypothesises in section \ref{cha:problemstatement}, the scope of the thesis is to check their validity, both each on their own and their validity together with each other. 
