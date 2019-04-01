@@ -20,21 +20,21 @@ As long as the classification is affected by dataset specific artefacts, the abi
 
 \begin{figure}
      \centering
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal1.png}
          \caption{Original image that are classified}
          \label{fig:sal1}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal2.png}
          \caption{Heatmap of the decision}
          \label{fig:sal2}
      \end{subfigure}     
      \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal3.png}
          \caption{Heatmap of the decision}
@@ -46,21 +46,21 @@ As long as the classification is affected by dataset specific artefacts, the abi
 
 \begin{figure}
      \centering
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal4.png}
          \caption{Original image that are classified}
          \label{fig:sal4}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal5.png}
          \caption{Heatmap of the decision}
          \label{fig:sal5}
      \end{subfigure}     
      \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal7.png}
          \caption{Heatmap of the decision}
@@ -89,7 +89,7 @@ We propose to use unsupervised machine learning to inpaint the areas with datase
 
 \todo{More here i feel}
 
-
+\FloatBarrier
 \section{Design of the inpainting algorithms}
 We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. 
 
@@ -117,14 +117,14 @@ Figure \ref{fig:LargeLeftBlack} shows the image class esophagitis. This image sh
          \label{fig:GreenSquareOccluding}
      \end{subfigure}     
      \hfill
-     \begin{subfigure}[b]{0.4\textwidth}
+     \begin{subfigure}[t]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{experiments/figures/noleftframe.jpg}
          \caption{The same image as in Figure \ref{fig:LargeLeftBlack} with the non-relevant information removed}
          \label{fig:LargeLeftBlackFIX}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.4\textwidth}
+     \begin{subfigure}[t]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{experiments/figures/nogreenframe.jpg}
          \caption{The same image as in Figure \ref{fig:GreenSquareOccluding} with the green square inpainted}
@@ -242,6 +242,7 @@ As figure \ref{fig:masks} shows, we use cropped versions when inpainting corners
      \label{fig:masks}
 \end{figure}
 
+\FloatBarrier
 \subsection{summary}
 Here a wrap-up of the IP
 
@@ -491,7 +492,7 @@ From multiple training runs, it seems like just a straight forward encoder-decod
 
 
 
- 
+\FloatBarrier
 \section{Describe code}
 We have, at this point, gone through the goal of our thesis, and shown how we want our result to be generated and evaluated in practice. 
 We will now go more in-depth into the two networks used for generating the new datasets and go in-depth into the model we use for classification.
