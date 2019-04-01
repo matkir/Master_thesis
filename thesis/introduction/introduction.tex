@@ -1,84 +1,57 @@
 \section{Background and Motivation}
 
-\textbf{Topic, challenge, solution}\\
 Cancer is today, the second leading cause of death in the world, only behind cardiovascular diseases.  %TODO CITE
 It is one of the leading causes of mortality worldwide, with approximately 14 million new cases in 2012~\cite{WHOCANCER}.
 %It is defined as a disease that has an abnormal cell growth with the potential to spread into other parts of the body.\cite{WhatIsCancer}
 Contrary to normal cells, cancer cells are often invasive, and it will spread if not treated. 
 In contrast to many other diseases, cancer does not start from a foreign entity (such as a bacteria or virus), but it is often from a malfunctioning cell that starts dividing rapidly. 
-This cell division can happen when a cell is damaged, by for instance by radiation or other factors specific proteins, or other chemicals. The result is that the cell either has damage in the DNA which contributes to abnormal cell division or the cell division itself malfunctions. In both cases the damage causes the cell to divide uncontrollably. 
-Cancer can in some cases form without any external forces. The cell division is not always perfect, and dysfunctional cells might start a rapid division after being born. In most cases, this is not a problem, as most cells self destruct when they cannot operate\todo{cite}. 
+This cell division can happen when a cell is damaged, by for instance radiation or other factors like specific proteins, or other chemicals. The result is that the cell either has damage in the DNA which contributes to abnormal cell division or the cell division itself malfunctions. In both cases the damage causes the cell to divide uncontrollably. 
+Cancer can in some cases form without any external forces. The cell division is not always perfect, and dysfunctional cells might start a rapid division after being created. In most cases, this is not a problem, as most cells self destruct when they cannot operate\todo{cite}. 
 
 Another factor that increases the risk of cancer is age. As we grow older, our body gets more prone to defective cell division and for each imperfect division the chance of getting cancerous cells increases.  
-Our own body is designed to detect and remove cells that are prone to divide uncontrollably. Unfortunately, this system is not perfect, and the immune system can in some cases overlook cells that are cancerous.
+Our own body is designed to detect and remove cells that are prone to divide uncontrollably. Unfortunately, this system is not perfect, and the immune system can in some cases overlook cancerous cells.
 In either external or internal cases, cancer is by definition this uncontrollable multiplication.
 
 
 
 
-\paragraph{Statistics on cancer}
-Since cancer is, in practice, just a cell division error, it has the opportunity to hit anyone, at any age. Because of this, it is a heavily researched area, both in Norway, and the rest of the world.
-In 200X we spent 22Y million dollars worldwide on cancer research. 
-Despite being such a researched area, it is still one of the top causes of human death. 
-Some types of cancer, like \todo{cancer} cancer, is one of the simpler forms of cancer to treat, and at this point, those kind of cancers are non-fatal. 
-\textit{The most common types of cancer in males are lung cancer, prostate cancer, colorectal cancer and stomach cancer~\cite{stewart2014world}.}
+%\paragraph{Statistics on cancer}
+Because cancer can hit anyone, at any age, without any predispositions, it is a heavily researched area, both in Norway, and the rest of the world. Despite being such a researched area, it is still one of the top causes of human death. 
+Some types of cancer, like breast cancer, is one of the simpler forms of cancer to treat, and at this point, those kind of cancers are non-fatal in 78\% of the cases in the United Kingdom~\cite{UKCancer}. 
     
-\paragraph{Colorectal cancer}
+%\paragraph{Colorectal cancer}
 Humans can get cancer in every major organ, but some types of cancer are more common than others.    
-For instance cancer in the gastrointestinal tract (GI) is one of the more common places to get cancer. Colorectal cancer is just behind x as the most common cancer for men, and it has a mortality rate of x in the first y years. %TODO CITE 
-We often call this 5-year survival rate for z. Z is the standard way to measure the life expectancy of a patient diagnosed with cancer. 
+For instance cancer in the gastrointestinal (GI) tract is one of the more common places to get cancer, with around 40000 cases each year in the UK~\cite{UKCancerBowel}. There are around 16,000 bowel cancer deaths in the United Kingdom every year, and it is the 2nd most common cause of cancer-related death, accounting for 10\% of all cancer mortalities.
 
-\paragraph{CAD}
-Earlier projects regarding computer aided diagnosis has shown good results.
+Given the global focus on cancer, research into detection and treatment is highly relevant in modern western society. 
 
+Especially in the realm of detection, the advancement of computer-aided diagnosis (CAD) has helped a lot when it comes to early detection of cancers. In addition to the boom in computing power, machine learning has become prevalent in the past few years, and specifically, deep learning has become a tool in image and video classification both within and outside the medical domain. 
+With machine learning and computer-aided diagnosis, researchers have now the ability to help doctors with the vital task of detecting and classifying anomalies found in medical images and videos.
 
+Earlier projects regarding computer-aided diagnosis have shown promising results, giving doctors new tools when looking for cancer in the GI tract.
 
 EIR - A Medical Multimedia System for Efficient
-Computer Aided Diagnosis by Riegler \todo{cite PhD Michael.}
+Computer Aided Diagnosis by Riegler \todo{Michael: What is the best source to quote and cite here?}
 
-The thesis of Hicks and subsequent publications made by Hicks et al. is the foundation for this thesis. In Hicks's thesis, the author gives an introduction into the 'black box' that is machine learning and tries to decode how the medical images affect the neural network's decisions. 
-The thesis shows how the use of saliency maps can help with the understanding of deep convolutional networks, and it showed how dataset specific artefacts could affect the classification.
+The paper ``Mimir: An Automatic Reporting and Reasoning System for Deep
+Learning based Analysis in the Medical Domain
+'' by Hicks et al. presents a system to both improve the ``black box'' understanding and assist in the administrative duties of writing an examination report, and in summary helping medical staff with computer-aided diagnosis~\cite{25953}. 
 
+The work done by Hicks et al. shows that deep learning has great applications when it comes to computer aided diagnosis, but there is little work into generalising the methods to work on new data. Another problem with deep learning is that the model overfits to the dataset, meaning it learns the internal bias associated with the data provided. 
 
-\iffalse
-%TODO This is going somewhere else
-%TODO This is going somewhere else
-%TODO This is going somewhere else
-%TODO This is going somewhere else
-The paper, x by Hicks et al. show how removing the dataset-specific artefacts referenced in his thesis gave a better accuracy when it came to classifying images from the GI tract.
+In this thesis, we explore these topics. We will look at methods into how to counteract overfitting of medical data, as well as methods in to help to generalise models to better adapt to new unseen datasets.
 
-
-The papers submitted by Pathak et al. and Denton et al. and their work on using Generative Adversarial Networks with regards to inpainting are implemented and improved for this dataset-specific task.
-
-Denton et al. in the paper \textit{SEMI-SUPERVISED LEARNING WITH
-CONTEXT-CONDITIONAL GENERATIVE
-ADVERSARIAL NETWORKS} shows in detail how to use neural networks with an adversarial approach to inpaint areas in images. In their paper, they propose an Encoder-Decoder approach with realistic looking inpaining results.
-
-
-Pathak et al. shows, in the publication \textit{Context Encoders: Feature Learning by Inpainting} a network and results close the work done by Denton et al. Using a similar Encoder-Decoder network as Denton et al. they achieved similar results inpainting areas in images from the Imagenet dataset\todo{refimagenet}
-
-Our work with Generative Adversarial Networks in this thesis has drawn inspiration from both papers and improved the work to better suit the medical image domain.
-\fi
-
-
-\paragraph{Generalisable model is needed}
-Though high score not generalissimo
-
-\paragraph{Our solution to the problem}
-We propose systems to fix this. 
-    
-    
+\clearpage
 \section{Problem statement}
 \label{cha:problemstatement}
-Based on the introduction presented in the previous section, we indicate that we still have room for improvement when making computer-aided diagnosis. 
-Based on the previous work done in the research area, we \todo{more}
+Based on the introduction presented in the previous section, we indicate that we still have room for improvement when making computer-aided diagnosis. Based on the previous work done in the research area~\cite{25956}~\cite{25953}, we present the following two hypothesises as a basis for the thesis:
 
 
 \noindent
 \begin{hyp} \label{hyp:a}
 When classifying images, we will get the best result when we have images with the least amount of sparse information. 
 Hence by removing areas with sparse information,
-we will see an increase in classification performance compared to not removing areas.
+we will see an increase in classification performance compared to not removing the areas.
 \end{hyp}
 
 \noindent
@@ -91,6 +64,20 @@ mode of generalisation of our results when removing the dataset
 specific artefacts compared to not removing artefacts.
 \end{hyp}
 \vspace{5px}
+
+
+Our objective in this thesis is to explore the following two hypothesises to show their validity.
+
+The research questions for this thesis are the following:\\
+
+\textit{1. Can inpainting of sparse areas in datasets help with training and classification done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+
+\textit{2. Can inpainting of dataset-specific artefacts help with classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
+
+\section{Scope and Limitations}
+Based on the hypothesises in section \ref{cha:problemstatement}, the scope of the thesis is to check their validity, both each on their own and their validity together with each other. 
+Both our scope and the problem statement is based on medical images taken from the GI tract, and the goal is to see if the hypothesises can, in the end, help with medical image classification.
+\todo{What do we say about the limitations}
 
 
 \section{Research Method}
@@ -106,7 +93,7 @@ Our work falls partly under all three categories.
 In this thesis, we touch upon the theory behind machine learning. More specifically deep learning and convolutional neural networks. We identify the problems regarding overfitting and the lack of generalisability.
 
 \paragraph{Abstraction}
-The experiments done in this thesis falls under this category. In addition, we have the hypothesises and methodology as part of the abstraction.
+The experiments done in this thesis falls under this category. Also, we have the hypothesises and methodology as part of the abstraction.
 
 \paragraph{Design}
 The thesis, except for the published papers, does not fall as much under design. Though future work would be to implement the system into SAGA\todo{citesaga}, the majority of the work only show the theoretical results. 
@@ -115,47 +102,40 @@ The thesis, except for the published papers, does not fall as much under design.
 
 
 
-\section{Main contributors and related work}
+\section{Main contributors}
+Throughout this thesis we have developed a system for preprocessing data as a tool to help classification. 
+The system can take any mask and recreate the masked area.
 
 
 
-Here we will talk about what we achieved.
-
-
-
-
-
-
-
-
-
-
-
-
-
+The program is supported
 
 \section{Outline}
 The thesis is organised as follows:
 
 \paragraph{Chapter 2: Background}
-We give more background information about medical practice and machine learning.
-We talk about how modern hospitals administer colonoscopies and give insight into how we find polyps and remove them. Here we also present how these hospitals perform (DIGITAL DIAGNOSIS), and the potions that are on the market at the present date. 
-We give an introduction to machine learning and its uses, both the history and present-day applications. We will look at the most successful type of machine learning, and give a brief tour into how it works, and how it can be applied to data.
+We give more background information about the medical practice and machine learning.
+We talk about how modern hospitals administer colonoscopies and give insight into how we find polyps and remove them. Here we also present how these hospitals perform digital diagnosis.  
+We give an introduction to machine learning and its uses, both the history and present-day applications. We will look at the most successful type of machine learning, and give a brief tour into how it works, and how it can be applied to medical data.
+
 We round off this chapter by looking at how machine learning and medical colonoscopy can work together to help with the detection of anomalies in the GI tract.
 
 \paragraph{Chapter 3: Methodology }
-We describe the methodology by presenting the datasets we use in this thesis, the methods used when inpainting images, and the design of the experiments and programs. 
-We will first look at the Kvasir dataset and go into detail about the creation and attributes with the dataset. We will look at the CVC 356 and the CVC 12k dataset and compare them to the Kvasir dataset.
-After discerning the dataset-specific artefacts from the datasets, we look at the options for inpainting the dataset based on the artefacts we want to remove. 
-Lastly, we look into the whole process from preprocessing to classifying.
+We describe the methodology by presenting the work we want to do to test the hypothesises we use in the thesis.
+
+We first look into how we can solve our problems by using inpainting and go into detail into the areas we want to remove to test our problem statements. 
+After this, we describe a system to the validity of our models, followed by technical details on the programming languages and packages used.
+We end the chapter by looking at the two programs we end up with to test our theories. 
 
 
 \paragraph{Chapter 4: Experiments}
-We give a review of the metrics we use to evaluate our results, followed by the results of the inpainting and classification.
+We start by giving a review of the datasets we use to train and evaluate our model, followed by the metrics we use to describe our rate of success.
+We go more in detail into the six datasets we make, and the 78 total runs we take to ensure reliable results.
+We end this chapter by presenting the inpainting datasets and then presenting the evaluation of the datasets.
 
 
 \paragraph{Chapter 5: Conclusion}
- Finally, we summarise and conclude this thesis.
+Finally, we summarise and conclude this thesis.
 We also present ideas and suggestions for further studies surrounding
 the findings in this thesis and present final remarks about the research.
 
