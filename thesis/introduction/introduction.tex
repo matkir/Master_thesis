@@ -8,107 +8,129 @@ In contrast to many other diseases, cancer does not start from a foreign entity 
 This cell division can happen when a cell is damaged, by for instance radiation or other factors like specific proteins, or other chemicals. The result is that the cell either has damage in the DNA which contributes to abnormal cell division or the cell division itself malfunctions. In both cases the damage causes the cell to divide uncontrollably. 
 Cancer can in some cases form without any external forces. The cell division is not always perfect, and dysfunctional cells might start a rapid division after being created. In most cases, this is not a problem, as most cells self destruct when they cannot operate\todo{cite}. 
 
-Another factor that increases the risk of cancer is age. As we grow older, our body gets more prone to defective cell division and for each imperfect division the chance of getting cancerous cells increases.  
+Another factor that increases the risk of cancer is age. As we grow older, our body gets more prone to defective cell division, and for each imperfect division, the chance of getting cancerous cells increases.  
 Our own body is designed to detect and remove cells that are prone to divide uncontrollably. Unfortunately, this system is not perfect, and the immune system can in some cases overlook cancerous cells.
 In either external or internal cases, cancer is by definition this uncontrollable multiplication.
 
 
 
 
-%\paragraph{Statistics on cancer}
-Because cancer can hit anyone, at any age, without any predispositions, it is a heavily researched area, both in Norway, and the rest of the world. Despite being such a researched area, it is still one of the top causes of human death. 
+Because cancer can hit anyone, at any age, without any predispositions, it is a heavily researched area, both in Norway and the rest of the world. Despite being such a researched area, it is still one of the top causes of human death. 
 Some types of cancer, like breast cancer, is one of the simpler forms of cancer to treat, and at this point, those kind of cancers are non-fatal in 78\% of the cases in the United Kingdom~\cite{UKCancer}. 
     
-%\paragraph{Colorectal cancer}
 Humans can get cancer in every major organ, but some types of cancer are more common than others.    
-For instance cancer in the gastrointestinal (GI) tract is one of the more common places to get cancer, with around 40000 cases each year in the UK~\cite{UKCancerBowel}. There are around 16,000 bowel cancer deaths in the United Kingdom every year, and it is the 2nd most common cause of cancer-related death, accounting for 10\% of all cancer mortalities.
+For instance cancer in the gastrointestinal (GI) tract is one of the more common places to get cancer, with around 40,000 cases each year in the UK~\cite{UKCancerBowel}. There are around 16,000 bowel cancer deaths in the United Kingdom every year, and it is the 2nd most common cause of cancer-related death, accounting for 10\% of all cancer mortalities.
 
 Given the global focus on cancer, research into detection and treatment is highly relevant in modern western society. 
+Especially with detection of cancerous areas in the body, the advancement of computer-aided diagnosis (CAD) has helped a lot when it comes to early detection and localisation. In addition to the boom in computing power, machine learning has become prevalent in the past few years, and specifically, deep learning has become a tool in image and video classification both within and outside the medical domain~\cite{NIPS2012_4824,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/HeZRS15,DBLP:journals/corr/SzegedyIV16}. 
+With machine learning and CAD, researchers have now the ability to help doctors with the vital task of detecting and classifying anomalies found in medical images and videos.
 
-Especially in the realm of detection, the advancement of computer-aided diagnosis (CAD) has helped a lot when it comes to early detection of cancers. In addition to the boom in computing power, machine learning has become prevalent in the past few years, and specifically, deep learning has become a tool in image and video classification both within and outside the medical domain. 
-With machine learning and computer-aided diagnosis, researchers have now the ability to help doctors with the vital task of detecting and classifying anomalies found in medical images and videos.
-
-Earlier projects regarding computer-aided diagnosis have shown promising results, giving doctors new tools when looking for cancer in the GI tract.
+Earlier projects regarding CAD have shown promising results, giving doctors new tools when looking for cancer in the GI tract.
 
 EIR - A Medical Multimedia System for Efficient
 Computer Aided Diagnosis by Riegler \todo{Michael: What is the best source to quote and cite here?}
 
-The paper ``Mimir: An Automatic Reporting and Reasoning System for Deep
-Learning based Analysis in the Medical Domain
-'' by Hicks et al. presents a system to both improve the ``black box'' understanding and assist in the administrative duties of writing an examination report, and in summary helping medical staff with computer-aided diagnosis~\cite{25953}. 
+The paper on Mimir by Hicks et al. presents a system to both improve the ``black box'' understanding and assist in the administrative duties of writing an examination report, and in summary helping medical staff with CAD~\cite{25953}. \todo{more}
 
 The work done by Hicks et al. shows that deep learning has great applications when it comes to computer aided diagnosis, but there is little work into generalising the methods to work on new data. Another problem with deep learning is that the model overfits to the dataset, meaning it learns the internal bias associated with the data provided. 
 
 In this thesis, we explore these topics. We will look at methods into how to counteract overfitting of medical data, as well as methods in to help to generalise models to better adapt to new unseen datasets.
 
-\clearpage
+\vspace{5px}
+Pa slutten her, fra EIR og ned, bor du ha med en del mer detaljer og eksempler pa hva som fortsatt er problemer og utfordringer og da sarlig peke pa det som gir motivasjon for din problemstilling - mao du må si litt mer om datasets, hva er problemer osv.
 \section{Problem statement}
 \label{cha:problemstatement}
-Based on the introduction presented in the previous section, we indicate that we still have room for improvement when making computer-aided diagnosis. Based on the previous work done in the research area~\cite{25956}~\cite{25953}, we present the following two hypothesises as a basis for the thesis:
+Based on the motivation presented in the previous section, we believe that we still have room for improvement when making CAD. Based on the previous work done in the research area~\cite{25956}~\cite{25953}, we present the following two hypothesises as a basis for the thesis:
 
 
 \noindent
 \begin{hyp} \label{hyp:a}
-When classifying images, we will get the best result when we have images with the least amount of sparse information. 
-Hence by removing areas with sparse information,
+When classifying images, we will get the best result when we have images with the least amount of sparse information\footnote{Sparse information in the setting of this thesis is images where there are no relevant pixels for the classification, and the area has little to no entropy. A specific example for us is the area around images with RGB values of 0}. 
+Hence, by removing areas with sparse information,
 we will see an increase in classification performance compared to not removing the areas.
 \end{hyp}
+
+\noindent
+\ref{hyp:a} talks about how black or white areas in pictures might create unwanted classification errors, and that by removing those areas might improve the results of the classification. We also mention low entropy areas as part of the hypothesis, though this needs to be tested individually.
 
 \noindent
 and
 
 \noindent 
 \begin{hyp} \label{hyp:b}
-When training a classifier, we will get a higher
-mode of generalisation of our results when removing the dataset
-specific artefacts compared to not removing artefacts.
+When training a classifier, we will get a higher mode of generalisation of our results when removing the dataset-specific artefacts\footnote{Artefacts in the setting of this thesis is parts of images where there are components of the image not containing ´´true pixels'' from the real world. A specific example for us is any overlay put on the medical images, or for instance oversaturated pixels or lens flares} compared to not removing artefacts.
 \end{hyp}
-\vspace{5px}
+
+\noindent
+\ref{hyp:b} talks about pixels that are not originating from the original image, or pixels that do not represent the real sample. We believe that the removal of these dataset specific artefacts, the machine learning algorithm does not learn to take these areas into account when classifying images, and subsequently learns the real features for the dataset, instead of the artificial features created by the artefacts.
 
 
 Our objective in this thesis is to explore the following two hypothesises to show their validity.
 
-The research questions for this thesis are the following:\\
+The hypotheses raise the following questions which we will address:\\
 
-\textit{1. Can inpainting of sparse areas in datasets help with training and classification done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+\textit{1. Can the process of redrawing an area with a new more relevant information, inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
 \textit{2. Can inpainting of dataset-specific artefacts help with classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
+
 
 \section{Scope and Limitations}
 Based on the hypothesises in section \ref{cha:problemstatement}, the scope of the thesis is to check their validity, both each on their own and their validity together with each other. 
 Both our scope and the problem statement is based on medical images taken from the GI tract, and the goal is to see if the hypothesises can, in the end, help with medical image classification.
-\todo{What do we say about the limitations}
+We want to look at the problem statements on three different datasets, all with different attributes, and all forms of inpainting.
+For each of the datasets, we test all three combinations of inpainting with two different inpainting algorithms. 
+For the six created datasets plus the base dataset, we run, two different pretrained transfer learning networks to see the success of the newly created dataset.
+In addition to doing this at the size $256 \times 256$ px we also do all the tests above at double resolution to the validity at larger image sizes.
+
+In total, we make fourteen datasets, and we test the first seven a total of 72 times, and the last seven 36 times. In addition to the base case, we do 111 total tests to check the validity of inpainting.
+
 
 
 \section{Research Method}
 For this thesis, we have decided to use the Association for Computing Machinery's (ACM) methodology for our research. The article ``Computing as a discipline'' presents the discipline of computing into three main categories~\cite{Denning:1989:CD:63238.63239}. 
-\begin{itemize}
-\item Theory
-\item Abstraction
-\item Design
-\end{itemize}
-Our work falls partly under all three categories.
+\subsection{Theory}
+The ´´theory'' part of the article is rooted in mathematics and describes the development of a theory. The article describes the four steps of the theory phase as (1) characterise objects of study (definition), (2) hypothesise
+possible relationships among them (theorem), (3) determine whether the
+relationships are true (proof), and (4) interpret results.\\
 
-\paragraph{Theory}
-In this thesis, we touch upon the theory behind machine learning. More specifically deep learning and convolutional neural networks. We identify the problems regarding overfitting and the lack of generalisability.
-
-\paragraph{Abstraction}
-The experiments done in this thesis falls under this category. Also, we have the hypothesises and methodology as part of the abstraction.
-
-\paragraph{Design}
-The thesis, except for the published papers, does not fall as much under design. Though future work would be to implement the system into SAGA\todo{citesaga}, the majority of the work only show the theoretical results. 
+In this thesis, we touch upon the theory behind machine learning, more specifically deep learning and convolutional neural networks. We identify the problems regarding overfitting and the lack of generalisability.
 
 
+
+\subsection{Abstraction}
+The ``abstraction'' part of the article is rooted in the experimental scientific method and relates to the investigation of the hypothesis. The four stages the investigation is: (1) form a hypothesis, (2) construct a model and make a prediction, (3) design an experiment and collect data, (4) analyse results. \\
+
+The experiments done in this thesis falls under this category. Also, we have the hypothesises ( \ref{hyp:a} \& \ref{hyp:b} ) and methodology as part of the abstraction. Based on the hypothesises presented, we created tests to check their validity, of which we were able to either verify or refute the theory presented.
+
+
+
+\subsection{Design}
+The third part, ``design'', is rooted in engineering
+and consists of four steps followed in the construction
+of a system to solve the given problem: (1) state requirements, (2) state specifications, (3) design and implement the system, (4) test the system. \\
+
+This paradigm was supported by the finished system able to inpaint images to improve classification accuracy. This system was extensively used throughout the thesis to conduct a plethora of experiments.
 
 
 
 \section{Main contributors}
 Throughout this thesis we have developed a system for preprocessing data as a tool to help classification. 
-The system can take any mask and recreate the masked area.
+The system can take any mask and recreate the masked area, and can be used both in the removal of dataset spessific artefacts as well as a general tool for inpainting. 
+
+In section \ref{cha:problemstatement} we outlined two main questions based on \ref{hyp:a} \& \ref{hyp:b}, that we are able to answer:
+\begin{enumerate}
 
 
+\item \textit{Can the process of redrawing an area with a new more relevant information, inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
-The program is supported
+Maybe, but probably not. From our tests we see no noticeable difference when we train and test on the same dataset. We do see improvement for both models when testing on a new dataset, \todo{finish this }
+
+\item \textit{Can inpainting of dataset-specific artefacts help with classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+Yes, lorem ibsum
+
+
+\end{enumerate}
+
 
 \section{Outline}
 The thesis is organised as follows:

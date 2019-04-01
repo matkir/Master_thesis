@@ -2907,7 +2907,7 @@ For the Kvasir dataset, we do not expect the same result as we would for a datas
 For the CVC 12k dataset we see the most significant change when we removed sparse areas as opposed to removing dataset specific artefacts. As the MCC rose with 0.08 for both the datasets and no others, it seems like removing dataset specific artefacts does not always give the best results.
 
 
-\begin{table}[h]
+\begin{table}[h!]
 \centering
 \caption*{\small 
 \textbf{I}: Base Case. 
@@ -2975,6 +2975,8 @@ VII               & 0.2105 & 0.3713 & 0.6182 & 0.5937 & 0.3733\\
 Did i take the step i wanted was it just a state of mind i feel sorry for my self every time i close my eyes and i fall in to a hole and i can take no more and i fall in to a hole and i can take no more and i fall in to a hole and i can take no more and i fall in to a hole and i can take no more.
 
 
+
+
 \section{Classification results based on the InceptionResnetV2 model}
 \Cref{tab:summary_CVC356_IRV2,tab:summary_KVASIR_IRV2,tab:summary_CVC12k_IRV2} shows the summary of the results gathered from the IRV2 model.
 For the CVC 256 dataset, we can see the same considerable improvement when inpainting the dataset-specific artefacts. We see that we can, with this model, double the MCC score with the GAN dataset.
@@ -2987,7 +2989,7 @@ The Kvasir dataset shows minimal to no improvement. We can conclude that, when u
 For the CVC 12k dataset every model shows improvement compared to the base case, with the highest score for the GAN removing dataset specific features. Though all the scores are low compared to the CVC 356 dataset, we can get double MCC when using inpainting.
 
 
-\begin{table}[h]
+\begin{table}[h!]
 \centering
 \caption*{\small 
 \textbf{I}: Base Case. 
@@ -3054,13 +3056,13 @@ VII               & 0.2305 & 0.5819 & 0.6498 & 0.5887 & 0.6802\\
 
 
 \section{Classification results based on the Densenet model at double size}
-In addition to the two models tested with the generated dataset we also looked at what would happen at larger resolutions. We made the same datasets as in the previous section but at twice the size. The results can be found in table \ref{tab:I}.
+In addition to the two models tested with the generated dataset we also looked at what would happen at larger resolutions. We made the same datasets as in the previous section but at twice the size. The results can be found in table \ref{tab:summary_CVC12k_DN121512px}.
 
 We can see from this summary that the results seems to keep the same trend at the larger size.
 It is important to not that the image quality is harder to maintain at double size.
 
 
-\begin{table}[h]
+\begin{table}[h!]
 \centering
 \caption*{\small 
 \textbf{I}: Base Case. 
@@ -3125,10 +3127,41 @@ VII               & v0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\
 \label{tab:summary_CVC12k_DN121512px}
 \end{table}
 
+\iffalse
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.3]
+\begin{axis}[ybar,
+			 ymax=1,
+			 ymin=0,
+			 %x tick label style={/pgf/number format/1000 sep=},
+			 xtick=data,			 
+			 ylabel=MCC,
+			 enlarge x limits=0.20,
+			 %legend style={at={(0.5,-0.15)},anchor=north,legend columns=-1},
+			 legend cell align=left,
+        	 legend style={at={(1,1.05)},anchor=south east,column sep=1ex},
+			 symbolic x coords={Corner,Square,Both},
+			 bar width=18pt,
+			 nodes near coords,
+			 nodes near coords align={vertical},
+			 extra y ticks = 0.4244,
+        	 extra y tick labels={},
+        	 extra y tick style={grid=major,major grid style={thick,draw=black}}
+			]
 
- 
+\addplot [style={enicegreen,fill=nicegreen}] coordinates {(Corner,0.5630) (Square,0.6072) (Both,0.4462) };
+\addplot [style={eniceblue,fill=niceblue}] coordinates {(Corner,0.3184) (Square,0.7100) (Both,0.7483) };
+\legend{AE,GAN}
+\addlegendimage{my legend}
+\addlegendentry{Base Case}
 
-
+\end{axis}
+\end{tikzpicture}
+\caption{Visiulisation of the CVC356 results}
+\label{bar:cvc356}
+\end{figure}
+\fi
 
 \section{summary}
 
@@ -3136,6 +3169,249 @@ VII               & v0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\
 Here we desicuss the summary of both the inpainting an the calssifiaction bringing it all together and brag aboutthe high MCC
 Well done Mathias
 
+
+
+\begin{figure}[h]	
+	\tiny
+	\begin{subfigure}[t]{0.49\textwidth}
+	\centering
+	\resizebox{\textwidth}{\textwidth}{	
+	\begin{tikzpicture}[scale=1]
+	\begin{axis}[ybar,
+				 ymax=1,
+				 ymin=0,
+				 %x tick label style={/pgf/number format/1000 sep=},
+				 xtick=data,			 
+				 %ylabel=MCC,
+				 enlarge x limits=0.20,
+				 %legend style={at={(0.5,-0.15)},anchor=north,legend columns=-1},
+				 legend cell align=left,
+	        	 legend style={at={(1,1.05)},anchor=south east,column sep=1ex},
+				 symbolic x coords={Corner,Square,Both},
+				 bar width=18pt,
+				 nodes near coords,
+				 nodes near coords align={vertical},
+				 extra y ticks = 0.4244,
+	        	 extra y tick labels={},
+	        	 extra y tick style={grid=major,major grid style={thick,draw=black}}
+				]
+	
+	\addplot [style={enicegreen,fill=nicegreen}] coordinates {(Corner,0.5630) (Square,0.6072) (Both,0.4462) };
+	\addplot [style={eniceblue,fill=niceblue}] coordinates {(Corner,0.3184) (Square,0.7100) (Both,0.7483) };
+	\legend{AE,GAN}
+	\addlegendimage{my legend}
+	\addlegendentry{Base Case}
+	
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\caption{CVC356 with DN121}
+	\label{bar:cvc356_DN121}
+	\end{subfigure}
+\qquad
+	\begin{subfigure}[t]{0.49\textwidth}
+	\centering
+	\resizebox{\textwidth}{\textwidth}{
+	\begin{tikzpicture}[scale=1]
+	\begin{axis}[ybar,
+				 ymax=1,
+				 ymin=0,
+				 %x tick label style={/pgf/number format/1000 sep=},
+				 xtick=data,			 
+				 %ylabel=MCC,
+				 enlarge x limits=0.20,
+				 %legend style={at={(0.5,-0.15)},anchor=north,legend columns=-1},
+				 legend cell align=left,
+	        	 legend style={at={(1,1.05)},anchor=south east,column sep=1ex},
+				 symbolic x coords={Corner,Square,Both},
+				 bar width=18pt,
+				 nodes near coords,
+				 nodes near coords align={vertical},
+				 extra y ticks = 0.2004,
+	        	 extra y tick labels={},
+	        	 extra y tick style={grid=major,major grid style={thick,draw=black}}
+				]
+	
+	\addplot [style={eniceyellow,fill=niceyellow}] coordinates {(Corner,0.0200) (Square,0.4026) (Both,0.2590) }; 
+	\addplot [style={enicered,fill=nicered}] coordinates {(Corner,0.2005) (Square,0.5708) (Both,0.0505) };
+	\legend{AE,GAN}
+	\addlegendimage{my legend}
+	\addlegendentry{Base Case}
+	
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\caption{CVC356 with IRV2}
+	\label{bar:cvc356_IRV2}
+	\end{subfigure}
+	\caption{Visualisation of the CVC356 dataset MCC values made by both Densenet121 and InceptionresnetV2}
+	\label{bar:cvc356}
+\end{figure}
+
+Figure \ref{bar:cvc356}
+fsedw
+werg
+egr
+egre
+g
+re
+gre
+
+
+\begin{figure}[h]	
+	\tiny
+	\begin{subfigure}[t]{0.49\textwidth}
+	\centering
+	\resizebox{\textwidth}{\textwidth}{	
+	\begin{tikzpicture}[scale=1]
+	\begin{axis}[ybar,
+				 ymax=1,
+				 ymin=0,
+				 %x tick label style={/pgf/number format/1000 sep=},
+				 xtick=data,			 
+				 %ylabel=MCC,
+				 enlarge x limits=0.20,
+				 %legend style={at={(0.5,-0.15)},anchor=north,legend columns=-1},
+				 legend cell align=left,
+	        	 legend style={at={(1,1.05)},anchor=south east,column sep=1ex},
+				 symbolic x coords={Corner,Square,Both},
+				 bar width=18pt,
+				 nodes near coords,
+				 nodes near coords align={vertical},
+				 extra y ticks = 0.9140,
+	        	 extra y tick labels={},
+	        	 extra y tick style={grid=major,major grid style={thick,draw=black}}
+				]
+	
+	\addplot [style={enicegreen,fill=nicegreen}] coordinates {(Corner,0.9226) (Square,0.9158) (Both,0.9097) };
+	\addplot [style={eniceblue,fill=niceblue}] coordinates {(Corner,0.9140) (Square,0.9116) (Both,0.9192) };
+	\legend{AE,GAN}
+	\addlegendimage{my legend}
+	\addlegendentry{Base Case}
+	
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\caption{Kvasir with DN121}
+	\label{bar:kvasir_DN}
+	\end{subfigure}
+\qquad
+	\begin{subfigure}[t]{0.49\textwidth}
+	\centering
+	\resizebox{\textwidth}{\textwidth}{
+	\begin{tikzpicture}[scale=1]
+	\begin{axis}[ybar,
+				 ymax=1,
+				 ymin=0,
+				 %x tick label style={/pgf/number format/1000 sep=},
+				 xtick=data,			 
+				 %ylabel=MCC,
+				 enlarge x limits=0.20,
+				 %legend style={at={(0.5,-0.15)},anchor=north,legend columns=-1},
+				 legend cell align=left,
+	        	 legend style={at={(1,1.05)},anchor=south east,column sep=1ex},
+				 symbolic x coords={Corner,Square,Both},
+				 bar width=18pt,
+				 nodes near coords,
+				 nodes near coords align={vertical},
+				 extra y ticks = 0.8900,
+	        	 extra y tick labels={},
+	        	 extra y tick style={grid=major,major grid style={thick,draw=black}}
+				]
+	
+	\addplot [style={eniceyellow,fill=niceyellow}] coordinates {(Corner,0.8913) (Square,0.8670) (Both,0.9017) }; 
+	\addplot [style={enicered,fill=nicered}] coordinates {(Corner,0.8927) (Square,0.8888) (Both,0.8718) };
+	\legend{AE,GAN}
+	\addlegendimage{my legend}
+	\addlegendentry{Base Case}
+	
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\caption{Kvasir with IRV2}
+	\label{bar:kvasir_DN}
+	\end{subfigure}
+	\caption{Visualisation of the Kvasir dataset MCC values made by both Densenet121 and InceptionresnetV2}
+	\label{bar:kvasir}
+\end{figure}
+
+
+\begin{figure}[h]	
+	\tiny
+	\begin{subfigure}[t]{0.49\textwidth}
+	\centering
+	\resizebox{\textwidth}{\textwidth}{	
+	\begin{tikzpicture}[scale=1]
+	\begin{axis}[ybar,
+				 ymax=1,
+				 ymin=0,
+				 %x tick label style={/pgf/number format/1000 sep=},
+				 xtick=data,			 
+				 %ylabel=MCC,
+				 enlarge x limits=0.20,
+				 %legend style={at={(0.5,-0.15)},anchor=north,legend columns=-1},
+				 legend cell align=left,
+	        	 legend style={at={(1,1.05)},anchor=south east,column sep=1ex},
+				 symbolic x coords={Corner,Square,Both},
+				 bar width=18pt,
+				 nodes near coords,
+				 nodes near coords align={vertical},
+				 extra y ticks = 0.2435,
+	        	 extra y tick labels={},
+	        	 extra y tick style={grid=major,major grid style={thick,draw=black}}
+				]
+	
+	\addplot [style={enicegreen,fill=nicegreen}] coordinates {(Corner,0.2867) (Square,0.2029) (Both,0.2105) };
+	\addplot [style={eniceblue,fill=niceblue}] coordinates {(Corner,0.2842) (Square,0.2275) (Both,0.2005) };
+	\legend{AE,GAN}
+	\addlegendimage{my legend}
+	\addlegendentry{Base Case}
+	
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\caption{CVC 12k with DN121}
+	\label{bar:cvc12k_DN}
+	\end{subfigure}
+\qquad
+	\begin{subfigure}[t]{0.49\textwidth}
+	\centering
+	\resizebox{\textwidth}{\textwidth}{
+	\begin{tikzpicture}[scale=1]
+	\begin{axis}[ybar,
+				 ymax=1,
+				 ymin=0,
+				 %x tick label style={/pgf/number format/1000 sep=},
+				 xtick=data,			 
+				 %ylabel=MCC,
+				 enlarge x limits=0.20,
+				 %legend style={at={(0.5,-0.15)},anchor=north,legend columns=-1},
+				 legend cell align=left,
+	        	 legend style={at={(1,1.05)},anchor=south east,column sep=1ex},
+				 symbolic x coords={Corner,Square,Both},
+				 bar width=18pt,
+				 nodes near coords,
+				 nodes near coords align={vertical},
+				 extra y ticks = 0.0791,
+	        	 extra y tick labels={},
+	        	 extra y tick style={grid=major,major grid style={thick,draw=black}}
+				]
+	
+	\addplot [style={eniceyellow,fill=niceyellow}] coordinates {(Corner,0.1049) (Square,0.2488) (Both,0.2305) }; 
+	\addplot [style={enicered,fill=nicered}] coordinates {(Corner,0.3152) (Square,0.1788) (Both,0.1574) };
+	\legend{AE,GAN}
+	\addlegendimage{my legend}
+	\addlegendentry{Base Case}
+	
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\caption{CVC 12k with IRV2}
+	\label{bar:cvc12k_DN}
+	\end{subfigure}
+	\caption{Visualisation of the CVC 12k MCC values made by both Densenet121 and InceptionresnetV2}
+	\label{bar:cvc12k}
+\end{figure}
 
 
 

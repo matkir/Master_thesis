@@ -36,6 +36,7 @@
 \usepackage{blkarray}
 \usepackage{pdfpages}
 \usepackage{listing}
+\usepackage{pgfplots}
 
 
 
@@ -46,6 +47,17 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 \definecolor{LightGray}{gray}{0.9}
 \definecolor{DarkGray}{gray}{0.1}
+
+\definecolor{nicegreen}{HTML}{D5E8D4}
+\definecolor{nicered}{HTML}{F8CECC}
+\definecolor{niceblue}{HTML}{E1D5E7}
+\definecolor{niceyellow}{HTML}{FFF2CC}
+
+\definecolor{enicegreen}{HTML}{82B366}
+\definecolor{enicered}{HTML}{B85450}
+\definecolor{eniceblue}{HTML}{9673A6}
+\definecolor{eniceyellow}{HTML}{D6B656}
+
 
 
 %For the code
@@ -106,6 +118,24 @@ headpunct=:
 
 
 
+%%%%%%%% TICKZ stuff
+\usetikzlibrary{patterns}
+\pgfplotsset{
+/pgfplots/my legend/.style={
+legend image code/.code={
+\draw[thick,black](-0.05cm,0cm) -- (0.3cm,0cm);%
+   }
+  }
+}
+\usetikzlibrary{patterns}
+\pgfplotsset{
+/pgfplots/my legendr/.style={
+legend image code/.code={
+\draw[thick,red](-0.05cm,0cm) -- (0.3cm,0cm);%
+   }
+  }
+}
+
 
 
 
@@ -116,7 +146,7 @@ headpunct=:
 
 \title{how about that unsupervised learning?}
 %\subtitle{}
-\author{Mathias Kirkerod}
+\author{Mathias Kirker{\o}d}
 
 
 \begin{document}
