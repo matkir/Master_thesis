@@ -1,4 +1,4 @@
-In the previous chapter, we described our methodology. We presented the framework we used for our setup, and we went into detail on the configuration of the experiments, and the project as a whole describing both the masking and the neural networks. 
+In the previous chapter, we described our methodology and our system for performing inpainting to improve the input data. We presented the framework we used for our setup, and we went into detail on the configuration of the experiments, and the project as a whole describing both the masking and the neural networks. 
 In this chapter, we will start with the description of the datasets used on the results and the metrics chosen as a reference point for the evaluation of our results. 
 Finally, for each model, we will evaluate it for the datasets we have presented.
 
@@ -7,21 +7,21 @@ To show and explain the experiments, we need to look at the datasets we have to 
 In this thesis, we primarily use three datasets to train and evaluate our results. Here we will look at the different datasets. We will comment on similarities and differences. 
 
 
-\paragraph{kvasir}
-Kvasir is a Multi-Class Image Dataset for Computer Aided Gastrointestinal Disease Detection made in Norway. The data is gathered from the Vestre Viken Health Trust, and it contains not only polyps but also two other findings, two classes related to polyp removal and three anatomical landmarks in the GI tract.
+\subsection{Kvasir}
+Kvasir~\cite{Pogorelov:2017:KMI:3083187.3083212} is a Multi-Class Image Dataset for Computer Aided Gastrointestinal Disease Detection made in Norway. The data is gathered from the Vestre Viken Health Trust, and it contains not only polyps but also two other findings, two classes related to polyp removal and three anatomical landmarks in the GI tract.
 The dataset contains the eight classes mentioned above with 1000 samples for each of them.  In the Kvasir dataset, we have primarily two dataset specific artefacts and one artefact often seen in colonoscopy images. The first two artefacts are text and the green box in the lower left corner. The last artefact is the rounded edges; this kind of frame is a shared feature between all three datasets.
 Over 60\% of the dataset contains images with text, and text is represented in all classes. The text is located on the left side of the images, and it is always white.
 The green square is present in 38\% of the images but only in 5 of the classes. Figure \ref{fig:Kvasir} shows a sample with images from each class. The classes with images containing green squares are also the same images that contain green squares in the figure.
 As we can see in Figure \ref{fig:Kvasir} all images got the rounded corners.
 
 
-\paragraph{CVC 356}
+\subsection{CVC 356}
 CVC 356 dataset is an publicly available dataset
 
  
 
 
-\paragraph{CVC 12k}
+\subsection{CVC 12k}
 
 
 
@@ -241,11 +241,10 @@ In our testing we split the dataset up in k=6 folds. This means that we split ou
 
 The advantage of this method is that we maximise the utility of the dataset. We find the distribution of the dataset that hopefully covers the most significant range of the unseen data. 
 
-\subsection{Presentation of data, confusion matrix}
+\subsection{The confusion matrix}
 With k-fold cross-validation, we end up with the dataset that scored the highest during the final validation step.  There are multiple ways to calculate metrics for how well a dataset is doing,  but they all are a comparison of the predicted class versus the true class.  
-%A:dyed-lifted-polyps , B:dyed-resection-margins , C:esophagitis , D:normal-cecum , E:normal-pylorus , F:normal-z-line , G:polyps , H:ulcerative-colitis , I:non-polyp
 
-Take for instance the case with the 8-class dataset Kvasir, where we predict an image to be normal-cecum. We translate this to an integer representation of, for instance, class 3. In our example the actual True class is normal-z-line, here represented as 5. 
+Take for instance the case with the 8-class dataset Kvasir, where we predict an image to be normal-cecum. We translate this to an integer representation of, for instance, class 3. In our example, the actual True class is normal-z-line, here represented as 5. 
 
 We can represent this as 
 \[
@@ -256,8 +255,8 @@ We can represent this as
 Storing value pairs like this can very quickly get cluttered and unorganised.
 The most common way to store these value pairs is to use a confusion matrix.  We initiate the matrix as a \textit{$N \times N$} matrix where N is the total number of classes as shown in Figure \ref{mat:emptyCM}
 
-\begin{figure}
-	\myfontsize
+\begin{figure}[h]
+    \myfontsize
     \centering
     \[
     \begin{bmatrix}
@@ -277,12 +276,12 @@ The most common way to store these value pairs is to use a confusion matrix.  We
 
 
 
-After we have initialised the confusion matrix, we add each value pair as to the matrix at is corresponding position.  
+After we have initialised the confusion matrix, we add each value pair as to the matrix at its corresponding position.  
 Given the pair $\begin{bmatrix} 3 & 5 \end{bmatrix}$ we add one to the position corresponding to (x=3,y=5). 
- Another example could be given the pair where we guessed class 0 and the true class was 0:  $\begin{bmatrix}  0 & 0 \end{bmatrix}$, we add one to the matrix at position (x=0,y=0). Witch 2 examples we get the following confusion matrix shown in Figure \ref{mat:nonemptyCM}
+ Another example could be given the pair where we guessed class 0 and the true class was 0:  $\begin{bmatrix}  0 & 0 \end{bmatrix}$, we add one to the matrix at position (x=0,y=0). With the two examples we get the following confusion matrix as shown in Figure \ref{mat:nonemptyCM}
 
-\begin{figure}
-	\myfontsize
+\begin{figure}[h]
+    \myfontsize
     \centering
     \[
     \begin{bmatrix}
@@ -300,9 +299,9 @@ Given the pair $\begin{bmatrix} 3 & 5 \end{bmatrix}$ we add one to the position 
     \label{mat:nonemptyCM}
 \end{figure}
 
-As we fill in the matrix with more predictions we can start to draw conclusions from it. After approximately 1600 evaluations, our result might at the end look like this.
-\begin{figure}
-	\myfontsize
+As we fill in the matrix with more predictions, we can start to infer properties of the classifier. After approximately 1600 evaluations, our result might at the end look like this.
+\begin{figure}[h]
+    \myfontsize
     \centering
     \[
     \begin{bmatrix}

@@ -1,5 +1,5 @@
 With our background in both medical background and machine learning, we can now look at how we want to solve the problems associated with setting up a system for medical diagnosis.  
-We first get a birds-eye view of the objective of this thesis, looking at the hypothesises behind this thesis, and take a look into how we can test the proposed hypothesises. We look at the proposed program setup to test the hypothesises both for classification and generation.
+We will first get a birds-eye view of the objective of this thesis, looking at the hypothesises behind this thesis, and take a look into how we can test the proposed hypothesises. We look at the proposed program setup to test the hypothesises both for classification and generation.
 Then we look at the language and packages suitable for this project. We go in-depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
 
 %Then we look at the setup of the complete program. Here we will go in-depth into both the different preprocessing algorithms, and take a look at the transfer learning network used during classifying.
@@ -205,7 +205,7 @@ When training we need images that are already inpainted as a reference point. We
 By removing the corners, we have an image where we know the whole ground truth, and the data is coming from the right distribution.
 As figure \ref{fig:masks} shows, we use cropped versions when inpainting corners, and we use images without the green square when inpainting the left corner.
 
-\begin{figure}[h!]
+\begin{figure}[h]
      \centering
      \begin{subfigure}[t]{0.4\textwidth}
          \centering
