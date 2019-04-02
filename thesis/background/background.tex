@@ -4,24 +4,31 @@ After this, we then look at what the objective is for the medical staff, with di
 
 After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can ``learn'' and discuss different areas we can use and the areas we are using machine learning today. We will then go in depth into the examples and look at the most common machine learning models. We will look at the most state of the art form of machine learning, namely neural networks, and look into the most frequent use case of this type of algorithm.
 With this in mind, we will look at neural networks, especially convolutional neural networks, and how they work.
-
 Lastly, we will combine the need for computer-aided diagnosis with machine learning, looking at where previous models fall short and why that is the case.
 
 \section{The Medical Background}
 As we recall from the introduction, our motivation for this thesis is in the improvement of medical diagnosis with the help of machine learning. 
 We talked about existing methods for screening developed to work with datasets retried from the medical professionals. 
 Before we look into the CAD procedures that are in use today, we need to go more in-depth into the capture of the medical images.
+Medical images can be classified in to multiple categories, 
 
 
 \subsection{Endoscopy and Colonoscopy}
-The most common procedure for identifying abnormalities in the GI tract is by colonoscopy.  \todo{more}
-
 Gastrointestinal endoscopies are one of the most common medical examinations where the mucosa of the patient is visualised via a camera through the whole of the GI tract~\cite{Holme13}.
 Today the medical staff working with the visual screening of the intestinal tract use primarily two different methods: colonoscopy and gastroscopy. 
 Colonoscopy is the practice of inserting a colonoscope into the rectum and moving through the large intestine towards the small intestine.  Gastroscopy is the practice of inserting a camera via the mouth to get a visualisation through the stomach.
 
 The endoscopic tool used for this visualisation is made out of a flexible tube with a charged coupled device (CCD) working as a camera at the end. In addition to the light sensing chip, there is also an optical fibre to transport light to the camera. At the other end, the colonoscope is connected to a device that records the video, and a light source for the optical fibre. The video from the CCD is shown live for the medical staff for the doctors to analyse~\cite{Colonoscope}.
 
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.4]{background/figures/Stomach_colon_rectum_diagram.png}
+	\caption{Diagram of the human GI tract}
+	\label{fig:HumanGI} 
+\end{figure}
+%\footnote{\url{https://commons.wikimedia.org/wiki/File:Stomach_colon_rectum_diagram-en.svg}}
 
 \subsection{Summary}
 We have now looked at the medical perspective of colonoscopy. We see that the practice has not changed since the introduction of the colonoscope and that the best chance of detection is manually looking at images by professional medical staff. We have also taken a look into the automatic detection methods being experimented with today.
@@ -44,7 +51,7 @@ During the colonoscopy, the medical staff uses digital imaging for the inspectio
 
 \section{Machine Learning}
 We have looked at the challenges that the medical staff has when it comes to detecting polyps, and how it is solved today.
-However, to truly understand how automated systems like Mirmir~\cite{Steven2018MimirPaper} \todo{is this going to become talked about at this point} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are after.  
+However, to truly understand how automated systems like Mirmir~\cite{Steven2018MimirPaper} \todo{is this going to become talked about at this point} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are searching for.  
 
 Machine learning is a broad term, but we summarise it with the quote from  Tom M. Mitchell in his machine learning book from 1997~\cite{MitchellTomM1997Ml}:\\
 \vspace{10px}
@@ -61,7 +68,8 @@ A few things of note from this quote is the variables mentioned in the quote. Ex
 Lastly, to tell how well our program performs we need a measure P that tells us how far away from the desired output we got.
    
 From this, we see that the goal of machine learning is to improve some performance P with experience. This behaviour is a mimicry of human learning, where we as humans need to practice on a task to improve on it.
-As the amount of experience increase, both for us and the machine, the performance of the task becomes better and better. With this in mind, we can assume that\todo{Strong assumption,fix}, given the right amount and type of data, our machine learning algorithms can solve any problems humans can solve, given both the right training environment and a way to train, given the environment.
+As the amount of experience increase, both for us and the machine, the performance of the task becomes better and better. We have seen that machine learning algorithms have become superior at solving some human tasks~\cite{silver2016mastering,OpenAI_dota,DBLP:journals/corr/HeZRS15}, given enough time and computing power. 
+Projects like Aplha GO and OpenAI Five shows that, given the right amount and type of data, our machine learning algorithms can solve the same problems humans solve, given both the right training environment and enough time.
 
 Until now, we have talked about machine learning in broad terms at this point. We have drawn a parallel between how humans learn, and how machines gather experience.  Now, we will look into the most popular machine learning techniques, and show the machine learning algorithms store the experience gathered.
  
@@ -82,7 +90,7 @@ We will now present the three methods briefly. Then we will look at famous examp
 
 \subsubsection{Supervised machine learning}
 Supervised machine learning concerns the iterative process of labelling data based on previously labelled data.  Supervised machine learning functions have the objective of, given an input-output pair, approximate the input to be as close to the output.~\cite{AI:ModernApproach} Alternatively, in simplistic terms, given an input x, produce an answer as close as possible to the output y.
-A supervised algorithm analyses the training data and produces an inferred function, which can be used to map new data entries. 
+A supervised algorithm analyses the training data and produces an inferred function, which can be used to map new data entries. The two most common types of Supervised learning is shown in Figure \ref{fig:supervised_learning}.
 
 
 Examples of supervised tasks are to recognise handwritten numbers, or differentiate between different car models. We consider a task supervised if the images come with the correct label in the data set. 
@@ -96,69 +104,71 @@ A more straightforward classification assignment is binary classification, where
   
 \begin{figure}
      \centering
-     \begin{subfigure}[b]{0.34\textwidth}
+     \begin{subfigure}[t]{0.34\textwidth}
          \centering
          \includegraphics[width=\textwidth]{background/figures/supervised_classification.png}
-         \caption{Example of an supervised classification}
+         \caption{Supervised classification}
          \label{fig:supervised_calssification}
      \end{subfigure}
      \hspace{15px}
-     \begin{subfigure}[b]{0.34\textwidth}
+     \begin{subfigure}[t]{0.34\textwidth}
          \centering
          \includegraphics[width=\textwidth]{background/figures/supervised_regression.png}
-         \caption{Example of an supervised regression}
+         \caption{Supervised regression}
          \label{fig:supervised_regression}
      \end{subfigure}
-        \caption{The two most common use cases for supervised learning}
+        \caption{Examples of the two most common use cases for supervised learning}
         \label{fig:supervised_learning}
 \end{figure}
 
-
+\FloatBarrier
 \subsubsection{Unsupervised machine learning}
-Unsupervised learning is the act of training without any supervision, in the sense that we do not give the algorithm the next output to the given input as we do in supervised learning. 
+Unsupervised learning is the act of training without any supervision, in the sense that we do not give the algorithm the next output to the given input as we do in supervised learning. Figure \ref{fig:unsupervised_learning} shows a simplified concept of unsupervised learning.
 Since we do not have categorised data in unsupervised learning, we often want the algorithms to find some underlying structure of the data, rather than classifying it.
 Types of unsupervised learning can, for instance, be clustering, the act of sorting data based on similarity or it can be dimensionality reduction, the act of simplifying or compress the data.
 
 An example of this can be if we want to sort plants based on similarity, or we are detecting anomalies in a dataset. We often use unsupervised learning for principal component analysis (PCA)~\cite{doi:10.1080/14786440109462720} or other dimensionality reduction methods.
 A third method to used unsupervised learning is the adversarial route, where we use machine learning to make similar looking data to the original data set. 
-        
-%\begin{figure}
-%    \centering
-%    \includegraphics[scale=0.5]{figures/cluster_pca.png}
-%    \caption{The two main areas of unsupervised learning. \\ Left: Example of binary clustering. Right: Example of principal component analysis} 
-%\end{figure}
 
- \begin{figure}
+ \begin{figure}[h]
      \centering
-     \begin{subfigure}[b]{0.359\textwidth}
+     \begin{subfigure}[t]{0.337\textwidth}
          \centering
          \includegraphics[width=\textwidth]{background/figures/unsupervised_clustering.png}
-         \caption{Example of an unsupervised clustering}
-         \label{fig:supervised_calssification}
+         \caption{Unsupervised clustering}
+         \label{fig:unsupervised_clustering}
      \end{subfigure}
      \hspace{15px}
-     \begin{subfigure}[b]{0.34\textwidth}
+     \begin{subfigure}[t]{0.34\textwidth}
          \centering
          \includegraphics[width=\textwidth]{background/figures/unsupervised_PCA.png}
-         \caption{Example of an unsupervised dimensionality reduction}
-         \label{fig:supervised_regression}
+         \caption{Unsupervised dimensionality reduction}
+         \label{fig:unsupervised_PCA}
      \end{subfigure}
-        \caption{The two most common use cases for supervised learning}
-        \label{fig:supervised_learning}
+        \caption{Examples of the two most common use cases for unsupervised learning}
+        \label{fig:unsupervised_learning}
 \end{figure}
       
 
-      
+\FloatBarrier
 \subsubsection{Reinforcement learning}
 Reinforcement learning is the area in machine learning that is concerned with how a software agent ought to take actions.
-The agent bases its actions on the environment, and it is influenced by an objective to get the maximum reward.
+The agent bases its actions on the environment, and it is influenced by an objective to get the maximum reward, as illustrated in Figure \ref{fig:reinforcement_learning}.
 It is closely influenced by behaviourism, with the fact that the agent wants to maximise the reward obtained continually. 
 
 Successful types of reinforcement learning alogrithms are, for instance, Deep Recurrent Q-Learning~\cite{DBLP:journals/corr/HausknechtS15}, State–action–reward–state–action (SARSA)~\cite{Rummery94on-lineq-learning}.
+\FloatBarrier
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=0.34\textwidth]{background/figures/reinforcement_learning.png}
+        \caption{The basic structure of reinforcement learning}
+        \label{fig:reinforcement_learning}
+\end{figure}
 
 %Reinforcement learning algorithms like these cannot be categorised under either supervised or unsupervised machine learning. \todo{more?}
 
-
+\FloatBarrier
 \subsubsection{Well known machine learning algorithms}
 Now that we have a basis on the three types of machine learning we can go into more detail on the most successful types of machine learning used both now and in the past. 
 Machine learning was coined as a term as early as in the 1950s by Alan Turing. The first concept was related to the Turing machine and is now considered a foreshadowing of genetic algorithms.~\cite{10.1093/mind/LIX.236.433}
@@ -507,8 +517,7 @@ Training deep neural networks can often be complicated with the fact that the di
 We refer to this problem as internal covariate shift, and we use normalisation as a tool to correct for it~\cite{DBLP:journals/corr/IoffeS15}.
 
 The most common way to normalise the data is to use batch normalisation. When calculating the batch normalisation, we take the following steps presented in S. Ioffe and C. Szegedy publication: ``Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift''~\cite{DBLP:journals/corr/IoffeS15}.
-
-\clearpage
+\vspace{5px}
 \noindent \textbf{Input:} Values of x over a mini-batch: $\mathcal{B} = \{x1...m\}$;\\
 \noindent Parameters to be learned: $\gamma, \beta$\\
 \noindent \textbf{Output:} $\{y_i = \text{BN}_{\gamma,\beta}(x_i)\}$\\

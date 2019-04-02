@@ -4,11 +4,11 @@ Cancer is today, the second leading cause of death in the world, only behind car
 It is one of the leading causes of mortality worldwide, with approximately 14 million new cases in 2012~\cite{WHOCANCER}.
 %It is defined as a disease that has an abnormal cell growth with the potential to spread into other parts of the body.\cite{WhatIsCancer}
 Contrary to normal cells, cancer cells are often invasive, and it will spread if not treated. 
-In contrast to many other diseases, cancer does not start from a foreign entity (such as a bacteria or virus), but it is often from a malfunctioning cell that starts dividing rapidly. 
+In contrast to many other diseases, cancer does not start from a foreign entity such as a bacteria or virus, but it is often from a malfunctioning cell that starts dividing rapidly. 
 This cell division can happen when a cell is damaged, by for instance radiation or other factors like specific proteins, or other chemicals. The result is that the cell either has damage in the DNA which contributes to abnormal cell division or the cell division itself malfunctions. In both cases the damage causes the cell to divide uncontrollably. 
 Cancer can in some cases form without any external forces. The cell division is not always perfect, and dysfunctional cells might start a rapid division after being created. In most cases, this is not a problem, as most cells self destruct when they cannot operate\todo{cite}. 
 
-Another factor that increases the risk of cancer is age. As we grow older, our body gets more prone to defective cell division, and for each imperfect division, the chance of getting cancerous cells increases.  
+The risk of getting cancer is also increased by age. As we grow older, our body gets more prone to defective cell division, and for each imperfect division, the chance of getting cancerous cells increases.  
 Our own body is designed to detect and remove cells that are prone to divide uncontrollably. Unfortunately, this system is not perfect, and the immune system can in some cases overlook cancerous cells.
 In either external or internal cases, cancer is by definition this uncontrollable multiplication.
 
@@ -19,10 +19,10 @@ Because cancer can hit anyone, at any age, without any predispositions, it is a 
 Some types of cancer, like breast cancer, is one of the simpler forms of cancer to treat, and at this point, those kind of cancers are non-fatal in 78\% of the cases in the United Kingdom~\cite{UKCancer}. 
     
 Humans can get cancer in every major organ, but some types of cancer are more common than others.    
-For instance cancer in the gastrointestinal (GI) tract is one of the more common places to get cancer, with around 40,000 cases each year in the UK~\cite{UKCancerBowel}. There are around 16,000 bowel cancer deaths in the United Kingdom every year, and it is the 2nd most common cause of cancer-related death, accounting for 10\% of all cancer mortalities.
+For instance cancer in the gastrointestinal (GI) tract is such a place, with approximately 40,000 cases each year in the UK~\cite{UKCancerBowel}. There are around 16,000 bowel cancer deaths in the United Kingdom every year, and it is the 2nd most common cause of cancer-related death, accounting for 10\% of all cancer mortalities.
 
 Given the global focus on cancer, research into detection and treatment is highly relevant in modern western society. 
-Especially with detection of cancerous areas in the body, the advancement of computer-aided diagnosis (CAD) has helped a lot when it comes to early detection and localisation. In addition to the boom in computing power, machine learning has become prevalent in the past few years, and specifically, deep learning has become a tool in image and video classification both within and outside the medical domain~\cite{NIPS2012_4824,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/HeZRS15,DBLP:journals/corr/SzegedyIV16}. 
+Especially with detection of cancerous areas in the body, the advancement of computer-aided diagnosis (CAD) has helped significantly when it comes to early detection and localisation. In addition to the boom in computing power, machine learning has become prevalent in the past few years, and specifically, deep learning has become a tool in image and video classification both within and outside the medical domain~\cite{NIPS2012_4824,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/HeZRS15,DBLP:journals/corr/SzegedyIV16}. 
 With machine learning and CAD, researchers have now the ability to help doctors with the vital task of detecting and classifying anomalies found in medical images and videos.
 
 Earlier projects regarding CAD have shown promising results, giving doctors new tools when looking for cancer in the GI tract.
@@ -51,7 +51,7 @@ we will see an increase in classification performance compared to not removing t
 \end{hyp}
 
 \noindent
-\ref{hyp:a} talks about how black or white areas in pictures might create unwanted classification errors, and that by removing those areas might improve the results of the classification. We also mention low entropy areas as part of the hypothesis, though this needs to be tested individually.
+Hypothesis \ref{hyp:a} talks about how black or white areas in pictures might create unwanted classification errors, and that by removing those areas might improve the results of the classification. We also mention low entropy areas as part of the hypothesis, though this needs to be tested individually.
 
 \noindent
 and
@@ -62,14 +62,14 @@ When training a classifier, we will get a higher mode of generalisation of our r
 \end{hyp}
 
 \noindent
-\ref{hyp:b} talks about pixels that are not originating from the original image, or pixels that do not represent the real sample. We believe that the removal of these dataset specific artefacts, the machine learning algorithm does not learn to take these areas into account when classifying images, and subsequently learns the real features for the dataset, instead of the artificial features created by the artefacts.
+Hypothesis \ref{hyp:b} talks about pixels that are not originating from the original image, or pixels that do not represent the real sample. We believe that the removal of these dataset specific artefacts, the machine learning algorithm does not learn to take these areas into account when classifying images, and subsequently learns the real features for the dataset, instead of the artificial features created by the artefacts.
 
 
 Our objective in this thesis is to explore the following two hypothesises to show their validity.
 
 The hypotheses raise the following questions which we will address:\\
 
-\textit{1. Can the process of redrawing an area with a new more relevant information, inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+\textit{1. Can the process of redrawing an area with a new more relevant information, defined as inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
 \textit{2. Can inpainting of dataset-specific artefacts help with classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
 
