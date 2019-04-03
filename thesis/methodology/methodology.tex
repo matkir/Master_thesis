@@ -5,6 +5,7 @@ Then we look at the language and packages suitable for this project. We go in-de
 %Then we look at the setup of the complete program. Here we will go in-depth into both the different preprocessing algorithms, and take a look at the transfer learning network used during classifying.
 
 \section{ Bird's eye view (Chapter possibly removed when written)}
+\label{cha:BEW}
 In the summary of the background chapter, we looked at two articles published by Pogorelov et al. and Hicks et al. where they discussed the effect of overfitting and the consequences of dataset-specific artefacts.
 To help solve these predicaments look back at the two hypothesises presented in section~\ref{cha:problemstatement}:
 
@@ -91,15 +92,17 @@ We propose to use unsupervised machine learning to inpaint the areas with datase
 
 \FloatBarrier
 \section{Design of the inpainting algorithms}
+
 We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. 
-
-When generating the datasets, we use the Kvasir dataset as a base exclusively. When using only the Kvasir dataset, we have the CVC sets for testing. This selection of image source was made intentionally to have a fundamentally different test and training set, and the more differences between testing and training set the more of an indication of generalisation. 
-
-%image used to be here
+When generating the datasets, we use the Kvasir dataset~\cite{Pogorelov:2017:KMI:3083187.3083212} as the training set, as Hicks et al. did in their paper on removing dataset specific artefacts~\cite{25956}. In addition, we use datasets without the artefacts for testing.
+This selection of image source was made intentionally to have a fundamentally different test and training set, and the more differences between testing and training set the more of an indication of generalisation. 
 
 Figure \ref{fig:KvasirAnomaliesFIX} shows two different image types from the Kvasir dataset. 
-Figure \ref{fig:LargeLeftBlack} shows the image class esophagitis. This image shows one of the main problems with the Kvasir dataset when it comes to dataset specific artefacts. In addition to the cut corners, we have an extra wide area to the left of the image containing non-relevant information like name, sex, and other comments. We can recall from chapter \todo{find where} that the area to the left does not contain any relevant information for the classification and subsequently can only give false information during classification. 
-%Another example of dataset-specific artefacts is in the image (b). In this image, we have the same cut corners as in most colonoscopy images. However, we also have an additional green square in the bottom left corner.
+Figure \ref{fig:LargeLeftBlack} shows an image of esophagitis. This image shows one of the main problems with the Kvasir dataset when it comes to artefacts. In addition to the cut corners, we have an extra wide area to the left of the image containing non-relevant information like name, sex, and other comments. This area gives us ample opportunity to test hypothesis \ref{hyp:a}, given that the image contains a large amount of sparse information that we want to remove to see the effect on classification. We believe that if we can change images like Figure \ref{fig:LargeLeftBlack} into images like in Figure \ref{fig:LargeLeftBlackFIX} we will see an improvement in classification when testing and training on the same images.
+
+Figure \ref{fig:GreenSquareOccluding} shows another problem with datasets like Kvasir.  Here we have a green square in the bottom left corner that occludes parts of the image and the same type of text displaying name age and other non-relevant information. We recall from section \ref{cha:BEW} that information like this can give the classifier false positives, and subsequently provide us with a lower classification score. 
+We believe that if we can change images like Figure \ref{fig:GreenSquareOccluding} into images like in Figure \ref{fig:GreenSquareOccludingFIX} we will see an improvement in classification when testing and training on different datasets.
+
 
 \begin{figure}
      \centering
@@ -135,81 +138,96 @@ Figure \ref{fig:LargeLeftBlack} shows the image class esophagitis. This image sh
 \end{figure}
 
 
-
-Compared to the CVC images we have images in the Kvasir set with this square and with additional text, both outside the image, and on top of the image.  
-
-We propose different types of inpainting to prove or disprove our two hypothesises.
-
+We propose three different types of inpainting to prove or disprove our two hypothesises.
+\FloatBarrier
 \subsection{Removing black corners}
 The most straightforward experiment to conduct is to test how the removal of the black corners will affect the result.
-As we propose in hypothesis \ref{hyp:a}, we believe that this masking can help with giving the classifier fewer areas with non-crucial information.
+As we propose in hypothesis \ref{hyp:a}, we believe that this masking can help with giving the classifier fewer areas with non-relevant information.
+Figure \ref{fig:CornerMask} shows the mask used to inpaint the corners.
 
-\todo{kvasir not presented yet}
-The black edges around the images in the Kvasir set is also present in the CVC set. By removing the black corners around the image, we do not change Kvasir specific artefacts, but according to our first hypothesis, we believe we will get a higher classification accuracy since this removes areas with sparse information.
+As we recall from section \ref{cha:endocolo}, the black edges around the images in our datasets is also, in general, present in medical colonoscopy images. By removing the black corners around the image, we do not change \textit{Kvasir specific} artefacts, but according to our first hypothesis, we believe we will get a higher classification accuracy since this removes areas with sparse information.
 
-
-
-
-
-
-When classifying images during the testing stage, we need to take this mask in to account regarding the removal of black corners in the test set.
+When classifying images during the testing stage, we need to take inpainting during training into account. 
 \begin{enumerate}
-\item We can either do the same masking and inpainting on the test set. 
+\item We can do the same masking and inpainting on the test set. 
 \item We can crop the image in a way that removes the black corners without inpainting.
 \item We can forgo modifying the test data and just run the test set as is. 
 \end{enumerate}
 
 
-We tested method 1) in the paper ``Using preprocessing as a tool in medical image detection''\cite{26254}
-The goal of this paper was related to hypothesis \ref{hyp:a} with the fact that we wanted to see how removing areas with sparse information affected the result of classification. 
+\paragraph{Method 1}
+We tested method 1) in our paper ``Using preprocessing as a tool in medical image detection''~\cite{26254}.
+The goal of this paper was related to hypothesis \ref{hyp:a} with the fact that we wanted to see how removing areas with sparse information affected the result of classification when training and testing on similar datasets. 
 In the experiments run within this paper, both the training set and test set were inpainted. 
-Since the focus of this task was to classify a test set we had from beforehand correctly, we had the option to preprocess the test set in addition to the training set. This type is the same method proposed in method 1) and from the results, it showed minimal improvement. The lack of improvement is mainly not connected to the fact that we inpainted the test set, but the fact that the test set came from the same distribution as the training set.
+Since the focus of this task was to classify a test set we had from beforehand correctly, we had the option to preprocess the test set in addition to the training set without any penalties based on time restrictions. 
+Our paper inpainted the test set as proposed in method 1) and from the results, it showed minimal improvement. The lack of improvement is mainly not connected to the fact that we inpainted the test set, but the fact that the test set came from the same distribution as the training set, and subsequently ended up with a model that overfitted to the data.
 Given that we, in the end, want to classify images from a live colonoscopy, we have decided to forgo the inpainting of the test set using method 1).
-By not augmenting the test set the experiments are also suited to reflect a larger area of machine learning better.
+By not augmenting the test set the experiments are also suited to reflect a larger research area of machine learning.
 
 
 
-
-Method number 2) was the proposal of cropping the images during evaluation.  Thambawita et al. did similar methods in the Mediaeval 2018 conference, but had also, the same cropping during training. In the paper ``The Medico-Task 2018: Disease Detection in the Gastrointestinal Tract using Global Features and Deep Learning''~\cite{26205} we can see that this method worked with great success. 
+\paragraph{Method 2}
+Method number 2) was the proposal of cropping the images during evaluation.  Thambawita et al. did similar methods in the Mediaeval 2018 conference but also had the same cropping during training. In the paper ``The Medico-Task 2018: Disease Detection in the Gastrointestinal Tract using Global Features and Deep Learning''~\cite{26205} we can see that this method worked with great success. 
 The operation of just cropping images is also multiple times as fast as inpainting images, so it is feasible for a live recording.  
-The downside of cropping the images from the test set is the fact that we do not have control over what we remove from the data. Given that the test set might come from a completely different distribution, we might unwillingly remove information we desire to keep.
+The downside of cropping the images from the test set is the fact that we do not have control over what we remove from the data. Given that the test set might come from a completely different distribution, we might unwillingly remove information we desire to keep. We do also run into the problem that cropping the images are not feasible when the sparse areas are within the image, and not at the outer edges.
 
-The last proposed method is not to augment the images during testing. This method, since we are not preprocessing the test data at all, the fastest when it comes to live classification. Without the augmentation, we risk getting a lower classification score, but we do not remove any data.
+\paragraph{Method 3}
+The last proposed method is not to augment the images during testing. This method, since we are not preprocessing the test data at all, is the fastest when it comes to live classification. Without the augmentation, we risk getting a lower classification score, but we do not remove any data. Also, we make our results better reflect on how it will work on non-medical datasets.
 
 
 In this thesis we will use method number 3). 
-We base this decision on that we want the final product to have the option to be used live and without the risk of losing data due to cropping.
-
-Figure \ref{fig:CornerMask} shows the mask used to inpaint the corners.
+We base this decision on that we want the final product to have the option to be used live and be easily adaptable to other datasets.
 
 
- 
+
+%w
 \subsection{Removing green squares}
-The next major area in question is the removal of the green squares located in the bottom left area of some of the medical images.  This area is a Kvasir specific artefact, and it is in 38\% of the images spanning five out of eight classes. 
+The next major area in question is the removal of the green squares located in the bottom left area of some of the medical images.  This area is a Kvasir specific artefact and is found in 38\% of the images spanning five out of eight classes. 
 By inpainting the lower left area we can see if our hypothesis \ref{hyp:b} is correct since here we are removing a dataset-specific feature that the network can use to determine classes. 
-We have also chosen to inpaint every image, regardless of the green square is there or not. We do this so that the network can not ``learn'' that the pattern from the inpainted area correlates with the five classes with the green square, and hence defeating the purpose of the inpainting.
+We have also chosen to inpaint every image, regardless of the green square is there or not. We do this so that the network can not ``learn'' that the pattern from the inpainted area correlates with the five classes with the green square, and hence defeating the purpose of the inpainting. Figure \ref{fig:GreenMask} shows the mask used to inpaint the lower left corner.
 
+When classifying images during the testing stage, we have the same decision to take when it comes to inpainting of the test set.
+\begin{enumerate}
+\item We can either do the same masking and inpainting on the test set. 
+\item We can crop the image in a way that removes the dataset-specific artefacts.
+\item We can forgo modifying the test data and just run the test set as is. 
+\end{enumerate}
 
+To keep the consistency between to different inpainting methods, we use method 3) for the test set.
 As with the black corners to be inpainted, we choose not to preprocess the test data, as this takes time, and should in theory not be necessary to get the right classification.
  
-Figure \ref{fig:GreenMask} shows the mask used to inpaint the lower left corner.
 
 \subsection{Removing both corners and the green square}
-The last set we want to test is the combination of both inpainting the green square and the black corner. 
-Here we hope that a combination of hypothesis \ref{hyp:a} and \ref{hyp:b} will give the strength of both methods without harmful interference. 
-
-Figure \ref{fig:BothMask} shows the mask used to inpaint both areas at the same time.
+The last set we want to test is the combination of both inpainting the green square and the black corner as shown with the mask in Figure \ref{fig:BothMask}. 
+Here we hope that a combination of hypothesis \ref{hyp:a} and \ref{hyp:b} will give the strength of both methods without any harmful interference. 
 
 
-\subsection{How to make the images (give better name)}
-For each of the three areas we want to inpaint we need a training set we can use when training the autoencoder and GAN.
+\subsection{The generative modelling algorithms}
+With the three masks discussed, we now want to present the generative modelling algorithms.
+As addressed in section \ref{cha:BEW} our goal is to make new datasets without the unwanted artefacts based on the original dataset. 
+We have chosen to use the two generative models presented in section \ref{cha:Explaining_autoencoders} and in section \ref{cha:Explaining_GANS}, namely Autoencoders and GANs.
 
-As we recall from chapter \ref{cha:Explaining_autoencoders} the autoencoder and GAN\footnote{It is necessary to mention that regular GANs does not use a ground truth when training, though our modified GAN do.} networks both use a ground truth when training.
-When training we need images that are already inpainted as a reference point. We solve this by cropping the images as shown in figure \ref{fig:CornerMask}.
-By removing the corners, we have an image where we know the whole ground truth, and the data is coming from the right distribution.
-As figure \ref{fig:masks} shows, we use cropped versions when inpainting corners, and we use images without the green square when inpainting the left corner.
 
-\begin{figure}[h]
+As we recall from section \ref{cha:Explaining_autoencoders} the autoencoder and GAN\footnote{It is necessary to mention that regular GANs does not use a ground truth when training, though our modified GAN do.} networks both use a ground truth when training.
+When training we need images that are already inpainted as a reference point. We solve this by zooming in the images to the limit that the edges are gone, as shown in figure \ref{fig:CornerMask}. When removing the dataset-specific features, we have the luxury that not all images contain the green square, giving us ample data for training after the images are sorted.
+By removing the corners by zooming and by using images without artefacts during training, we have images where we know the whole ground truth, giving us the option to use MSE for backpropagation.
+
+
+When training the GAN, we often do not need a ground truth behind the mask, as the network only tries to discern if the image is real or fake. This gives us in practice the same restrictions as with backpropagating with MSE.
+
+\subsection{summary}
+We have now talked about the three main masks we use, combined with the two generative models that make the datasets.
+In total, we end up with six generated datasets, two for each mask type, and one unaugmented base case.
+
+\textit{\textbf{Do i here talk about everything i didnt do?\\
+\begin{itemize}
+\item removing text, and the permutations regarding this
+\item using a pixel CNN to inpaint
+\item using the contextencoder as shown in first paper.
+\end{itemize}
+}}
+
+\begin{figure}
      \centering
      \begin{subfigure}[t]{0.4\textwidth}
          \centering
@@ -221,31 +239,30 @@ As figure \ref{fig:masks} shows, we use cropped versions when inpainting corners
      \begin{subfigure}[t]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/cornermask.png}
-         \caption{Green area shows the area masked in the first of the generated datasets}
+         \caption{Red area shows the area masked in the first of the generated datasets}
          \label{fig:CornerMask}
      \end{subfigure}
      \hfill
      \begin{subfigure}[t]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/greenmask.png}
-         \caption{Green area shows the area masked by the second of the datasets}
+         \caption{Red area shows the area masked by the second of the datasets}
          \label{fig:GreenMask}
      \end{subfigure}     
      \hfill
      \begin{subfigure}[t]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/bothmask.png}
-         \caption{Green area shows the area masked by the third of the datasets}
+         \caption{Red area shows the area masked by the third of the datasets}
          \label{fig:BothMask}
      \end{subfigure}
      \caption{All three mask types used in this thesis, and associated images used during training. At dataset in}
      \label{fig:masks}
 \end{figure}
 
-\FloatBarrier
-\subsection{summary}
-Here a wrap-up of the IP
 
+
+\FloatBarrier
 \section{Design of the transfer learning experiments}
 \label{cha:classifier}
 To test the hypothesises we need a system in place to compare the datasets we generate with inpainting. As we recall, both our hypothesis is based on an improvement on a base score. 
@@ -253,15 +270,13 @@ To see if we have any improvement we propose to use a classifier based on transf
 
 We want to test our system with a range of different models and classifiers to test the validity of the system, and to make sure that our results are not just good out-layers.
 
-Figure \ref{fig:KTLmodel} shows the general structure of the transfer learning model we use in this thesis. We have made \todo{more} 
+Figure \ref{fig:KTLmodel} shows the general structure of the transfer learning model we use in this thesis. 
 
 
-\iffalse
-Since we are using Keras as a wrapper for our machine learning, all the networks supplied by the Keras package comes with a pretrained option based on the Imagenet dataset.\todo{cite image net and transfer learning}
+Hyperparameter optimisation of the models is a challenging task~\cite{runeMedico2018}. In this thesis, we have chosen to use automatic hyperparameter optimisation provided by SAGA~\todo{cite saga} to give us the optimal model for training. Based on our dataset, the optimal network was DenseNet121~\cite{DBLP:journals/corr/HuangLW16a} as our primary model for evaluation. 
+In addition to an optimal model, we have chosen to use InceptionResNetV2~\cite{DBLP:journals/corr/SzegedyIV16} as a more general model. InceptionResNetV2 showed the highest top 1 and top 5 accuracies on imagenet when we designed the transfer learning program.
 
-Take for instance the well-known InceptionResNetV2. We can either import the model with uninitialised weights, meaning they will be set as we load the model or we can use one of the pretrained models such as imagenet or another custom network.
-\fi
-
+At the time of this writing, we have newer, more accurate models for imagenet. \todo{19 aug when i starded, IRV2 was the best model.}
 
 
 
@@ -269,21 +284,65 @@ Take for instance the well-known InceptionResNetV2. We can either import the mod
 
 \begin{figure}[h]
         \centering
-        \includegraphics[scale=0.5]{experiments/figures/model.png}
+        \includegraphics[scale=0.5]{methodology/figures/model.png}
         \caption{ The model we use for classifying with the most important options for the learning process. }
     \label{fig:KTLmodel}
 \end{figure}
 
 
 \subsection{models}
+Here we go in depth in to how DN and IRV2 works.
+\paragraph{Densenet}
+\textit{\textbf{OMG I NEED TO WRIST STUFF HERE TOOOOOOOOOOOOOOOOOOO}}
+
+\paragraph{Inception Residual Network architecture }
+We can often see performance gains in our network architectures when we increase the size of the network. To increase the size, we can either increase the depth of the network, i.e. the number of layers, or we can increase the width of the network, i.e. increase the number of units per layer. Both methods are often easy to implement, but it often comes with the drawback of either increasing the number of parameters to train, which can result in overfitting, or it can result in the computation time of the network to increase to an unfeasible length.
+To find a balance between accuracy and memory is often a hard task when it comes to not only medical images but images in general.
+
+Szegedy et al. presented an architecture for the imagenet challenge with the intention of reducing the computational cost of training large neural networks by decreasing the number of parameters~\cite{DBLP:journals/corr/SzegedyLJSRAEVR14}. 
+The network presented, GoogLeNet, used inception modules to reduce the computational cost.  Inception modules (networks within networks) tries to answer the question of witch convolution is the correct for each layer. Often it is up to the network architect to decide this, but with inception modules, the network chooses for itself.
+In the GoogLeNet paper, the inception modules are the same as in Figure \ref{fig:Inception}, showing the option between $1 \times 1$, $3 \times 3$, $5 \times 5$ convolutions, and $3 \times 3$ max pooling, followed by a concatenation of the four options. \todo{do i mention the 1x1 that reduces dimentionality?}
+
+Microsoft proposed another solution to training very deep neural networks in the form of residual modules~\cite{DBLP:journals/corr/HeZRS15} as shown in Figure \ref{fig:Residual}.
+When using sufficiently large enough networks the backpropagation often encounter the problem with vanishing gradients. By adding a direct link between the layers, we counteract the vanishing gradient problem. A consequence we encounter when using residual modules is that instead of recreating the input for each layer, each layer learns only to modify the input value instead of completely recreating it.
+
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[t]{0.4\textwidth}
+         \centering
+         \includegraphics[width=0.5\textwidth]{methodology/figures/residual.png}
+         \caption{Residual module concept as proposed in~\cite{DBLP:journals/corr/HeZRS15}}
+         \label{fig:Residual}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[t]{0.55\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{methodology/figures/inception.png}
+         \caption{Inception module concept as proposed in~\cite{DBLP:journals/corr/SzegedyLJSRAEVR14}}
+         \label{fig:Inception}
+     \end{subfigure}
+     \caption{The two main components in InceptionResNetV2}
+     \label{fig:IRV2modules}
+\end{figure}
+
+
+Finally, combining the inception and residual modules, we end up with the modules used in InceptionResNetV2. \todo{more on this}
+
 
 \subsection{pooling}
+Write short about the pooling, maybe \todo{MICHAEL OR PAAL: \\do i bother talking about pooling?}
+\paragraph{Global Average pooling}
 
+\paragraph{Global max pooling }
+
+\paragraph{No pooling}
+
+\subsection{What does the different combination do to the result in our opinion (renamed to something cool sunglassemoji )}
+Here we talk more bout what we believe the modules do to the result.
 
 \subsection{summary}
-Here a wrap-up of the IP
-
-
+We have in this section gone in-depth in to the transfer learning network.
 
 
 
@@ -294,7 +353,9 @@ Here a wrap-up of the IP
 
 
 \section{Libraries} 
-In this chapter, we will discuss the foundation of our code, important external libraries, and the setup and execution of our project.  
+With the general structure of the algorithms discussed, we will now go more in-depth in to the libraries used in the creation of the programs.
+
+In this section, we will discuss the foundation of our code, important external libraries, and the setup and execution of our project.  
 We first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we look into the wrapper we use to get a higher level of abstraction over our code, together with custom wrapper functions that are used by our wrapper. 
 
 \subsection{Python}
@@ -570,7 +631,6 @@ The classifier we use is based on the idea of reusing networks we already know a
 We have made a classifier that, by default, use one of the pretrained networks provided by the Keras framework.
 
 \begin{table}[h]
-\caption{Datasets provided by keras}
 \begin{center}
 \small
 \begin{tabular}{llllll}
@@ -601,6 +661,7 @@ NASNetLarge       & 343 MB & 0.825          & 0.960          & 88,949,818  & -  
 \bottomrule
 \end{tabular}
 \end{center}
+\caption{Models provided by keras}
 \label{tab:Kaeras_app}
 \end{table}
 
@@ -624,8 +685,8 @@ Here i am going to explain the projects\\
 Here i am going to explain the projects\\
 
 \section{Summary}
-At this point, we have described the reasoning behind using python, tensorflow and Keras for our machine learning. 
-After this we looked into the filters used for training our models, and what type of preprocessing we wanted to do in addition to the inpainting. We looked at the advantages and disadvantages of preprocessing the Trest data, as opposed to just preprocessing the training data.
+in this chapter, we have described the reasoning behind using python, tensorflow and Keras for our machine learning. 
+After this we looked into the filters used for training our models, and what type of preprocessing we wanted to do in addition to the inpainting. We looked at the advantages and disadvantages of preprocessing the Test data, as opposed to just preprocessing the training data.
 
 We then went more in-depth into how the three main programs were built up, and how they differ from their original sources.
 First, we looked at the preprocessing methods, AE and GAN. We looked at how they learned from the samples, and we went more in-depth talking about the crucial layers for each model.

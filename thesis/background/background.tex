@@ -14,11 +14,13 @@ Medical images can be classified in to multiple categories,
 
 
 \subsection{Endoscopy and Colonoscopy}
+\label{cha:endocolo}
 Gastrointestinal endoscopies are one of the most common medical examinations where the mucosa of the patient is visualised via a camera through the whole of the GI tract~\cite{Holme13}.
 Today the medical staff working with the visual screening of the intestinal tract use primarily two different methods: colonoscopy and gastroscopy. 
 Colonoscopy is the practice of inserting a colonoscope into the rectum and moving through the large intestine towards the small intestine.  Gastroscopy is the practice of inserting a camera via the mouth to get a visualisation through the stomach.
 
 The endoscopic tool used for this visualisation is made out of a flexible tube with a charged coupled device (CCD) working as a camera at the end. In addition to the light sensing chip, there is also an optical fibre to transport light to the camera. At the other end, the colonoscope is connected to a device that records the video, and a light source for the optical fibre. The video from the CCD is shown live for the medical staff for the doctors to analyse~\cite{Colonoscope}.
+\todo{Here i could add general colonoscopy images to show the use of a wide angle lens, as I at this point does not talk about it}
 
 
 
@@ -608,6 +610,7 @@ As we noted earlier, Figure \ref{fig:AEinpainting} show a visual example of equa
 
     
 \subsection{Advaserial neural networks}
+\label{cha:Explaining_GANS}
 As an alternative to using autoencoders for generative modelling, we introduce the generative adversarial network (GAN) proposed by Goodfellow et al.~\cite{Goodfellow:2014:GAN:2969033.2969125}.
 
 As shown in Figure \ref{fig:GAN}, the GAN consist of two components: a generative model G that captures the data distribution, and a discriminator model D that estimates the probability that the sample from G is fake, and does not come from the training data. The training procedure for the generator is to maximise the probability of the discriminator to make mistakes.
