@@ -225,11 +225,9 @@ esdtgfgv
     %=============================================
 \FloatBarrier
 \section{Metrics}
-To discern the results of our experiments we introduce multiple metrics and tables to get an indication of our success. 
-The main dataset we used for training, Kvasir, was split into k number of folds, using k-fold cross-validation. 
-K-fold cross-validation is a tool used in statistics and machine learning to help to get an accurate representation of the data based on finding a statistical average of the dataset.  In machine learning, it is a powerful tool that can help with adapting to new datasets and prevent overfitting. 
-We recall that the Kvasir dataset contains 8000 images, with 1000 of each class. 
-In our testing we split the dataset up in k=6 folds. This means that we split our dataset into six pieces before training.  With the six folds, we assign one of them as a test set, and we assign the four other for training and validation. We then train our data five times, using four folds for training and the last fold for validation during training. For each training run we rotate the validation set, so each of the five folds is used for validation once. \todo{img of k fold}
+To discern the results of our experiments we introduce multiple metrics and tables to get an indication of our success. The primary dataset we used for training, Kvasir, was split into k number of folds, using k-fold cross-validation.  K-fold cross-validation is a tool used in statistics and machine learning to help to get an accurate representation of the data based on finding a statistical average of the dataset.  In machine learning, it is a powerful tool that can help with adapting to new datasets and prevent overfitting.  We recall that the Kvasir dataset contains 8000 images, with 1000 of each class.
+In our testing, we split the dataset up in k=6 folds. This split means that we split our dataset into six pieces before training.  With the six folds, we assign one of them as a test set, and we assign the four other for training and validation. We then train our data five times, using four folds for training and the last fold for validation during training. For each training run, we rotate the validation set, so each of the five folds is used for validation once.
+
 
 \begin{figure}[h]
 \hspace*{-1cm}                                                           
@@ -239,7 +237,7 @@ In our testing we split the dataset up in k=6 folds. This means that we split ou
 \label{fig:KfoldKvasir}
 \end{figure}
 
-The advantage of this method is that we maximise the utility of the dataset. We find the distribution of the dataset that hopefully covers the most significant range of the unseen data. 
+The advantage of using K-fold cross-validation is that we maximise the utility of the dataset. We find the distribution of the dataset that hopefully covers the most significant range of the unseen data. 
 
 \subsection{The confusion matrix}
 With k-fold cross-validation, we end up with the dataset that scored the highest during the final validation step.  There are multiple ways to calculate metrics for how well a dataset is doing,  but they all are a comparison of the predicted class versus the true class.  
@@ -278,7 +276,7 @@ The most common way to store these value pairs is to use a confusion matrix.  We
 
 After we have initialised the confusion matrix, we add each value pair as to the matrix at its corresponding position.  
 Given the pair $\begin{bmatrix} 3 & 5 \end{bmatrix}$ we add one to the position corresponding to (x=3,y=5). 
- Another example could be given the pair where we guessed class 0 and the true class was 0:  $\begin{bmatrix}  0 & 0 \end{bmatrix}$, we add one to the matrix at position (x=0,y=0). With the two examples we get the following confusion matrix as shown in Figure \ref{mat:nonemptyCM}
+Another example could be given the pair where we guessed class 0 and the true class was 0:  $\begin{bmatrix}  0 & 0 \end{bmatrix}$, we add one to the matrix at position (x=0,y=0). With the two examples we get the following confusion matrix as shown in Figure \ref{mat:nonemptyCM}
 
 \begin{figure}[h]
     \myfontsize
@@ -299,7 +297,7 @@ Given the pair $\begin{bmatrix} 3 & 5 \end{bmatrix}$ we add one to the position 
     \label{mat:nonemptyCM}
 \end{figure}
 
-As we fill in the matrix with more predictions, we can start to infer properties of the classifier. After approximately 1600 evaluations, our result might at the end look like this.
+As we fill in the matrix with more predictions, we can start to infer properties of the classifier. After approximately 1600 evaluations, our result might at the end look like Figure \ref{mat:FullCM}.
 \begin{figure}[h]
     \myfontsize
     \centering
@@ -321,23 +319,24 @@ As we fill in the matrix with more predictions, we can start to infer properties
 We can see that the majority of predictions lie around the diagonal. This centralisation means that most of our results were classified correctly, as values at the diagonal are the same x and y values, and subsequently a correct prediction. 
 We can also discern something about the four primary metrics associated with a value in the matrix.\\
 
-\textbf{True Positive (TP): } True positive for a specific class is when it is predicted positive, and the True label is also positive.  In the Kvasir dataset, we have a True positive result if, for the class polyp, we predict a polyp.\\
+\textbf{True Positive (TP): } True positive for a class is when the sample is predicted positive, and the True label is also positive.  In the Kvasir dataset, we have a True positive result if, for the class polyp, we predict a polyp.\\
 
 \textbf{True Negative (TN): } True Negative is the opposite of true positive. Given the class Polyp from the Kvasir dataset, we guess that the image is not a polyp when the True label is non-polyp. 
 
-\textbf{False Positive (FP): } False positive is, given a True label we predict False. We often call this type of error a "Type 1 error".   In the polyp case, this is the case where we predict a polyp given no polyp present.
+\textbf{False Positive (FP): } False positive is, given a True label, we predict it to be False. We often call this type of error a "Type 1 error".   In the polyp case, this is the case where we predict a polyp when there is no polyp present.
 
+\textbf{False Negative (FN): } False positive is the case where we fail to predict the class when it is True. We call this error for "Type 2 error". False Negative is, in our case, the least desirable outcome for our classes with pathological findings like Esophagitis, Polyps and Ulcerative Colitis.
 
-\textbf{False Negative (FN): } False positive is the case where we fail to predict the class when it is True. This type of error is often called "Type 2 error". False Negative is, in our case, the least desirable outcome for our classes with pathological findings like Esophagitis, Polyps and Ulcerative Colitis.
-
-For our multiclass confusion table, we can look at the four metrics like this
+\vspace{5px}
+The metrics described is in the case of ``single class'' labelling. In most medical cases we often want to use more than two classes for the data. 
+When labelling data based on multiple classes we use the metrics as shown in Figure \ref{fig:confusionmatrix_labels}, here we can see that for a given class we only have one option for True positive, and the diagonal and horizontal represent False positive and False Negative respectively. The rest of the options are True negative. 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.7]{experiments/figures/confusionmatrix.png}
 \caption{
 Confusion matrix with eight classes, here True positive is marked in green, False Negative and False positive marked in red, and True negative in blue.
 }
-\label{fig:confusionmatrix}
+\label{fig:confusionmatrix_labels}
 \end{figure}
 
 
@@ -346,12 +345,12 @@ When evaluating our results, we use a set of common metrics used in the field of
 
 
 \vspace{5px}
-\textbf{Accuracy:}  
-Accuracy is simply the percentage of the predictions that were classified correctly.
+\paragraph{Accuracy:}  
+Accuracy is the percentage of the predictions that were classified correctly.
 It describes how many of our predictions were correct out of the total predictions made as shown in equation \ref{eq:ACC}. It is the most common metric given its simplicity both in calculation and understanding. 
 In general when our data is balanced, and we only have a few classes, we can get away with using accuracy.
-A pitfall with accuracy is the lack of comprehensive overview of the data, as it is just a summation without respect to classes involved.
-In this project, we use accuracy during the training step as a metric of success. 
+A pitfall with the accuracy metric is the lack of a comprehensive overview of the data, as it is just a summation without respect to classes involved.
+In this project, we use accuracy during the training step as a metric of success. After training is complete, we do not use accuracy as an indication of success given our unbalanced datasets. 
  \begin{equation}
 ACC=\frac{TP+TN}{TP+TN+FP+FN}
 \label{eq:ACC}
@@ -359,11 +358,11 @@ ACC=\frac{TP+TN}{TP+TN+FP+FN}
 
 \vspace{5px}
 \textbf{Recall:}  
-Recall is the probability of detection, or sensitivity.
-This metric is a measure of the fraction of relevant instances that have been retrieved over the total amount of relevant instances for a binary classification example.
-For our medical image classification, this metric can help us understand how our algorithms work by looking at classes where we have small anomalies in the images, like the case with polyps.
-%\todo{ "Detector Performance Analysis Using ROC Curves – MATLAB & Simulink Example". www.mathworks.com. Retrieved 11 August 2016.}
+Recall is the probability of detection, often called sensitivity.
+This metric is a measure of the fraction of relevant instances that have been retrieved over the total amount of relevant instances for a binary classification example. It is calculated using equation \ref{er:REC}.
 
+Recall together with Specificity and Precision gives a complete view of the data compared to for instance accuracy alone. This difference is shown when we have uneven datasets. Given a dataset where we know that only 1\% of the data is negative, we will get an accuracy of 99\% if we label all the data as positive. When adding recall, specificity and precision, our score will reflect that we mislabeled all the negative values.
+%\todo{ "Detector Performance Analysis Using ROC Curves – MATLAB & Simulink Example". www.mathworks.com. Retrieved 11 August 2016.}
 \begin{equation}
 REC=\frac{TP}{TP+FN}
 \label{eq:REC}
@@ -396,8 +395,7 @@ PREC=\frac{TP}{TP+FP}
 
 \vspace{5px}
 \textbf{F1 score:}
-F1 score is a combination of precision and recall. It is one of the most common metric to compare the performance of statistical models.
-Equation \ref{eq:F1} shows the F1 score as it is most commonly used.
+F1 score is a combination of precision and recall as shown in equation \ref{eq:F1}. \todo{fix, im to tired}
 
 \begin{equation}
 F1=\frac{precision \times recall}{precision + recall}
@@ -424,7 +422,7 @@ MCC=\frac{TP \times TN - FP \times FN}{\sqrt{(TP + FP)(TP + FN)(TN + FP)(TN + FN
 
 \subsection{Singleclass vs Multiclass Metrics}
 
-The metrics presented are, in general, a solid way to present the validity of a model. However, not all metrics presented is the same when switching between single and multiclass classification.  Metrics like Accuracy is designed to work for multiclass classification, given that there is only one way to calculate the score.
+The metrics presented are, in general, a solid way to present the validity of a model. However, not all metrics presented is the same when switching between single and multiclass classification.  Metrics like Accuracy is designed to work for multiclass classification, given that there is only one way to calculate the score as shown in either equation \ref{eq:ACC} or in equation \ref{eq:ACCalt}.
 \begin{equation}
 \frac{\sum (diag(Covarience Matrix))}{\sum(Covariance Matrix)}
 \label{eq:ACCalt}
@@ -447,18 +445,22 @@ With the three methods presented, we have chosen to Macro average our results. W
 In addition to looking at the Macro average of precision and recall, we want to look at specific cases of the classification.  In many cases, we have multiple classes, where we are most interested in just one or a handful of the classes shown. 
 For instance, a focus we have in this thesis is to give a score on how predictable polyp detection is, and on that case, we want to discuss the True positive rate (TPR) of the polyp detection and not the TPR of the non-polyp classes. 
 
-Take for instance the matrix shown in \todo{fig}\\
-\[
-\begin{bmatrix}
- 10 & 1 \\
- 3 & 12 \\
-\end{bmatrix}
-\]
+Take for instance the matrix \ref{mat:exampleMAT}\\
+\begin{figure}[h]
+    \centering
+	\[
+	\begin{bmatrix}
+	 10 & 1 \\
+	 3 & 12 \\
+	\end{bmatrix}
+	\]
+    \caption{Nearly balanced matrix}
+    \label{mat:exampleMAT}
+\end{figure}
 
 
 
-
-Here we can calculate the weighted average recall to be \textbf{x}. This can be an interesting observation in itself, but often the first or second True label is much more important relative to the other.  In a more practical example: We are more interested in finding areas with polyps when we know they are present, compared knowing there is not a polyp in an area when none are present. 
+Here we can calculate the weighted average recall to be \todo{x}. This can be an interesting observation in itself, but often the first or second True label is much more important relative to the other.  In a more practical example: We are more interested in finding areas with polyps when we know they are present, compared knowing there is not a polyp in an area when none are present. 
 
 These Metrics becomes a more prominent topic when it comes to inpainting. With inpainting, we take areas with no relevant information and makes it into areas that are similar to the rest of the image. Given that we can inpaint over polyps by mistake, or that we might train our classifiers to not look in certain areas when classifying, we have an interest if also comparing single cases of recall and precision included to the average values.
 
@@ -474,7 +476,7 @@ As we recall, we proposed the following hypothesis.
 \textbf{Hypothesis \ref{hyp:a}:}
 When classifying images, we will get the best result when we have images with the least amount of sparse information. 
 Hence by removing areas with sparse information,
-we will see an increase in classification performance compared to not removing areas.
+we will see an increase in classification performance compared to not removing areas.\todo{check if right}
 
 \vspace{5px}
 \noindent
@@ -488,7 +490,7 @@ mode of generalisation of our results when removing the dataset
 specific artefacts compared to not removing artefacts.
 \vspace{5px}
 
-In this thesis, we will set up our experiments to test our two hypothesises. 
+In this thesis we use the hypothesises as the basis to solve the problem statements. 
 We divide our work into two parts, inpainting and classifying. 
 First, we will look at the process of inpainting in detail, and inspect the results we have.  
 We will look at how parameters affect the results, and how different networks will differ in the generating process. \todo{more}
