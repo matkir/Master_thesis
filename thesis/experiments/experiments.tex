@@ -2895,15 +2895,17 @@ H&  0 & 0 & 0 & 2 & 1 & 0 & 1 & 157\\
 
 
 
-
 \section{Classification results based on the Densenet model}
-\Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} shows the summary of the results gathered from the Densenet model.
+\Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} shows the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356_DN121,bar:kvasir_DN121,bar:cvc12k_DN121} shows the visualised MCC values. 
 
-FFor the CVC 256 dataset, we can see a considerable improvement when inpainting in general. The results coincide well with our hypothesis \ref{hyp:b}, and we can argue that hypothesis \ref{hyp:a} also holds some ground when evaluated on this dataset.
+
+For the CVC 356 dataset (ref{Fig: tab:summary_CVC356_DN121} \& Bar:ref{bar:cvc356_DN121}), we can see a considerable improvement when inpainting in general. The results coincide well with our hypothesis \ref{hyp:b}, and we can argue that hypothesis \ref{hyp:a} also holds some ground when evaluated on this dataset. 
 
 For the Kvasir dataset, we do not expect the same result as we would for a dataset not seen by the classifier. We hypothesised that model \textbf{III} and \textbf{VI} would get us the best results, as they only removed areas with sparse information. From the results, we can see a slight improvement to the results when evaluated on the datasets, but not to any extent to prove hypothesis \ref{hyp:a}.
 
-For the CVC 12k dataset we see the most significant change when we removed sparse areas as opposed to removing dataset specific artefacts. As the MCC rose with 0.08 for both the datasets and no others, it seems like removing dataset specific artefacts does not always give the best results.
+For the CVC 12k dataset, we see the most significant change when we removed sparse areas as opposed to removing dataset specific artefacts. As the MCC rose with 0.08 for both the datasets and no others, it seems like removing dataset specific artefacts does not always give the best results.
+
+
 
 
 \begin{table}[h!]
@@ -3290,7 +3292,7 @@ gre
 	\end{tikzpicture}
 	}
 	\caption{Kvasir with DN121}
-	\label{bar:kvasir_DN}
+	\label{bar:kvasir_DN121}
 	\end{subfigure}
 \qquad
 	\begin{subfigure}[t]{0.49\textwidth}
@@ -3326,7 +3328,7 @@ gre
 	\end{tikzpicture}
 	}
 	\caption{Kvasir with IRV2}
-	\label{bar:kvasir_DN}
+	\label{bar:kvasir_DN121}
 	\end{subfigure}
 	\caption{Visualisation of the Kvasir dataset MCC values made by both Densenet121 and InceptionresnetV2}
 	\label{bar:kvasir}
@@ -3368,7 +3370,7 @@ gre
 	\end{tikzpicture}
 	}
 	\caption{CVC 12k with DN121}
-	\label{bar:cvc12k_DN}
+	\label{bar:cvc12k_DN121}
 	\end{subfigure}
 \qquad
 	\begin{subfigure}[t]{0.49\textwidth}
@@ -3404,7 +3406,7 @@ gre
 	\end{tikzpicture}
 	}
 	\caption{CVC 12k with IRV2}
-	\label{bar:cvc12k_DN}
+	\label{bar:cvc12k_DN121}
 	\end{subfigure}
 	\caption{Visualisation of the CVC 12k MCC values made by both Densenet121 and InceptionresnetV2}
 	\label{bar:cvc12k}
