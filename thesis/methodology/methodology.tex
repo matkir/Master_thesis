@@ -562,17 +562,17 @@ We will now go more in-depth into the two networks used for generating the new d
 \subsection{autoencoder}
 The autoencoder we used to generate the datasets used in this thesis bears a resemblance to the standard autoencoder proposed in chapter \ref{cha:Explaining_autoencoders}.
 
-\paragraph{loss, optimiser}
-To get the autoencoder to give the best result, we have chosen to use the mean square error loss\ref{eq:MSE_form} and the Adam\cite{adam} optimiser.
+\paragraph{Loss, Optimiser}
+To get the autoencoder to give the best result, we have chosen to use the mean square error loss as in equation~\ref{eq:MSE_form} and the Adam\cite{adam} optimiser.
 The mean square error was a logical choice since we already have the ground truth and we only want to recreate the inpainted area based on what used to be there before the masking.
 The Adam optimiser was chosen by the widespread usage in machine learning, coupled with the fact that it works well with sparse gradiens.
 
-\paragraph{encoder}
+\paragraph{Encoder}
 The input to the autoencoder were the masked images at $256 \times 256$px to compress the information in the encoder we imply used convolutions with a stride of 2. An option to using stride for the downsampling would be to use pooling, as described in section \ref{cha:pool}. Here, there are still room for experimentation.
 
 
 
-\paragraph{decoder}
+\paragraph{Decoder}
 between the encoder and decoder we added a 25\% dropout layer. This layer is the only reguliser in the network, though since the job were to inpaint and not recreate, the autoencoder needed information about a rather large area of the image, and hence had little possibility to overfit.
 
 Upsampling could either be achieved with upconvolution or with upsampling.
@@ -685,12 +685,13 @@ Here i am going to explain the projects\\
 Here i am going to explain the projects\\
 
 \section{Summary}
-in this chapter, we have described the reasoning behind using python, tensorflow and Keras for our machine learning. 
-After this we looked into the filters used for training our models, and what type of preprocessing we wanted to do in addition to the inpainting. We looked at the advantages and disadvantages of preprocessing the Test data, as opposed to just preprocessing the training data.
+In this chapter we have, in more detail, looked at the process and purpose of inpainting and classifying.
+We started with the discussion regarding where to inpaint, and the problem statements we wanted to test for each of the inpaintings. 
+We made a decision regarding if inpainting of the test set were feasible, and decided the two types of generative modelling algorithms we use in this thesis. 
+We looked at the need for a classification model to discern the results of our inpainting and decided to use transfer learning to represent a real-world scenario better.
+We looked into the two transfer learning models we use in this thesis, namely Densenet121 and InceptionResNetV2, and gave a brief overview of their similarities and differences.
 
-We then went more in-depth into how the three main programs were built up, and how they differ from their original sources.
-First, we looked at the preprocessing methods, AE and GAN. We looked at how they learned from the samples, and we went more in-depth talking about the crucial layers for each model.
-
-At last, we ended up giving a summary of the project as a whole, following a the Kvasir dataset from its original source into the generation of the six new datasets, and how each one of them was classified with all the different parameters to show the dataset-specific rate of success.
+After a more conceptual view, we talked more about how we would achieve the experiments in practice.  Here we talked about why we chose python, tensorflow and keras, followed by custom functions needed for our machine learning algorithms. 
+We ended the chapter with the description of the three models in practice.
 
  
