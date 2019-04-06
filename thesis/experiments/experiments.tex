@@ -2889,26 +2889,22 @@ H&  0 & 0 & 0 & 2 & 1 & 0 & 1 & 157\\
 
 
 
-
-\FloatBarrier
-
-
-
-
 \section{Classification results based on the Densenet model}
-\Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} shows the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356_DN121,bar:kvasir_DN121,bar:cvc12k_DN121} shows the visualised MCC values. 
+\Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} shows the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} shows the visualised MCC values. 
+
+\paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_CVC356_DN121} \& Bar: \ref{bar:cvc356_DN121})}
+Here we can see a considerable improvement when inpainting in general. The results coincide well with our hypothesis \ref{hyp:b}, and we can argue that hypothesis \ref{hyp:a} also holds some ground when evaluated on this dataset. 
+
+\paragraph{The Kvasir dataset (Fig: \ref{tab:summary_KVASIR_DN121} \& Bar: \ref{bar:kvasir_DN121})}
+Here we do not expect the same result as we would for a dataset not seen by the classifier. We hypothesised that model \textbf{III} and \textbf{VI} would get us the best results, as they only removed areas with sparse information. From the results, we can see no significant improvement to the results when evaluated on the datasets. Thus we can not prove hypothesis \ref{hyp:a} with the densenet model.
+
+\paragraph{The CVC 12k dataset (Fig: \ref{tab:summary_CVC12k_DN121} \& Bar: \ref{bar:cvc12k_DN121})}
+Here we see the most significant change when we removed sparse areas at the corner as opposed to removing dataset specific artefacts. As the MCC rose with 0.08 for both the datasets and no others, it seems like removing dataset specific artefacts does not always yield the best results.
+
+\todo{Might need to talk about recall and prec and stuff... In how much detail do i want to go??}
 
 
-For the CVC 356 dataset (ref{Fig: tab:summary_CVC356_DN121} \& Bar:ref{bar:cvc356_DN121}), we can see a considerable improvement when inpainting in general. The results coincide well with our hypothesis \ref{hyp:b}, and we can argue that hypothesis \ref{hyp:a} also holds some ground when evaluated on this dataset. 
-
-For the Kvasir dataset, we do not expect the same result as we would for a dataset not seen by the classifier. We hypothesised that model \textbf{III} and \textbf{VI} would get us the best results, as they only removed areas with sparse information. From the results, we can see a slight improvement to the results when evaluated on the datasets, but not to any extent to prove hypothesis \ref{hyp:a}.
-
-For the CVC 12k dataset, we see the most significant change when we removed sparse areas as opposed to removing dataset specific artefacts. As the MCC rose with 0.08 for both the datasets and no others, it seems like removing dataset specific artefacts does not always give the best results.
-
-
-
-
-\begin{table}[h!]
+\begin{table}
 \centering
 \caption*{\small 
 \textbf{I}: Base Case. 
@@ -2973,24 +2969,25 @@ VII               & 0.2105 & 0.3713 & 0.6182 & 0.5937 & 0.3733\\
 \label{tab:summary_CVC12k_DN121}
 \end{table}
 
-Did i take the step i wanted was it just a state of mind i feel sorry for my self every time i close my eyes and i fall in to a hole and i can take no more and i fall in to a hole and i can take no more and i fall in to a hole and i can take no more and i fall in to a hole and i can take no more.
-
 
 
 
 \section{Classification results based on the InceptionResnetV2 model}
-\Cref{tab:summary_CVC356_IRV2,tab:summary_KVASIR_IRV2,tab:summary_CVC12k_IRV2} shows the summary of the results gathered from the IRV2 model.
-For the CVC 256 dataset, we can see the same considerable improvement when inpainting the dataset-specific artefacts. We see that we can, with this model, double the MCC score with the GAN dataset.
+\Cref{tab:summary_CVC356_IRV2,tab:summary_KVASIR_IRV2,tab:summary_CVC12k_IRV2} shows the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} shows the visualised MCC values.
+
+
+\paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_CVC356_IRV2} \& Bar: \ref{bar:cvc356_IRV2})}
+Here we can see the same considerable improvement when inpainting the \textit{dataset-specific artefacts} as we saw with the densenet model. We see that we can, with this model, double the MCC score with the GAN dataset.
 A significant difference in the InceptionResNetV2 model compared to the Densenet model is the fact that some of the results did considerably worse than the base case. 
 
+\paragraph{The Kvasir dataset (Fig: \ref{tab:summary_KVASIR_IRV2} \& Bar: \ref{bar:kvasir_IRV2})}
+The Kvasir dataset shows minimal to no improvement. We can conclude that when inpainting to only remove sparseness the the machine learining algortithms draws no benefit from it, independently of the model used.
 
-The Kvasir dataset shows minimal to no improvement. We can conclude that, when using a network not hyperparameter optimised to the dataset, inpainting shows no real benefit.
-
-
+\paragraph{The CVC 12k dataset (Fig: \ref{tab:summary_CVC12k_IRV2} \& Bar: \ref{bar:cvc12k_IRV2})}
 For the CVC 12k dataset every model shows improvement compared to the base case, with the highest score for the GAN removing dataset specific features. Though all the scores are low compared to the CVC 356 dataset, we can get double MCC when using inpainting.
 
 
-\begin{table}[h!]
+\begin{table}
 \centering
 \caption*{\small 
 \textbf{I}: Base Case. 
@@ -3057,13 +3054,28 @@ VII               & 0.2305 & 0.5819 & 0.6498 & 0.5887 & 0.6802\\
 
 
 \section{Classification results based on the Densenet model at double size}
-In addition to the two models tested with the generated dataset we also looked at what would happen at larger resolutions. We made the same datasets as in the previous section but at twice the size. The results can be found in table \ref{tab:summary_CVC12k_DN121512px}.
+In addition to the two models tested with the generated dataset, we also looked at what would happen at larger resolutions. We made the same datasets as in the previous section but at twice the size. The results can be found in table \ref{tab:summary_CVC12k_DN121512px} with the visualised examples in Figure \ref{bar:512}.
 
-We can see from this summary that the results seems to keep the same trend at the larger size.
+We can see from this summary that the results seem to keep the same trend at the larger size.
 It is important to not that the image quality is harder to maintain at double size.
 
 
-\begin{table}[h!]
+\paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_CVC356_DN121512px} \& Bar: \ref{bar:cvc356_DN121_512})}
+At double the size the inpaining results tend to have the same shape as with the smaller size, except for the fully inpainted dataset produced by the GAN.  The baseline were also a bit higher at double size, while we would believe that it would be lower due to the non-polyp images from the CVC 356 set is around 288 $\times$ 384 px, meaning that we interpolate the images to get them to the appropriate size. The fact that we interpolate only the non-polyp images might have helped the classifier due to now different quality of the images.
+
+\paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_KVASIR_DN121512px} \& Bar: \ref{bar:kvasir_DN121_512})} \todo{concidering removing the barplot, since its more of the same..}
+Here at double size the results are still the same. We are not able to see any difference.
+ 
+
+\paragraph{The CVC 12k dataset (Fig: \ref{tab:summary_CVC12k_DN121512px} \& Bar: \ref{bar:cvc12k_DN121_512})}
+In the CVC 12k dataset all images are at the size 288 $\times$ 384 px. The upscaling of the images to 512 $\times$ 512 px distorts all the images, curiously enough the baseline is higher compared to the 256 $\times$ 256 px images.
+
+
+
+
+
+
+\begin{table}
 \centering
 \caption*{\small 
 \textbf{I}: Base Case. 
@@ -3081,13 +3093,13 @@ It is important to not that the image quality is harder to maintain at double si
 \multicolumn{1}{c}
 {Dataset} 	 & MCC 	  & F1  & Precision & Recall & Accuracy \\ 
 \midrule
-I                 & v0.4244 & 0.6467 & 0.7878 & 0.6565 & 0.7132\\ 
-II                & v0.7100 & 0.8549 & 0.8500 & 0.8600 & 0.9247\\ 
-III               & v0.3184 & 0.6562 & 0.6757 & 0.6442 & 0.7986\\ 
-IV                & v0.7483 & 0.8638 & 0.8157 & 0.9434 & 0.9383\\ 
-V                 & v0.6072 & 0.8017 & 0.8248 & 0.7837 & 0.8879\\ 
-VI                & v0.563  & 0.7792 & 0.8039 & 0.7607 & 0.8739\\ 
-VII               & v0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\ 
+I                 & 0.5908 & 0.7948 & 0.8074 & 0.7839 & 0.8875\\ 
+II                & 0.6946 & 0.8306 & 0.7766 & 0.9360 & 0.9264\\ 
+III               & 0.3850 & 0.6602 & 0.7481 & 0.6494 & 0.7526\\ 
+IV                & 0.4502 & 0.7102 & 0.7709 & 0.6871 & 0.8104\\ 
+V                 & 0.5401 & 0.7680 & 0.7902 & 0.7512 & 0.8682\\ 
+VI                & 0.4655 & 0.7174 & 0.7804 & 0.6932 & 0.8148\\ 
+VII               & 0.5707 & 0.7812 & 0.8152 & 0.7583 & 0.8717\\ 
 \bottomrule
 \end{tabular}
 \label{tab:summary_CVC356_DN121512px}
@@ -3099,13 +3111,13 @@ VII               & v0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\
 \multicolumn{1}{c}
 {Dataset} 	 & MCC 	  & F1  & Precision & Recall & Accuracy \\ 
 \midrule
-I                 & v0.4244 & 0.6467 & 0.7878 & 0.6565 & 0.7132\\ 
-II                & v0.7100 & 0.8549 & 0.8500 & 0.8600 & 0.9247\\ 
-III               & v0.3184 & 0.6562 & 0.6757 & 0.6442 & 0.7986\\ 
-IV                & v0.7483 & 0.8638 & 0.8157 & 0.9434 & 0.9383\\ 
-V                 & v0.6072 & 0.8017 & 0.8248 & 0.7837 & 0.8879\\ 
-VI                & v0.563  & 0.7792 & 0.8039 & 0.7607 & 0.8739\\ 
-VII               & v0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\ 
+I                 & 0.9215 & 0.9303 & 0.9307 & 0.9345 & 0.9307\\ 
+II                & 0.9118 & 0.9222 & 0.9224 & 0.9251 & 0.9224\\ 
+III               & 0.9068 & 0.9181 & 0.9179 & 0.9222 & 0.9179\\ 
+IV                & 0.9158 & 0.9261 & 0.9262 & 0.9269 & 0.9262\\ 
+V                 & 0.9091 & 0.9200 & 0.9202 & 0.9218 & 0.9202\\ 
+VI                & 0.9209 & 0.9306 & 0.9307 & 0.9310 & 0.9307\\ 
+VII               & 0.9218 & 0.9313 & 0.9315 & 0.9319 & 0.9315\\ 
 \bottomrule
 \end{tabular}
 \label{tab:summary_KVASIR_DN121512px}
@@ -3116,13 +3128,13 @@ VII               & v0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\
 \multicolumn{1}{c}
 {Dataset} 	 & MCC 	  & F1  & Precision & Recall & Accuracy \\ 
 \midrule
-I                 & v0.4244 & 0.6467 & 0.7878 & 0.6565 & 0.7132\\ 
-II                & v0.7100 & 0.8549 & 0.8500 & 0.8600 & 0.9247\\ 
-III               & v0.3184 & 0.6562 & 0.6757 & 0.6442 & 0.7986\\ 
-IV                & v0.7483 & 0.8638 & 0.8157 & 0.9434 & 0.9383\\ 
-V                 & v0.6072 & 0.8017 & 0.8248 & 0.7837 & 0.8879\\ 
-VI                & v0.5630 & 0.7792 & 0.8039 & 0.7607 & 0.8739\\ 
-VII               & v0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\ 
+I                 & 0.3146 & 0.5342 & 0.7118 & 0.6168 & 0.5682\\ 
+II                & 0.2804 & 0.4473 & 0.6743 & 0.6127 & 0.4576\\ 
+III               & 0.2256 & 0.5299 & 0.6533 & 0.5830 & 0.5846\\ 
+IV                & 0.2833 & 0.5506 & 0.6925 & 0.6042 & 0.6005\\ 
+V                 & 0.2613 & 0.4909 & 0.6729 & 0.5987 & 0.5167\\ 
+VI                & 0.2325 & 0.5023 & 0.6565 & 0.5863 & 0.5387\\ 
+VII               & 0.2423 & 0.4748 & 0.6590 & 0.5924 & 0.4975\\ 
 \bottomrule
 \end{tabular}
 \label{tab:summary_CVC12k_DN121512px}
@@ -3164,11 +3176,7 @@ VII               & v0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\
 \end{figure}
 \fi
 
-\section{Summary}
 
-
-Here we desicuss the summary of both the inpainting an the calssifiaction bringing it all together and brag aboutthe high MCC
-Well done Mathias
 
 \begin{figure}[h]	
 	\tiny
@@ -3248,13 +3256,6 @@ Well done Mathias
 \end{figure}
 
 Figure \ref{bar:cvc356}
-fsedw
-werg
-egr
-egre
-g
-re
-gre
 
 
 \begin{figure}[h]	
@@ -3328,7 +3329,7 @@ gre
 	\end{tikzpicture}
 	}
 	\caption{Kvasir with IRV2}
-	\label{bar:kvasir_DN121}
+	\label{bar:kvasir_IRV2}
 	\end{subfigure}
 	\caption{Visualisation of the Kvasir dataset MCC values made by both Densenet121 and InceptionresnetV2}
 	\label{bar:kvasir}
@@ -3413,6 +3414,138 @@ gre
 \end{figure}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[h]	
+	\tiny
+	\begin{subfigure}[t]{0.49\textwidth}
+		\centering
+		\resizebox{\textwidth}{\textwidth}{	
+		\begin{tikzpicture}[scale=1]
+		\begin{axis}[ybar,
+					 ymax=1,
+					 ymin=0,
+					 %x tick label style={/pgf/number format/1000 sep=},
+					 xtick=data, style={/pgf/number format/fixed, /pgf/number format/precision=3 },				 
+					 %ylabel=MCC,
+					 enlarge x limits=0.20,
+					 %legend style={at={(0.5,-0.15)},anchor=north,legend columns=-1},
+					 legend cell align=left,
+		        	 legend style={at={(1,1.05)},anchor=south east,column sep=1ex},
+					 symbolic x coords={Corner,Square,Both},
+					 bar width=18pt,
+					 nodes near coords,
+					 nodes near coords align={vertical},
+					 extra y ticks = 0.5908,
+		        	 extra y tick labels={},
+		        	 extra y tick style={grid=major,major grid style={thick,draw=black}}
+					]
+		
+		\addplot [style={enicegreen,fill=nicegreen}] coordinates {(Corner,0.4655) (Square,0.5401) (Both,0.5707) };
+		\addplot [style={eniceblue,fill=niceblue}] coordinates {(Corner,0.3850) (Square,0.6946) (Both,0.4502) };
+		\legend{AE,GAN}
+		\addlegendimage{my legend}
+		\addlegendentry{Base Case}
+		
+		\end{axis}
+		\end{tikzpicture}
+		}
+		\caption{CVC 356 with DN121 at 512 $\times$ 512 px}
+		\label{bar:cvc356_DN121_512}
+	\end{subfigure}
+\qquad
+	\begin{subfigure}[t]{0.49\textwidth}
+		\centering
+		\resizebox{\textwidth}{\textwidth}{	
+		\begin{tikzpicture}[scale=1]
+		\begin{axis}[ybar,
+					 ymax=1,
+					 ymin=0,
+					 %x tick label style={/pgf/number format/1000 sep=},
+					 xtick=data, style={/pgf/number format/fixed, /pgf/number format/precision=3 },				 
+					 %ylabel=MCC,
+					 enlarge x limits=0.20,
+					 %legend style={at={(0.5,-0.15)},anchor=north,legend columns=-1},
+					 legend cell align=left,
+		        	 legend style={at={(1,1.05)},anchor=south east,column sep=1ex},
+					 symbolic x coords={Corner,Square,Both},
+					 bar width=18pt,
+					 nodes near coords,
+					 nodes near coords align={vertical},
+					 extra y ticks = 0.9215,
+		        	 extra y tick labels={},
+		        	 extra y tick style={grid=major,major grid style={thick,draw=black}}
+					]
+		
+		\addplot [style={enicegreen,fill=nicegreen}] coordinates {(Corner,0.9209) (Square,0.9091) (Both,0.9158) };
+		\addplot [style={eniceblue,fill=niceblue}] coordinates {(Corner,0.9068) (Square,0.9118) (Both,0.9218) };
+		\legend{AE,GAN}
+		\addlegendimage{my legend}
+		\addlegendentry{Base Case}
+		\end{axis}
+		\end{tikzpicture}
+		}
+		\caption{Kvasir with DN121 at 512 $\times$ 512 px}
+		\label{bar:kvasir_DN121_512}
+	\end{subfigure}
+\qquad
+	\begin{subfigure}[t]{0.49\textwidth}
+		\centering
+		\resizebox{\textwidth}{\textwidth}{	
+		\begin{tikzpicture}[scale=1]
+		\begin{axis}[ybar,
+					 ymax=1,
+					 ymin=0,
+					 %x tick label style={/pgf/number format/1000 sep=},
+					 xtick=data, style={/pgf/number format/fixed, /pgf/number format/precision=3 },				 
+					 %ylabel=MCC,
+					 enlarge x limits=0.20,
+					 %legend style={at={(0.5,-0.15)},anchor=north,legend columns=-1},
+					 legend cell align=left,
+		        	 legend style={at={(1,1.05)},anchor=south east,column sep=1ex},
+					 symbolic x coords={Corner,Square,Both},
+					 bar width=18pt,
+					 nodes near coords,
+					 nodes near coords align={vertical},
+					 extra y ticks = 0.3146,
+		        	 extra y tick labels={},
+		        	 extra y tick style={grid=major,major grid style={thick,draw=black}}
+					]
+		
+		\addplot [style={enicegreen,fill=nicegreen}] coordinates {(Corner,0.2325) (Square, 0.2613) (Both,0.2423) };
+		\addplot [style={eniceblue,fill=niceblue}] coordinates {(Corner,0.2256) (Square,0.2804) (Both,0.2833) };
+		\legend{AE,GAN}
+		\addlegendimage{my legend}
+		\addlegendentry{Base Case}
+		\end{axis}
+		\end{tikzpicture}
+		}
+		\caption{CVC 12k with DN121 at 512 $\times$ 512 px}
+		\label{bar:cvc12k_DN121_512}
+	\end{subfigure}
+	\caption{Visualisation of the The three datasets with Densenet121 at 512 $\times$ 512 px}
+	\label{bar:512}
+\end{figure}
+
+
+\section{Summary}
+
+
+Here we desicuss the summary of both the inpainting an the calssifiaction bringing it all together and brag aboutthe high MCC
+Well done Mathias
 
 
 
