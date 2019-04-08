@@ -24,24 +24,24 @@ As long as the classification is affected by dataset specific artefacts, the abi
      \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal1.png}
-         \caption{Original image that are classified}
+         \caption{Original image}
          \label{fig:sal1}
      \end{subfigure}
      \hfill
      \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal2.png}
-         \caption{Heatmap of the decision}
+         \caption{Heatmap}
          \label{fig:sal2}
      \end{subfigure}     
      \hfill
      \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal3.png}
-         \caption{Heatmap of the decision}
+         \caption{Saliency map}
          \label{fig:sal3}
      \end{subfigure}
-     \caption{Saliency maps}
+     \caption{Heat and Saliency maps of an unaugmented dataset}
      \label{fig:Saliencymasks}
 \end{figure}
 
@@ -50,24 +50,24 @@ As long as the classification is affected by dataset specific artefacts, the abi
      \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal4.png}
-         \caption{Original image that are classified}
+         \caption{Augmented image}
          \label{fig:sal4}
      \end{subfigure}
      \hfill
      \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal5.png}
-         \caption{Heatmap of the decision}
+         \caption{Heatmap}
          \label{fig:sal5}
      \end{subfigure}     
      \hfill
      \begin{subfigure}[t]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/sal7.png}
-         \caption{Heatmap of the decision}
+         \caption{Saliency map}
          \label{fig:sal7}
      \end{subfigure}
-     \caption{Saliency maps}
+     \caption{Heat and Saliency maps of an augmented dataset where the green corner is removed}
      \label{fig:Saliencymasks2}
 \end{figure}
 
@@ -224,6 +224,7 @@ In total, we end up with six generated datasets, two for each mask type, and one
 \item removing text, and the permutations regarding this
 \item using a pixel CNN to inpaint
 \item using the contextencoder as shown in first paper.
+\item OCR
 \end{itemize}
 }}
 
