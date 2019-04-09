@@ -203,8 +203,7 @@ Here we hope that a combination of hypothesis \ref{hyp:a} and \ref{hyp:b} will g
 
 
 \subsection{The generative modelling algorithms}
-With the three masks discussed, we now want to present the generative modelling algorithms.
-As addressed in section \ref{cha:BEW} our goal is to make new datasets without the unwanted artefacts based on the original dataset. 
+With the three masks discussed, we now want to present the generative modelling algorithms. As addressed in section \ref{cha:BEW} our goal is to make new datasets without the unwanted artefacts based on the original dataset. 
 We have chosen to use the two generative models presented in section \ref{cha:Explaining_autoencoders} and in section \ref{cha:Explaining_GANS}, namely Autoencoders and GANs.
 
 
@@ -267,17 +266,14 @@ In total, we end up with six generated datasets, two for each mask type, and one
 \section{Design of the transfer learning experiments}
 \label{cha:classifier}
 To test the hypothesises we need a system in place to compare the datasets we generate with inpainting. As we recall, both our hypothesis is based on an improvement on a base score. 
-To see if we have any improvement we propose to use a classifier based on transfer learning to see how the newly generated datasets gives a better classification score compared to the base dataset without augmentations.
+To see if we have any improvement we propose to use a classifier based on transfer learning to see how the newly generated datasets give a better classification score compared to the base dataset without augmentations.
 
-We want to test our system with a range of different models and classifiers to test the validity of the system, and to make sure that our results are not just good out-layers.
+We want to test our system with a range of different models and classifiers to test the validity of the system and to make sure that our results are not just good outliers.
 
 Figure \ref{fig:KTLmodel} shows the general structure of the transfer learning model we use in this thesis. 
 
-
-Hyperparameter optimisation of the models is a challenging task~\cite{runeMedico2018}. In this thesis, we have chosen to use automatic hyperparameter optimisation provided by SAGA~\todo{cite saga} to give us the optimal model for training. Based on our dataset, the optimal network was DenseNet121~\cite{DBLP:journals/corr/HuangLW16a} as our primary model for evaluation. 
-In addition to an optimal model, we have chosen to use InceptionResNetV2~\cite{DBLP:journals/corr/SzegedyIV16} as a more general model. InceptionResNetV2 showed the highest top 1 and top 5 accuracies on imagenet when we designed the transfer learning program.
-
-At the time of this writing, we have newer, more accurate models for imagenet. \todo{19 aug when i starded, IRV2 was the best model.}
+Hyperparameter optimisation of the models is a challenging task~\cite{runeMedico2018}. In this thesis, we have chosen to use automatic hyperparameter optimisation provided by the hyperparameter optimiser made by Borgli et al. in the MediaEval workshop 2019~\cite{runeMedico2018}, to give us the optimal model for training. Based on our dataset, the optimal network, DenseNet121~\cite{DBLP:journals/corr/HuangLW16a}, was chosen as our primary model for evaluation. 
+In addition to an optimal model, we have chosen to use InceptionResNetV2~\cite{DBLP:journals/corr/SzegedyIV16} as a more general model. InceptionResNetV2 showed the highest top 1 and top 5 accuracies on imagenet when we designed the transfer learning program based on the Keras website in August 2018. We find a more recent table with more pretrained models in Figure \ref{tab:Kaeras_app}.
 
 
 
@@ -291,22 +287,21 @@ At the time of this writing, we have newer, more accurate models for imagenet. \
 \end{figure}
 
 
+
 \subsection{models}
-Here we go in depth in to how DN and IRV2 works.
-\paragraph{Densenet}
-\textit{\textbf{OMG I NEED TO WRIST STUFF HERE TOOOOOOOOOOOOOOOOOOO}}
+The models used in the evaluation of our results are fundamentally different and to better understand the results we give s short introduction of both pretrained network. 
 
 \paragraph{Inception Residual Network architecture }
-We can often see performance gains in our network architectures when we increase the size of the network. To increase the size, we can either increase the depth of the network, i.e. the number of layers, or we can increase the width of the network, i.e. increase the number of units per layer. Both methods are often easy to implement, but it often comes with the drawback of either increasing the number of parameters to train, which can result in overfitting, or it can result in the computation time of the network to increase to an unfeasible length.
+We can often see performance gains in our network architectures when we increase the size of the network. To increase the size, we can either increase the depth of the network, i.e. the number of layers, or we can increase the width of the network, i.e. increase the number of units per layer. Both methods are often easy to implement, but it often comes with the drawback of either increasing the number of parameters to train, which can result in overfitting, or it can result in the computation time of the network to increase to an undesirable length.
 To find a balance between accuracy and memory is often a hard task when it comes to not only medical images but images in general.
 
 Szegedy et al. presented an architecture for the imagenet challenge with the intention of reducing the computational cost of training large neural networks by decreasing the number of parameters~\cite{DBLP:journals/corr/SzegedyLJSRAEVR14}. 
-The network presented, GoogLeNet, used inception modules to reduce the computational cost.  Inception modules (networks within networks) tries to answer the question of witch convolution is the correct for each layer. Often it is up to the network architect to decide this, but with inception modules, the network chooses for itself.
-In the GoogLeNet paper, the inception modules are the same as in Figure \ref{fig:Inception}, showing the option between $1 \times 1$, $3 \times 3$, $5 \times 5$ convolutions, and $3 \times 3$ max pooling, followed by a concatenation of the four options. \todo{do i mention the 1x1 that reduces dimentionality?}
+The network presented, GoogLeNet, used inception modules to reduce the computational cost.  Inception modules (networks within networks) tries to answer the question of witch convolution is the correct for each layer. Often it is up to the network architect to decide this, but with inception modules, the network chooses for itself. 
+In the GoogLeNet paper, the inception modules are the same as in Figure \ref{fig:Inception}, showing the option between $1 \times 1$, $3 \times 3$, $5 \times 5$ convolutions, and $3 \times 3$ max pooling, followed by a concatenation of the four options. In addition to the convolution in parallel, the original authors added $1 \times 1$ convolution before the larger filter. This layer uses 128 filters for dimensionality reduction.
+
 
 Microsoft proposed another solution to training very deep neural networks in the form of residual modules~\cite{DBLP:journals/corr/HeZRS15} as shown in Figure \ref{fig:Residual}.
 When using sufficiently large enough networks the backpropagation often encounter the problem with vanishing gradients. By adding a direct link between the layers, we counteract the vanishing gradient problem. A consequence we encounter when using residual modules is that instead of recreating the input for each layer, each layer learns only to modify the input value instead of completely recreating it.
-
 
 \begin{figure}
      \centering
@@ -327,69 +322,72 @@ When using sufficiently large enough networks the backpropagation often encounte
      \label{fig:IRV2modules}
 \end{figure}
 
+Finally, combining the inception and residual modules, we end up with the modules used in InceptionResNetV2. 
+Here we combine the strength of both networks. A compressed view of the network is shown in Figure \ref{fig:IRV2} as shown in the article by Mahdianpari et al.~\cite{rs10071119}
+\begin{figure}
+     \centering
+     \includegraphics[width=1.1\textwidth]{methodology/figures/Schematic-diagram-of-InceptionResNetV2.png}
+     \caption{The compressed view of the InceptionResNetV2 network by Mahdianpari et al.}
+     \label{fig:IRV2}
+\end{figure}
 
-Finally, combining the inception and residual modules, we end up with the modules used in InceptionResNetV2. \todo{more on this}
+\paragraph{DenseNet architecture}
+Huang et al. published the DenseNet architecture, as shown in Figure \ref{fig:DN}, with the same goal as InceptionResNet, namely to reduce network size and to get better classification accuracy from a better gradient flow~\cite{Huang_2017}.
+In the DenseNet model, all layers are connected in a way to ensure the maximum flow of information between layers. The network achieves this flow by letting each layer convey all its information to all subsequent layers with similar dimensions. This gradient flow gives the network the ability not to store redundant information, and Huang et al. showed significant results for classification with small training datasets where overfitting often would serve a problem.
 
+\begin{figure}
+     \centering
+     \includegraphics[width=1.1\textwidth]{methodology/figures/Schematic-diagram-of-DenseNet-model.jpg}
+     \caption{The compressed view of the DenseNet network by Mahdianpari et al.}
+     \label{fig:DN}
+\end{figure}
 
-\subsection{pooling}
-Write short about the pooling, maybe \todo{MICHAEL OR PAAL: \\do i bother talking about pooling?}
-\paragraph{Global Average pooling}
-
-\paragraph{Global max pooling }
-
-\paragraph{No pooling}
-
-\subsection{What does the different combination do to the result in our opinion (renamed to something cool sunglassemoji )}
-Here we talk more bout what we believe the modules do to the result.
+\subsection{What does the different combination do to the result in our opinion (renamed to something cool :sunglassemoji: )}
+Based on the article by Huang et al.~\cite{Huang_2017}, we believe that the densenet model would give us the best result. As stated, the densenet model has good gradient flow, and the architecture helps small datasets with overfitting. 
 
 \subsection{summary}
-We have in this section gone in-depth in to the transfer learning network.
-
-
-
-
+We have, in this section, talked about how we want to use transfer learning to help with the classification. We have looked at the two main advantages with transfer learning, namely the time saved in training and the accuracy gained during evaluation. The advantages coupled with the fact of the widespread use of transfer learning makes it the best option for us, compared to regular classification.
+ We then took the results from the SAGA tool made by Borgli et al. and used the most optimal network as our primary network in this thesis. 
+In addition to the best network, based on Hyperparameter optimisation, we used InceptionResNet as a secondary network for evaluation, reasoning that the use of a generally good network would yield a scenario closer to the real world.
+After a brief discussion about the composition of the networks, we concluded with the DenseNet model would yield the best result based on our datasets.
 
 
 
 
 
 \section{Libraries} 
-With the general structure of the algorithms discussed, we will now go more in-depth in to the libraries used in the creation of the programs.
+With the general structure of the algorithms discussed, we will now go more in-depth into the libraries used in the creation of the programs.
 
-In this section, we will discuss the foundation of our code, important external libraries, and the setup and execution of our project.  
-We first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we look into the wrapper we use to get a higher level of abstraction over our code, together with custom wrapper functions that are used by our wrapper. 
+In this section, we will discuss the foundation of our code, important external and internal libraries, and the setup and execution of our project.  
+We first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we look into the wrapper we use to get a higher level of abstraction over our code, together with custom functions that are in use by our wrapper. 
 
 \subsection{Python}
-When doing machine learning, the most popular languages, in no particular order, are Python, Java, R, C++, and C \todo{cite}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base and user-friendliness. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
+When doing machine learning, some of the most popular languages, in no particular order, are Python, Java, R, C++, and C \cite{kaggle}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base and user-friendliness. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
 Right now Python is the leading language for machine learning. Driven by this, there is considerable focus into making it faster, to compete with already fast languages, like the C family. 
 
 Python is an interpreted, high-level, general-purpose programming language created in 1991.   It, like many other modern languages, is object-oriented and supports functional programming. 
-
 Mainly because of the excellent support when it comes to machine learning, and the general "easy to use and no compiling" we have chosen python as the base for our code in this thesis. 
 
 
 
 \subsection{Tensorflow}
-Arguably the biggest reason for the success of machine learning in python lies in Tensorflow.\todo{cite} Tensorflow is a machine learning package developed by Google in \todo{year} and has since then become the leading framework for machine learning worldwide \todo{cote}.  
-Tensorflow is in use by companies like AMD, Nvidia, eBay and Snapchat. 
+Arguably the biggest reason for the success of machine learning in python lies in Tensorflow~\cite{tensorflow2015-whitepaper}. Tensorflow is a machine learning package released by Google in November 2015 and has since then become the leading framework for machine learning worldwide~\cite{kaggle}.  
+Tensorflow is in use by companies like AMD, Twitter, eBay and Snapchat. 
 
-
-\todo{something about projects with python, and how may uses}
 
 Tensorflow is today a multi-language tool, but it had its origin in python. It is just in later years that other languages have gotten tensorflow support.  
 The data flows through a graph network, where the objects in the graph describe the mathematical operations used in the machine learning, and the edges between graphs are the multidimensional arrays storing the weights associated with the operation in question. The name Tensorflow is a combination of the flow we experience during calculation and the tensors between the mathematical operations. 
 
 As stated, Python, and subsequently machine learning in Python, would be much slower than a counterpart in C. Because of this, Tensorflow works as a layer of abstraction to code running in the C language. 
- 
-\todo{cpu vs gpu}
-\todo{, CNTK, or Theano}
+In addition to the layer of abstraction, Tensoflow can do the computation using a graphical processing unit (GPU). Using a GPU for machine learning will often give a considerable speedup to the training, given that the GPU is designed with matrix multiplication in mind. This gives the GPU the option to easily calculate large chunks of the data in a fraction of the time.
+
+Other packages for machine learning like PyTorch~\cite{paszke2017automatic} and Microsofts CNTK~\cite{Seide:2016:CMO:2939672.2945397} would be other options, but as they are not as widespread. Because of the widespread usage, we have chosen to use Tensoflow as our primary machine learning package.
 
 
 
 \subsection{Keras}
-One of the least attractive things with tensorflow is its unnecessary complexity.  Even though Tensorflow offers more abstraction compared to running the code in pure C, the Tensorflow library can be unnecessarily complex.
-As a result of this, many external libraries try to simplify many of the complexities that accompany tensorflow. 
-Libraries like TFlearn was made as a modular and transparent deep learning library on top of tensorflow. It gives a higher-level API to Tensoflow to reduce complexity and speed up experiments. \todo{cite TFLEARN}
+One of the least attractive things with tensorflow is its unnecessary complexity.  Even though Tensorflow offers more abstraction compared to running the code in pure C, the Tensorflow library can be unnecessarily complex. As a result of this, many external libraries try to simplify many of the complexities that accompany tensorflow. 
+Libraries like TFlearn is a modular and transparent deep learning library on top of tensorflow. It gives a higher-level API to Tensoflow to reduce complexity and speed up experiments. \todo{cite TFLEARN}
 The most successful library for on top of Tensorflow is Keras \todo{cite keras}. 
 Just as TFlearn, Keras is a high-level package written in python. It is capable of running on top of TensorFlow, CNTK, or Theano, which is the tree most popular machine learning libraries at this time. 
 From their website they state that their four goals when creating Kears were:
