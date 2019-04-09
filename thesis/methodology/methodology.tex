@@ -387,18 +387,13 @@ Other packages for machine learning like PyTorch~\cite{paszke2017automatic} and 
 
 \subsection{Keras}
 One of the least attractive things with tensorflow is its unnecessary complexity.  Even though Tensorflow offers more abstraction compared to running the code in pure C, the Tensorflow library can be unnecessarily complex. As a result of this, many external libraries try to simplify many of the complexities that accompany tensorflow. 
-Libraries like TFlearn is a modular and transparent deep learning library on top of tensorflow. It gives a higher-level API to Tensoflow to reduce complexity and speed up experiments. \todo{cite TFLEARN}
+Libraries like TFlearn is a modular and transparent deep learning library on top of tensorflow. It gives a higher-level API to Tensoflow to reduce complexity and speed up experiments~\cite{tflearn2016}.
 The most successful library for on top of Tensorflow is Keras \todo{cite keras}. 
-Just as TFlearn, Keras is a high-level package written in python. It is capable of running on top of TensorFlow, CNTK, or Theano, which is the tree most popular machine learning libraries at this time. 
-From their website they state that their four goals when creating Kears were:
-\textbf{User friendliness. }\\
-\textbf{Modularity. }\\
-\textbf{Easy extensibility.}\\ 
-\textbf{Work with Python. }\\
+Just as TFlearn, Keras is a high-level package written in python~\cite{chollet2015keras}. It is capable of running on top of TensorFlow, CNTK, or PyTorch, which is the tree most popular machine learning libraries at this time.  Keras is made to be user-friendly, modular, easily extensible, and to work with python.
 
-One of the core elements of Keras that makes it a better choice than just running, for instance, Tensorflow, is the concept of a model. A model in Keras is a way to organise the layers of the network in a more organised way, giving a better understanding of how the network is set up, and how each layer type contributes to the graph. \todo{more}
+One of the core elements of Keras that makes it a better choice than just running, for instance, Tensorflow, is the concept of a model. A model in Keras is a way to organise the layers of the network in a more organised way, giving a better understanding of how the network is set up, and how each layer type contributes to the graph. 
 
-This thesis relies on Keras as a wrapper for tensorflow. As stated, the use of models and the simplicity of the language makes it an excellent choice of such a large project. Also, Keras has good support for convolutional operations which is the most used methods when managing images. Keras also has the most popular pretrained convolutional neural network models available in its package. \textit{Since one of our primary goal is to see how well our datasets generalise to the real world, transfer-learning will be a great tool to forgo unnecessary training}
+This thesis relies on Keras as a wrapper for tensorflow. As stated, the use of models and the simplicity of the language makes it an excellent choice of such a large project. Also, Keras has good support for convolutional operations which is the most used methods when managing images. Keras also has the most popular pretrained convolutional neural network models available in its package.
 
 
 
@@ -406,15 +401,14 @@ This thesis relies on Keras as a wrapper for tensorflow. As stated, the use of m
 
     
 \section{Custom functions for Keras, tensorflow and python}
-\subsection{CWFC layer}
+\subsection{Channel wise fully connected layer}
 A problem often encountered when working with autoencoders which are not undercomplete is the fact that they learn to represent the data flawlessly. \cite{OvercompleteAE} 
 When this problem arises, the network does not learn the fundamental features that define the dataset and instead passes the signal through the network without any consideration of the input data.
 This flaw will often defeat the purpose of the algorithm, so data scientists often put in safeguards, like undercompleteness or regulisers, to combat this lack of feature learning. 
 This problem extends to other types of generator networks where there are not sufficient compression or regularisation in the layers of the network.
 Even though this problem often is solved by compressing the network into a space that can not contain the information exactly, the network does not always learn the features that define the network. 
 
-We propose a custom ``channel-wise fully-connected layer'' in Keras to help with the problem of correctly learning features. This layer is based on the work done by Pathak et al. in their paper on content encoders\cite{Pathak_2016}.
-
+We propose a custom ``channel-wise fully-connected layer'' in Keras to help with the problem of correctly learning features. This layer is based on the work done by Pathak et al. in their paper on context encoders\cite{Pathak_2016}.
 The channel wise fully connected layer is primarily used in the GAN to transfer information within each feature map, without using convolutions to do it. As we recall, fully connected layers are often not suitable because of the large size of the weight layer associated with it. This layer is essentially a fully connected layer with groups, where the goal is to propagate the information within each feature map.
 Given the latent space of $n \times n$ with $m$ feature maps, by not connecting the feature maps together in the fully connected layer we achieve a parameter reduction from $m^2n^4$ to $mn^4$ (ignoring bias terms) \cite{Pathak_2016}
 
@@ -435,6 +429,8 @@ When working with the generative adversarial network, we wanted to achieve more 
 Making large scale images in generative adversarial networks has been a challenge that has only recently been cracked~\cite{DBLP:journals/corr/DentonCSF15}~\cite{DBLP:journals/corr/abs-1809-11096}.
 As an early measure to fix this problem, we experimented with the use of a Sub-pixel layer as presented by Shi et al.~\cite{DBLP:journals/corr/ShiCHTABRW16} to give a more realistic output compared to just a standard conv-tanh layer.
 
+During this thesis, we have done multiple tests with this layer. In the datasets used for evaluation, we did not end up using any Subpixel layers.
+
 \begin{figure}
 \centering
 \includegraphics[scale=0.8]{methodology/figures/SubPixel.png}
@@ -443,13 +439,15 @@ As an early measure to fix this problem, we experimented with the use of a Sub-p
 \end{figure}
 
 
+\subsection{Masklaod and Setload}
+The default way of loading data into Keras is with the usage of the default generators provided by the library. The Keras.ImageDataGenerator() does an adequate job when loading images, though it had some shortcomings.
+Maskload and Setload are custom loaders we made for this thesis to get a more simple way of loading, augmenting, and storing images.
 
+Maskloader has the primary job of adding and removing masks from images. In addition to masking, it can flip and mirror the images. Maskloader can mask text in images, though at a timeframe not feasible for this theis at over 2 seconds per image. 
 
+Setload is a library for loading a large number of images for training. In addition to loading images, we designed Setload to remove black borders from images if necessary. 
+We use morphological opening\footnote{Morphological opening is the dilation of the erosion of an image } to remove any nonblack pixels in the edges of the image that original from text added post-capture, which gives ut a clean cut as close to the ´´true'' image as possible. The Setload function defaults to normalise the images around zero. This normalisation is to stabilise both the GAN and AE.
 
-
-\subsection{Masklaod}
-The most common way to load the dataset is to use the ML packs default ting.
-I made my own thing to do this. i got cutting cropping graytone and rotating
 
 \subsection{Self attention}
 There are features in the images that are more important than others. One of the things we often want to preserve when we recreate images are hard edges. To get a semantically meaningful image,  we often want to differentiate between background and the mucosa. 
