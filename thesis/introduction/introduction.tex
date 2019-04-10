@@ -4,7 +4,7 @@ Cancer is today, the second leading cause of death in the world, only behind car
 It is one of the leading causes of mortality worldwide, with approximately 14 million new cases in 2012~\cite{WHOCANCER}.
 %It is defined as a disease that has an abnormal cell growth with the potential to spread into other parts of the body.\cite{WhatIsCancer}
 Contrary to normal cells, cancer cells are often invasive, and it will spread if not treated. 
-In contrast to many other diseases, cancer does not start from a foreign entity such as a bacteria or virus, but it is often from a malfunctioning cell that starts dividing rapidly. 
+In contrast to many other diseases, cancer does not need to start from a foreign entity such as a bacteria or virus, but it is often from a malfunctioning cell that starts dividing rapidly. 
 This cell division can happen when a cell is damaged, by for instance radiation or other factors like specific proteins, or other chemicals. The result is that the cell either has damage in the DNA which contributes to abnormal cell division or the cell division itself malfunctions. In both cases the damage causes the cell to divide uncontrollably. 
 Cancer can in some cases form without any external forces. The cell division is not always perfect, and dysfunctional cells might start a rapid division after being created. In most cases, this is not a problem, as most cells self destruct when they cannot operate\todo{cite}. 
 
@@ -58,7 +58,7 @@ and
 
 \noindent 
 \begin{hyp} \label{hyp:b}
-When training a classifier, we will get a higher mode of generalisation of our results when removing the dataset-specific artefacts\footnote{Artefacts in the setting of this thesis is parts of images where there are components of the image not containing ´´true pixels'' from the real world. A specific example for us is any overlay put on the medical images, or for instance oversaturated pixels or lens flares} compared to not removing artefacts.
+When training a classifier, we will get a higher \textbf{chance} of generalisation of our results when removing the dataset-specific artefacts\footnote{Artefacts in the setting of this thesis is parts of images where there are components of the image not containing ´´true pixels'' from the real world. A specific example for us is any overlay put on the medical images, or for instance oversaturated pixels or lens flares} compared to not removing artefacts.
 \end{hyp}
 
 \noindent
@@ -69,7 +69,7 @@ Our objective in this thesis is to explore the following two hypothesises to sho
 
 The hypotheses raise the following questions which we will address:\\
 
-\textit{1. Can the process of redrawing an area with a new more relevant information, defined as inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+\textit{1. Can the process of redrawing an area with a new more relevant information, we define it as inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
 \textit{2. Can inpainting of dataset-specific artefacts help with classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
 
@@ -77,7 +77,7 @@ The hypotheses raise the following questions which we will address:\\
 \section{Scope and Limitations}
 Based on the hypothesises in section \ref{cha:problemstatement}, the scope of the thesis is to check their validity, both each on their own and their validity together with each other. 
 Both our scope and the problem statement is based on medical images taken from the GI tract, and the goal is to see if the hypothesises can, in the end, help with medical image classification.
-We want to look at the problem statements on three different datasets, all with different attributes, and all forms of inpainting.
+We want to look at the problem statements on three different datasets, all with different attributes, and three forms of inpainting.
 For each of the datasets, we test all three combinations of inpainting with two different inpainting algorithms. 
 For the six created datasets plus the base dataset, we run, two different pretrained transfer learning networks to see the success of the newly created dataset.
 In addition to doing this at the size $256 \times 256$ px we also do all the tests above at double resolution to the validity at larger image sizes.
@@ -109,7 +109,7 @@ The third part, ``design'', is rooted in engineering
 and consists of four steps followed in the construction
 of a system to solve the given problem: (1) state requirements, (2) state specifications, (3) design and implement the system, (4) test the system. \\
 
-This paradigm was supported by the finished system able to inpaint images to improve classification accuracy. This system was extensively used throughout the thesis to conduct a plethora of experiments.
+This category was supported by the finished system able to inpaint images to improve classification accuracy. This system was extensively used throughout the thesis to conduct a plethora of experiments.
 
 
 

@@ -2,7 +2,7 @@ With our background in both medical background and machine learning, we can now 
 We will first get a birds-eye view of the objective of this thesis, looking at the hypothesises behind this thesis, and take a look into how we can test the proposed hypothesises. We look at the proposed program setup to test the hypothesises both for classification and generation.
 Then we look at the language and packages suitable for this project. We go in-depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
 
-%Then we look at the setup of the complete program. Here we will go in-depth into both the different preprocessing algorithms, and take a look at the transfer learning network used during classifying.
+
 
 \section{ Bird's eye view (Chapter possibly removed when written)}
 \label{cha:BEW}
@@ -108,28 +108,28 @@ We believe that if we can change images like Figure \ref{fig:GreenSquareOccludin
      \centering
      \begin{subfigure}[b]{0.4\textwidth}
          \centering
-         \includegraphics[height=5cm,width=\textwidth]{experiments/figures/leftframe.jpg}
+         \includegraphics[height=\textwidth, width=\textwidth]{experiments/figures/leftframe.jpg}
          \caption{Example of an image with a large area without relevant medical information}
          \label{fig:LargeLeftBlack}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.4\textwidth}
          \centering
-         \includegraphics[height=6cm,width=\textwidth]{experiments/figures/greenframe.jpg}
+         \includegraphics[height=\textwidth, width=\textwidth]{experiments/figures/greenframe.jpg}
          \caption{Example of an image with green square occluding the parts of the GI tract}
          \label{fig:GreenSquareOccluding}
      \end{subfigure}     
      \hfill
      \begin{subfigure}[t]{0.4\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{experiments/figures/noleftframe.jpg}
+         \includegraphics[height=\textwidth, width=\textwidth]{experiments/figures/noleftframe.jpg}
          \caption{The same image as in Figure \ref{fig:LargeLeftBlack} with the non-relevant information removed}
          \label{fig:LargeLeftBlackFIX}
      \end{subfigure}
      \hfill
      \begin{subfigure}[t]{0.4\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{experiments/figures/nogreenframe.jpg}
+         \includegraphics[height=\textwidth, width=\textwidth]{experiments/figures/nogreenframe.jpg}
          \caption{The same image as in Figure \ref{fig:GreenSquareOccluding} with the green square inpainted}
          \label{fig:GreenSquareOccludingFIX}
      \end{subfigure}
@@ -217,15 +217,9 @@ When training the GAN, we often do not need a ground truth behind the mask, as t
 \subsection{summary}
 We have now talked about the three main masks we use, combined with the two generative models that make the datasets.
 In total, we end up with six generated datasets, two for each mask type, and one unaugmented base case.
+The seven datasets will be the basis for our test of the problem statements. 
 
-\textit{\textbf{Do i here talk about everything i didnt do?\\
-\begin{itemize}
-\item removing text, and the permutations regarding this
-\item using a pixel CNN to inpaint
-\item using the contextencoder as shown in first paper.
-\item OCR
-\end{itemize}
-}}
+
 
 \begin{figure}
      \centering
@@ -324,10 +318,10 @@ When using sufficiently large enough networks the backpropagation often encounte
 
 Finally, combining the inception and residual modules, we end up with the modules used in InceptionResNetV2. 
 Here we combine the strength of both networks. A compressed view of the network is shown in Figure \ref{fig:IRV2} as shown in the article by Mahdianpari et al.~\cite{rs10071119}
-\begin{figure}
+\begin{figure}[h]
      \centering
-     \includegraphics[width=1.1\textwidth]{methodology/figures/Schematic-diagram-of-InceptionResNetV2.png}
-     \caption{The compressed view of the InceptionResNetV2 network by Mahdianpari et al.}
+     \includegraphics[width=1\textwidth]{methodology/figures/Schematic-diagram-of-InceptionResNetV2.png}
+     \caption{The compressed view of the InceptionResNetV2 network inspired by Mahdianpari et al.}
      \label{fig:IRV2}
 \end{figure}
 
@@ -335,15 +329,25 @@ Here we combine the strength of both networks. A compressed view of the network 
 Huang et al. published the DenseNet architecture, as shown in Figure \ref{fig:DN}, with the same goal as InceptionResNet, namely to reduce network size and to get better classification accuracy from a better gradient flow~\cite{Huang_2017}.
 In the DenseNet model, all layers are connected in a way to ensure the maximum flow of information between layers. The network achieves this flow by letting each layer convey all its information to all subsequent layers with similar dimensions. This gradient flow gives the network the ability not to store redundant information, and Huang et al. showed significant results for classification with small training datasets where overfitting often would serve a problem.
 
-\begin{figure}
+\begin{figure}[h]
      \centering
-     \includegraphics[width=1.1\textwidth]{methodology/figures/Schematic-diagram-of-DenseNet-model.jpg}
-     \caption{The compressed view of the DenseNet network by Mahdianpari et al.}
+     \includegraphics[width=1\textwidth]{methodology/figures/Schematic-diagram-of-DenseNet-model.png}
+     \caption{The compressed view of the DenseNet network inspired by Mahdianpari et al.}
      \label{fig:DN}
 \end{figure}
 
+\subsection{Pooling}
+The pretrained networks were initially trained for the 1000 classes in the imagenet dataset. Without doing anything to the network, it would output one of the 1000 classes when confronted with an image. In this thesis, this is not desirable since none of the original classes is usable for medical image classification.
+When we introduce our pretrained network, we cut the last two layers from the model and introduce a pooling layer instead.
+The two layers cut is the Fully connected layer with 1000 nodes, and a softmax layer (The Purple and The Red blocks at the right side of the networks in Figure \ref{fig:IRV2} \& \ref{fig:DN})
+It is common in the practice of transfer learning to add a pooling followed by a softmax layer as a substitute for the original layers removed.  The pooling can either be average or max pooling, and we have the option of using global or local pooling. \todo{rememver to talk about global pooling in pooling chapter}
+
+
+
 \subsection{What does the different combination do to the result in our opinion (renamed to something cool :sunglassemoji: )}
 Based on the article by Huang et al.~\cite{Huang_2017}, we believe that the densenet model would give us the best result. As stated, the densenet model has good gradient flow, and the architecture helps small datasets with overfitting. 
+We have also decided to use global average pooling as our pooling layer for both models. We base our decision of the usage of global average pooling on the models used in the Mediaeval workshop by Hicks et al.~\cite{26207} and Borgli et al.~\cite{runeMedico2018} whom both got great results when using global average pooling on medical image data.
+
 
 \subsection{summary}
 We have, in this section, talked about how we want to use transfer learning to help with the classification. We have looked at the two main advantages with transfer learning, namely the time saved in training and the accuracy gained during evaluation. The advantages coupled with the fact of the widespread use of transfer learning makes it the best option for us, compared to regular classification.
@@ -450,8 +454,10 @@ We use morphological opening\footnote{Morphological opening is the dilation of t
 
 
 \subsection{Self attention}
-There are features in the images that are more important than others. One of the things we often want to preserve when we recreate images are hard edges. To get a semantically meaningful image,  we often want to differentiate between background and the mucosa. 
-To see if the network can learn the features needed we are Introducing the Self Attention layer to help with this. 
+There are features in the images that are more important than others. One of the things we often want to preserve when we recreate images are hard edges. To get a semantically meaningful image,  we often want to differentiate between background and the mucous. 
+To see if the network can learn the features needed we are Introducing the Self Attention layer to help with this. We base the self-attention on the work done by Zhang et al.~\cite{DBLP:journals/corr/selfattention}.
+
+Our adaptation of the paper in code form is found in listing \ref{listing:Attention}. Here we have the framework for a simple attention layer that, in our testing, was used with a residual connection. We do not use self attention in the final datasets used for evaluation.
 
 \begin{minipage}{\linewidth}
 \begin{listing}
@@ -464,7 +470,7 @@ To see if the network can learn the features needed we are Introducing the Self 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.4]{methodology/figures/attention.png}
-\caption{How the layers in the Self-Attention layer is stacked. Recreated from the Self-Attention  paper by Zhang et al.~\cite{DBLP:journals/corr/selfattention}}
+\caption{How the layers in the Self-Attention layer is stacked. Recreated from the Self-Attention paper by Zhang et al.~\cite{DBLP:journals/corr/selfattention}}
 \label{fig:Attention}
 \end{figure}
 
@@ -472,16 +478,14 @@ To see if the network can learn the features needed we are Introducing the Self 
 
 \subsection{Masked loss}
 A problem encountered for both the autoencoder and the GAN is what happens when the non-inpainted area gets too close to correct ground truth. 
-As most of the image remains unchanged between the input-output space the loss for most of the image approaches 0 while the inpainted area stays at a high loss value for most of the training. 
+As most of the image remains unchanged between the input-output space, the loss for most of the image approaches 0 while the inpainted area stays at a high loss value for most of the training. 
 As we recall from section \ref{cha:convNet}, we store our data as float32, and as the loss gets smaller and smaller, the squaring of the float32 gives at some point a number so small that the loss flips to a large integer and subsequently ruins the run. 
 
-\todo{perhaps talk about the flip with image.}
+To improve the stability of the training, we have modified the loss to only apply to the areas we inpaint, leaving the rest of the image without a gradient to improve itself. Listing \ref{listing:maskedMSE} shows the source code for the masked MSE. 
+For each point in the MSE we apply a binary mask. If the binary mask is zero, we do not consider that space during backpropagation.
 
 
-To improve the stability we have modified the loss to only apply on the areas we inpaint, leaving the rest of the image withou a gradient to improve itself with.
-Listing \ref{listing:maskedMSE} shows the source code for the masked MSE. 
-For each point in the MSE we apply a binary mask, of the mask is zero, the point is not considered during backpropagation.
-
+The masked loss showed a considerable increase in stability during training, but in the finished product, we only used it for the autoencoder when we struggled with stability problems.
 
 \begin{minipage}{\linewidth}
 \begin{listing}
@@ -496,8 +500,7 @@ For each point in the MSE we apply a binary mask, of the mask is zero, the point
 
 
 \section{Stabilising the GAN}
-Before we ended up with the model we used in the thesis we ran multiple experiments to make the generative adversarial network stable for training. 
-In contrast to the autoencoder, the GAN does not use the ground truth as a reference point. Where the autoencoder always has a gradient based on the input data, the generator in the GAN gets its learning gradient from another network.
+Before we ended up with the model we used in the thesis we ran multiple experiments to make the generative adversarial network stable for training.  In contrast to the autoencoder, the GAN does not use the ground truth as a reference point. Where the autoencoder always has a gradient based on the input data, the generator in the GAN gets its learning gradient from another network.
 
 This lack of a ground truth gives the GAN many pitfalls that cause the training process to crash \footnote{Crashing is not the right word to use, but the result is the same: The learning process stops.}.
 
@@ -551,12 +554,12 @@ From multiple training runs, it seems like just a straight forward encoder-decod
 
 
 \FloatBarrier
-\section{Describe code}
+\section{Code Description}
 We have, at this point, gone through the goal of our thesis, and shown how we want our result to be generated and evaluated in practice. 
 We will now go more in-depth into the two networks used for generating the new datasets and go in-depth into the model we use for classification.
 
 
-\subsection{autoencoder}
+\subsection{Autoencoder}
 The autoencoder we used to generate the datasets used in this thesis bears a resemblance to the standard autoencoder proposed in chapter \ref{cha:Explaining_autoencoders}.
 
 \paragraph{Loss, Optimiser}
@@ -666,20 +669,6 @@ Table \ref{tab:Kaeras_app} shows the pretrained networks available to load in th
 When training we did some extra steps at the end, namely added global average pooling and a fully connected layer with the desired number of outputs (usually eight classes, and eight outputs)
 
 
-
-
-\section{Describe project}
-Here i am going to explain the projects\\
-Here i am going to explain the projects\\
-Here i am going to explain the projects\\
-Here i am going to explain the projects\\
-Here i am going to explain the projects\\
-Here i am going to explain the projects\\
-Here i am going to explain the projects\\
-Here i am going to explain the projects\\
-Here i am going to explain the projects\\
-Here i am going to explain the projects\\
-Here i am going to explain the projects\\
 
 \section{Summary}
 In this chapter we have, in more detail, looked at the process and purpose of inpainting and classifying.

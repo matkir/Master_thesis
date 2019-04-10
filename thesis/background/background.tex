@@ -20,8 +20,7 @@ Today the medical staff working with the visual screening of the intestinal trac
 Colonoscopy is the practice of inserting a colonoscope into the rectum and moving through the large intestine towards the small intestine.  Gastroscopy is the practice of inserting a camera via the mouth to get a visualisation through the stomach.
 
 The endoscopic tool used for this visualisation is made out of a flexible tube with a charged coupled device (CCD) working as a camera at the end. In addition to the light sensing chip, there is also an optical fibre to transport light to the camera. At the other end, the colonoscope is connected to a device that records the video, and a light source for the optical fibre. The video from the CCD is shown live for the medical staff for the doctors to analyse~\cite{Colonoscope}.
-\todo{Here i could add general colonoscopy images to show the use of a wide angle lens, as I at this point does not talk about it}
-
+As Figure \ref{fig:HumanGI}\footnote{From \url{https://commons.wikimedia.org/wiki/File:Stomach_colon_rectum_diagram-en.svg}.} shows, the colonoscope can either be inserted into the anus, and traverse up the colon, or it can be inserted through the stomach, and traverse through the small intestine.
 
 
 \begin{figure}[h]
@@ -30,7 +29,6 @@ The endoscopic tool used for this visualisation is made out of a flexible tube w
 	\caption{Diagram of the human GI tract}
 	\label{fig:HumanGI} 
 \end{figure}
-%\footnote{\url{https://commons.wikimedia.org/wiki/File:Stomach_colon_rectum_diagram-en.svg}}
 
 \subsection{Summary}
 We have now looked at the medical perspective of colonoscopy. We see that the practice has not changed since the introduction of the colonoscope and that the best chance of detection is manually looking at images by professional medical staff. We have also taken a look into the automatic detection methods being experimented with today.
@@ -154,16 +152,16 @@ A third method to used unsupervised learning is the adversarial route, where we 
 
 \FloatBarrier
 \subsubsection{Reinforcement learning}
-Reinforcement learning is the area in machine learning that is concerned with how a software agent ought to take actions.
-The agent bases its actions on the environment, and it is influenced by an objective to get the maximum reward, as illustrated in Figure \ref{fig:reinforcement_learning}.
-It is closely influenced by behaviourism, with the fact that the agent wants to maximise the reward obtained continually. 
+Reinforcement learning is the area in machine learning that is concerned with how a software agent should take actions.
+The agent bases its actions on the environment, and it is influenced by the objective to get the maximum reward, as illustrated in Figure \ref{fig:reinforcement_learning}.
+It is closely influenced by behaviourism, with the fact that the software agent wants to maximise the reward obtained continually. 
 
 Successful types of reinforcement learning alogrithms are, for instance, Deep Recurrent Q-Learning~\cite{DBLP:journals/corr/HausknechtS15}, State–action–reward–state–action (SARSA)~\cite{Rummery94on-lineq-learning}.
 \FloatBarrier
 
 \begin{figure}[h]
         \centering
-        \includegraphics[width=0.34\textwidth]{background/figures/reinforcement_learning.png}
+        \includegraphics[width=0.34\textwidth]{background/figures/reinforcement.png}
         \caption{The basic structure of reinforcement learning}
         \label{fig:reinforcement_learning}
 \end{figure}
@@ -249,6 +247,7 @@ Lets start with:
 \begin{equation}
     x=\left[ \begin{array}{c} 1\\ 2\\ 3\\ \end{array} \right],
     y=\left[\begin{array}{c} 1.5\\2\\ 2.5\\\end{array}\right]
+\label{eq:input}
 \end{equation}
 As we can discern from this formula, and by looking at the Figure \ref{fig:regression_example}, our ideal model would lie at $y=0.5x + 1$ as marked with the dotted red line. This means that our ideal weights would be  $W^{(0)}=0.5$ and $W^{(1)}=1$.
 In our initial formula, we set the the weights $W^{(0)}=1$ and $W^{(1)}=0.5$. To get the ideal formula, we would like $W^{(0)}$ decrease by a half and $W^{(1)}$ to increase by a half.
@@ -335,12 +334,12 @@ Frank Rosenblatt introduced the first perceptron in 1957 as an attempt to mimic 
 \begin{figure}[h]
         \centering
         \includegraphics[scale=0.3]{background/figures/neuron.png}
-        \caption{Image of a simplified neuron gathered from https://commons.wikimedia.org/wiki/File:Neuron.svg}
+        \caption{Image of a simplified neuron}
         \label{fig:neuron}
 \end{figure}
 
 
-Figure \ref{fig:neuron} shows how a human neuron looks like, and in which direction the signal goes. Each neuron is connected to multiple other neurons by connecting the dendrites to other neighbouring neurons forming a pathway for the electrical signals to flow. 
+Figure \ref{fig:neuron}\footnote{From \url{https://commons.wikimedia.org/wiki/File:Neuron.svg}} shows how a human neuron looks like, and in which direction the signal goes. Each neuron is connected to multiple other neurons by connecting the dendrites to other neighbouring neurons forming a pathway for the electrical signals to flow. 
 When a signal is sent, the dendrites register the signal and sends it through the axon out to the axon terminal. At the axon terminal, other neurons pick up the electrical signal and pass it through their axon.
 This flow of electricity is the fundamental way different part of our brain communicates, and the different pathways the signals can take represent how we learn. The original idea behind the perceptron and this branch of machine learning is to mimic this process of making pathways throughout the network as a way to learn from experience.
 
@@ -389,24 +388,14 @@ The typical ReLu preceptron.
 
 
 \subsection{Feed forward and backpropagation through a perceptron}
-The general concept of the learning process is similar to the one we presented in section \ref{cha:concept}.
+The general concept of the learning process is similar to the one we presented in section \ref{cha:concept}. To better understand the function of a perceptron we will explain the same steps as we saw in the linear regression example, only for our perceptron.
 
-\noindent \textbf{Step 1:} our perceptron gets signals $x_{(i,0)}-x_{(i,n)}$ where $n$ is the number of inputs to the perceptron.\\
+First our perceptron gets signals $x_{(i,0)}-x_{(i,n)}$ where $n$ is the number of inputs to the perceptron (For instance three in Figure \ref{fig:perceptron}). The signals received is the input in the same way as we received an input an array in equation \ref{eq:input}.
+For each of the input values, $x_{(i,0)}-x_{(i,n)}$, we multiply it by a weight $W^{(0,0)}$ -  $W^{(0,n)}$. Here, in contrast to the linear regression example, every input has its own weight.
+After the weight multiplication, we sum the result to a scalar.
+We are now almost ready to give the result as an output, but to prevent the perceptron of only being able to solve linear problems when connection multiple perceptrons we need to use an activation function. This activation function can be ReLu as in equation \ref{eq:ReLu}, or something like tanh or Sigmoid shown in Figure \ref{fig:activations}. Note that we do not use the threshold function in equation \ref{eq:tresh} as an activation function in modern neural networks, as it is not applicable for gradient descent.
 
-\noindent \textbf{Step 2:} each of our signals $x_{(i,0)}-x_{(i,n)}$ is multiplied by a weight $W^{(0,0)}$ -  $W^{(0,n)}$. \\
-
-\noindent \textbf{Step 3:} we sum every input to a scalar. \\
-
-\noindent \textbf{Step 4:} We apply an activation function. This activation function can be ReLu as in equation \ref{eq:ReLu}, or something like tanh or Sigmoid. Note that we do not use the threshold function in equation \ref{eq:tresh} as an activation function in modern neural networks, as it is not applicable for gradient descent.\\
-
-\noindent \textbf{Step 5:} Output the result $f_{(j,0)}$.\\
-
-\noindent \textbf{Step 6:} Look at the error between the output $f_{(j,0)}$ and the expected output and apply a loss function. (MSE, Binary crossentropy \todo{introduce BC})\\
-
-\noindent \textbf{Step 7:} Take the error and backpropagate it using gradient decent (Equation \ref{eq:gradientdecent}).\\
-
-
-
+Now that we have an output, we look at the error between the output $f_{(j,0)}$ and the expected output and apply a loss function. We can now backpropagate the error to update the weights at the start of the perceptron.
 
 
 \subsection{Multilayer perceptrons}
@@ -428,7 +417,6 @@ Figure \ref{fig:mlnn} shows the basic structure of a multilayer network. This mo
 The advantage of using the multilayer structure proposed by McCulloch and Pitts is the fact that we do not only have a linear boundary classification model. By using the multilayer structure the network is able to, for instance, tackle the XOR problem, not solvable by a single layer neural network.\todo{cite} \todo{Do I want to talk about XOR?}
 
 
-\subsection{Feed forward and backpropagation through a neural network}
 
 
     
@@ -443,7 +431,7 @@ As we get more data and more classes, the networks needed to solve our problem g
 Given an image with height and width of 128 pixels connected to the same shape in a network with a fully connected layers, the total amount of weighs per connection  are:\\
 \begin{equation}
     \label{eq:weights_n}
-     (128\cdot 128\cdot 3) \cdot (128\cdot 128\cdot 3) = 2415919104  
+     (128\cdot 128\cdot 3) \cdot (128\cdot 128\cdot 3) = 2415919104  = 2.4\cdot 10^9
 \end{equation}
 
 Given that we are working with quadratic images, the number of weights increases with a factor of four as we increase the layer height and width. As we saw in equation \ref{eq:weights_n}, the number of parameters for a relatively small image is already $2.4 \cdot 10^9$, not including the bias on top.
@@ -518,7 +506,8 @@ Pooling layers do generally not have any weights associated with them. This lack
 Training deep neural networks can often be complicated with the fact that the distribution of each layer changes during training, as the parameters of the previous layers change. In some cases, this constant shift of input values slows down the training by requiring a lower learning rate to keep the network stable.
 We refer to this problem as internal covariate shift, and we use normalisation as a tool to correct for it~\cite{DBLP:journals/corr/IoffeS15}.
 
-The most common way to normalise the data is to use batch normalisation. When calculating the batch normalisation, we take the following steps presented in S. Ioffe and C. Szegedy publication: ``Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift''~\cite{DBLP:journals/corr/IoffeS15}.
+The most common way to normalise the data is to use batch normalisation. When calculating the batch normalisation, we take the following steps presented in S. Ioffe and C. Szegedy publication: ``Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift''~\cite{DBLP:journals/corr/IoffeS15}.\\
+
 \vspace{5px}
 \noindent \textbf{Input:} Values of x over a mini-batch: $\mathcal{B} = \{x1...m\}$;\\
 \noindent Parameters to be learned: $\gamma, \beta$\\

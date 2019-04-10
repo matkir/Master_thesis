@@ -396,7 +396,7 @@ PREC=\frac{TP}{TP+FP}
 
 \vspace{5px}
 \textbf{F1 score:}
-F1 score is a combination of precision and recall as shown in equation \ref{eq:F1}. \todo{fix, im to tired}
+F1 score is a combination of precision and recall as shown in equation \ref{eq:F1}.
 
 \begin{equation}
 F1=\frac{precision \times recall}{precision + recall}
@@ -466,6 +466,39 @@ Here we can calculate the weighted average recall to be \todo{x}. This can be an
 These Metrics becomes a more prominent topic when it comes to inpainting. With inpainting, we take areas with no relevant information and makes it into areas that are similar to the rest of the image. Given that we can inpaint over polyps by mistake, or that we might train our classifiers to not look in certain areas when classifying, we have an interest if also comparing single cases of recall and precision included to the average values.
 
 
+\subsection{Hardware and Software setup}
+For the experiments we used the hardware setup shown in table \ref{tab:HW}.
+The software type and version for the experiments is shown in table \ref{tab:SW}.
+
+
+\begin{table}[]
+\centering
+\begin{tabular}{@{}cc@{}}
+\toprule
+\multicolumn{1}{c}{Name} & \multicolumn{1}{c}{Version} \\ \midrule
+Ubuntu                   & 18.04.2                 \\
+Python                   & 3.6.7                       \\
+Tensorflow               & 1.13.0                      \\
+Keras                    & 2.2.4                       \\
+CUDA                     & 10.0.130                    \\
+cuDNN                    & 7                           \\ \bottomrule
+\end{tabular}
+\caption{Software specifications for our system}
+\label{tab:SW}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{@{}cc@{}}
+\toprule
+\multicolumn{1}{c}{Category} & \multicolumn{1}{c}{Name}       \\ \midrule
+CPU                          & Intel i5-4590 CPU @ 3.30GHz    \\
+GPU                          & Nvidia GeForce GTX 1080 TI     \\
+RAM                          & Kingston 16 GB DDR3 @ 1600 MHz \\ \bottomrule
+\end{tabular}
+\caption{Hardware specifications for our system}
+\label{tab:HW}
+\end{table}
 
 
 
@@ -480,9 +513,7 @@ Hence by removing areas with sparse information,
 we will see an increase in classification performance compared to not removing areas.\todo{check if right}
 
 \vspace{5px}
-\noindent
-and
-\vspace{5px}
+
 
 \noindent 
 \textbf{Hypothesis \ref{hyp:b}:}
@@ -534,6 +565,13 @@ IV   - Autoencoder with both           & 256x256 px         & BC+GS    & Autoenc
 V    - GAN with black corner           & 256x256 px         & BC       & GAN                 \\
 VI   - GAN with green square   		   & 256x256 px         & GS       & GAN                 \\
 VII  - GAN with both                   & 256x256 px         & BC+GS    & GAN                 \\
+VIII - Base Case					   & 512x512 px         & -        & -                   \\
+IX - Autoencoder with black corner     & 512x512 px         & BC       & Autoencoder         \\
+X - Autoencoder with green square      & 512x512 px         & GS       & Autoencoder         \\
+XI - Autoencoder with both   		   & 512x512 px         & BC+GS    & Autoencoder         \\
+XII - GAN with black corner            & 512x512 px         & BC       & GAN                 \\
+XIII - GAN with green square           & 512x512 px         & GS       & GAN                 \\
+XIV - GAN with both           	  	   & 512x512 px         & BC+GS    & GAN                 \\
 \bottomrule
 \end{tabular}%
 \caption{Details of all datasets we generate in the experiments.} 
@@ -875,9 +913,39 @@ This mispainting by the GAN is probably caused by the blue ´´instrument'' in t
 
 
 \vspace{5px}
-\noindent The training time for the AE was the longest, but still within 5 hours.
+\noindent The training time for the total AE inpainting was the longest, but still within 5 hours.
 Just as with the inpainted corners, the training time of the GAN was closer to three days. The results were reasonably better. 
 
+
+\FloatBarrier
+\subsection{Double resolution}
+Here I morght write about double size.
+        \begin{figure}[h]
+        %\centering
+        \tiny
+		\begin{subfigure}[t]{\myfigsizethree}
+            \centering
+            \includegraphics[height=\textwidth ,width=\textwidth]{experiments/figures/512/orig.jpg}
+            \caption{Original esophagitis image}    
+            \label{fig:ORIG_512}
+        \end{subfigure}
+        \qquad
+        \begin{subfigure}[t]{\myfigsizethree}
+            \centering
+            \includegraphics[width=\textwidth]{experiments/figures/512/ae.jpg}
+            \caption{AE generated esophagitis image}    
+            \label{fig:AE_512}
+        \end{subfigure}
+        \qquad
+        \begin{subfigure}[t]{\myfigsizethree}  
+            \centering 
+            \includegraphics[width=\textwidth]{experiments/figures/512/cc.jpg}
+            \caption{GAN gnerated esophagitis image}    
+            \label{fig:GAN_512}
+        \end{subfigure}
+        \caption{Images from the esophagitis class.The images from the double resolution dataset is much more smeared out compared to the smaller images.} 
+        \label{fig:AE_GAN_512}
+    \end{figure}
 
    
 \FloatBarrier
@@ -888,8 +956,6 @@ We are now looking at the results when using the newly created datasets when tra
 
 
 The model used for the classifier is the same for all the datasets. We use the same learning rate, the same model, and the same parameters for early stopping of the training.  In this section we will first go through the model, then we will look at the results for each of the runs.
-\subsection{Hardware}
-Here i might talk about the hardware, might do this before the inpainting chapter.
 
 
 \subsection{models}
@@ -2888,7 +2954,7 @@ H&  0 & 0 & 0 & 2 & 1 & 0 & 1 & 157\\
 
 
 
-
+\FloatBarrier
 \section{Classification results based on the Densenet model}
 \Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} shows the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} shows the visualised MCC values. 
 
@@ -3466,6 +3532,7 @@ Figure \ref{bar:cvc356}
 		\caption{CVC 356 with DN121 at 512 $\times$ 512 px}
 		\label{bar:cvc356_DN121_512}
 	\end{subfigure}
+\iffalse
 \qquad
 	\begin{subfigure}[t]{0.49\textwidth}
 		\centering
@@ -3501,6 +3568,7 @@ Figure \ref{bar:cvc356}
 		\caption{Kvasir with DN121 at 512 $\times$ 512 px}
 		\label{bar:kvasir_DN121_512}
 	\end{subfigure}
+\fi
 \qquad
 	\begin{subfigure}[t]{0.49\textwidth}
 		\centering
@@ -3539,17 +3607,6 @@ Figure \ref{bar:cvc356}
 	\caption{Visualisation of the The three datasets with Densenet121 at 512 $\times$ 512 px}
 	\label{bar:512}
 \end{figure}
-
-
-\section{Summary}
-
-
-Here we desicuss the summary of both the inpainting an the calssifiaction bringing it all together and brag aboutthe high MCC
-Well done Mathias
-
-
-
-
 
 
 
