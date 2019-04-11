@@ -1009,6 +1009,7 @@ We have chosen training patience of three. This patience is a compromise between
 In addition to the number of epochs trained we divided Kvasir into six folds. Based on the six folds we got 1333 images for both validation and testing, while the majority of the images would be used for training. A smaller fold would leave the training with too little data, and hence we could not expect as good of a result. A higher number of folds would increase the number of training runs substantially, since we are training on 14 datasets.
 Finally, the batch size was decided to be the highest number that did not give any memory errors.  We believe that a batch size of 24 is well within the scope of reality.
 
+\FloatBarrier
 \subsection{Densenet121 base model}
 We present the results from  the Densenet121 network in table \ref{fig:results_IRV2_base}.
 This Table shows the base case result with the Densenet121 model, meaning the unaugmented dataset. 
@@ -1146,7 +1147,7 @@ There is also a small mixup between dyed lifted polyps and dyed resection margin
 
 
 \paragraph{CVC 12k}
-The CVC 356 base case MCC lies at 0.24 with an accuracy of 65\%. 
+The CVC 12k base case MCC lies at 0.24 with an accuracy of 65\%. 
 From the Confusion matrix, we can discern that most polyps were classified correctly, though a third of the polyps were misclassified.
 
 
@@ -1154,7 +1155,7 @@ From the Confusion matrix, we can discern that most polyps were classified corre
 
 \FloatBarrier
 \subsection{Corners inpainted result}
-Based on Hypothesis \ref{hyp:b} we would expect the act of inpainting the corner in the images to give Kvasir a higher score compared to the baseline. Also, we should see improvement in both CVC 356 and CVC 12k.
+Based on Hypothesis \ref{hyp:a} we would expect the act of inpainting the corner in the images to give Kvasir a higher score compared to the baseline. Also, we should see improvement in both CVC 356 and CVC 12k.
 We present the dataset created by the  GAN followed by the dataset created by the Autoencoder evaluated with the Densenet121 model.
 
 \begin{figure}[h]
@@ -1679,14 +1680,13 @@ H&  0 & 0 & 0 & 3 & 0 & 0 & 3 & 162\\
 %\advance\rightskip-1.5cm
 \end{figure}
 
-
-%\noindent Figure \ref{fig:results_DN121_GAN_SQUARE} and \ref{fig:results_DN121_AE_SQUARE} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
+\noindent Figure \ref{fig:results_DN121_GAN_SQUARE} and \ref{fig:results_DN121_AE_SQUARE} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
 
 \paragraph{CVC 356}
 As this is a dataset unseen by the classifier during training, we would expect, given that Hypothesis \ref{hyp:b} is True, that the classification score would be higher than the base case.
 Here we have \textit{significantly} higher score with both the GAN and Autoencoder. 
 The GAN reached an MCC score of 0.71 compared to the base case of 42. The Autoencoder also beat the base case with a large margin, given the MCC score of 0.60. 
-For both models, we see an increase in the recall, suggesting the number of mismatches decreased.\todo{redundant} 
+For both models, we see an increase in the recall, suggesting the number of mismatches decreased.
 
 The results highly suggest that our hypothesis about removing dataset-specific artefacts to improve accuracy is indeed correct. 
 
@@ -1698,9 +1698,8 @@ Here both the GAN and the Autoencoder got a lower score compared to the base, th
 \paragraph{CVC 12k}
 As with the CVC 356 dataset, the CVC 12k dataset is unseen by the classifier during training. 
 Here, both the GAN and Autoencoder reaches a lower MCC value when evaluated on the dataset. 
-This result is a direct contradiction to the hypothesis \ref{hyp:b}, showing that removing dataset specific artefacts does not always yield better scores.
-\todo{talk more about this?}
-
+This result is a direct contradiction to the hypothesis \ref{hyp:b}, showing that removing dataset specific artefacts does not always yield better scores. 
+It is important to note that there are significant differences between the two CVC datasets which can influence the results. The most prominent feature is the edges around the images in the 12k dataset. The much larger frames could  ´´overwrite'' much of the work done by inpainting the green square, and could subsequently disrupt the classifier.
 
 
 
@@ -1995,16 +1994,18 @@ This increase shows that there might be some viability to do more inpainting whe
 In addition to getting the highest score for evaluation, we also got one of the lowest scores too. 
 The main difference in score is most likely the result of the precision of the autoencoder being much lower than the precision of the GAN.
 The difference in score can also be the result of variation within the K-fold transfer learning.
+Based on previous research done by us we have shown that this method had the highest standard deviation for both generator models followed by the base case~\cite{Mathias2019IEEpaper}.\todo{This cite is incomplete} This can indicate that we should not rely on the result given its high variance. 
 
 
 
 \paragraph{The Kvasir}
-As with the previous tests we see little change in the scores when evaluating on the Kvasir dataset.
+As with the earlier tests, we see little change in the scores when evaluating on the Kvasir dataset. Here we can see that the MCC values are within a margin to close to draw any firm conclusions.
 
 
 
 \paragraph{CVC 12k}
-Both lower, that proves little
+As with the inpainted square example, the MCC values when inpainting the largest possible area is lower than the base case.  For the Densenet model, on the CVC 12k set, removing artefacts gives not any advantages compared no not removing the artefacts. 
+Here we can notice that the recall is constant between each model and the base case, while the precision decreases for both inpainted datasets. This drop in precision can indicate that the inpainted models less frequently gets its predictions correct. \todo{Snakk med noen om dette}
 
 
 
@@ -2037,15 +2038,14 @@ Both lower, that proves little
 
 
 
-%\subsection{double image size}
 
 
 \FloatBarrier
-\section{Inceptionresnetv2}
-In addition to just testing our results with the Densenet121, we wanted to see if the results were replicable with other networks. We present our result from InceptionResnetV2 (IRV2) as a base of comparison versus the Densenet121 model. 
+\section{InceptionResNetV2}
+In addition to just testing our results with the Densenet121, we wanted to see if the results were replicable with other networks. We present our result from InceptionResNetV2 (IRV2) as a base of comparison versus the Densenet121 model. \todo{MICHAEL OR PAAL: This is a bit redundant, but might help people whi skips chapters.. thoughts?}
 
 
-As mentioned earlier, Densenet is a model with more parameters, and hence needs more time to train compared to the Densenet architecture. 
+As mentioned in the metodology, InceptionResnetV2 is a model with more parameters, and hence needs more time to train compared to the Densenet architecture. 
 For the IRV2 model, we used greater patience while training to ensure that the model did not underfit, or skipped essential features when training.
 The stats for the IRV2 training is shown in Table \ref{tab:TrainingAttrIRV2}.
 
@@ -2069,9 +2069,10 @@ Batch size              & 24      \\
 \label{tab:TrainingAttrIRV2}
 \end{table}
 
-From the previous tests in done on the same datasets with the IRV2 network, we had gotten inconclusive results when the training patience was too low \ref{Mathias2019IEEpaper}. With the patience of four we, on average, train longer and hence get a more stable result without overfitting.
+From the previous tests in done on the same datasets with the IRV2 network, we had gotten inconclusive results when the training patience was too low \cite{Mathias2019IEEpaper}. With the patience of four we, on average, train longer and hence get a more stable result without overfitting.
 
-\subsection{Inceptionresnetv2 base model}
+\FloatBarrier
+\subsection{InceptionresNetV2 base model}
 
 We present the results with InceptionResNetV2 in table \ref{fig:results_IRV2_base}.
 This Table shows the base case result with the larger Inceptionresnetv2 model. 
@@ -2189,14 +2190,28 @@ H&  0 & 1 & 1 & 5 & 0 & 0 & 13 & 158\\
 \label{fig:results_IRV2_base}
 %\advance\rightskip-1.5cm
 \end{figure}
+
+
+\noindent
+The Matrices in Figure \ref{fig:results_IRV2_base} shows the evaluation of the test set on each of the three datasets used. 
+As with the Densenet model we used k-fold cross-validation with six folds for the Kvasir set and evaluated on the CVC sets.
+
+\paragraph{CVC 356}
+The CVC 356 base case MCC lies at 0.20 with an accuracy of 61\%.
+Compared to the Densenet model we lost half of our MCC score and 10% accuracy. 
+From the Confusion matrix, we can discern that the model had trouble finding polyps with only 243 of the 356 total polyps found. The results from this model are arguable to low to be used successfully as a classifier.
+
+\paragraph{The Kvasir}
+As with the Densenet model we have scores close to the highest MCC possible. This score, as previous, shows that the model most likely is overfitting to the data. 
+The misclassification is between the esophagitis class, and the normal-z-line class, as well as a small mixup between dyed lifted polyps and dyed resection margins. 
+
+
+\paragraph{CVC 12k}
+The InceptionResNetV2 model evaluated on the CVC 12k dataset gives a relatively low MCC score of 0.07. The score gives us a good indication that the model did not learn the dataset-specific features that define the dataset, and hence gave us such a low score.
+
+
 \FloatBarrier
-
-From the results we see the general score compared to a Densenet model as being lower by a reasonable margin. We can also discern that the base case has an MCC value close to 0 when evaluating on the CVC12k dataset.
-\todo{better comparison beteween this and base DN121.}
-
-
-\subsection{Inceptionresnetv2 Inpainted Corner}
-
+\subsection{Inceptionresnetv2 Inpainted Corners}
 For the first comparison, we look at the dataset with the inpainted corner. We present both the work done by the GAN and the Autoencoder. 
 
 \begin{figure}[h]
@@ -2311,10 +2326,6 @@ H&  1 & 0 & 1 & 2 & 0 & 0 & 9 & 163\\
 \label{fig:results_IRV2_GAN_CORNER}
 %\advance\rightskip-1.5cm
 \end{figure}
-\FloatBarrier
-
-Our results from figure \ref{fig:results_IRV2_GAN_CORNER} shows a clear advantage when evaluating the results on the CVC 12K dataset while keeping the result the same on the CVC 256 and Kvasir dataset. 
-We can not draw any clear conclutions.
 
 
 
@@ -2430,20 +2441,37 @@ H&  0 & 0 & 1 & 4 & 0 & 0 & 0 & 157\\
 \label{fig:results_IRV2_AE_CORNER}
 %\advance\rightskip-1.5cm
 \end{figure}
+
+%
+\noindent Figure \ref{fig:results_IRV2_GAN_CORNER} and \ref{fig:results_IRV2_AE_CORNER} shows the evaluation of the test set on each of the three datasets made by both the Autoencoder and GAN. 
+
+\paragraph{CVC 356}
+Evaluating our GAN generated model gives us an MCC value equal to the baseline. We can see a greater accuracy, F1, precision and recall score with this model, though the skewness of the dataset causes it. 
+The AE MCC value here is Negative, indicating that the model did worse than pure guessing. 
+
+\paragraph{The Kvasir}
+When evaluating our results on the Kvasir dataset we see similar scores for both the GAN and Autoencoder with 0.892 and 0.891 respectively.  The same potential overfitting gives us no clear indication if any of our hypothesises are valid.
+
+\paragraph{CVC 12k}
+Both models beat the baseline for the CVC 12k MCC value. Here we can see clearly that the GAN has gotten results on par with the Densenet model, while the AE is only slightly above the baseline.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \FloatBarrier
-
-Our results from figure \ref{fig:results_IRV2_AE_CORNER} shows the same advantage when evaluating the results on the CVC 12K dataset.
-In we got a lower score when evaluating our data on the CVC 356 dataset compared to the base case.
-
-We can conclude that the act of inpainting the corners to remove sparseness gives the same result with IRV2 as with Densenet.
-We see no clear advantage to inpaint the corners when using either method or model for inpainting.
-
-
-
-
-
-
-
 \subsection{Inceptionresnetv2 Inpainted Square}
 
 Here we present the results from the dataset with the inpainted green square, both with the Autoencoder and the GAN.  
