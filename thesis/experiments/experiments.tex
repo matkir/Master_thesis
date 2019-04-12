@@ -2721,7 +2721,7 @@ Here, as with the corners inpainted, both the GAN and the Autoencoder got a lowe
 
 
 \paragraph{CVC 12k}
-The results from the CVC 12k dataset is here similar to the Densenet model. \todo{more when im not tired}
+The results from the CVC 12k dataset is here similar to the Densenet model. Here we see that, by inpainting the square area we have a noticeable improvement in MCC score, indicating that the inpainting of the artefacts give a positive influence to the classifier.
 
 
 
@@ -2972,11 +2972,18 @@ H&  0 & 0 & 0 & 2 & 1 & 0 & 1 & 157\\
 
 \noindent Figure \ref{fig:results_IRV2_GAN_BOTH} and \ref{fig:results_IRV2_AE_BOTH} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder.
 
+
 \paragraph{CVC 356}
+For the CVC dataset, we see a small improvement for the autoencoder, while the GAN gives us one of the lowest scores in this experiment.
+The low scores here, compared to our previous example, with only the artefacts inpainted, suggest that the inpainting of the edges around the image contributes to more misclassification, especially for the GAN, as the success of the lies in the high precision. 
 
 \paragraph{The Kvasir}
+As with the other Kvasir tests, here the IRV2 model gives us an MCC score of approximately 0.9, as the other test also has shown.
 
 \paragraph{CVC 12k}
+The CVC 12k set with full inpainting is better than the baseline for both the autoencoder and the GAN, giving us reason to believe that, given the similarity to the scores for the last inpainting, the removal of the dataset-specific artefacts improved the model the most.
+We can see, for both models, that the precision rose significantly.
+
 
 
 
@@ -2996,8 +3003,6 @@ Here we do not expect the same result as we would for a dataset not seen by the 
 
 \paragraph{The CVC 12k dataset (Fig: \ref{tab:summary_CVC12k_DN121} \& Bar: \ref{bar:cvc12k_DN121})}
 Here we see the most significant change when we removed sparse areas at the corner as opposed to removing dataset specific artefacts. As the MCC rose with 0.08 for both the datasets and no others, it seems like removing dataset specific artefacts does not always yield the best results.
-
-\todo{Might need to talk about recall and prec and stuff... In how much detail do i want to go??}
 
 
 \begin{table}
@@ -3159,9 +3164,8 @@ It is important to not that the image quality is harder to maintain at double si
 \paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_CVC356_DN121512px} \& Bar: \ref{bar:cvc356_DN121_512})}
 At double the size the inpaining results tend to have the same shape as with the smaller size, except for the fully inpainted dataset produced by the GAN.  The baseline were also a bit higher at double size, while we would believe that it would be lower due to the non-polyp images from the CVC 356 set is around 288 $\times$ 384 px, meaning that we interpolate the images to get them to the appropriate size. The fact that we interpolate only the non-polyp images might have helped the classifier due to now different quality of the images.
 
-%\paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_KVASIR_DN121512px} \& Bar: \ref{bar:kvasir_DN121_512})} \todo{considering removing the barplot, since its more of the same..}
-%Here at double size the results are still the same. We are not able to see any difference. 
-
+\paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_KVASIR_DN121512px})} \todo{considering removing the barplot, since its more of the same..}
+The Kvasir dataset shows minimal to no improvement. As with the standard size model, we can conclude that when inpainting to only remove sparseness the the machine learning algorithms draws no benefit from it, independently of the model used.
 
 \paragraph{The CVC 12k dataset (Fig: \ref{tab:summary_CVC12k_DN121512px} \& Bar: \ref{bar:cvc12k_DN121_512})}
 In the CVC 12k dataset all images are at the size 288 $\times$ 384 px. The upscaling of the images to 512 $\times$ 512 px distorts all the images, curiously enough the baseline is higher compared to the 256 $\times$ 256 px images.
@@ -3236,45 +3240,11 @@ VII               & 0.2423 & 0.4748 & 0.6590 & 0.5924 & 0.4975\\
 \label{tab:summary_CVC12k_DN121512px}
 \end{table}
 
-\iffalse
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.3]
-\begin{axis}[ybar,
-			 ymax=1,
-			 ymin=0,
-			 %x tick label style={/pgf/number format/1000 sep=},
-			 xtick=data, style={/pgf/number format/fixed, /pgf/number format/precision=3 },				 
-			 ylabel=MCC,
-			 enlarge x limits=0.20,
-			 %legend style={at={(0.5,-0.15)},anchor=north,legend columns=-1},
-			 legend cell align=left,
-        	 legend style={at={(1,1.05)},anchor=south east,column sep=1ex},
-			 symbolic x coords={Corner,Square,Both},
-			 bar width=18pt,
-			 nodes near coords,
-			 nodes near coords align={vertical},
-			 extra y ticks = 0.4244,
-        	 extra y tick labels={},
-        	 extra y tick style={grid=major,major grid style={thick,draw=black}}
-			]
-
-\addplot [style={enicegreen,fill=nicegreen}] coordinates {(Corner,0.5630) (Square,0.6072) (Both,0.4462) };
-\addplot [style={eniceblue,fill=niceblue}] coordinates {(Corner,0.3184) (Square,0.7100) (Both,0.7483) };
-\legend{AE,GAN}
-\addlegendimage{my legend}
-\addlegendentry{Base Case}
-
-\end{axis}
-\end{tikzpicture}
-\caption{Visiulisation of the CVC356 results}
-\label{bar:cvc356}
-\end{figure}
-\fi
 
 
 
-\begin{figure}[h]	
+\FloatBarrier
+\begin{figure}	
 	\tiny
 	\begin{subfigure}[t]{0.49\textwidth}
 	\centering
@@ -3351,10 +3321,8 @@ VII               & 0.2423 & 0.4748 & 0.6590 & 0.5924 & 0.4975\\
 	\label{bar:cvc356}
 \end{figure}
 
-Figure \ref{bar:cvc356}
 
-
-\begin{figure}[h]	
+\begin{figure}	
 	\tiny
 	\begin{subfigure}[t]{0.49\textwidth}
 	\centering
@@ -3432,7 +3400,7 @@ Figure \ref{bar:cvc356}
 \end{figure}
 
 
-\begin{figure}[h]	
+\begin{figure}	
 	\tiny
 	\begin{subfigure}[t]{0.49\textwidth}
 	\centering
@@ -3510,22 +3478,7 @@ Figure \ref{bar:cvc356}
 \end{figure}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\begin{figure}[h]	
+\begin{figure}	
 	\tiny
 	\begin{subfigure}[t]{0.49\textwidth}
 		\centering
