@@ -36,22 +36,29 @@ We have now looked at the medical perspective of colonoscopy. We see that the pr
 
 \section{CAD - Computer aided diagnosis}
 \label{cha:CAD}
-During the colonoscopy, the medical staff uses digital imaging for the inspection. 
+In the previous section, we gave a summary of the medical procedure associated with a colonoscopy. Though in the twenty-first century the focus has shifted to the quest to automatise the process.
+Despite the effort by the medical staff, on average, 20\% of polyps are either missed or incompletely removed~\cite{kaminski2010quality}. Given the increase in cancer risk, this is highly undesirable.
+In addition to the possible miss chance during colonoscopies, the price of the procedures is high despite its importance. In the US a colonoscopy can cost 1000 dollars, and the annual cost for every examination is more than 10 billion dollars~\cite{NYT_cancer,NYT_cancer2}.
 
-\textbf{EIR}
+The motivation for this thesis is to advance the systems in place that does CAD, and in more detail, we want to improve the medical systems for detecting polyps in the GI tract. 
+Automatic detection of polyps is, in general, a well-researched study, and at the time there are many publications regarding this detection and classification, especially when it comes to generalisation and limited datasets~\cite{riegler2016multimedia}.  
+Despite the numerous papers published on the subject, there are still challenges that still need more research. 
 
+Wang et al. published a system called Polyp-Alert that provides near real-time feedback during colonoscopy~\cite{wang2015polyp}. The system correctly detected 97\% (42 of 43) of the polyps in the videoes provided. The system had a 4.3\% error, marking non-polyps as polyps. Polyp-Alert shows that we already have fast, effective and potentially useful colonoscopy tools to guide medical staff.
 
-\begin{itemize}
-    \item Already used methods
-    \item medico and other work
-    \item overfitting and artefacts
-\end{itemize}
+When it comes to network training,  Tajbakhsh et al. demonstrated how fine-tuning a pretraind CNN in a layer-wise manner leads to incremental performance improvement in medical images~\cite{DBLP:journals/corr/TajbakhshSGHKGL17}.
 
+Pogorelov et al. In 2016 presented a complete end-to-end multimedia system for tackling automatic analysis of GI tract videos. The proposed system includes a pipeline ranging from data collecting, processing and data analysis, to visualisation~\cite{Pogorelov2017}. 
+
+Pogorelov et al. also recently published a paper on the generalisation of data, for the purpose of using open datasets for training CAD systems~\cite{pogorelov2018deep}.
+\todo{Porbably more}
+
+As mentioned in the introduction, Hicks et al. published the mirmir system~\cite{25953}. \todo{more}
     
-
+\clearpage
 \section{Machine Learning}
 We have looked at the challenges that the medical staff has when it comes to detecting polyps, and how it is solved today.
-However, to truly understand how automated systems like Mirmir~\cite{Steven2018MimirPaper} \todo{is this going to become talked about at this point} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are searching for.  
+However, to truly understand how automated systems like Mirmir~\cite{25953} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are searching for.  
 
 Machine learning is a broad term, but we summarise it with the quote from  Tom M. Mitchell in his machine learning book from 1997~\cite{MitchellTomM1997Ml}:\\
 \vspace{10px}
