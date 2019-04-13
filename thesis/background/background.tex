@@ -493,11 +493,11 @@ In this thesis, our CNNs used only the three activation functions shown in Figur
 
 \subsubsection{Pooling}
 \label{cha:pool}
-Pooling layers, often also called downsampling layers, are commonly also found in CNN's. 
+Pooling layers, often also called downsampling layers, are commonly found in CNN's. 
 Their primary role in the network is to reduce the spatial size of the data provided, and thus reducing the number of weights and variables used by the network. This reduction helps with reducing processing and memory costs.  
 The two most common pooling operations are max pooling and average pooling\todo{cite}. Both methods resemble convolutions in the way that they apply their function to a sliding filter over the data. 
  
-\begin{figure}[h]
+\begin{figure}
         \centering
         \includegraphics[scale=0.7]{background/figures/pooling.png}
         \caption{Both max and average pooling done on a 4 $\times$ 4 matrix}
@@ -506,7 +506,16 @@ The two most common pooling operations are max pooling and average pooling\todo{
 
 Just like in Figure \ref{fig:pooling} the most common pooling parameters are of filter size 2 and stride 2. Using this configuration leaves every point of the input checked once, and the resulting output size is halved. 
 Pooling layers do generally not have any weights associated with them. This lack of weights means that the pooling layer routes the signal back without changing it during backpropagation.
-\todo{unpooling}
+
+In addition to the pooling described above, we in this thesis, use global pooing in addition to regular pooling. Global Max pooling and Global average pooling works with individual layers of the convolutional net, taking the max or average of the whole feature map, instead of using a sliding filter, as shown in Figure \ref{fig:GAP}.
+Global pooling has the effect of transforming the network from 3 dimensions to 1 dimension, making it ideal right before fully connected layers at the end of longer networks.
+
+\begin{figure}
+        \centering
+        \includegraphics[scale=0.7]{background/figures/GAP.png}
+        \caption{Global pooling. Here, each of the four layers gets averaged or maxed in to a scalar, giving us a 1D vector at output}
+        \label{fig:GAP}
+\end{figure}
 
 \subsubsection{Normalisation}
 \label{cha:normalisation}

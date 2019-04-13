@@ -336,11 +336,19 @@ In the DenseNet model, all layers are connected in a way to ensure the maximum f
      \label{fig:DN}
 \end{figure}
 
-\subsection{Pooling}
-The pretrained networks were initially trained for the 1000 classes in the imagenet dataset. Without doing anything to the network, it would output one of the 1000 classes when confronted with an image. In this thesis, this is not desirable since none of the original classes is usable for medical image classification.
+\subsection{Pooling and freezing}
+The pretrained networks were initially trained for the 1000 classes in the imagenet dataset. Without modifying the network, it would output one of the 1000 classes when confronted with an image. In this thesis, this is not desirable since none of the original classes is usable for medical image classification~\cite{imagenet_cvpr09,imagenet}.
 When we introduce our pretrained network, we cut the last two layers from the model and introduce a pooling layer instead.
-The two layers cut is the Fully connected layer with 1000 nodes, and a softmax layer (The Purple and The Red blocks at the right side of the networks in Figure \ref{fig:IRV2} \& \ref{fig:DN})
-It is common in the practice of transfer learning to add a pooling followed by a softmax layer as a substitute for the original layers removed.  The pooling can either be average or max pooling, and we have the option of using global or local pooling. \todo{rememver to talk about global pooling in pooling chapter}
+The two layers cut is the fully connected layer with 1000 nodes, and a softmax layer (The Purple and The Red blocks at the right side of the networks in Figure \ref{fig:IRV2} \& \ref{fig:DN})
+As we recall from section \ref{cha:pool}, it is common in the practice of transfer learning to add a pooling followed by a fully connected layer and a softmax layer as a substitute for the original layers removed.  The pooling can either be average or max pooling, and we have the option of using global or local pooling. 
+
+Another prominent way to improve the performance of transfer learning is freezing the layers in the model. When we freeze a layer, we lock the weights of the layer making it not trainable.
+The main consequences of freezing layers are related to time and accuracy. 
+
+If we freeze all layers but the last five, the network only has to backpropagate the gradient five steps, reducing the computation time drastically in an extensive network like Densenet. 
+By freezing weights, we obviously can not learn anything new width the frozen weights, which means that we can only store new information in the latest unfrozen layers. For similar datasets, this might not be a notable problem, given that they most likely have similar features. When the dataset differs a lot from the transfer learning dataset, we might not reach an optimal solution, given the smaller feature space.
+
+
 
 
 
@@ -406,6 +414,7 @@ This thesis relies on Keras as a wrapper for tensorflow. As stated, the use of m
     
 \section{Custom functions for Keras, tensorflow and python}
 \subsection{Channel wise fully connected layer}
+\label{cha:CWDense}
 A problem often encountered when working with autoencoders which are not undercomplete is the fact that they learn to represent the data flawlessly. \cite{OvercompleteAE} 
 When this problem arises, the network does not learn the fundamental features that define the dataset and instead passes the signal through the network without any consideration of the input data.
 This flaw will often defeat the purpose of the algorithm, so data scientists often put in safeguards, like undercompleteness or regulisers, to combat this lack of feature learning. 
@@ -415,18 +424,16 @@ Even though this problem often is solved by compressing the network into a space
 We propose a custom ``channel-wise fully-connected layer'' in Keras to help with the problem of correctly learning features. This layer is based on the work done by Pathak et al. in their paper on context encoders\cite{Pathak_2016}.
 The channel wise fully connected layer is primarily used in the GAN to transfer information within each feature map, without using convolutions to do it. As we recall, fully connected layers are often not suitable because of the large size of the weight layer associated with it. This layer is essentially a fully connected layer with groups, where the goal is to propagate the information within each feature map.
 Given the latent space of $n \times n$ with $m$ feature maps, by not connecting the feature maps together in the fully connected layer we achieve a parameter reduction from $m^2n^4$ to $mn^4$ (ignoring bias terms) \cite{Pathak_2016}
-
 With the ``channel-wise fully-connected layer'' the network can learn features from the entirety of the image, and not just local regions as it would with just convolutions. 
-
 Listing \ref{listing:CWDense} shows the source code used for the channel-wise fully-connected layer.
 
-\begin{minipage}{\linewidth}
+%\begin{minipage}{\linewidth}
 \begin{listing}
 \lstinputlisting[language=python]{methodology/CWDense.py}
 \caption{The channel-wise fully-connected layer source code}
 \label{listing:CWDense}
 \end{listing}
-\end{minipage}
+%\end{minipage}
 
 \subsection{Subpixel}
 When working with the generative adversarial network, we wanted to achieve more realistic representations at a reasonable image size. 
@@ -455,17 +462,17 @@ We use morphological opening\footnote{Morphological opening is the dilation of t
 
 \subsection{Self attention}
 There are features in the images that are more important than others. One of the things we often want to preserve when we recreate images are hard edges. To get a semantically meaningful image,  we often want to differentiate between background and the mucous. 
-To see if the network can learn the features needed we are Introducing the Self Attention layer to help with this. We base the self-attention on the work done by Zhang et al.~\cite{DBLP:journals/corr/selfattention}.
+To see if the network can learn the features needed we are introducing the Self Attention layer to help with this. We base the self-attention on the work done by Zhang et al.~\cite{DBLP:journals/corr/selfattention}.
 
-Our adaptation of the paper in code form is found in listing \ref{listing:Attention}. Here we have the framework for a simple attention layer that, in our testing, was used with a residual connection. We do not use self attention in the final datasets used for evaluation.
+%Our adaptation of the paper in code form is found in listing \ref{listing:Attention}. Here we have the framework for a simple attention layer that, in our testing, was used with a residual connection. We do not use self attention in the final datasets used for evaluation.
 
-\begin{minipage}{\linewidth}
-\begin{listing}
-\lstinputlisting[language=python]{methodology/SelfAttention.py}
-\caption{The self attention layer source code}
-\label{listing:Attention}
-\end{listing}
-\end{minipage}
+%\begin{minipage}{\linewidth}
+%\begin{listing}
+%\lstinputlisting[language=python]{methodology/SelfAttention.py}
+%\caption{The self attention layer source code}
+%\label{listing:Attention}
+%\end{listing}
+%\end{minipage}
 
 \begin{figure}[h]
 \centering
@@ -512,7 +519,7 @@ Later, when the images were generated, we switched out the standard sigmoid outp
 \paragraph{Using gaussian noise}
 perhaps write about this
 
-
+\paragraph{Permanent Dropout}
 
 \paragraph{Normalising the batches}
 One of the most significant challenges we encountered when training the adversarial network was the use of correct normalisation. 
@@ -531,7 +538,7 @@ Most of the well-known networks use the ReLu\cite{Nair/2010/RLU/3104322.3104425}
 We saw the best result when we used non-sparse gradients during training. 
 Instead of using ReLu we used the slightly modified LeakyReLu \cite{Maas2013RectifierNI}.
 
-\todo{mention RReLu, but the number of parameters not worth it.}
+%\todo{mention RReLu, but the number of parameters not worth it.}
 
 In addition to trying to remove sparse gradients, we also wanted to address the problem with vanishing gradients during training. Given that we have fully saturated pixels (with the value of 1 or 255) and we have fully darkened pixels (with the value of -1 or 0) we, at the end of the experimentation phase, ended up removing the tanh layer. 
 The removal of the tanh layer meant that the pixel values could be arbitrary on both positive and negative value, so we had to clip the value not to get an error at test time. 
@@ -555,37 +562,34 @@ From multiple training runs, it seems like just a straight forward encoder-decod
 
 \FloatBarrier
 \section{Code Description}
-We have, at this point, gone through the goal of our thesis, and shown how we want our result to be generated and evaluated in practice. 
+We have, at this point, gone through the objective of our thesis, and shown how we want our result to be generated and evaluated in practice. 
 We will now go more in-depth into the two networks used for generating the new datasets and go in-depth into the model we use for classification.
 
 
 \subsection{Autoencoder}
-The autoencoder we used to generate the datasets used in this thesis bears a resemblance to the standard autoencoder proposed in chapter \ref{cha:Explaining_autoencoders}.
+The autoencoder we used to generate the datasets used in this thesis bears a resemblance to the standard autoencoder proposed in chapter \ref{cha:Explaining_autoencoders}. 
 
 \paragraph{Loss, Optimiser}
 To get the autoencoder to give the best result, we have chosen to use the mean square error loss as in equation~\ref{eq:MSE_form} and the Adam\cite{adam} optimiser.
 The mean square error was a logical choice since we already have the ground truth and we only want to recreate the inpainted area based on what used to be there before the masking.
-The Adam optimiser was chosen by the widespread usage in machine learning, coupled with the fact that it works well with sparse gradiens.
+The Adam optimiser was chosen by the widespread usage in machine learning, coupled with the fact that it works well with sparse gradients.
 
 \paragraph{Encoder}
-The input to the autoencoder were the masked images at $256 \times 256$px to compress the information in the encoder we imply used convolutions with a stride of 2. An option to using stride for the downsampling would be to use pooling, as described in section \ref{cha:pool}. Here, there are still room for experimentation.
+The input to the autoencoder were the masked images at $256 \times 256$px to compress the information in the encoder we solely used convolutions with a stride of 2. An alternative to using stride for the downsampling would be to use pooling, as described in section \ref{cha:pool}. Both concolution with stride and pooling gives adequate results, though we chose to use convolutions.
 
 
 
 \paragraph{Decoder}
-between the encoder and decoder we added a 25\% dropout layer. This layer is the only reguliser in the network, though since the job were to inpaint and not recreate, the autoencoder needed information about a rather large area of the image, and hence had little possibility to overfit.
+Between the encoder and decoder we added a 25\% dropout layer. This layer is the only reguliser in the network, though since the job was to inpaint and not recreate, the autoencoder needed information about a rather large area of the image, and hence had little possibility to overfit.
 
 Upsampling could either be achieved with upconvolution or with upsampling.
 Using upconvolution gives the network more variables (as the filters use weights, and upsampling does not), and hence would require more training. 
-
-In this thesis we achieved the greatest results by using upsampling compared to upconvolution, though we can not rule out that upsampling would be better with more complex images, or at larger image sizes.
+In this thesis, we achieved the most significant results by using upsampling compared to upconvolution, though we can not rule out that upsampling would be better with more complex images, or at larger image sizes.
 
 \vspace{5px}
 
 To describe the model we will look at the example where we try to inpaint the green square in the image, and nothing else.
-
-To train the autoencoder for inpainting, we divide the dataset in two, first images with the green square and images without the green square. We discard the images with the green square since they are not viable for training. 
-The resulting dataset will only contain images without green sources.
+To train the autoencoder for inpainting, we divide the dataset in two, first images with the green square and images without the green square. We discard the images with the green square since they are not viable for training.  The resulting dataset will only contain images without green sources. \todo{Check if this is right to talk about here}
 
 \begin{figure*}[]
 \centering
@@ -609,26 +613,30 @@ The resulting dataset will only contain images without green sources.
 
 The next step before training is to cut the images according to the mask provided. Figure \ref{fig:AErec} shows what the finished masking looks like, and \ref{fig:AErep} shows what we want to achieve after training.
 
-We feed \ref{fig:AErep} into the autoencoder consisting of convolutional layers, leakyReLu layers, and a tanh layer.
-\todo{more}
-\todo{remember to talk about loss}
+We feed \ref{fig:AErep} into the autoencoder consisting of the convolutional layers described earlier with primarily leakyReLu layers within the model and a tanh layer at the end.
+
 
 
 \subsection{Generative adversarial network}
-The gan used the same generator discriminator elements as the Goodfellow gan, however the most significant difference is the fact that our model does not generate the image from Gaussian noise.
+The gan used the same generator discriminator elements as the Goodfellow gan; however, the most significant difference is the fact that our model does not generate the image from Gaussian noise.
+Instead of the standard Gaussian noise as input to the generator, the inpainted image is taken as input. 
 
-Instead of the standard Gaussian noise as input to the generator, the inpainted image is taken as input. Here, as in the autoencoder, we use stride to downsample the image. 
+\paragraph{Discriminator}
+The discriminator, as we can recall, had the job of determining if an image is real or fake. As with the decoder in the autoencoder we can use both pooling and convulsions as downsampling. Here, as in the autoencoder we solely used convolusions with stride as to downsample, with intermittent normalisation. The Normalisation layers helped with the stability issues that we face when training GANs. In the end, we flatten and connect the network to a fully connected node to determine true or false.
 
-
-\todo{perhaps draw the shape?}
+\paragraph{Generator}
+The generator in the GAN used both up and downsampling with the fully connected dense layer in the middle, as described in section \ref{cha:CWDense}.  
+During the five repetitions of downsampling, we added LeakyReLu and batch normalisation and, as before, used convolusions with stride to compress the network.
+Upsampling consisted of Upsampling in the same way as in the autoencoder, followed by convolutions, LeakyReLu and a dropout rate of 40\%. 
 
 
 
 \subsection{Transfer learning classifier}
-The dataset we are making with our generators needs to be classified. 
+We have in section \ref{cha:classifier} gone in-depth into the two desired networks used in this thesis.  Our main objective when making a classifier is to make a system that is robust, reliable and has the option to be modular. 
+We built the classifier to gather the same information as shown in Figure \ref{fig:KTLmodel}, meaning we first specify the desired network (VGG~\cite{simonyan2014very}, DenseNet~\cite{DBLP:journals/corr/HuangLW16a}, or Mobilenet~\cite{DBLP:journals/corr/HowardZCKWWAA17}), then we specify the optimiser (NAdam, Adam~\cite{adam}, RMSprop or SGD).
+After the network and optimiser are chosen, the network takes information about the dataset related parameters; batch size, K-folds, Patience, and epochs.
 
-The classifier we use is based on the idea of reusing networks we already know apply well to the real world.
-We have made a classifier that, by default, use one of the pretrained networks provided by the Keras framework.
+when all variables are determined, the networks train for the desired amount of time for each of the datasets provided.
 
 \begin{table}[h]
 \begin{center}
@@ -667,7 +675,6 @@ NASNetLarge       & 343 MB & 0.825          & 0.960          & 88,949,818  & -  
 
 Table \ref{tab:Kaeras_app} shows the pretrained networks available to load in the Keras framework. 
 When training we did some extra steps at the end, namely added global average pooling and a fully connected layer with the desired number of outputs (usually eight classes, and eight outputs)
-
 
 
 \section{Summary}
