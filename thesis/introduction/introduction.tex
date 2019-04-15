@@ -123,26 +123,14 @@ In section \ref{cha:problemstatement} we outlined two main questions based on \r
 
 \item \textit{Can the process of redrawing an area with a new more relevant information, inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
-Maybe, but probably not. From our tests we see no noticeable difference when we train and test on the same dataset. We do see improvement for both models when testing on a new dataset, \\
-\textbf{\textit{TODO, i do not what to write here or at the above spot.. \\
-\ref{bar:cvc12k}\\
-\ref{bar:cvc356}\\
-\ref{bar:kvasir}\\
-This are the visiualised results.. I guess i need to use this to say something about the general success of things???
-Would like some comments on what I need to write here.
-}}
+From our testing, we can see that inpainting sparse areas in datasets help with the classification. Based on our results shown in \cref{bar:cvc12k,bar:cvc356,bar:kvasir}, we can see that most of our models benefit from the inpainting. It is important to note that not all inpainting methods benefitted from inpainting.
+
 
 
 \item \textit{Can inpainting of dataset-specific artefacts help with classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
-Yes, the experiments show that, by inpainting \\
-\textbf{\textit{TODO, i do not what to write here or at the above spot.. \\
-\ref{bar:cvc12k}\\
-\ref{bar:cvc356}\\
-\ref{bar:kvasir}\\
-This are the visiualised results.. I guess i need to use this to say something about the general success of things???
-Would like some comments on what I need to write here.
-}}
+
+We have strong evidence supporting our hypothesis concerning inpainting artefacts. As our results in \cref{bar:cvc12k,bar:cvc356,bar:kvasir} shows, all but one of our inpainting methods beat the baseline when inpainting artefacts. By inpainting artefacts, we got at some cases at least a doubling in MCC score.
 
 
 \end{enumerate}
@@ -152,21 +140,21 @@ Would like some comments on what I need to write here.
 The thesis is organised as follows:
 
 \paragraph{Chapter 2: Background}
-We give more background information about the medical practice and machine learning.
-We talk about how modern hospitals administer colonoscopies and give insight into how we find polyps and remove them. Here, we also present how these hospitals perform digital diagnosis.  
+We give more background information about medical practice and machine learning.
+We talk about how modern hospitals administer colonoscopies and give insight into how we find polyps and remove them. Here, we also present how digital diagnosis is performed in the modern era.  
 We give an introduction to machine learning and its uses, both the history and present-day applications. We will look at the most successful type of machine learning, and give a brief tour into how it works, and how it can be applied to medical data.
 We round off this chapter by looking at how machine learning and medical colonoscopy can work together to help with the detection of anomalies in the GI tract.
 
 \paragraph{Chapter 3: Methodology }
 We describe the methodology by presenting the work we want to do to test the hypothesises we use in the thesis.
 We first look into how we can solve our problems by using inpainting and go into detail into the areas we want to remove to test our problem statements. 
-After this, we describe a system to the validity of our models, followed by technical details on the programming languages and packages used.
+After this, we describe a system to review our models, followed by technical details on the programming languages and packages used.
 We end the chapter by looking at the two programs we end up with to test our theories. 
 
 
 \paragraph{Chapter 4: Experiments}
 We start by giving a review of the datasets we use to train and evaluate our model, followed by the metrics we use to describe our rate of success.
-We go more in detail into the six datasets we make, and the 78 total runs we take to ensure reliable results.
+We go more in detail into the six datasets we make, and the \todo{100} total runs we take to ensure reliable results.
 We end this chapter by presenting the inpainting datasets and then presenting the evaluation of the datasets.
 
 

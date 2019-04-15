@@ -50,12 +50,16 @@ When it comes to network training,  Tajbakhsh et al. demonstrated how fine-tunin
 
 Pogorelov et al. In 2016 presented a complete end-to-end multimedia system for tackling automatic analysis of GI tract videos. The proposed system includes a pipeline ranging from data collecting, processing and data analysis, to visualisation~\cite{Pogorelov2017}. 
 
-Pogorelov et al. also recently published a paper on the generalisation of data, for the purpose of using open datasets for training CAD systems~\cite{pogorelov2018deep}.
-\todo{Porbably more}
+Pogorelov et al. also recently published a paper on the generalisation of data, for the purpose of using open datasets for training CAD systems~\cite{pogorelov2018deep}. In this paper, they presented hand-crafted and deep learning-based methods for detection of polyps in videos from colonoscopies. In this paper the worked to achieve real-world comparability by using challenging datasets captured with different kinds of hardware. In addition to this, they used imbalanced datasets and as little as possible training data.
+Their best model, a GAN for handcrafted features, reached a detection specificity of 94\% and an accuracy of 90.9\%, done with only 356 training samples.
 
-As mentioned in the introduction, Hicks et al. published the mirmir system~\cite{25953}. \todo{more}
+As mentioned in the introduction, Hicks et al. published the Mirmir system~\cite{25953}. 
+Mirmir has, since the creation been analysed and, in later papers, shown that the system has similar problems to the one that we encounter~\cite{25956}.  
+\todo{Future works in this paper is the basis for this thesis}
+
+
+
     
-\clearpage
 \section{Machine Learning}
 We have looked at the challenges that the medical staff has when it comes to detecting polyps, and how it is solved today.
 However, to truly understand how automated systems like Mirmir~\cite{25953} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are searching for.  
@@ -524,7 +528,7 @@ We refer to this problem as internal covariate shift, and we use normalisation a
 
 The most common way to normalise the data is to use batch normalisation. When calculating the batch normalisation, we take the following steps presented in S. Ioffe and C. Szegedy publication: ``Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift''~\cite{DBLP:journals/corr/IoffeS15}.\\
 
-\vspace{5px}
+\begin{minipage}{\textwidth}	
 \noindent \textbf{Input:} Values of x over a mini-batch: $\mathcal{B} = \{x1...m\}$;\\
 \noindent Parameters to be learned: $\gamma, \beta$\\
 \noindent \textbf{Output:} $\{y_i = \text{BN}_{\gamma,\beta}(x_i)\}$\\
@@ -535,7 +539,7 @@ The most common way to normalise the data is to use batch normalisation. When ca
 y_i &\leftarrow \gamma\widehat{x_i}  + \beta \equiv \text{BN}_{\gamma,\beta}(x_i) \tag{scale and shift}
 \end{align*}
 \label{eq:BN}
-
+\end{minipage}
 
 In the original paper we the writers saw a significant reduction in the number of epochs needed to train the network, as well as increased accuracy.
 
@@ -561,7 +565,6 @@ Another popular way to combat overfitting is to add a weight regulariser like L1
 As we recall, big weights in the networks have the most significant influence on the result, as each weight is multiplied by the input. If the network finds some bias hidden in the dataset, it is much harder for it to exploit this discovery.
 This difficulty is because, with L1 or L2 regularisation, the network is also penalised for strong weights.
 Dropout does, in practice, the same as an L1 or L2 regulariser. \todo{cite}
-
 
 
 \section{Complex Neural Network models}
@@ -603,7 +606,7 @@ Figure \ref{fig:AEinpainting} shows this concept of an inpainting Autoencoder. T
 \end{figure}
 
 
-As with supervised classifiers, autoencoders use gradient descent to optimise the result, as the model work to recreate the input $\textbf{x}$ from out output $\widetilde{\textbf{x}}$\\    
+As with supervised classifiers, autoencoders use gradient descent to optimise the result, as the model work to recreate the input $\textbf{x}$ from out output $\widetilde{\textbf{x}}$. \\    
 We achieve this by minimising the loss function:\\
 \begin{equation}
     \mathcal{L}(\textbf{x},g(f(\textbf{x})))
@@ -612,7 +615,7 @@ We achieve this by minimising the loss function:\\
 As this is a problem where the goal is to minimise error, autoencoders often use MSE or mean absolute error (MAE) as the optimiser for the gradient descent. 
 As we noted earlier, Figure \ref{fig:AEinpainting} show a visual example of equation \ref{eq:AEloss} when used with inpainting.
 
-
+\todo{Here we add an example of new AE paper perhaps}
     
 \subsection{Advaserial neural networks}
 \label{cha:Explaining_GANS}
@@ -640,6 +643,10 @@ as derived from~\cite{Goodfellow:2014:GAN:2969033.2969125}.
     \caption{The basic concept of the generative adversarial network}
     \label{fig:GAN}
 \end{figure}
+
+
+\todo{Here we add an example of new gan paper, like \cite{DBLP:journals/corr/abs-1812-04948}}
+
     
 \subsection{Transfer learning}
 Neural networks are prone to overfitting when training on a small dataset or over multiple iterations. We often have problems with the fact that we need to train a network for a long time for it to learn the features associated with the data, though we often learn the bias in the dataset either in addition or instead of the features that define the dataset.

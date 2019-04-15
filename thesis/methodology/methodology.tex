@@ -2,6 +2,7 @@ With our background in both medical background and machine learning, we can now 
 We will first get a birds-eye view of the objective of this thesis, looking at the hypothesises behind this thesis, and take a look into how we can test the proposed hypothesises. We look at the proposed program setup to test the hypothesises both for classification and generation.
 Then we look at the language and packages suitable for this project. We go in-depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
 
+\todo{MICHAEL OR PAAL:\\ In my first paper i used 2 different gans, (CCGAN and contextencoder), in this theis i am only taling about gan i general, since my final model was a combination of both.. what do i do with this?}
 
 
 \section{ Bird's eye view (Chapter possibly removed when written)}
@@ -461,6 +462,7 @@ We use morphological opening\footnote{Morphological opening is the dilation of t
 
 
 \subsection{Self attention}
+\label{cha:attention}
 There are features in the images that are more important than others. One of the things we often want to preserve when we recreate images are hard edges. To get a semantically meaningful image,  we often want to differentiate between background and the mucous. 
 To see if the network can learn the features needed we are introducing the Self Attention layer to help with this. We base the self-attention on the work done by Zhang et al.~\cite{DBLP:journals/corr/selfattention}.
 

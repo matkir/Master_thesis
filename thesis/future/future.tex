@@ -1,8 +1,11 @@
 The task of making general models to cover a broad aspect of medical images is still a widely researched area today, and most likely, it will continue to be so in the future. There are a  plethora of different ways to build models for the medical domain, and in most of them, there is room for improvement.
 
-\section{Conclusion of the results}
+\section{Conclusion}
 We have seen the power of inpainting when it comes to datasets previously unseen during training. Both shown in our publications and the thesis, we have an increase in classification score on multiple types of inpainting.
 Unfortunately, we often get inconsistent results during testing, which means that we cannot recommend any method over another, as both the testing and training dataset influences the results.
+
+\textbf{\textit{If you can find dataset specific artefacts you should remove them as we can see from our results, or something along this line mayybee??}} \todo{ }
+
 
 
 \section{Future work}
@@ -20,7 +23,8 @@ Another promising aspect of this is to let the discriminator guess the class in 
 In the end, the ability to compress the images with a GAN or AE might give us a new way to classify images.
 
 \paragraph{Experiment with self attention}
-\textbf{\textit{TODO}}
+We touched upon self attention in section \ref{cha:attention}. Though we did some experiments with self attention, more testing is required for a conclusion if its good or not in the context of this thesis. Future work should be to implement the attention layer into the GAN to see if the reconstructed areas can become better. 
+
 
 \paragraph{Make a generator for new data}
 We have used the GAN and AE to exclusively inpaint images, but both models can, without any extensive modifications,  generate data from the same image domain from the original dataset, just like the original DCGAN ~\cite{DBLP:journals/corr/RadfordMC15} does.  
@@ -37,12 +41,3 @@ We tested the option to remove text using an Optical Character Recognition (OCR)
 When we chose our general model for classification back in August 2018, we used InceptionResNetV2 as our model. Since then F. Chollet has added NASNetLarge~\cite{DBLP:journals/corr/ZophVSL17} to the list of transfer learning models. NASNetLarge has a higher accuracy on the imagenet model and should possibly be the standard model for the classification.
 
 
-
-\textit{\textbf{Do i here talk about everything i didnt do?\\
-\begin{itemize}
-\item removing text, and the permutations regarding this
-\item using a pixel CNN to inpaint
-\item using the contextencoder as shown in first paper.
-\item OCR
-\end{itemize}
-}}
