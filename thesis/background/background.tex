@@ -55,7 +55,8 @@ Their best model, a GAN for handcrafted features, reached a detection specificit
 
 As mentioned in the introduction, Hicks et al. published the Mirmir system~\cite{25953}. 
 Mirmir has, since the creation been analysed and, in later papers, shown that the system has similar problems to the one that we encounter~\cite{25956}.  
-\todo{Future works in this paper is the basis for this thesis}
+\todo{´´Future works'' in Stevens paper is the basis for this thesis}
+\todo{Steven: I want to discuss this with you.}
 
 
 
@@ -191,20 +192,16 @@ Forward to 1967, the Nearest Neighbour algorithm~\cite{Cover:2006:NNP:2263261.22
 \vspace{5px}
 
 Another early adoption of machine learning was in the form of regression. Regression is the statistical concept of estimating the relationships among variables. It is in heavy use today, and one of the core concept we use machine learning for today. 
-Legendre first used regression in 1805 with his method of least squares\todo{cite}. The least square methods were initially being done by hand, and it was at the time one best models, backed by math, to estimate the relationship between an input and a subsequent output. 
-\todo{find out how much is needed to write here}
+Legendre first used regression in 1805 with his method of least squares\todo{MICHAEL OR PAAL:\\ How do I cite this? Should i find a ´´well known'' book and cite that?}. The least square methods were initially being done by hand, and it was at the time one best models, backed by math, to estimate the relationship between an input and a subsequent output. 
 Today, regression analysis is widely used in statistics and informatics, and there is a significant overlap between the two research fields. While often we can make analytical models when working with a dataset with few variables, machine learning has the possibility of making much more complex models.
 
 \vspace{5px}
 
-A newer and applied form of supervised machine learning is the support vector machine. The original support vector machine was invented by Vladimir N. Vapnik and Alexey Ya Chervonenkis in 1963. \todo{cite} 
-In 1992, Bernhard E. Boser, Isabelle M. Guyon and Vladimir N. Vapnik suggested ways to make the support vector machine work in multiclass examples by using kernels.  
-A support vector machine is a form of classifier where the goal is to divide two datasets by a line that is just between the data. 
+A newer and applied form of supervised machine learning is the support vector machine. The original support vector machine had the objective of dividing two classes with the highest margin using support vectors.
+In 1995, Corinna Cortes and Vladimir Vapnik suggested ways to make the support vector machine work in multiclass examples by using kernels~\cite{cortes1995support}, making it still a viable pattern recognition tool in par with modern machine learning models.
 
-\vspace{5px}
 
-Here is an example of a famous reinforcement learning thing.
-
+\todo{MICHAEL OR PAAL:\\ Here I might add another example, Perhaps openAI5 or aplphaGO. Inputs?}
 
 \subsubsection{Summary} 
 
@@ -383,7 +380,7 @@ We multiply the input signals to the perceptron with an associated weight. In bi
 where $\textbf{x}$ is the input, $\textbf{W}$ is a vector of real-valued weights, $\textbf{w} \cdot \textbf{x}$ is the dot product $\sum _{i=1}^{m}w_{i}x_{i}$, where m is the number of inputs to the perceptron, and b a constant bias. 
 
 
-The general formula of the perceptron is unchanged, though we have moved away from the ``0-1 output'' perceptron in favour for more complex output functions like the sigmoid in 1989~\cite{Funahashi:1989:ARC:71287.71290}, and the ReLu, and tanh in the 2000s\todo{cite}. 
+The general formula of the perceptron is unchanged, though we have moved away from the ``0-1 output'' perceptron in favour for more complex output functions like the sigmoid in 1989~\cite{Funahashi:1989:ARC:71287.71290}, and the ReLu, and tanh in the 2000s. 
 
 \begin{equation}
     \label{eq:ReLu}
@@ -425,7 +422,7 @@ The first multilayer network at the time used backpropagation with gradient dece
 
 Figure \ref{fig:mlnn} shows the basic structure of a multilayer network. This model has one hidden layer and with the standard input and output layers. In our figure, each of the nodes is a perceptron\footnote{In reality, the input layer does not usually behave as a perceptron with an activation function. The input layer is only there to propagate the signal to the neurons further into the network.} as described in section \ref{cha:perceptron}.
 
-The advantage of using the multilayer structure proposed by McCulloch and Pitts is the fact that we do not only have a linear boundary classification model. By using the multilayer structure the network is able to, for instance, tackle the XOR problem, not solvable by a single layer neural network.\todo{cite} \todo{Do I want to talk about XOR?}
+The advantage of using the multilayer structure proposed by McCulloch and Pitts is the fact that we do not only have a linear boundary classification model. By using the multilayer structure the network is able to, for instance, tackle the XOR problem, not solvable by a single layer neural network. 
 
 
 
@@ -499,7 +496,7 @@ In this thesis, our CNNs used only the three activation functions shown in Figur
 \label{cha:pool}
 Pooling layers, often also called downsampling layers, are commonly found in CNN's. 
 Their primary role in the network is to reduce the spatial size of the data provided, and thus reducing the number of weights and variables used by the network. This reduction helps with reducing processing and memory costs.  
-The two most common pooling operations are max pooling and average pooling\todo{cite}. Both methods resemble convolutions in the way that they apply their function to a sliding filter over the data. 
+The two most common pooling operations are max pooling and average pooling~\cite{zhou1988computation}\todo{MICHAEL OR PAAL:\\ I have not read this because its behind a paywall.. This is the same reference that was used in \url{https://www.deeplearningbook.org/contents/convnets.html} by Ian Goodfellow, so I believe its legit}. Both methods resemble convolutions in the way that they apply their function to a sliding filter over the data. 
  
 \begin{figure}
         \centering
@@ -545,8 +542,9 @@ In the original paper we the writers saw a significant reduction in the number o
 
 
 \subsubsection{Dropout}
-A major problem in machine learning is the act of overfitting the data. We say that a model is overfitting to the data when it learns the bias that comes with the dataset as shown in Figure~\ref{fig:dropout}. \todo{more}
- 
+A major problem in machine learning is the act of overfitting the data. We say that a model is overfitting to the data when it learns the bias that comes with the dataset as shown in Figure~\ref{fig:dropout}. A practical way to see if a model is starting to overfit is to look at the training error versus the test error. If the training error keeps decreasing while the test error increases, we tend to believe that the model is learning the training data distribution and not generalising to unseen data.
+
+
 \begin{figure}[h]
         \centering
         \includegraphics[scale=0.6]{background/figures/Under_vs_overfitting.png}
@@ -564,7 +562,7 @@ Even though dropout does not explicitly change the weights, it implicitly forces
 Another popular way to combat overfitting is to add a weight regulariser like L1 or L2 distance penalty. This penalty gives the network weights an additional penalty based on their size.
 As we recall, big weights in the networks have the most significant influence on the result, as each weight is multiplied by the input. If the network finds some bias hidden in the dataset, it is much harder for it to exploit this discovery.
 This difficulty is because, with L1 or L2 regularisation, the network is also penalised for strong weights.
-Dropout does, in practice, the same as an L1 or L2 regulariser. \todo{cite}
+Dropout does, in practice, the same as an L1 or L2 regulariser. 
 
 
 \section{Complex Neural Network models}
