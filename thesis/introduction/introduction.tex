@@ -53,7 +53,7 @@ Hypothesis \ref{hyp:a} talks about how black or white areas in pictures might cr
 
 \noindent 
 \begin{hyp} \label{hyp:b}
-When training a classifier, we will get a higher \textbf{chance} of generalisation of our results when removing the dataset-specific artefacts\footnote{Artefacts in the setting of this thesis is parts of images where there are components of the image not containing ´´true pixels'' from the real world. A specific example for us is any overlay put on the medical images, or for instance oversaturated pixels or lens flares} compared to not removing artefacts.
+When training a classifier, we will get a higher probability of generalisation of our results when removing the dataset-specific artefacts\footnote{Artefacts in the setting of this thesis is parts of images where there are components of the image not containing ´´true pixels'' from the real world. A specific example for us is any overlay put on the medical images, or for instance oversaturated pixels or lens flares} compared to not removing artefacts.
 \end{hyp}
 
 \noindent
@@ -66,7 +66,7 @@ The hypotheses raise the following questions which we will address:\\
 
 \textit{1. Can the process of redrawing an area with a new more relevant information, we define it as inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
-\textit{2. Can inpainting of dataset-specific artefacts help with classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
+\textit{2. Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
 
 
 \section{Scope and Limitations}
@@ -74,8 +74,8 @@ Based on the hypothesises in section \ref{cha:problemstatement}, the scope of th
 Both our scope and the problem statement is based on medical images taken from the GI tract, and the goal is to see if the hypothesises can, in the end, help with medical image classification.
 We want to look at the problem statements on three different datasets, all with different attributes, and three forms of inpainting.
 For each of the datasets, we test all three combinations of inpainting with two different inpainting algorithms. 
-For the six created datasets plus the base dataset, we run, two different pretrained transfer learning networks to see the success of the newly created dataset.
-In addition to doing this at the size $256 \times 256$ px we also do all the tests above at double resolution to the validity at larger image sizes.
+For the six created datasets plus the base dataset, we run two different pretrained transfer learning networks to see the success of the newly created dataset.
+In addition to doing this at the size $256 \times 256$ pixels (px), we also do all the tests above at double resolution to check the validity at larger image sizes.
 
 In total, we make fourteen datasets, and we test the first seven a total of 70 times, and the last seven 35 times. Including the base case, we do 105 total tests to check the validity of inpainting.
 
@@ -116,13 +116,13 @@ In section \ref{cha:problemstatement} we outlined two main questions based on \r
 \begin{enumerate}
 
 
-\item \textit{Can the process of redrawing an area with a new more relevant information, inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+\item \textit{Can the process of redrawing an area with a new more relevant information, we define it as inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
 From our testing, we can see that inpainting sparse areas in datasets help with the classification. Based on our results shown in \cref{bar:cvc12k,bar:cvc356,bar:kvasir}, we can see that most of our models benefit from the inpainting. It is important to note that not all inpainting methods benefitted from inpainting.
 
 
 
-\item \textit{Can inpainting of dataset-specific artefacts help with classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+\item \textit{Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
 
 We have strong evidence supporting our hypothesis concerning inpainting artefacts. As our results in \cref{bar:cvc12k,bar:cvc356,bar:kvasir} shows, all but one of our inpainting methods beat the baseline when inpainting artefacts. By inpainting artefacts, we got at some cases at least a doubling in MCC score.

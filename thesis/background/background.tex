@@ -1,21 +1,19 @@
-In this chapter, we will present the background and motivation of our thesis.
+In this chapter, we present the background and motivation of our thesis.
 We start with our background in medical procedures, looking at how doctors perform colonoscopies, mainly from a gastrointestinal perspective.
 After this, we then look at what the objective is for the medical staff, with different anomalies in the GI tract. Then, we shift our focus to how doctors use computer-aided diagnosis (CAD) today to help with the screening. 
 
-After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We will look at how machines can ``learn'' and discuss different areas we can use and the areas we are using machine learning today. We will then go in depth into the examples and look at the most common machine learning models. We will look at the most state of the art form of machine learning, namely neural networks, and look into the most frequent use case of this type of algorithm.
-With this in mind, we will look at neural networks, especially convolutional neural networks, and how they work.
-Lastly, we will combine the need for computer-aided diagnosis with machine learning, looking at where previous models fall short and why that is the case.
+After the discussion from a medical point of view, we shift our focus to machine learning and give a brief introduction to different machine learning methods. We look at how machines can ``learn'' and discuss different areas we can use and the areas we are using machine learning today. We then go in depth into the examples and look at the most common machine learning models. We look at the most state of the art form of machine learning, namely neural networks, and look into the most frequent use case of this type of algorithm.
+With this in mind, we look at neural networks, especially convolutional neural networks, and how they work.
+Lastly, we combine the need for computer-aided diagnosis with machine learning, looking at where previous models fall short and why that is the case.
 
 \section{The Medical Background}
-As we recall from the introduction, our motivation for this thesis is in the improvement of medical diagnosis with the help of machine learning. 
-We talked about existing methods for screening developed to work with datasets retried from the medical professionals. 
-Before we look into the CAD procedures that are in use today, we need to go more in-depth into the capture of the medical images.
-Medical images can be classified in to multiple categories, 
+As we recall from the introduction, our motivation for this thesis is the improvement of medical diagnosis, more specific CAD. 
+Before we look into the CAD procedures that are in use today, we need to go more in-depth into the capture of the medical images. 
 
 
 \subsection{Endoscopy and Colonoscopy}
 \label{cha:endocolo}
-Gastrointestinal endoscopies are one of the most common medical examinations where the mucosa of the patient is visualised via a camera through the whole of the GI tract~\cite{Holme13}.
+Gastrointestinal endoscopies are one of the most routine medical examinations where medical staff visualise the mucosa of the patient via a camera through the whole of the GI tract~\cite{Holme13}.
 Today the medical staff working with the visual screening of the intestinal tract use primarily two different methods: colonoscopy and gastroscopy. 
 Colonoscopy is the practice of inserting a colonoscope into the rectum and moving through the large intestine towards the small intestine.  Gastroscopy is the practice of inserting a camera via the mouth to get a visualisation through the stomach.
 
@@ -30,27 +28,30 @@ As Figure \ref{fig:HumanGI}\footnote{From \url{https://commons.wikimedia.org/wik
 	\label{fig:HumanGI} 
 \end{figure}
 
+
+
 \subsection{Summary}
-We have now looked at the medical perspective of colonoscopy. We see that the practice has not changed since the introduction of the colonoscope and that the best chance of detection is manually looking at images by professional medical staff. We have also taken a look into the automatic detection methods being experimented with today.
+We have now looked at the medical perspective of colonoscopy. We see that the practice has not changed since the introduction of the colonoscope and that the best chance of detection is manually looking at images by professional medical staff. \todo{Need more here, or in previous section.. Remember to talk about medical team}
 
 
 \section{CAD - Computer aided diagnosis}
 \label{cha:CAD}
-In the previous section, we gave a summary of the medical procedure associated with a colonoscopy. Though in the twenty-first century the focus has shifted to the quest to automatise the process.
+In the previous section, we gave a summary of the medical procedure associated with a colonoscopy. We described the tool used for colonoscopy,  and the need for a medical team to support during the procedure.
+The research into better systems for automation and detection has been prevalent in the twenty-first century.  This shift towards CAD is an essential move, given the invasiveness and stress associated with medical colonoscopies, and the more confident we are in the findings of anomalies during the procedure, the higher chance of a patient not getting cancer due to the missed anomalies.
 Despite the effort by the medical staff, on average, 20\% of polyps are either missed or incompletely removed~\cite{kaminski2010quality}. Given the increase in cancer risk, this is highly undesirable.
-In addition to the possible miss chance during colonoscopies, the price of the procedures is high despite its importance. In the US a colonoscopy can cost 1000 dollars, and the annual cost for every examination is more than 10 billion dollars~\cite{NYT_cancer,NYT_cancer2}.
+In addition to the possible miss chance during colonoscopies, the price of the procedures is high despite its importance. In the US a colonoscopy can cost 1000 dollars, and the annual cost for every examination is more than 10 billion dollars~\cite{NYT_cancer, NYT_cancer2}.
 
 The motivation for this thesis is to advance the systems in place that does CAD, and in more detail, we want to improve the medical systems for detecting polyps in the GI tract. 
 Automatic detection of polyps is, in general, a well-researched study, and at the time there are many publications regarding this detection and classification, especially when it comes to generalisation and limited datasets~\cite{riegler2016multimedia}.  
 Despite the numerous papers published on the subject, there are still challenges that still need more research. 
-
+\vspace{5px}
 Wang et al. published a system called Polyp-Alert that provides near real-time feedback during colonoscopy~\cite{wang2015polyp}. The system correctly detected 97\% (42 of 43) of the polyps in the videoes provided. The system had a 4.3\% error, marking non-polyps as polyps. Polyp-Alert shows that we already have fast, effective and potentially useful colonoscopy tools to guide medical staff.
 
 When it comes to network training,  Tajbakhsh et al. demonstrated how fine-tuning a pretraind CNN in a layer-wise manner leads to incremental performance improvement in medical images~\cite{DBLP:journals/corr/TajbakhshSGHKGL17}.
 
 Pogorelov et al. In 2016 presented a complete end-to-end multimedia system for tackling automatic analysis of GI tract videos. The proposed system includes a pipeline ranging from data collecting, processing and data analysis, to visualisation~\cite{Pogorelov2017}. 
 
-Pogorelov et al. also recently published a paper on the generalisation of data, for the purpose of using open datasets for training CAD systems~\cite{pogorelov2018deep}. In this paper, they presented hand-crafted and deep learning-based methods for detection of polyps in videos from colonoscopies. In this paper the worked to achieve real-world comparability by using challenging datasets captured with different kinds of hardware. In addition to this, they used imbalanced datasets and as little as possible training data.
+Pogorelov et al. also recently published a paper on the generalisation of data, for the purpose of using open datasets for training CAD systems~\cite{pogorelov2018deep}. In this paper, they presented hand-crafted and deep learning-based methods for detection of polyps in videos from colonoscopies. In this paper they worked to achieve real-world comparability by using challenging datasets captured with different kinds of hardware. In addition to this, they used imbalanced datasets and as little as possible training data.
 Their best model, a GAN for handcrafted features, reached a detection specificity of 94\% and an accuracy of 90.9\%, done with only 356 training samples.
 
 As mentioned in the introduction, Hicks et al. published the Mirmir system~\cite{25953}. 
@@ -76,12 +77,12 @@ Machine learning is a broad term, but we summarise it with the quote from  Tom M
 
 
 \vspace{10px}
-A few things of note from this quote is the variables mentioned in the quote. Experience E is the stored knowledge the program has gotten. It is in most cases just numbers used to approximate a solution given an input, to try to get it as close to the right answer. This approximation is made for every task T until we are happy with the result.
-Lastly, to tell how well our program performs we need a measure P that tells us how far away from the desired output we got.
+A few things of note from this quote is the variables mentioned. Experience (E) is the stored knowledge the program has gotten. It is in most cases just numbers used to approximate a solution given input, to try to get it as close to the right answer. This approximation is made for every task (T) until we are happy with the result.
+Lastly, to tell how well our program performs we need a measure (P) that tells us how far away from the desired output we got.
    
 From this, we see that the goal of machine learning is to improve some performance P with experience. This behaviour is a mimicry of human learning, where we as humans need to practice on a task to improve on it.
 As the amount of experience increase, both for us and the machine, the performance of the task becomes better and better. We have seen that machine learning algorithms have become superior at solving some human tasks~\cite{silver2016mastering,OpenAI_dota,DBLP:journals/corr/HeZRS15}, given enough time and computing power. 
-Projects like Aplha GO and OpenAI Five shows that, given the right amount and type of data, our machine learning algorithms can solve the same problems humans solve, given both the right training environment and enough time.
+Projects like Aplha GO and OpenAI Five shows that, given the right amount and type of data, our machine learning algorithms can solve the same problems humans solve.
 
 Until now, we have talked about machine learning in broad terms at this point. We have drawn a parallel between how humans learn, and how machines gather experience.  Now, we will look into the most popular machine learning techniques, and show the machine learning algorithms store the experience gathered.
  
@@ -92,7 +93,7 @@ Figure \ref{fig:ML_types} shows a chart over the three most common categories wi
 
     \begin{figure}[h]
         \centering
-        \includegraphics[scale=0.6]{background/figures/ML_types.png}
+        \includegraphics[width=\textwidth]{background/figures/ML_types.png}
         \caption{The three main types of machine learning and their most common subtypes}
     \label{fig:ML_types} 
     \end{figure}
@@ -106,8 +107,9 @@ A supervised algorithm analyses the training data and produces an inferred funct
 
 
 Examples of supervised tasks are to recognise handwritten numbers, or differentiate between different car models. We consider a task supervised if the images come with the correct label in the data set. 
-A more straightforward classification assignment is binary classification, where the target is (often) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian or International.\todo{Her må det vere et storre skille mellom trening og evaluering. Tenk paa om det er smart aa omskrive dette} In the last example, the classification changes from binary to multi-class if we sort the cars on every nationality, and not just Norwegian/non-Norwegian. Another type concerning supervised learning tasks is regression. Regression is the act of prediction given prior data. Examples of regression are the prediction of stock prices, to estimating house prices, to predicting the weather.
+A more straightforward classification assignment is binary classification, where the target is (often, but not always) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian or International.\todo{Her må det vere et storre skille mellom trening og evaluering. Tenk paa om det er smart aa omskrive dette} In the last example, the classification changes from binary to multi-class if we sort the cars on every nationality, and not just Norwegian/non-Norwegian. Another type concerning supervised learning tasks is regression. Regression is the act of prediction given prior data. Examples of regression are the prediction of stock prices, to estimating house prices, to predicting the weather.
 
+An intuitive way to differentiate between the two supervised methods is to look at the output. If the output is a category or class from a predefined set, it is usually classification. If the output is an unbounded number, it is most likely regression. 
 %\begin{figure}
 %    \centering
 %    \includegraphics[scale=0.5]{figures/class_vs_reg.png}
