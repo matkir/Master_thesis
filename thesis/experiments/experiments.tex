@@ -15,14 +15,18 @@ The green square is present in 38\% of the images but only in 5 of the classes. 
 As we can see in Figure \ref{fig:Kvasir} all images got the rounded corners.
 
 
-\subsection{CVC 356}
-The CVC 356 dataset is an publicly available dataset
+\subsection{CVC 356 and CVC 12k}
+The CVC 356 dataset is a dual-class dataset created from rotuinary explorations at Hospital clinic of Barcelone, Spain. 
+The goal of the database is to cover all different scenarios that a given support system should face. In addition to the images, the dataset also comes with a mask that is an approximation of the ground truth.
+The CVC datasets are publicly available datasets from the CVCVideoClinicDB database.
 
+In the CVC 356 dataset, we have 356 video-frames originating from the polyp class, and 1928 frames originating from the non-polyp class. 
+In general, the video-frames from the non-polyp class are more identical to each other, meaning the video is from the same place in the GI tract, given that there are more films from areas without polyps than with them. 
+Given that 85 \% of the images originate from a small subset of videos, it is likely straightforward to overfit any model trained on this dataset.
+
+
+The CVC 12k dataset has many of the same problems as the CVC dataset as many of the images are identical to each other. One of the most substantial problems with the CVC 12k  that makes it a worse set compared to the CVC 356 dataset is the fact that the polyp in question can almost be outside of the frame of the image during capture, meaning that there is no polyp in the image in an image classified as a polyp. Because of the numerous misclassifications in the CVC 12k dataset, we can never achieve a perfect score.
  
-
-
-\subsection{CVC 12k}
-
 
 
 
@@ -963,7 +967,7 @@ We will now look at the results when using the newly created datasets when train
 The model used for the classifier is the same for all the datasets. We use the same learning rate, the same model, and the same parameters for early stopping of the training.  In this section we will first go through the model, then we will look at the results for each of the runs.
 
 
-\subsection{models}
+\subsection{Models}
 The classification model is constructed to give the best real-world correspondence.
 
 First, we supply info about the model. This information is for instance batch size, type of network, and choice of an optimiser. 
