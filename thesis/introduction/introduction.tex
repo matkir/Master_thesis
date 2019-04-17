@@ -1,6 +1,6 @@
 \section{Background and Motivation}
 
-Cancer is today, the second leading cause of death in the world, only behind cardiovascular diseases. 
+Cancer is today the second leading cause of death in the world, only behind cardiovascular diseases~\cite{WHODEATH}. 
 It is one of the leading causes of mortality worldwide, with an estimated 9.6 million deaths in 2018~\cite{WHOCANCER}.
 %It is defined as a disease that has an abnormal cell growth with the potential to spread into other parts of the body.\cite{WhatIsCancer}
 Contrary to normal cells, cancer cells are often invasive, and it will spread if not treated. 
@@ -33,16 +33,16 @@ The paper on Mimir by Hicks et al. presents a system to both improve the ``black
 
 The work published by Hicks et al. and Riegler et al. show that deep learning has excellent applications when it comes to computer aided diagnosis, but there is insufficient work into generalising the methods to work on new data. Another problem with deep learning is that the model overfits to the dataset, meaning it learns the internal bias associated with the data provided. 
 
-In this thesis, we explore these topics. We will look at methods into how to counteract overfitting of medical data, as well as methods in to help to generalise models to better adapt to new unseen datasets.
+In this thesis we explore these topics. We will look at methods into how to counteract overfitting of medical data, as well as methods to help generalise models to better adapt to new unseen datasets.
 
-\section{Problem statement}
+\section{Problem Statement}
 \label{cha:problemstatement}
 Based on the motivation presented in the previous section, we believe that we still have room for improvement when making CAD. Based on the previous work done in the research area~\cite{25956,25953,riegler2016eir}, we present the following two hypothesises as a basis for the thesis:
 
 
 \noindent
 \begin{hyp} \label{hyp:a}
-When classifying images, we will get the best result when we have images with the least amount of sparse information\footnote{Sparse information in the setting of this thesis is images where there are no relevant pixels for the classification, and the area has little to no entropy. A specific example for us is the area around images with RGB values of 0}. 
+When classifying images, we will get the best result when we have images with the least amount of sparse information\footnote{Sparse information in the setting of this thesis is images where there are no relevant pixels for the classification, and the area has little to no entropy. A specific example for us is the area around images with RGB values of 0.}. 
 Hence, by removing areas with sparse information,
 we will see an increase in classification performance compared to not removing the areas.
 \end{hyp}
@@ -53,28 +53,29 @@ Hypothesis \ref{hyp:a} talks about how black or white areas in pictures might cr
 
 \noindent 
 \begin{hyp} \label{hyp:b}
-When training a classifier, we will get a higher probability of generalisation of our results when removing the dataset-specific artefacts\footnote{Artefacts in the setting of this thesis is parts of images where there are components of the image not containing ´´true pixels'' from the real world. A specific example for us is any overlay put on the medical images, or for instance oversaturated pixels or lens flares} compared to not removing artefacts.
+When training a classifier, we will get a higher probability of generalisation of our results when removing the dataset-specific artefacts\footnote{Artefacts in the setting of this thesis is parts of images where there are components of the image not containing ´´true pixels'' from the real world. A specific example for us is any overlay put on the medical images, or for instance oversaturated pixels or lens flares.} compared to not removing artefacts.
 \end{hyp}
 
 \noindent
 Hypothesis \ref{hyp:b} talks about pixels that are not originating from the original image, or pixels that do not represent the real sample. We believe that the removal of these dataset specific artefacts, the machine learning algorithm does not learn to take these areas into account when classifying images, and subsequently learns the real features for the dataset, instead of the artificial features created by the artefacts.
+%\todo{fix}
 
 
 Our objective in this thesis is to explore the following two hypothesises to show their validity.
 
 The hypotheses raise the following questions which we will address:\\
 
-\textit{1. Can the process of redrawing an area with a new more relevant information, we define it as inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+\textit{1. Can the process of redrawing an area with a new more relevant information (we define it as inpainting), of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
 \textit{2. Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
 
-
+%\todo{Parantes, disse er kanskje litt for like}
 \section{Scope and Limitations}
 Based on the hypothesises in section \ref{cha:problemstatement}, the scope of the thesis is to check their validity, both each on their own and their validity together with each other. 
 Both our scope and the problem statement is based on medical images taken from the GI tract, and the goal is to see if the hypothesises can, in the end, help with medical image classification.
 We want to look at the problem statements on three different datasets, all with different attributes, and three forms of inpainting.
 For each of the datasets, we test all three combinations of inpainting with two different inpainting algorithms. 
-For the six created datasets plus the base dataset, we run two different pretrained transfer learning networks to see the success of the newly created dataset.
+For the six created datasets plus the base dataset we run two different pretrained transfer learning networks to see the success of the newly created dataset.
 In addition to doing this at the size $256 \times 256$ pixels (px), we also do all the tests above at double resolution to check the validity at larger image sizes.
 
 In total, we make fourteen datasets, and we test the first seven a total of 70 times, and the last seven 35 times. Including the base case, we do 105 total tests to check the validity of inpainting.
@@ -84,7 +85,7 @@ In total, we make fourteen datasets, and we test the first seven a total of 70 t
 \section{Research Method}
 For this thesis, we have decided to use the Association for Computing Machinery's (ACM) methodology for our research. The article ``Computing as a discipline'' presents the discipline of computing into three main categories~\cite{Denning:1989:CD:63238.63239}. 
 \subsection{Theory}
-The ´´theory'' part of the article is rooted in mathematics and describes the development of a theory. The article describes the four steps of the theory phase as (1) characterise objects of study (definition), (2) hypothesise
+The ``theory'' part of the article is rooted in mathematics and describes the development of a theory. The article describes the four steps of the theory phase as (1) characterise objects of study (definition), (2) hypothesise
 possible relationships among them (theorem), (3) determine whether the
 relationships are true (proof), and (4) interpret results.\\
 
@@ -93,7 +94,7 @@ In this thesis, we touch upon the theory behind machine learning, more specifica
 
 
 \subsection{Abstraction}
-The ``abstraction'' part of the article is rooted in the experimental scientific method and relates to the investigation of the hypothesis. The four stages the investigation is: (1) form a hypothesis, (2) construct a model and make a prediction, (3) design an experiment and collect data, (4) analyse results. \\
+The ``abstraction'' part of this thesis is rooted in the experimental scientific method and relates to the investigation of the hypothesis. The four of stages the investigation are: (1) form a hypothesis, (2) construct a model and make a prediction, (3) design an experiment and collect data, (4) analyse results. \\
 
 The experiments done in this thesis falls under this category. Also, we have the hypothesises ( \ref{hyp:a} \& \ref{hyp:b} ) and methodology as part of the abstraction. Based on the hypothesises presented, we created tests to check their validity, of which we were able to either verify or refute the theory presented.
 
@@ -108,9 +109,9 @@ This category was supported by the finished system able to inpaint images to imp
 
 
 
-\section{Main contributors}
+\section{Main Contributors}
 Throughout this thesis we have developed a system for preprocessing data as a tool to help classification. 
-The system can take any mask and recreate the masked area, and can be used both in the removal of dataset spessific artefacts as well as a general tool for inpainting. 
+The system can take any mask and recreate the masked area, and can be used both in the removal of dataset specific artefacts as well as a general tool for inpainting. 
 
 In section \ref{cha:problemstatement} we outlined two main questions based on \ref{hyp:a} \& \ref{hyp:b}, that we are able to answer:
 \begin{enumerate}
@@ -126,7 +127,7 @@ From our testing, we can see that inpainting sparse areas in datasets help with 
 
 
 We have strong evidence supporting our hypothesis concerning inpainting artefacts. As our results in \cref{bar:cvc12k,bar:cvc356,bar:kvasir} shows, all but one of our inpainting methods beat the baseline when inpainting artefacts. By inpainting artefacts, we got at some cases at least a doubling in MCC score.
-
+\todo{MICHAEL OR PAAL:\\ Do i add conferences/publications?}
 
 \end{enumerate}
 
@@ -146,7 +147,6 @@ We first look into how we can solve our problems by using inpainting and go into
 After this, we describe a system to review our models, followed by technical details on the programming languages and packages used.
 We end the chapter by looking at the two programs we end up with to test our theories. 
 
-
 \paragraph{Chapter 4: Experiments}
 We start by giving a review of the datasets we use to train and evaluate our model, followed by the metrics we use to describe our rate of success.
 We go more in detail into the six datasets we make, and the 105 total runs we take to ensure reliable results.
@@ -157,4 +157,5 @@ We end this chapter by presenting the inpainting datasets and then presenting th
 Finally, we summarise and conclude this thesis.
 We also present ideas and suggestions for further studies surrounding
 the findings in this thesis and present final remarks about the research.
+
 

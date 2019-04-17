@@ -13,7 +13,7 @@ Before we look into the CAD procedures that are in use today, we need to go more
 
 \subsection{Endoscopy and Colonoscopy}
 \label{cha:endocolo}
-Gastrointestinal endoscopies are one of the most routine medical examinations where medical staff visualise the mucosa of the patient via a camera through the whole of the GI tract~\cite{Holme13}.
+Gastrointestinal endoscopies are one of the most routine medical examinations where medical staff visualise the mucosa of the patient via a camera through the GI tract~\cite{Holme13}.
 Today the medical staff working with the visual screening of the intestinal tract use primarily two different methods: colonoscopy and gastroscopy. 
 Colonoscopy is the practice of inserting a colonoscope into the rectum and moving through the large intestine towards the small intestine.  Gastroscopy is the practice of inserting a camera via the mouth to get a visualisation through the stomach.
 
@@ -34,7 +34,7 @@ As Figure \ref{fig:HumanGI}\footnote{From \url{https://commons.wikimedia.org/wik
 We have now looked at the medical perspective of colonoscopy. We see that the practice has not changed since the introduction of the colonoscope and that the best chance of detection is manually looking at images by professional medical staff. \todo{Need more here, or in previous section.. Remember to talk about medical team}
 
 
-\section{CAD - Computer aided diagnosis}
+\section{CAD - Computer Aided Diagnosis}
 \label{cha:CAD}
 In the previous section, we gave a summary of the medical procedure associated with a colonoscopy. We described the tool used for colonoscopy,  and the need for a medical team to support during the procedure.
 The research into better systems for automation and detection has been prevalent in the twenty-first century.  This shift towards CAD is an essential move, given the invasiveness and stress associated with medical colonoscopies, and the more confident we are in the findings of anomalies during the procedure, the higher chance of a patient not getting cancer due to the missed anomalies.
@@ -43,16 +43,16 @@ In addition to the possible miss chance during colonoscopies, the price of the p
 
 The motivation for this thesis is to advance the systems in place that does CAD, and in more detail, we want to improve the medical systems for detecting polyps in the GI tract. 
 Automatic detection of polyps is, in general, a well-researched study, and at the time there are many publications regarding this detection and classification, especially when it comes to generalisation and limited datasets~\cite{riegler2016multimedia}.  
-Despite the numerous papers published on the subject, there are still challenges that still need more research. 
+Despite the numerous papers published on the subject, there are still challenges that need more research. 
 \vspace{5px}
 Wang et al. published a system called Polyp-Alert that provides near real-time feedback during colonoscopy~\cite{wang2015polyp}. The system correctly detected 97\% (42 of 43) of the polyps in the videoes provided. The system had a 4.3\% error, marking non-polyps as polyps. Polyp-Alert shows that we already have fast, effective and potentially useful colonoscopy tools to guide medical staff.
 
-When it comes to network training,  Tajbakhsh et al. demonstrated how fine-tuning a pretraind CNN in a layer-wise manner leads to incremental performance improvement in medical images~\cite{DBLP:journals/corr/TajbakhshSGHKGL17}.
+When it comes to network training,  Tajbakhsh et al. demonstrated how fine-tuning a pretraind convolutional neural network in a layer-wise manner leads to incremental performance improvement in medical images~\cite{DBLP:journals/corr/TajbakhshSGHKGL17}.
 
-Pogorelov et al. In 2016 presented a complete end-to-end multimedia system for tackling automatic analysis of GI tract videos. The proposed system includes a pipeline ranging from data collecting, processing and data analysis, to visualisation~\cite{Pogorelov2017}. 
+In 2016 Pogorelov et al. presented a complete end-to-end multimedia system for tackling automatic analysis of GI tract videos. The proposed system includes a pipeline ranging from data collecting, processing and data analysis, to visualisation~\cite{Pogorelov2017}. 
 
 Pogorelov et al. also recently published a paper on the generalisation of data, for the purpose of using open datasets for training CAD systems~\cite{pogorelov2018deep}. In this paper, they presented hand-crafted and deep learning-based methods for detection of polyps in videos from colonoscopies. In this paper they worked to achieve real-world comparability by using challenging datasets captured with different kinds of hardware. In addition to this, they used imbalanced datasets and as little as possible training data.
-Their best model, a GAN for handcrafted features, reached a detection specificity of 94\% and an accuracy of 90.9\%, done with only 356 training samples.
+Their best model, a Generative adversarial network for handcrafted features, reached a detection specificity of 94\% and an accuracy of 90.9\%, done with only 356 training samples.
 
 As mentioned in the introduction, Hicks et al. published the Mirmir system~\cite{25953}. 
 Mirmir has, since the creation been analysed and, in later papers, shown that the system has similar problems to the one that we encounter~\cite{25956}.  
@@ -64,7 +64,7 @@ Mirmir has, since the creation been analysed and, in later papers, shown that th
     
 \section{Machine Learning}
 We have looked at the challenges that the medical staff has when it comes to detecting polyps, and how it is solved today.
-However, to truly understand how automated systems like Mirmir~\cite{25953} works, we need to look at how Machine learning helps with the detection of the anomalies the medical staff are searching for.  
+However, to truly understand how automated systems like Mirmir~\cite{25953} works, we need to look at how machine learning helps with the detection of the anomalies the medical staff are searching for.  
 
 Machine learning is a broad term, but we summarise it with the quote from  Tom M. Mitchell in his machine learning book from 1997~\cite{MitchellTomM1997Ml}:\\
 \vspace{10px}
@@ -80,11 +80,11 @@ Machine learning is a broad term, but we summarise it with the quote from  Tom M
 A few things of note from this quote is the variables mentioned. Experience (E) is the stored knowledge the program has gotten. It is in most cases just numbers used to approximate a solution given input, to try to get it as close to the right answer. This approximation is made for every task (T) until we are happy with the result.
 Lastly, to tell how well our program performs we need a measure (P) that tells us how far away from the desired output we got.
    
-From this, we see that the goal of machine learning is to improve some performance P with experience. This behaviour is a mimicry of human learning, where we as humans need to practice on a task to improve on it.
+From this, we see that the goal of machine learning is to improve some performance P with experience. This behaviour is a mimicry of how humans learn, where we as humans in the real world need to practice on a task to improve it.
 As the amount of experience increase, both for us and the machine, the performance of the task becomes better and better. We have seen that machine learning algorithms have become superior at solving some human tasks~\cite{silver2016mastering,OpenAI_dota,DBLP:journals/corr/HeZRS15}, given enough time and computing power. 
-Projects like Aplha GO and OpenAI Five shows that, given the right amount and type of data, our machine learning algorithms can solve the same problems humans solve.
+Projects like AlphaGO and OpenAI Five show that, given the right amount and type of data, our machine learning algorithms can solve the same problems humans solve.
 
-Until now, we have talked about machine learning in broad terms at this point. We have drawn a parallel between how humans learn, and how machines gather experience.  Now, we will look into the most popular machine learning techniques, and show the machine learning algorithms store the experience gathered.
+Until now, we have talked about machine learning in broad terms at this point. We have drawn a parallel between how humans learn, and how machines gather experience.  Now, we will look into the most popular machine learning techniques, and show how the machine learning algorithms store the experience gathered.
  
 \subsection{Machine learning types}
 With a basis in the quote from the machine learning book from Tom Mitchell~\cite{MitchellTomM1997Ml}, we have a broad definition of what machine learning can be.
@@ -107,7 +107,7 @@ A supervised algorithm analyses the training data and produces an inferred funct
 
 
 Examples of supervised tasks are to recognise handwritten numbers, or differentiate between different car models. We consider a task supervised if the images come with the correct label in the data set. 
-A more straightforward classification assignment is binary classification, where the target is (often, but not always) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian or International.\todo{Her må det vere et storre skille mellom trening og evaluering. Tenk paa om det er smart aa omskrive dette} In the last example, the classification changes from binary to multi-class if we sort the cars on every nationality, and not just Norwegian/non-Norwegian. Another type concerning supervised learning tasks is regression. Regression is the act of prediction given prior data. Examples of regression are the prediction of stock prices, to estimating house prices, to predicting the weather.
+A more straightforward classification assignment is binary classification, where the target is (often, but not always) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian or International.\todo{Her må det vere et storre skille mellom trening og evaluering. Tenk paa om det er smart aa omskrive dette} In the last example, the classification changes from binary to multi-class if we sort the cars on every nationality, and not just Norwegian/non-Norwegian. Another type concerning supervised learning tasks is regression. Regression is the act of prediction given prior data. Examples of regression are the prediction of stock prices, to estimating house prices or to predicting the weather.
 
 An intuitive way to differentiate between the two supervised methods is to look at the output. If the output is a category or class from a predefined set, it is usually classification. If the output is an unbounded number, it is most likely regression. 
 %\begin{figure}
@@ -134,15 +134,15 @@ An intuitive way to differentiate between the two supervised methods is to look 
         \caption{Examples of the two most common use cases for supervised learning}
         \label{fig:supervised_learning}
 \end{figure}
-
+\todo{Figures}
 \FloatBarrier
 \subsubsection{Unsupervised machine learning}
 Unsupervised learning is the act of training without any supervision, in the sense that we do not give the algorithm the next output to the given input as we do in supervised learning. Figure \ref{fig:unsupervised_learning} shows a simplified concept of unsupervised learning.
 Since we do not have categorised data in unsupervised learning, we often want the algorithms to find some underlying structure of the data, rather than classifying it.
-Types of unsupervised learning can, for instance, be clustering, the act of sorting data based on similarity or it can be dimensionality reduction, the act of simplifying or compress the data.
+Types of unsupervised learning can, for instance, be clustering or dimensionality reduction. In this context we define clustering as the act of sorting data based on similarity, and dimensionality reduction as the act of simplifying or compress the data.
 
 An example of this can be if we want to sort plants based on similarity, or we are detecting anomalies in a dataset. We often use unsupervised learning for principal component analysis (PCA)~\cite{doi:10.1080/14786440109462720} or other dimensionality reduction methods.
-A third method to used unsupervised learning is the adversarial route, where we use machine learning to make similar looking data to the original data set. 
+A third method used in unsupervised learning is the adversarial route, where we use machine learning to make similar looking data to the original data set. 
 
  \begin{figure}[h]
      \centering
@@ -165,12 +165,12 @@ A third method to used unsupervised learning is the adversarial route, where we 
       
 
 \FloatBarrier
-\subsubsection{Reinforcement learning}
+\subsubsection{Reinforcement Learning}
 Reinforcement learning is the area in machine learning that is concerned with how a software agent should take actions.
 The agent bases its actions on the environment, and it is influenced by the objective to get the maximum reward, as illustrated in Figure \ref{fig:reinforcement_learning}.
 It is closely influenced by behaviourism, with the fact that the software agent wants to maximise the reward obtained continually. 
 
-Successful types of reinforcement learning alogrithms are, for instance, Deep Recurrent Q-Learning~\cite{DBLP:journals/corr/HausknechtS15}, State–action–reward–state–action (SARSA)~\cite{Rummery94on-lineq-learning}.
+Successful types of reinforcement learning alogrithms are, for instance, Deep Recurrent Q-Learning~\cite{DBLP:journals/corr/HausknechtS15} or State–action–reward–state–action (SARSA)~\cite{Rummery94on-lineq-learning}.
 \FloatBarrier
 
 \begin{figure}[h]
@@ -193,8 +193,8 @@ Forward to 1967, the Nearest Neighbour algorithm~\cite{Cover:2006:NNP:2263261.22
 
 \vspace{5px}
 
-Another early adoption of machine learning was in the form of regression. Regression is the statistical concept of estimating the relationships among variables. It is in heavy use today, and one of the core concept we use machine learning for today. 
-Legendre first used regression in 1805 with his method of least squares\todo{MICHAEL OR PAAL:\\ How do I cite this? Should i find a ´´well known'' book and cite that?}. The least square methods were initially being done by hand, and it was at the time one best models, backed by math, to estimate the relationship between an input and a subsequent output. 
+Another early adoption of machine learning was in the form of regression. Regression is the statistical concept of estimating the relationships among variables. It is in heavy use today, and one of the core concept we use machine learning.
+Legendre first used regression in 1805 with his method of least squares\todo{MICHAEL OR PAAL:\\ How do I cite this? Should i find a ´´well known'' book and cite that?}. The least square methods were initially being done by hand, and it was at the time one of the best models, backed by math, to estimate the relationship between an input and a subsequent output. 
 Today, regression analysis is widely used in statistics and informatics, and there is a significant overlap between the two research fields. While often we can make analytical models when working with a dataset with few variables, machine learning has the possibility of making much more complex models.
 
 \vspace{5px}
@@ -215,7 +215,7 @@ After this, we look into more advanced examples of modern machine learning algot
     
 \subsection{The basic concept of machine learning}   
 \label{cha:concept}
-One of the easiest to understand tasks in machine learning is the process of regression. As stated earlier, regression is a process of approximation given prior input.
+One of the easiest to tasks to understand in machine learning is the process of regression. As stated earlier, regression is a process of approximation given prior input.
 We start with one of the simplest forms of approximation, namely linear approximation. In linear approximation, we are interested in finding the function that best defines our data using only a polynomial of the first degree.  First, we recall that a first-order function is always on the form
 \begin{equation}
 y = ax +b 
@@ -244,8 +244,9 @@ Now our goal is to, given a task T, gain experience E and store it in $W^{(0)}$ 
 
 \noindent The most prominent way of calculating this error is to use the mean square error between the predicted and actual output of the data. 
 \begin{equation}\label{eq:MSE_form}
-     MSE=\frac{1}{2m} \sum_i (\hat{y}-y)_i^2
+     MSE=\frac{1}{2m} \sum_i (\hat{y}-y)_i^2 =\mathcal{L}
 \end{equation}
+
 Where $m$ is the number of samples, $y$ is the real output, and $\hat{y}$ is the predicted output. The 2 in the denominator is just a constant to make the derivation of the formula easier.\\
 From this, we can intuitively see that the error tends towards 0 when $\hat{y}$=$y$. We can also note, because of the squaring in the formula, that the error is only based on L2\footnote{The L2 distance is the Euclidean distance between two points in a plane. L1 distance, often called Taxicab distance, taking the absolute value instead of the square root.} distance between $\hat{y}$ and $y$.\\
 Now that we have an error, we need a way to improve it.
@@ -286,7 +287,7 @@ Where $\nabla$F is the derivative of the function in question, a is the input at
     \begin{split}
     \nabla F_{W^{(0)}} &= \frac{d}{d_{W^{(0)}} } \frac{1}{2m} \sum_i (\hat{y}-y)_i^2 \\
      &= \frac{1}{m} \sum_{i}{(\hat{y}-y)}_{i} \cdot x_i\\
-     &= \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x + w^{(1)}-y)}_{i} \cdot x_i\\
+     &= \frac{1}{m} \sum_{i}{(W^{(0)} \cdot x + W^{(1)}-y)}_{i} \cdot x_i\\
     \end{split}
 \end{equation}
 
@@ -295,14 +296,14 @@ Where $\nabla$F is the derivative of the function in question, a is the input at
     \begin{split}
      \nabla F_{W^{(1)}} &= \frac{d}{d_{W^{(1)}} } \frac{1}{2m} \sum_i (\hat{y}-y)_i^2 \\
                     &= \frac{1}{m} \sum_{i}{(\hat{y}-y)}_{i} \\
-                    &= \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x + w^{(1)}-y)}_{i}\\
+                    &= \frac{1}{m} \sum_{i}{(W^{(0)} \cdot x + W^{(1)}-y)}_{i}\\
     \end{split}
 \end{equation}
 \noindent Inserting \ref{MSE_deriv_w0} and \ref{MSE_deriv_w1} in to \ref{eq:gradientdecent} gives us the two following formulas for $W^{(0)}$ and $W^{(1)}$
 \begin{equation}
     \label{GD_W0}
     \begin{split}
-    W^{(0)}  &= W^{(0)} - \gamma \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x_i + w^{(1)}-y)}_{i} \cdot x_i \\
+    W^{(0)}  &= W^{(0)} - \gamma \frac{1}{m} \sum_{i}{(W^{(0)} \cdot x_i + W^{(1)}-y)}_{i} \cdot x_i \\
               &= 1 - 0.2 \cdot \frac{1}{3}  \sum (0+1+3)  \\
               &= 0.733\\
     \end{split}
@@ -310,7 +311,7 @@ Where $\nabla$F is the derivative of the function in question, a is the input at
 \begin{equation}
     \label{GD_W0}
     \begin{split}
-    W^{(1)}  &= W^{(1)} - \gamma \frac{1}{m} \sum_{i}{(w^{(0)} \cdot x_i + w^{(1)}-y)}_{i} \\
+    W^{(1)}  &= W^{(1)} - \gamma \frac{1}{m} \sum_{i}{(W^{(0)} \cdot x_i + W^{(1)}-y)}_{i} \\
               &= 0.5 - 0.2 \cdot \frac{1}{3} \sum (0-0.5-1) \\
               &= 0.6\\
     \end{split}
@@ -326,7 +327,7 @@ This gives us the loss:
 \end{equation}
 
 \noindent After one iteration of gradient descent, we see the weights becoming closer to the desired result. With more iterations the closer the weights will get to the point that gives the smallest error, as long as the learning rate is small enough. 
-We looked at an example using the formula for a linear approximation. In the real world, there are only a handful of problems that we solve by making a linear approximation. We will now look into more advanced types of approximations made with machine learning.
+We looked at an example using the formula for a linear approximation. In the real world, there are only a handful of problems that we \textbf{can} solve by making a linear approximation. We will now look into more advanced types of approximations made with machine learning.
 
     
 
@@ -349,7 +350,7 @@ Frank Rosenblatt introduced the first perceptron in 1957 as an attempt to mimic 
 \end{figure}
 
 
-Figure \ref{fig:neuron}\footnote{From \url{https://commons.wikimedia.org/wiki/File:Neuron.svg}} shows how a human neuron looks like, and in which direction the signal goes. Each neuron is connected to multiple other neurons by connecting the dendrites to other neighbouring neurons forming a pathway for the electrical signals to flow. 
+Figure \ref{fig:neuron}\footnote{From \url{https://commons.wikimedia.org/wiki/File:Neuron.svg}} shows what a human neuron look like, and in which direction the signal goes. Each neuron is connected to multiple other neurons by connecting the dendrites to other neighbouring neurons forming a pathway for the electrical signals to flow. 
 When a signal is sent, the dendrites register the signal and sends it through the axon out to the axon terminal. At the axon terminal, other neurons pick up the electrical signal and pass it through their axon.
 This flow of electricity is the fundamental way different part of our brain communicates, and the different pathways the signals can take represent how we learn. The original idea behind the perceptron and this branch of machine learning is to mimic this process of making pathways throughout the network as a way to learn from experience.
 
@@ -382,7 +383,7 @@ We multiply the input signals to the perceptron with an associated weight. In bi
 where $\textbf{x}$ is the input, $\textbf{W}$ is a vector of real-valued weights, $\textbf{w} \cdot \textbf{x}$ is the dot product $\sum _{i=1}^{m}w_{i}x_{i}$, where m is the number of inputs to the perceptron, and b a constant bias. 
 
 
-The general formula of the perceptron is unchanged, though we have moved away from the ``0-1 output'' perceptron in favour for more complex output functions like the sigmoid in 1989~\cite{Funahashi:1989:ARC:71287.71290}, and the ReLu, and tanh in the 2000s. 
+The general formula of the perceptron is unchanged, though we have moved away from the ``0-1 output'' perceptron in favour for more complex output functions like the sigmoid in 1989~\cite{Funahashi:1989:ARC:71287.71290}, the ReLu and tanh in the 2000s. 
 
 \begin{equation}
     \label{eq:ReLu}
@@ -400,17 +401,17 @@ The typical ReLu preceptron.
 \subsection{Feed forward and backpropagation through a perceptron}
 The general concept of the learning process is similar to the one we presented in section \ref{cha:concept}. To better understand the function of a perceptron we will explain the same steps as we saw in the linear regression example, only for our perceptron.
 
-First our perceptron gets signals $x_{(i,0)}-x_{(i,n)}$ where $n$ is the number of inputs to the perceptron (For instance three in Figure \ref{fig:perceptron}). The signals received is the input in the same way as we received an input an array in equation \ref{eq:input}.
+First our perceptron gets signals $x_{(i,0)}-x_{(i,n)}$ where $n$ is the number of inputs to the perceptron (for instance three in Figure \ref{fig:perceptron}). The signals received is the input in the same way as we received an input an array in equation \ref{eq:input}.
 For each of the input values, $x_{(i,0)}-x_{(i,n)}$, we multiply it by a weight $W^{(0,0)}$ -  $W^{(0,n)}$. Here, in contrast to the linear regression example, every input has its own weight.
 After the weight multiplication, we sum the result to a scalar.
-We are now almost ready to give the result as an output, but to prevent the perceptron of only being able to solve linear problems when connection multiple perceptrons we need to use an activation function. This activation function can be ReLu as in equation \ref{eq:ReLu}, or something like tanh or Sigmoid shown in Figure \ref{fig:activations}. Note that we do not use the threshold function in equation \ref{eq:tresh} as an activation function in modern neural networks, as it is not applicable for gradient descent.
+We are now almost ready to give the result as an output, but to prevent the perceptron of only being able to solve linear problems when connection multiple perceptrons, we need to use an activation function. This activation function can be ReLu as in equation \ref{eq:ReLu}, or something like tanh or Sigmoid shown in Figure \ref{fig:activations}. Note that we do not use the threshold function in equation \ref{eq:tresh} as an activation function in modern neural networks, as it is not applicable for gradient descent.
 
 Now that we have an output, we look at the error between the output $f_{(j,0)}$ and the expected output and apply a loss function. We can now backpropagate the error to update the weights at the start of the perceptron.
 
 
 \subsection{Multilayer perceptrons}
 \label{cha:MLP}
-The neural network was a proposal made by Warren McCulloch and Walter Pitts (1943) ~\cite{roweis2000nonlinear}  created a computational model for neural networks based on mathematics and algorithms called threshold logic. 
+The neural network was a proposal made by Warren McCulloch and Walter Pitts (1943)~\cite{roweis2000nonlinear}. They created a computational model for neural networks based on mathematics and algorithms called threshold logic. 
 
 The first multilayer network at the time used backpropagation with gradient decent in the same way described in equation \ref{eq:gradientdecent}.
 
@@ -422,18 +423,20 @@ The first multilayer network at the time used backpropagation with gradient dece
 \end{figure}
 
 
-Figure \ref{fig:mlnn} shows the basic structure of a multilayer network. This model has one hidden layer and with the standard input and output layers. In our figure, each of the nodes is a perceptron\footnote{In reality, the input layer does not usually behave as a perceptron with an activation function. The input layer is only there to propagate the signal to the neurons further into the network.} as described in section \ref{cha:perceptron}.
+Figure \ref{fig:mlnn} shows the basic structure of a multilayer network. This model has one hidden layer and the standard input and output layers. In our figure, each of the nodes is a perceptron\footnote{In reality the input layer does not usually behave as a perceptron with an activation function. The input layer is only there to propagate the signal to the neurons further into the network.} as described in section \ref{cha:perceptron}, and each vertex is the weight between the corresponding perceptrons. For a model like the one in Figure \ref{fig:mlnn}, we need 20 placeholders to store our weights. The number of weights also increases with the number of perceptrons equal to the number of perceptrons in each layer multiplied together. 
 
-The advantage of using the multilayer structure proposed by McCulloch and Pitts is the fact that we do not only have a linear boundary classification model. By using the multilayer structure the network is able to, for instance, tackle the XOR problem, not solvable by a single layer neural network. 
+The advantage of using the multilayer structure proposed by McCulloch and Pitts is the fact that we are not constricted to a linear boundary classification model. By using the multilayer structure the network can, for instance, tackle the XOR problem, not solvable by a single layer neural network. 
 
 
 
 
     
-\subsection{Convolutional neural networks}
+\subsection{Convolutional Neural Networks}
 \label{cha:convNet}
 The multilayer perceptron we have discussed is a robust tool that can learn a multitude of decision boundaries, and subsequently learn to classify thousands of different classes. 
-As we get more data and more classes, the networks needed to solve our problem grows. We can recall from section \ref{cha:MLP} that the number of weights between neurons is $i \cdot j$ where i is the first layer and j is the connected second layer. As the number of perceptrons per layer in our neural networks increases, the total amount of storage space increases too. 
+As we get more data and more classes, the networks needed to solve our problem also need to grow. We can recall from section \ref{cha:MLP} that the number of weights between neurons is $i \cdot j$ where i is the first layer and j is the connected second layer. As the number of perceptrons per layer in our neural networks increases, the total amount of storage space increases too. 
+
+Given that we want to classify colour images to recognise if an image is of a dog or a cat, we first want to feed the whole image with all three colour channels into our network.
 \begin{equation}
     \label{eq:weights_l}
      height_i \cdot width_i \cdot \ channels_i \cdot height_j \cdot width_j \cdot \ channels_j  = weights
@@ -455,10 +458,10 @@ Given that a standard computer usually have 8-16 GB of RAM, this one layer might
 
 
 
-Another problem with the standard MLP is the fact that it is spatially dependent. Given an input $x$, the output, $y$, of the MLP will vary a lot if we shift the input data by one place, or if we flip the data. In some cases, this is something we want in our machine learning algorithms, but more often than not, this behaviour is not a desirable outcome.
+Another problem with the standard MLP is the fact that it is spatially dependent. Given an input $x$, the output, $y$, of the MLP will vary a lot if we shift the input data by one place, or if we flip the data. In some cases, this is something we want in our machine learning algorithms, but more often this behaviour is not a desirable outcome.
 Given the downsides we have with regards to memory usage and non-spatiality in our multilayer perceptrons, we present Kunihiko Fukushima~\cite{Fukushima1980} solution to solve both complications.
 Convolutional neural networks (CNN) are the most popular form for image recognition, segmentation, and classification~\cite{NIPS2012_4824}~\cite{Long_2015_CVPR}.
-When building a convolutional neural network we often use multiple layers stacked on opt of each other to give the network traits that a regular multilayer perceptron could not achieve. By far the most essential layer of the convolutional neural network is the convolutional layer.
+When building a convolutional neural network we often use multiple layers stacked on top of each other to give the network traits that a regular multilayer perceptron could not achieve. By far the most essential layer of the convolutional neural network is the convolutional layer.
 
 
 \subsubsection{Convolutional layers}
@@ -486,7 +489,7 @@ As we can see from this architecture, we can only change when weights in the fil
 As we discussed in section \ref{cha:perceptron}, in addition to summing the inputs and passing them on, we need to apply an activation function to the output. The same problem with our desire to make non-linear problems apply in the CNN model. 
 To apply an activation layer to a CNN, we take every value in the matrix and apply the activation function separately to every data-point. 
 
-In this thesis, our CNNs used only the three activation functions shown in Figure \ref{fig:activations}.
+In this thesis, our CNNs used only the three activation functions shown in Figure \ref{fig:activations}, with slight modifications.
 \begin{figure}[h]
         \centering
         \includegraphics[scale=0.8]{background/figures/activations.png}
@@ -547,7 +550,7 @@ In the original paper we the writers saw a significant reduction in the number o
 A major problem in machine learning is the act of overfitting the data. We say that a model is overfitting to the data when it learns the bias that comes with the dataset as shown in Figure~\ref{fig:dropout}. A practical way to see if a model is starting to overfit is to look at the training error versus the test error. If the training error keeps decreasing while the test error increases, we tend to believe that the model is learning the training data distribution and not generalising to unseen data.
 
 
-\begin{figure}[h]
+\begin{figure}[t]
         \centering
         \includegraphics[scale=0.6]{background/figures/Under_vs_overfitting.png}
         \caption{Three cases of data boundary prediction. In most cases we desire appropriate amount of fitting to our dataset to keep generalisation}
@@ -570,11 +573,12 @@ Dropout does, in practice, the same as an L1 or L2 regulariser.
 \section{Complex Neural Network models}
 We have now looked at the basic concept of the neural network, and a more in-depth look into the convolutional neural network and the relevant layers.
 Our primary focus has been from a computer vision perspective, where we have looked at image classification. 
-To get a better insight into the act of inpainting, we need to present two other types of network, namely the Autoencoder~\cite{Rumelhart:1986:LIR:104279.104293} and the generative adversarial network~\cite{Goodfellow:2014:GAN:2969033.2969125}.
+To get a better insight into the act of inpainting, we need to present two other types of network, namely the Autoencoder (AE)~\cite{Rumelhart:1986:LIR:104279.104293} and the generative adversarial network (GAN)~\cite{Goodfellow:2014:GAN:2969033.2969125}.
 
 We often base both models on the convolutional architecture, to have the option to work with image and video data. 
 Both networks are a type of unsupervised learning, where the goal is to either recreate or construct data based on the training data.
 
+We will also present the concept of transfer learning as a tool for easier classification.
 
 
 \subsection{Autoencoders}
@@ -583,7 +587,7 @@ An autoencoder is a neural network that is trained to recreate a copy of the inp
 As with the networks explained at this point, it has an input, some number of hidden layers and an output. The network can be considered to have two internal structures, the encoder (denoted as $h=f(x)$) and decoder (denoted as $r=g(h)$) shown in figure \ref{fig:simpleAE}.
 The general goal of the autoencoder is to recreate the input $g(f(x)) = x$, but in the real world, we often add restrictions to make the autoencoder unable to copy the input perfectly. Because of this restriction, the autoencoder is forced to prioritise particular properties of the data, and hence it might learn underlying features that define the dataset.
 
-\begin{figure}
+\begin{figure}[t]
     \centering
     \includegraphics[scale=0.8]{background/figures/SimpleAE.png}
     \caption{The general structure of an autoencoder, encoding $\textbf{x}$ with $\textbf{f}$, then decoding $\textbf{h}$ with $\textbf{g}$ to an output $\textbf{x}$.}
@@ -598,7 +602,7 @@ This type of autoencoder is called a variational autoencoder. Variational autoen
 Another way to use an autoencoder for generative modelling is by masking areas in the input data the model used to train on, and give the unmasked data as the target output.
 Figure \ref{fig:AEinpainting} shows this concept of an inpainting Autoencoder. The act of inpainting forces the autoencoder to learn the underlying features of the inpainted area to make a prediction. 
 
-\begin{figure}[h]
+\begin{figure}[t]
     \centering
     \includegraphics[scale=0.6]{background/figures/AE_for_inpainting.png}
     \caption{Autoencoder where the goal is to inpaint the masked area shown in the original dataset as a purple circle, and as a red circle generated by the autoencoder.}
@@ -619,7 +623,7 @@ As we noted earlier, Figure \ref{fig:AEinpainting} show a visual example of equa
     
 \subsection{Advaserial neural networks}
 \label{cha:Explaining_GANS}
-As an alternative to using autoencoders for generative modelling, we introduce the generative adversarial network (GAN) proposed by Goodfellow et al.~\cite{Goodfellow:2014:GAN:2969033.2969125}.
+As an alternative to using autoencoders for generative modelling, we introduce the generative adversarial network proposed by Goodfellow et al.~\cite{Goodfellow:2014:GAN:2969033.2969125}.
 
 As shown in Figure \ref{fig:GAN}, the GAN consist of two components: a generative model G that captures the data distribution, and a discriminator model D that estimates the probability that the sample from G is fake, and does not come from the training data. The training procedure for the generator is to maximise the probability of the discriminator to make mistakes.
 The generator-discriminator network resembles a two-player game where both parties want to ``win'' over the other.
@@ -660,19 +664,18 @@ Similarly, we can use general models to help solve our specific problem.
 
      
    
-\section{The problem at hand / Summary}
+\section{Summary}
 We started the background chapter by looking at the medical procedure associated with a colonoscopy, and we went in-depth into how the medical staff work with digital equipment. We got some insight into the time and complexity invested in finding polyps when doing the said colonoscopy.
 We then looked at systems for computer-aided diagnosis and the prevalent systems that is in use today to help medical staff with polyp detection. 
-From this assessment, we saw that the polyp detection rate in datasets like Kvasir was relatively high, but the model overfitting was often the cause of the high-grade results. Though the advances in medical image diagnosis, the ability for models to generalise to other areas has not come far enough.
+From this assessment, we saw that the polyp detection rate was relatively high, but polyps were often overlooked, and model-overfitting was often the cause of the high-grade results. Though the advances in medical image diagnosis, the ability for models to generalise to other areas has not come far enough.
 We then took a close look at machine learning, from the building blocks in the perceptron to the complex pretrained neural networks used today in modern algorithms. 
 
 As we noted in chapter \ref{cha:CAD} we, in modern medical diagnosis systems, lack the ability to adapt to new datasets from a different distribution than the training set. We have a strong belief that this is related to the fact that we overfit the data on the training set and the fact that we learn dataset-specific features not present in other unknown datasets.
 
 
-Hicks et al. in the paper ``find paper'' goes in-depth into the problem of overfitting with regards to the problem with dataset specific features. We can see from this paper that by removing dataset specific artefacts, the classification score increased when evaluating the model on previously unseen data.
+Hicks et al. in the paper \textit{``Dissecting Deep Neural Networks for Better Medical Image Classification and Classification Understanding''} goes in-depth into the problem of overfitting with regards to the problem with dataset specific features. We can see from this paper that by removing dataset specific artefacts, the classification score increased when evaluating the model on previously unseen data.
 
-Proglov et al. in the paper ``in the paper'' shows similar results when training on the Kvasir dataset and evaluating the data on different datasets.
-
+Proglov et al. in the paper \textit{``Deep Learning and Hand-crafted Feature Based Approaches for Polyp Detection in Medical Videos''} shows similar results when training on the small datasets and evaluating the data on different larger publicly available datasets.
 
 In this thesis, we want to continue to explore this problem of lack of generalisation and find ways to improve models in that manner.
 

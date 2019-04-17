@@ -19,7 +19,7 @@ class CWDense(Layer):
         x = tf.reshape(x,[-1,self.width*self.height,self.n_feat_map])
         x = tf.transpose( x, [2,0,1] )
 
-        x = K.dot(x,self.kernel)
+        x = tf.matmul(x,self.kernel)
 
         x = tf.transpose(x, [1,2,0])
         x = tf.reshape(x,[-1,self.height,self.width,self.n_feat_map])
