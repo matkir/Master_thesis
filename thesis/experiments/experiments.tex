@@ -16,7 +16,7 @@ As we can see in Figure \ref{fig:Kvasir} all images got the rounded corners.
 
 
 \subsection{CVC 356 and CVC 12k}
-The CVC 356 dataset is a dual-class dataset created from rotuinary explorations at Hospital clinic of Barcelone, Spain. 
+The CVC 356 dataset is a dual-class dataset created from routinary explorations at Hospital clinic of Barcelone, Spain. 
 The goal of the database is to cover all different scenarios that a given support system should face. In addition to the images, the dataset also comes with a mask that is an approximation of the ground truth.
 The CVC datasets are publicly available datasets from the CVCVideoClinicDB database.
 
@@ -103,20 +103,6 @@ Figure \ref{fig:dyedandliftedpolyps} shows a polyp after the injection liquid is
 The resection margin is important to evaluate after the removal of a polyp, as we want to be sure the entirety of the are is clean. 
 If the procedure did not eradicate the polyp, the residual polyp tissue might lead to continued growth, and in the worst case malignancy development. 
 
-
-
-
-%\subsection{Nerthus} 
-\todo{do we do Nerthus?}
-\subsection{CVC-356}
-The 
-
-\subsection{CVC-12k}
-\subsection{CVC-612}
-
-esdtgfgv
-
- 
     
 \fi
 
@@ -364,7 +350,7 @@ ACC=\frac{TP+TN}{TP+TN+FP+FN}
 \vspace{5px}
 \textbf{Recall:}  
 Recall is the probability of detection, often called sensitivity.
-This metric is a measure of the fraction of relevant instances that have been retrieved over the total amount of relevant instances for a binary classification example. It is calculated using equation \ref{er:REC}.
+This metric is a measure of the fraction of relevant instances that have been retrieved over the total amount of relevant instances for a binary classification example. It is calculated using equation \ref{eq:REC}.
 
 Recall together with Specificity and Precision gives a complete view of the data compared to for instance accuracy alone. This difference is shown when we have uneven datasets. Given a dataset where we know that only 1\% of the data is negative, we will get an accuracy of 99\% if we label all the data as positive. When adding recall, specificity and precision, our score will reflect that we mislabeled all the negative values.
 %\todo{ "Detector Performance Analysis Using ROC Curves – MATLAB & Simulink Example". www.mathworks.com. Retrieved 11 August 2016.}
@@ -450,6 +436,7 @@ With the three methods presented, we have chosen to Macro average our results. W
 In addition to looking at the Macro average of precision and recall, we want to look at specific cases of the classification.  In many cases, we have multiple classes, where we are most interested in just one or a handful of the classes shown. 
 For instance, a focus we have in this thesis is to give a score on how predictable polyp detection is, and on that case, we want to discuss the True positive rate (TPR) of the polyp detection and not the TPR of the non-polyp classes. 
 
+\todo{Might remove rest of this section.. Need to think about it.}
 Take for instance the matrix \ref{mat:exampleMAT}\\
 \begin{figure}[h]
     \centering
@@ -504,7 +491,7 @@ RAM                          & Kingston 16 GB DDR3 @ 1600 MHz \\ \bottomrule
 \label{tab:HW}
 \end{table}
 
-
+\todo{MICHAEL OR PAAL: \\ Do I need more info/fluff here? }
 
 \section{Setup of experiments}
 As we recall, we proposed the following hypothesis.
@@ -549,7 +536,7 @@ From this, we hypotosise that we will see an increase in classification when tra
 Based on Hypothesis \ref{hyp:b}, we predict assume that the removal of areas with dataset specific artefacts will result in a higher classification score.  By removing the green squares in the corners and the text overlayed on top of the images, we predict that we get a higher classification score on previously unseen datasets compared to not removing dataset specific artefacts.
 
 
-With Hypothesis \ref{hyp:a} and \ref{hyp:b} in mind, we present three types of datasets with two different generators to see if our hypothesises are correct.
+With Hypothesis \ref{hyp:a} and \ref{hyp:b} in mind, we present three types of datasets with two different generators to see if our hypothesises are correct. The full list of datasets is shown in Figure \ref{tab:datasets}
 
 
 
@@ -931,7 +918,7 @@ In addition to the datasets at standard size, we created the datasets at double 
 As we see in figure \ref{fig:AE_GAN_512} the inpainted areas is more smeared out in contrast to the previous datasets. In this thesis, we have chosen to keep our focus primarily on the images at $256\times 256$ px resolution though we keep the double resolution images as a means to draw more context from our results.
 
 
-        \begin{figure}
+        \begin{figure}[t]
         %\centering
         \tiny
 		\begin{subfigure}[t]{\myfigsizethree}
