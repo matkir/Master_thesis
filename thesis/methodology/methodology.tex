@@ -524,20 +524,19 @@ This lack of a ground truth gives the GAN many pitfalls that cause the training 
 One of the first measures we did to prevent training collapse was to normalise the inputs. Instead of using images in the range 0 to 255 in pixel values we switched the values to  -1 to 1. 
 Later, when the images were generated, we switched out the standard sigmoid output layer with a tanh output layer. As we wanted the output to be between -1 and 1, this was necessary, as the sigmoid only outputs between 0 and 1.
 
-\paragraph{Using gaussian noise}
-perhaps write about this
+\paragraph{Using Gaussian noise}
+When generating noise for the generator model, we only sample from a Gaussian distribution and not a uniform distribution. We base the reasoning on previous work in the generative modelling field of research.
 
 \paragraph{Permanent Dropout}
-\todo{Talk about this}
+A measure we took to improve stability were to use permanent dropout~\cite{DBLP:journals/corr/IsolaZZE16}. We used the same amount of dropout both during training and testing.
+The usage of dropout, in general, was a quintessential part of stable GANs, but in the end, we did not end up with permanent dropout in the finished model.
+
 
 \paragraph{Normalising the batches}
 One of the most significant challenges we encountered when training the adversarial network was the use of correct normalisation. 
-
-The practice of training the discriminator with real and fake samples separately gave higher stability overall. 
-
+The practice of individually training the discriminator with real and fake samples gave higher stability overall compared to a mix during training. 
 The use of instance normalisation gave a better result compared to using batch normalisation. We believe this is contributed to the fact that the discriminator learned that the average pixel value was lower for the whole batch since the area inpainted had 0 as the pixel value.
-
-The final model ended up not using batch or instance-normalisation. 
+The final model ended up not using batch or instance-normalisation except for in the discriminator. 
 
 
 
@@ -547,25 +546,21 @@ Most of the well-known networks use the ReLu\cite{Nair/2010/RLU/3104322.3104425}
 We saw the best result when we used non-sparse gradients during training. 
 Instead of using ReLu we used the slightly modified LeakyReLu \cite{Maas2013RectifierNI}.
 
-%\todo{mention RReLu, but the number of parameters not worth it.}
-
-In addition to trying to remove sparse gradients, we also wanted to address the problem with vanishing gradients during training. Given that we have fully saturated pixels (with the value of 1 or 255) and we have fully darkened pixels (with the value of -1 or 0) we, at the end of the experimentation phase, ended up removing the tanh layer. 
+In addition to trying to remove sparse gradients, we also wanted to address the problem with vanishing gradients during training. Given that we have fully saturated pixels (with the value of 1) and we have fully darkened pixels (with the value of -1) we, at the end of the experimentation phase, ended up removing the tanh layer. 
 The removal of the tanh layer meant that the pixel values could be arbitrary on both positive and negative value, so we had to clip the value not to get an error at test time. 
 
 
 
 \paragraph{Avoiding residual and inception layers}
-When training the GAN experiments shows that the usage of both residual \cite{Rumelhart:1986:LIR:104279.104293} and inception \cite{DBLP:journals/corr/SzegedyLJSRAEVR14} models does note contribute to a good result when training the GAN.
+When training the GAN, experiments show that the usage of both residual \cite{Rumelhart:1986:LIR:104279.104293} and inception \cite{DBLP:journals/corr/SzegedyLJSRAEVR14} models do not contribute to a good result when training the GAN.
 
-Residual modules primary strength is that they always send the image/signal throughout the network in addition to the standard layers. Instead of the network needing to generate the whole image for each layer, the network instead adds or subtract from the original image for each layer.
-This modification to the original image might seem reasonable when it comes to inpainting, but in reality, this does not work.  Given an image where we want to change only the inpainted area, the image is about 80\% unchanged. The network could focus on just filling in the inpainted area in theory, but in practice, the network tries to change the rest of the image in addition to the square. This incorrect inpainting gives us a generator that changes too much of the image and a discriminator that does not learn any important features since the input and output are relatively similar from the start.
+We recall that residual modules primary strength is that they always send the image/signal throughout the network in addition to the standard layers, making the gradient flow better at the start of the network. 
+This modification to the original image might seem reasonable when it comes to inpainting, but in reality, this does not work.  Given an image where we want to change only the inpainted area, the image is about 80\% unchanged. The network could focus on just filling in the inpainted area in theory, but in practice, the network tries to change the rest of the image in addition to the square. This incorrect inpainting gives us a generator that changes too much of the image and a discriminator that does not learn any essential features since the input and output are relatively similar from the start.
 
 Inception modules primary strength is the fact that the gradient can flow throughout the path most suited to the problem at hand.
 We tested some training runs with inception modules, but the result was not impactful enough to continue to use this architecture.
 
-From multiple training runs, it seems like just a straight forward encoder-decoder network for the generator yielded the best result. While the best result for the decoder was to use convolutions with stride do downsample the signal.
-
-\todo{this might not be the right chapter for describing what layers are in the GAN, so please move}
+From multiple training runs, it seems like just a straight forward encoder-decoder network for the generator yielded the best result while the best result for the decoder was to use convolutions with a stride to downsample the signal.
 
 
 
@@ -576,15 +571,15 @@ We will now go more in-depth into the two networks used for generating the new d
 
 
 \subsection{Autoencoder}
-The autoencoder we used to generate the datasets used in this thesis bears a resemblance to the standard autoencoder proposed in chapter \ref{cha:Explaining_autoencoders}. 
+The autoencoder we used to generate the datasets used in this thesis bears a resemblance to the standard autoencoder proposed in chapter \ref{cha:Explaining_autoencoders}. Here we use a standard encoder decoder network.
 
 \paragraph{Loss, Optimiser}
-To get the autoencoder to give the best result, we have chosen to use the mean square error loss as in equation~\ref{eq:MSE_form} and the Adam\cite{adam} optimiser.
+To get the autoencoder to give the best result, we have chosen to use the mean square error loss as in equation~\ref{eq:MSE_form} and the Adam~\cite{adam} optimiser.
 The mean square error was a logical choice since we already have the ground truth and we only want to recreate the inpainted area based on what used to be there before the masking.
 The Adam optimiser was chosen by the widespread usage in machine learning, coupled with the fact that it works well with sparse gradients.
 
 \paragraph{Encoder}
-The input to the autoencoder were the masked images at $256 \times 256$px to compress the information in the encoder we solely used convolutions with a stride of 2. An alternative to using stride for the downsampling would be to use pooling, as described in section \ref{cha:pool}. Both concolution with stride and pooling gives adequate results, though we chose to use convolutions.
+The input to the autoencoder were the masked images at $256 \times 256$ px to compress the information in the encoder we solely used convolutions with a stride of 2. An alternative to using stride for the downsampling would be to use pooling, as described in section \ref{cha:pool}. Both concolution with stride and pooling gives adequate results, though we chose to use convolutions.
 
 
 
@@ -598,8 +593,7 @@ In this thesis, we achieved the most significant results by using upsampling com
 \vspace{5px}
 
 To describe the model we will look at the example where we try to inpaint the green square in the image, and nothing else.
-To train the autoencoder for inpainting, we divide the dataset in two, first images with the green square and images without the green square. We discard the images with the green square since they are not viable for training.  The resulting dataset will only contain images without green sources. \todo{Check if this is right to talk about here}
-
+To train the autoencoder for inpainting, we divide the dataset in two, first images with the green square and images without the green square. We discard the images with the green square since they are not viable for training.  The resulting dataset will only contain images without green sources. 
 \begin{figure*}[]
 \centering
 \begin{subfigure}[b]{0.45\textwidth}
@@ -627,22 +621,22 @@ We feed \ref{fig:AErep} into the autoencoder consisting of the convolutional lay
 
 
 \subsection{Generative adversarial network}
-The gan used the same generator discriminator elements as the Goodfellow gan; however, the most significant difference is the fact that our model does not generate the image from Gaussian noise.
+The GAN used the same generator discriminator elements as the Goodfellow GAN; however, the most significant difference is the fact that our model does not generate the image from Gaussian noise.
 Instead of the standard Gaussian noise as input to the generator, the inpainted image is taken as input. 
 
 \paragraph{Discriminator}
-The discriminator, as we can recall, had the job of determining if an image is real or fake. As with the decoder in the autoencoder we can use both pooling and convulsions as downsampling. Here, as in the autoencoder we solely used convolusions with stride as to downsample, with intermittent normalisation. The Normalisation layers helped with the stability issues that we face when training GANs. In the end, we flatten and connect the network to a fully connected node to determine true or false.
+The discriminator, as we can recall, had the job of determining if an image is real or fake. As with the decoder in the autoencoder, we can use both pooling and convulsions as downsampling. Here, as in the autoencoder we solely used convulsions with stride as to downsample, with intermittent normalisation. The Normalisation layers helped with the stability issues that we face when training GANs. In the end, we flatten and connect the network to a fully connected node to determine true or false.
 
 \paragraph{Generator}
 The generator in the GAN used both up and downsampling with the fully connected dense layer in the middle, as described in section \ref{cha:CWDense}.  
-During the five repetitions of downsampling, we added LeakyReLu and batch normalisation and, as before, used convolusions with stride to compress the network.
-Upsampling consisted of Upsampling in the same way as in the autoencoder, followed by convolutions, LeakyReLu and a dropout rate of 40\%. 
+During the five repetitions of downsampling, we added LeakyReLu and batch normalisation and, as before, used convulsions with a stride to compress the network.
+Upsampling consisted of upsampling in the same way as in the autoencoder, followed by convolutions, LeakyReLu and a dropout rate of 40\%. 
 
 
 
 \subsection{Transfer learning classifier}
 We have in section \ref{cha:classifier} gone in-depth into the two desired networks used in this thesis.  Our main objective when making a classifier is to make a system that is robust, reliable and has the option to be modular. 
-We built the classifier to gather the same information as shown in Figure \ref{fig:KTLmodel}, meaning we first specify the desired network (VGG~\cite{simonyan2014very}, DenseNet~\cite{DBLP:journals/corr/HuangLW16a}, or Mobilenet~\cite{DBLP:journals/corr/HowardZCKWWAA17}), then we specify the optimiser (NAdam, Adam~\cite{adam}, RMSprop or SGD).
+We built the classifier to gather the same information as shown in Figure \ref{fig:KTLmodel}, meaning we first specify the desired network (VGG~\cite{simonyan2014very}, DenseNet~\cite{DBLP:journals/corr/HuangLW16a}, or Mobilenet~\cite{DBLP:journals/corr/HowardZCKWWAA17}), then we specify the optimiser (NAdam, Adam, RMSprop or SGD).
 After the network and optimiser are chosen, the network takes information about the dataset related parameters; batch size, K-folds, Patience, and epochs.
 
 when all variables are determined, the networks train for the desired amount of time for each of the datasets provided.
