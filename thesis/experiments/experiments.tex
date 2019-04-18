@@ -8,7 +8,7 @@ In this thesis, we primarily use three datasets to train and evaluate our result
 
 
 \subsection{Kvasir}
-Kvasir~\cite{Pogorelov:2017:KMI:3083187.3083212} is a Multi-Class Image Dataset for Computer Aided Gastrointestinal Disease Detection made in Norway. The data is gathered from the Vestre Viken Health Trust, and it contains not only polyps but also two other findings, two classes related to polyp removal and three anatomical landmarks in the GI tract.
+Kvasir is a Multi-Class Image Dataset for Computer Aided Gastrointestinal Disease Detection made in Norway~\cite{Pogorelov:2017:KMI:3083187.3083212}. The data is gathered from the Vestre Viken Health Trust, and it contains not only polyps but also two other findings, two classes related to polyp removal and three anatomical landmarks in the GI tract.
 The dataset contains the eight classes mentioned above with 1000 samples for each of them.  In the Kvasir dataset, we have primarily two dataset specific artefacts and one artefact often seen in colonoscopy images. The first two artefacts are text and the green box in the lower left corner. The last artefact is the rounded edges; this kind of frame is a shared feature between all three datasets.
 Over 60\% of the dataset contains images with text, and text is represented in all classes. The text is located on the left side of the images, and it is always white.
 The green square is present in 38\% of the images but only in 5 of the classes. Figure \ref{fig:Kvasir} shows a sample with images from each class. The classes with images containing green squares are also the same images that contain green squares in the figure.
@@ -16,8 +16,8 @@ As we can see in Figure \ref{fig:Kvasir} all images got the rounded corners.
 
 
 \subsection{CVC 356 and CVC 12k}
-The CVC 356 dataset is a dual-class dataset created from routinary explorations at Hospital clinic of Barcelone, Spain. 
-The goal of the database is to cover all different scenarios that a given support system should face. In addition to the images, the dataset also comes with a mask that is an approximation of the ground truth.
+The CVC datasets are both dual-class datasets created from routinary explorations at Hospital clinic of Barcelone, Spain. 
+The goal of the datasets is to cover all different scenarios that a given support system should face. In addition to the images, the CVC 356 dataset also comes with a mask that is an approximation of the ground truth.
 The CVC datasets are publicly available datasets from the CVCVideoClinicDB database.
 
 In the CVC 356 dataset, we have 356 video-frames originating from the polyp class, and 1928 frames originating from the non-polyp class. 
@@ -25,7 +25,7 @@ In general, the video-frames from the non-polyp class are more identical to each
 Given that 85 \% of the images originate from a small subset of videos, it is likely straightforward to overfit any model trained on this dataset.
 
 
-The CVC 12k dataset has many of the same problems as the CVC dataset as many of the images are identical to each other. One of the most substantial problems with the CVC 12k  that makes it a worse set compared to the CVC 356 dataset is the fact that the polyp in question can almost be outside of the frame of the image during capture, meaning that there is no polyp in the image in an image classified as a polyp. Because of the numerous misclassifications in the CVC 12k dataset, we can never achieve a perfect score.
+The CVC 12k dataset has many of the same problems as the CVC dataset as many of the images are identical to each other. One of the most substantial issues with the CVC 12k  that makes it a worse set compared to the CVC 356 dataset is the fact that the polyp in question can almost be outside of the frame of the image during capture, meaning that there is no polyp in the image in an image classified as a polyp. Because of the numerous misclassifications in the CVC 12k dataset, we can never achieve a perfect score.
  
 
 
@@ -169,7 +169,6 @@ If the procedure did not eradicate the polyp, the residual polyp tissue might le
         \label{fig:Kvasir}
     \end{figure}
     
-\todo{tiny text}   
 
 
 

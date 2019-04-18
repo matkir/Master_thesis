@@ -212,7 +212,7 @@ To thoroughly test the hypothesis \ref{hyp:b} we should also remove areas that a
 To remove those kinds of artefacts, other methods to locate the areas are also needed. We conducted experiments using Google's Tesseract OCR~\cite{smith2007overview} to locate text, though, the time it took to find the areas made it not feasible for training. 
 In the finished product, we do not remove that kind of artefacts, given the complexity of the problem coupled with the relatively small size of the artefacts in question.
 
-\subsection{The generative modelling algorithms}
+\subsection{The Generative Modelling Algorithms}
 With the three masks discussed, we now want to present the generative modelling algorithms. As addressed in section \ref{cha:BEW} our goal is to make new datasets without the unwanted artefacts based on the original dataset. 
 We have chosen to use the two generative models presented in section \ref{cha:Explaining_autoencoders} and in section \ref{cha:Explaining_GANS}, namely Autoencoders and GANs.
 
@@ -268,7 +268,7 @@ The seven datasets will be the basis for our test of the problem statements.
 
 
 \FloatBarrier
-\section{Design of the transfer learning experiments}
+\section{Design of the Transfer Learning Experiments}
 \label{cha:classifier}
 To test the hypothesises we need a system in place to compare the datasets we generate with inpainting. As we recall, we base both our hypothesis on an improvement compared to the original dataset we provide. 
 To see if we have any improvement we propose to use a classifier based on transfer learning to see how the newly generated datasets give a better classification score compared to the base dataset without augmentations.
@@ -427,7 +427,7 @@ In addition to the standard functions and packages provided by Python, Tensorflo
 The methods presented have all undergone testing during the thesis, though not every method ended up in the finished product.
 
 
-\subsection{Channel wise fully connected layer}
+\subsection{Channel Wise Fully Connected Layer}
 \label{cha:CWDense}
 A problem often encountered when working with autoencoders which are not undercomplete is the fact that they learn to represent the data flawlessly~\cite{OvercompleteAE}.
 When this problem arises, the network does not learn the fundamental features that define the dataset and instead passes the signal through the network without any consideration of the input data.
