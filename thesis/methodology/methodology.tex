@@ -1,6 +1,6 @@
-With our background in both medical background and machine learning, we can now look at how we want to solve the problems associated with setting up a system for medical diagnosis.  
-We will first get a birds-eye view of the objective of this thesis, looking at the hypothesises behind this thesis, and take a look into how we can test the proposed hypothesises. We look at the proposed program setup to test the hypothesises both for classification and generation.
-Then we look at the language and packages suitable for this project. We go in-depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. 
+With our background in both medical procedures and machine learning, we can now look at how we want to solve the problems associated with setting up a system for medical diagnosis.  
+We will first get a birds-eye view of the objective of this thesis, looking at the hypothesises presented in the introduction, and take a look into how we can test their validity. We look at the proposed program set up to test the hypothesises both for classification and generation.
+Then we look at the language and packages suitable for this project. We go in-depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. We end the chapter by presenting the program designed to test our problem statements.
 
 \todo{MICHAEL OR PAAL:\\ In my first paper i used 2 different gans, (CCGAN and contextencoder), in this theis i am only taling about gan i general, since my final model was a combination of both.. what do i do with this?}
 
@@ -74,7 +74,7 @@ As long as the classification is affected by dataset specific artefacts, the abi
 
 
 
-We note that \ref{hyp:a} concerns both training and testing on the same dataset, while \ref{hyp:b} is more concerned about the generalisability of the model, and hence the goal is to use different datasets for training and testing, as well as testing at the training set. 
+We note that \ref{hyp:a} concerns both training and testing on the same dataset, while \ref{hyp:b} is more concerned about the generalisability of the model, and hence the goal is to use different datasets for training and testing, as well as testing on the training set. 
 
 
 
@@ -85,24 +85,24 @@ We note that \ref{hyp:a} concerns both training and testing on the same dataset,
 
 To test the two hypotheses, we first need new datasets to compare against a base case. In addition to the dataset with sparse information and dataset-specific artefacts, we need similar looking datasets without these unwanted features. In an ideal scenario, we would have the same dataset without the features added post-capture. 
 
-When it comes to real machine learning gathering (labelled) data for the training is often a challenging task. In this thesis, we have decided to focus our attention in to modifying existing data instead of finding new data. 
+In the real world, gathering labelled data is often both a challenging and expensive task. In this thesis, we have decided to focus our attention in to modifying existing data instead of finding new data. 
 
 We propose to use unsupervised machine learning to inpaint the areas with dataset specific artefacts as well as sparse areas. We then propose a transfer learning network to classify the newly created images. 
 
-\todo{MICHAEL OR PAAL:\\ More here?}
 
 \FloatBarrier
-\section{Design of the inpainting algorithms}
+\section{Design of the Inpainting Algorithms}
 
 We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. 
 When generating the datasets, we use the Kvasir dataset~\cite{Pogorelov:2017:KMI:3083187.3083212} as the training set, as Hicks et al. did in their paper on removing dataset specific artefacts~\cite{25956}. In addition, we use datasets without the artefacts for testing.
-This selection of image source was made intentionally to have a fundamentally different test and training set, and the more differences between testing and training set the more of an indication of generalisation. 
+This selection of image sources was made intentionally to have a fundamentally different test and training set, and the more differences between testing and training set the more of an indication of generalisation. 
 
 Figure \ref{fig:KvasirAnomaliesFIX} shows two different image types from the Kvasir dataset. 
-Figure \ref{fig:LargeLeftBlack} shows an image of esophagitis. This image shows one of the main problems with the Kvasir dataset when it comes to artefacts. In addition to the cut corners, we have an extra wide area to the left of the image containing non-relevant information like name, sex, and other comments. This area gives us ample opportunity to test hypothesis \ref{hyp:a}, given that the image contains a large amount of sparse information that we want to remove to see the effect on classification. We believe that if we can change images like Figure \ref{fig:LargeLeftBlack} into images like in Figure \ref{fig:LargeLeftBlackFIX} we will see an improvement in classification when testing and training on the same images.
+Figure \ref{fig:LargeLeftBlack} shows an image of esophagitis. This image shows one of the main problems with the Kvasir dataset when it comes to artefacts. In addition to the cut corners, we have an extra wide area to the left of the image containing non-relevant information like name, sex, and other comments. This area gives us ample opportunity to test hypothesis \ref{hyp:a}, given that the image contains a large amount of sparse information that we want to remove to see the effect on classification. 
+We believe that if we can change images like the one in Figure \ref{fig:LargeLeftBlack} into images like the one in Figure \ref{fig:LargeLeftBlackFIX}, we will see an improvement in classification when testing and training on the same dataset.
 
 Figure \ref{fig:GreenSquareOccluding} shows another problem with datasets like Kvasir.  Here we have a green square in the bottom left corner that occludes parts of the image and the same type of text displaying name age and other non-relevant information. We recall from section \ref{cha:BEW} that information like this can give the classifier false positives, and subsequently provide us with a lower classification score. 
-We believe that if we can change images like Figure \ref{fig:GreenSquareOccluding} into images like in Figure \ref{fig:GreenSquareOccludingFIX} we will see an improvement in classification when testing and training on different datasets.
+We believe that if we can change images like the one in Figure \ref{fig:GreenSquareOccluding} into images like the one in Figure \ref{fig:GreenSquareOccludingFIX} we will see an improvement in classification when testing and training on different datasets.
 
 
 \begin{figure}
@@ -169,23 +169,24 @@ By not augmenting the test set the experiments are also suited to reflect a larg
 
 \paragraph{Method 2}
 Method number 2) was the proposal of cropping the images during evaluation.  Thambawita et al. did similar methods in the Mediaeval 2018 conference but also had the same cropping during training. In the paper ``The Medico-Task 2018: Disease Detection in the Gastrointestinal Tract using Global Features and Deep Learning''~\cite{26205} we can see that this method worked with great success. 
-The operation of just cropping images is also multiple times as fast as inpainting images, so it is feasible for a live recording.  
+The operation of just cropping images is also multiple times as fast as inpainting images, so it is feasible for a live recording. 
+
+One of our four test cases in our first publication looked into cropping the images to the extent that we removed the black corners completely~\cite{26254}. The result from our tests showed the lowest classification score, far below the baseline of comparison, giving us the impression that our extensive cropping removed essential parts of the image. 
 The downside of cropping the images from the test set is the fact that we do not have control over what we remove from the data. Given that the test set might come from a completely different distribution, we might unwillingly remove information we desire to keep. We do also run into the problem that cropping the images are not feasible when the sparse areas are within the image, and not at the outer edges.
 
 \paragraph{Method 3}
 The last proposed method is not to augment the images during testing. This method, since we are not preprocessing the test data at all, is the fastest when it comes to live classification. Without the augmentation, we risk getting a lower classification score, but we do not remove any data. Also, we make our results better reflect on how it will work on non-medical datasets.\\
 
 
-In this thesis we will use method number 3). 
+In this thesis we will use method 3). 
 
 We base this decision on that we want the final product to have the option to be used live and be easily adaptable to other datasets. 
-Method number 3) also coincides with the method used in our second paper, \textit{``Unsupervised preprocessing to improve generalisation for medical image classification''}~\cite{Mathias2019IEEpaper}. By using the same inpainting methods for the test set in our published papers and the thesis, we can draw direct comparisons reasonably.
+Method number 3) also coincides with the method used in our second paper, \textit{``Unsupervised preprocessing to improve generalisation for medical image classification''}~\cite{Mathias2019IEEpaper}. By using the same inpainting methods for the test set as in our published paper, we can reasonably draw direct comparisons.
 An important note here is that the datasets in the thesis and the published paper are the same, though the method for achieving the results differ.
 
 
-
 %w
-\subsection{Removing green squares}
+\subsection{Removing the Green Square}
 The next major area in question is the removal of the green squares located in the bottom left area of some of the medical images.  This area is a Kvasir specific artefact and is found in 38\% of the images spanning five out of eight classes. 
 By inpainting the lower left area we can see if our hypothesis \ref{hyp:b} is correct since here we are removing a dataset-specific feature that the network can use to determine classes. 
 We have also chosen to inpaint every image, regardless of the green square is there or not. We do this so that the network can not ``learn'' that the pattern from the inpainted area correlates with the five classes with the green square, and hence defeating the purpose of the inpainting. Figure \ref{fig:GreenMask} shows the mask used to inpaint the lower left corner.
@@ -201,10 +202,15 @@ To keep the consistency between to different inpainting methods, we use method 3
 As with the black corners to be inpainted, we choose not to preprocess the test data, as this takes time, and should in theory not be necessary to get the right classification.
  
 
-\subsection{Removing both corners and the green square}
+\subsection{Removing Both Corners and the Green Square}
 The last set we want to test is the combination of both inpainting the green square and the black corner as shown with the mask in Figure \ref{fig:BothMask}. 
 Here we hope that a combination of hypothesis \ref{hyp:a} and \ref{hyp:b} will give the strength of both methods without any harmful interference. 
 
+\subsection{Removal of Over-saturated Areas and Text}
+To thoroughly test the hypothesis \ref{hyp:b} we should also remove areas that are not always found in the same area each time. Text and over-saturated pixels can, in the Kvasir dataset, be at any region, making the inpainting task less trivial. 
+
+To remove those kinds of artefacts, other methods to locate the areas are also needed. We conducted experiments using Google's Tesseract OCR~\cite{smith2007overview} to locate text, though, the time it took to find the areas made it not feasible for training. 
+In the finished product, we do not remove that kind of artefacts, given the complexity of the problem coupled with the relatively small size of the artefacts in question.
 
 \subsection{The generative modelling algorithms}
 With the three masks discussed, we now want to present the generative modelling algorithms. As addressed in section \ref{cha:BEW} our goal is to make new datasets without the unwanted artefacts based on the original dataset. 
@@ -225,30 +231,32 @@ The seven datasets will be the basis for our test of the problem statements.
 
 
 
-\begin{figure}
+\begin{figure}[h]
      \centering
-     \begin{subfigure}[t]{0.4\textwidth}
+     \begin{subfigure}[t]{0.37\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/nomask.png}
          \caption{Image from the original non-augmented dataset}
          \label{fig:CornerMask}
      \end{subfigure}
-     \hfill
-     \begin{subfigure}[t]{0.4\textwidth}
+     %\hfill
+     \hspace*{2cm}
+     \begin{subfigure}[t]{0.37\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/cornermask.png}
          \caption{Red area shows the area masked in the first of the generated datasets}
          \label{fig:CornerMask}
      \end{subfigure}
-     \hfill
-     \begin{subfigure}[t]{0.4\textwidth}
+     %\hfill
+     \begin{subfigure}[t]{0.37\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/greenmask.png}
          \caption{Red area shows the area masked by the second of the datasets}
          \label{fig:GreenMask}
      \end{subfigure}     
-     \hfill
-     \begin{subfigure}[t]{0.4\textwidth}
+     %\hfill
+     \hspace*{2cm}
+     \begin{subfigure}[t]{0.37\textwidth}
          \centering
          \includegraphics[width=\textwidth]{methodology/figures/bothmask.png}
          \caption{Red area shows the area masked by the third of the datasets}
@@ -338,7 +346,7 @@ In the DenseNet model, all layers are connected in a way to ensure the maximum f
 
 
 
-\subsection{Pooling and freezing}
+\subsection{Pooling and Freezing}
 The pretrained networks were initially trained for the 1000 classes in the imagenet dataset. Without modifying the network, it would output one of the 1000 classes when confronted with an image. In this thesis, this is not desirable since none of the original classes is usable for medical image classification~\cite{imagenet_cvpr09,imagenet}.
 When we introduce our pretrained network, we cut the last two layers from the model and introduce a pooling layer instead.
 The two layers cut is the fully connected layer with 1000 nodes, and a softmax layer (The Purple and The Red blocks at the right side of the networks in Figure \ref{fig:IRV2} \& \ref{fig:DN})
