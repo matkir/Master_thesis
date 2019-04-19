@@ -994,12 +994,12 @@ The reasoning behind the training attributes for each of the parameters can be s
 The max number of epochs is an artificial roof where we do not allow any more training, even when the network is improving.  We believe that the network, should it come to 20 epochs, will only overfit the results.
 We have chosen training patience of three. This patience is a compromise between a higher value, more likely to overfit, and a lower value, more likely to stop too early to learn all the meaningful representations. 
 In addition to the number of epochs trained we divided Kvasir into six folds. Based on the six folds we got 1333 images for both validation and testing, while the majority of the images would be used for training. A smaller fold would leave the training with too little data, and hence we could not expect as good of a result. A higher number of folds would increase the number of training runs substantially, since we are training on 14 datasets.
-Finally, the batch size was decided to be the highest number that did not give any memory errors.  We believe that a batch size of 24 is well within the scope of reality.
+Finally, the batch size was decided to be the highest number that did not give any memory issues.  We believe that a batch size of 24 is well within the scope of reality.
 
 \FloatBarrier
-\subsection{Densenet121 base model}
-We present the results from  the Densenet121 network in table \ref{fig:results_IRV2_base}.
-This Table shows the base case result with the Densenet121 model, meaning the unaugmented dataset. 
+\subsection{Densenet121 Base Model}
+We present the results from the Densenet121 network in table \ref{fig:results_DN121_base}.
+This table shows the base case result with the Densenet121 model, meaning the unaugmented dataset. 
 
 \begin{figure}[t]
 %\caption{Densenet121 Base results}
@@ -1119,24 +1119,25 @@ H&  1 & 0 & 0 & 1 & 0 & 0 & 2 & 161\\
 
 \noindent
 The Matrices in Figure \ref{fig:results_DN121_base} shows the evaluation of the test set on each of the three datasets used. 
-On the Kvasir dataset, we used five folds for training and validation, and the last sixth fold for the testing. That left us with 1342 images divided evenly between the classes. The CVC datasets were only used for training and hence did not need k fold cross-validation.
+
+On the Kvasir dataset, we used five folds for training and validation, and the last sixth fold for the testing. That left us with 1342 images divided evenly between the classes. The CVC datasets were only used for testing and hence did not need k fold cross-validation.
 
 \paragraph{CVC 356}
 The CVC 356 base case MCC lies at 0.42 with an accuracy of 71\%. 
-From the Confusion matrix, we can discern that most polyps were classified correctly, except for the case that 37 of the images did not classify as a polyp when it was. Moreover, we also had 618 cases of non-polyps classified as polyps.
-In a vacuum, the results are adequate, showing a high accuracy on an unseen dataset.  
+From the Confusion matrix, we can discern that most polyps were classified correctly, except for 37 polyp images incorrectly classified as non-polyp. Moreover, we also had 618 cases of non-polyps classified as polyps.
+In a vacuum, the results are adequate, showing a high accuracy on an unseen dataset.
 
 \paragraph{The Kvasir}
 In this Confusion matrix, we see that most of the samples lie throughout the diagonal, which, as we recall, is the correct classification. 
 The Kvasir base case MCC lies at 0.92 which coincides with a near perfect accuracy given the complexity of the dataset. 
-The misclassification is between the esophagitis class, and the normal-z-line class, which is already a notoriously different class do differentiate.
-There is also a small mixup between dyed lifted polyps and dyed resection margins, another notoriously different classification task. 
+The misclassification is between the esophagitis class, and the normal-z-line class, which are already two notoriously different classes to differentiate.
+There is also a small mixup between dyed lifted polyps and dyed resection margins, another remarkably different classification task. 
 
 
 \paragraph{CVC 12k}
 The CVC 12k base case MCC lies at 0.24 with an accuracy of 65\%. 
-From the Confusion matrix, we can discern that most polyps were classified correctly, though a third of the polyps were misclassified.
-
+From the Confusion matrix, we can discern that most polyps were classified correctly, though the model missed a third of the polyps.
+Though the accuracy were 65\%, this model most likely did not learn the essential features for classifying polyps.
 
 
 
