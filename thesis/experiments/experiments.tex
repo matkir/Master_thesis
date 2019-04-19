@@ -995,7 +995,7 @@ The max number of epochs is an artificial roof where we do not allow any more tr
 We have chosen training patience of three. This patience is a compromise between a higher value, more likely to overfit, and a lower value, more likely to stop too early to learn all the meaningful representations. 
 In addition to the number of epochs trained we divided Kvasir into six folds. Based on the six folds we got 1333 images for both validation and testing, while the majority of the images would be used for training. A smaller fold would leave the training with too little data, and hence we could not expect as good of a result. A higher number of folds would increase the number of training runs substantially, since we are training on 14 datasets.
 Finally, the batch size was decided to be the highest number that did not give any memory issues.  We believe that a batch size of 24 is well within the scope of reality.
-
+\clearpage
 \FloatBarrier
 \subsection{Densenet121 Base Model}
 We present the results from the Densenet121 network in table \ref{fig:results_DN121_base}.
@@ -1142,6 +1142,7 @@ Though the accuracy were 65\%, this model most likely did not learn the essentia
 
 
 \FloatBarrier
+\clearpage
 \subsection{Densenet121 Corners Inpainted}
 Based on Hypothesis \ref{hyp:a} we would expect the act of inpainting the corner in the images to give Kvasir a higher score compared to the baseline. Also, we should see improvement in both CVC 356 and CVC 12k.
 We present the dataset created by the  GAN followed by the dataset created by the Autoencoder evaluated with the Densenet121 model.
@@ -1430,7 +1431,8 @@ The MCC scores for the GAN and Autoencoder both reaches a higher value than the 
 
 
 \FloatBarrier
-\subsection{Green square inpainted result}
+\clearpage
+\subsection{Densenet121 Green Square Inpainted}
 
 
 We can recall from Hypothesis \ref{hyp:b} that removing dataset specific artefacts we will achieve a higher classification score when evaluating our models on previously unseen datasets.
@@ -1735,7 +1737,8 @@ It is important to note that there are significant differences between the two C
 
 
 \FloatBarrier
-\subsection{Combined corners and dataset specific artefacts inpainted result}
+\clearpage
+\subsection{Densenet121 Full Inpainting}
 
 In addition to testing the two hypothesises separately we, as we recall, want to check both types of inpainting at the same time.
 When testing both inpainting types, we do not draw any predictions, given that we do not know if the two methods interfere with each other. 
@@ -2029,6 +2032,7 @@ Here we can notice that the recall is constant between each model and the base c
 
 
 \FloatBarrier
+\clearpage
 \section{InceptionResNetV2}
 In addition to just testing our results with the Densenet121, we wanted to see if the results were replicable with other networks. We present our result from InceptionResNetV2 (IRV2) as a base of comparison versus the Densenet121 model. \todo{MICHAEL OR PAAL: This is a bit redundant, but might help people whi skips chapters.. thoughts?}
 
@@ -2980,6 +2984,7 @@ We can see, for both models, that the precision rose significantly.
 
 
 \FloatBarrier
+\clearpage
 \section{Classification results based on the Densenet model}
 \Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} shows the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} shows the visualised MCC values. 
 
