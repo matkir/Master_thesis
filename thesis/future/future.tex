@@ -3,8 +3,17 @@ The task of making general models to cover a broad aspect of medical images is s
 \section{Conclusion}
 We have seen the power of inpainting when it comes to datasets previously unseen during training. Both shown in our publications and the thesis, we have an increase in classification score on multiple types of inpainting.
 Unfortunately, we often get inconsistent results during testing, which means that we cannot recommend any method over another, as both the testing and training dataset influences the results.
+In general, we saw an improvement when it came to inpainting, but the improvement differed between the two datasets. 
 
-\textbf{\textit{If you can find dataset specific artefacts you should remove them as we can see from our results, or something along this line mayybee??}} \todo{ }
+For the CVC 356 dataset removing artefacts within the image gave the best result for both models. When inpainting areas within the image the GAN won out five out of six times, making it the best model for inpainting  areas with great detail. The good results lie also in the network used. The Densenet model worked excellent for the classification of this dataset.
+
+
+For the CVC 12k dataset, we saw lower scores in general, confirming that this dataset is notoriously harder to classify. We did get the only improvement using inpainting of the borders around the Kvasir dataset during training, giving us believe that the network gained accuracy from the ´´distilled'' data provided when the borders were removed. 
+
+The Kvasir dataset did not see anything else than a marginal improvement to an already high score. We will not draw any conclusions from the result, given the statistical uncertainties when the scores are so close to the baseline.
+
+
+Finally, the act of inpainting both the corners and the green square gave us the highest score on the CVC 356 dataset, and a decent score for the CVC 12k dataset. The excellent scores give us some merit to believe that the two inpainting models can work together without interfering destructively with each other. 
 
 
 
@@ -25,8 +34,8 @@ In the end, the ability to compress the images with a GAN or AE might give us a 
 \paragraph{Experiment with self attention}
 We touched upon self attention in section \ref{cha:attention}. Though we did some experiments with self attention, more testing is required for a conclusion if its good or not in the context of this thesis. Future work should be to implement the attention layer into the GAN to see if the reconstructed areas can become better. 
 
-\paragraph{Cropping of images}
-dsgfsgsgw
+5%\paragraph{Cropping of images}
+%dsgfsgsgw
 
 \paragraph{Make a generator for new data}
 We have used the GAN and AE to exclusively inpaint images, but both models can, without any extensive modifications,  generate data from the same image domain from the original dataset, just like the original DCGAN ~\cite{DBLP:journals/corr/RadfordMC15} does.  

@@ -1689,7 +1689,7 @@ Here both the GAN and the Autoencoder got a lower score compared to the base, th
 As with the CVC 356 dataset, the CVC 12k dataset is unseen by the classifier during training. 
 Here, both the GAN and Autoencoder reaches a lower MCC value when evaluated on the dataset. 
 This result is a direct contradiction to the hypothesis \ref{hyp:b}, showing that removing dataset specific artefacts does not always yield better scores. 
-It is important to note that there are significant differences between the two CVC datasets which can influence the results. The most prominent feature is the edges around the images in the 12k dataset. The much larger frames could  ´´overwrite'' much of the work done by inpainting the green square, and could subsequently disrupt the classifier.
+It is important to note that there are significant differences between the two CVC datasets which can influence the results. The most prominent feature is the edges around the images in the 12k dataset. The much larger borders could  ´´overwrite'' much of the work done by inpainting the green square, and could subsequently disrupt the classifier.
 
 
 
@@ -2190,7 +2190,7 @@ As with the Densenet model we used k-fold cross-validation with six folds for th
 
 \paragraph{CVC 356}
 The CVC 356 base case MCC lies at 0.20 with an accuracy of 61\%.
-Compared to the Densenet model we lost half of our MCC score and 10% accuracy. 
+Compared to the Densenet model we lost half of our MCC score and 10\% accuracy. 
 From the Confusion matrix, we can discern that the model had trouble finding polyps with only 243 of the 356 total polyps found. The results from this model are arguable to low to be used successfully as a classifier.
 
 \paragraph{The Kvasir}
@@ -2439,7 +2439,7 @@ H&  0 & 0 & 1 & 4 & 0 & 0 & 0 & 157\\
 
 \paragraph{CVC 356}
 Evaluating our GAN generated model gives us an MCC value equal to the baseline. We can see a greater accuracy, F1, precision and recall score with this model, though the skewness of the dataset causes it. 
-The AE MCC value here is Negative, indicating that the model did worse than pure guessing. 
+The AE MCC value here is Negative, indicating that the model was not statistically significant. 
 
 \paragraph{The Kvasir}
 When evaluating our results on the Kvasir dataset we see similar scores for both the GAN and Autoencoder with 0.892 and 0.891 respectively.  The same potential overfitting gives us no clear indication if any of our hypothesises are valid.
@@ -2702,7 +2702,7 @@ H&  0 & 0 & 3 & 3 & 4 & 5 & 5 & 157\\
 \noindent Figure \ref{fig:results_IRV2_GAN_SQUARE} and \ref{fig:results_IRV2_AE_SQUARE} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder when the green square was inpainted. 
 
 \paragraph{CVC 356}
-Evaluating our GAN generated model gives us an MCC value of 0.57 which is close to thee times the MCC value of the baseline.  This score highly indicates that our hypothesis \ref{hyp:b} holds ground.
+Evaluating our GAN generated model gives us an MCC value of 0.57 which is close to three times the MCC value of the baseline.  This score highly indicates that our hypothesis \ref{hyp:b} holds ground.
 Similarly, our AE generated model gives us the MCC score of 0.43. Though not as good, it is still a doubling of the baseline.
 The results here gives us a strong belief that, even with unoptimised datasets, we can get merit from removing dataset specific artefacts.
 
@@ -3071,7 +3071,7 @@ VII               & 0.2105 & 0.3713 & 0.6182 & 0.5937 & 0.3733\\
 
 
 \paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_CVC356_IRV2} \& Bar: \ref{bar:cvc356_IRV2})}
-Here we can see the same considerable improvement when inpainting the \textit{dataset-specific artefacts} as we saw with the densenet model. We see that we can, with this model, double the MCC score with the GAN dataset.
+Here we can see the same considerable improvement when inpainting the \textit{dataset-specific} artefacts as we saw with the densenet model. We see that we can, with this model, double the MCC score with the GAN dataset.
 A significant difference in the InceptionResNetV2 model compared to the Densenet model is the fact that some of the results did considerably worse than the base case. 
 
 \paragraph{The Kvasir dataset (Fig: \ref{tab:summary_KVASIR_IRV2} \& Bar: \ref{bar:kvasir_IRV2})}
@@ -3161,7 +3161,7 @@ At double the size the inpaining results tend to have the same shape as with the
 The Kvasir dataset shows minimal to no improvement. As with the standard size model, we can conclude that when inpainting to only remove sparseness the the machine learning algorithms draws no benefit from it, independently of the model used.
 
 \paragraph{The CVC 12k dataset (Fig: \ref{tab:summary_CVC12k_DN121512px} \& Bar: \ref{bar:cvc12k_DN121_512})}
-In the CVC 12k dataset all images are at the size 288 $\times$ 384 px. The upscaling of the images to 512 $\times$ 512 px distorts all the images, curiously enough the baseline is higher compared to the 256 $\times$ 256 px images.
+In the CVC 12k dataset all images are at the size 288 $\times$ 384 px. The upscaling of the images to 512 $\times$ 512 px distorts all the images, curiously enough the baseline is higher compared to the 256 $\times$ 256 px images, indicating perhaps a bad baseline for the previous dataset, though this might also be coincidental.
 
 
 

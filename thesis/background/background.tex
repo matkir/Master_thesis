@@ -483,10 +483,10 @@ Figure \ref{fig:conv_opp} shows this convolution process after 3 sliding operati
 \end{figure}
 
 
-As we can see from this architecture, we can only change when weights in the filter matrix, as there are no other variables in the convolutional operation. Using this sliding window technique gives us the benefit that the filter only gathers information from the local area, and subsequently makes the convolutional operation non-spatially dependent.  
+As we can see from this architecture, we only change the weights in the filter matrix, as there are no other variables in the convolutional operation. Using this sliding window technique gives us the benefit that the filter only gathers information from the local area, and subsequently makes the convolutional operation non-spatially dependent.  
 
 \subsubsection{Activation layers}
-As we discussed in section \ref{cha:perceptron}, in addition to summing the inputs and passing them on, we need to apply an activation function to the output. The same problem with our desire to make non-linear problems apply in the CNN model. 
+As we discussed in section \ref{cha:perceptron}, in addition to summing the inputs and passing them on, we need to apply an activation function to the output. The encounter same problem with our desire to make non-linear problems, apply in the CNN model. 
 To apply an activation layer to a CNN, we take every value in the matrix and apply the activation function separately to every data-point. 
 
 In this thesis, our CNNs used only the three activation functions shown in Figure \ref{fig:activations}, with slight modifications.
@@ -513,8 +513,8 @@ The two most common pooling operations are max pooling and average pooling~\cite
 Just like in Figure \ref{fig:pooling} the most common pooling parameters are of filter size 2 and stride 2. Using this configuration leaves every point of the input checked once, and the resulting output size is halved. 
 Pooling layers do generally not have any weights associated with them. This lack of weights means that the pooling layer routes the signal back without changing it during backpropagation.
 
-In addition to the pooling described above, we in this thesis, use global pooing in addition to regular pooling. Global Max pooling and Global average pooling works with individual layers of the convolutional net, taking the max or average of the whole feature map, instead of using a sliding filter, as shown in Figure \ref{fig:GAP}.
-Global pooling has the effect of transforming the network from 3 dimensions to 1 dimension, making it ideal right before fully connected layers at the end of longer networks.
+In addition to the pooling described above, we in this thesis use global pooing in addition to regular pooling. Global Max pooling and Global average pooling works with individual layers of the convolutional net, taking the max or average of the whole feature map instead of using a sliding filter, as shown in Figure \ref{fig:GAP}.
+Global pooling has the effect of transforming the network from 3 dimensions to 1 dimension, making this layer ideal right before any fully connected layers at the end of longer networks.
 
 \begin{figure}
         \centering
@@ -597,10 +597,10 @@ The general goal of the autoencoder is to recreate the input $g(f(x)) = x$, but 
 Traditionally, autoencoders were used for tasks like feature learning and dimensionality reduction, though with the rise in computing power, autoencoders are now in use at the forefront of generative modelling.
 
 To use an autoencoder for generative modelling, we need to set an objective for autoencoder to achieve.
-A when generating new images we can propose regulisers to the latent space\footnote{We often call the area between the encoder and the decoder the latent space. Here the information is at its maximum compression.} between the encoder and the decoder. The reguliser might be that the output of the latent space layer should follow a Gaussian noise pattern or another easily replicable pattern. 
+When generating new images we can propose regulisers to the latent space\footnote{We often call the area between the encoder and the decoder the latent space. Here the information is at its maximum compression.} between the encoder and the decoder. The reguliser might be that the output of the latent space layer should follow a Gaussian noise pattern or another easily replicable pattern. 
 This type of autoencoder is called a variational autoencoder. Variational autoencoders have the advantage of being able to create new completely unseen data if Gaussian noise is inputted at the latent space, effectively cutting out the encoder and supplying random noise instead.
 Another way to use an autoencoder for generative modelling is by masking areas in the input data the model used to train on, and give the unmasked data as the target output.
-Figure \ref{fig:AEinpainting} shows this concept of an inpainting Autoencoder. The act of inpainting forces the autoencoder to learn the underlying features of the inpainted area to make a prediction. 
+Figure \ref{fig:AEinpainting} shows this concept of an inpainting autoencoder. The act of inpainting forces the autoencoder to learn the underlying features of the inpainted area to make a prediction. 
 
 \begin{figure}[t]
     \centering
@@ -617,7 +617,7 @@ We achieve this by minimising the loss function:\\
     \label{eq:AEloss}
 \end{equation}
 As this is a problem where the goal is to minimise error, autoencoders often use MSE or mean absolute error (MAE) as the optimiser for the gradient descent. 
-As we noted earlier, Figure \ref{fig:AEinpainting} show a visual example of equation \ref{eq:AEloss} when used with inpainting.
+As we noted earlier, Figure \ref{fig:AEinpainting} show a visual example of equation \ref{eq:AEloss} when inpainting.
 
 \todo{Here we add an example of new AE paper perhaps}
     
@@ -632,7 +632,7 @@ As we are using multilayer perceptrons in our network, we can use backpropagatio
 In mathematical terms:
 The generator produces samples $x=g(z;\theta^{(g)})$, where $g$ is the network given the weights $\theta$. Then the discriminator network predicts if a sample is drawn from the dataset or the generator.
 More specific, it gives a probably given by $d(x;\theta^{(d)})$ , and determines if $x$ is from the generator or the data-set. 
-Since we have two networks competing against each other we can look at this as a Zero-sum game with the generators payoff is determined by $v(\theta^{(g)},\theta^{(d)})$, and the discriminators payoff is determined by $-v(\theta^{(g)},\theta^{(d)})$.
+Since we have two networks competing against each other we can look at this as a zero-sum game where the generators payoff is determined by $v(\theta^{(g)},\theta^{(d)})$, and the discriminators payoff is determined by $-v(\theta^{(g)},\theta^{(d)})$.
 
 Where $v$ is a function that is determined by both the success rate of the discriminator and the generator, the most commonly used is:
 \begin{equation} 
@@ -657,7 +657,7 @@ Neural networks are prone to overfitting when training on a small dataset or ove
 
 The most obvious solution is to gather more training data to prevent this overfitting, or to use regulisers to force the network to diversify the layer weights, as proposed in section \ref{cha:normalisation}.
 
-In this thesis, we have chosen to use transfer learning to address this problem. Transfer learning is the process of using knowledge from similar problems to help solve the current goal.  Let us say we want to classify different wolf breeds, without the necessary amount of data. We can use our knowledge about dog breeds to help the classification, by using a pretrained model as a base for training. Since both wolf and dogs share many of the same features, like four legs and fur, the model does not need to learn those features from scratch.
+In this thesis, we have chosen to use transfer learning to address this problem. Transfer learning is the process of using knowledge from similar problems to help solve the current goal.  Let us say we want to classify different wolf breeds without the necessary amount of data. We can use our knowledge about dog breeds to help the classification, by using a pretrained model as a base for training. Since both wolf and dogs share many of the same features, like four legs and fur, the model does not need to learn those features from scratch.
 Similarly, we can use general models to help solve our specific problem.
 
 
@@ -670,12 +670,12 @@ We then looked at systems for computer-aided diagnosis and the prevalent systems
 From this assessment, we saw that the polyp detection rate was relatively high, but polyps were often overlooked, and model-overfitting was often the cause of the high-grade results. Though the advances in medical image diagnosis, the ability for models to generalise to other areas has not come far enough.
 We then took a close look at machine learning, from the building blocks in the perceptron to the complex pretrained neural networks used today in modern algorithms. 
 
-As we noted in chapter \ref{cha:CAD} we, in modern medical diagnosis systems, lack the ability to adapt to new datasets from a different distribution than the training set. We have a strong belief that this is related to the fact that we overfit the data on the training set and the fact that we learn dataset-specific features not present in other unknown datasets.
+As we noted in chapter \ref{cha:CAD}, in modern medical diagnosis systems we lack the ability to adapt to new datasets from a different distribution than the training set. We have a strong belief that this is related to the fact that we overfit the data on the training set and the fact that we learn dataset-specific features not present in other unknown datasets.
 
 
 Hicks et al. in the paper \textit{``Dissecting Deep Neural Networks for Better Medical Image Classification and Classification Understanding''} goes in-depth into the problem of overfitting with regards to the problem with dataset specific features. We can see from this paper that by removing dataset specific artefacts, the classification score increased when evaluating the model on previously unseen data.
 
-Proglov et al. in the paper \textit{``Deep Learning and Hand-crafted Feature Based Approaches for Polyp Detection in Medical Videos''} shows similar results when training on the small datasets and evaluating the data on different larger publicly available datasets.
+Pogorelov et al. in the paper \textit{``Deep Learning and Hand-crafted Feature Based Approaches for Polyp Detection in Medical Videos''} shows similar results when training on the small datasets and evaluating the data on different larger publicly available datasets.
 
 In this thesis, we want to continue to explore this problem of lack of generalisation and find ways to improve models in that manner.
 

@@ -85,7 +85,7 @@ We note that \ref{hyp:a} concerns both training and testing on the same dataset,
 
 To test the two hypotheses, we first need new datasets to compare against a base case. In addition to the dataset with sparse information and dataset-specific artefacts, we need similar looking datasets without these unwanted features. In an ideal scenario, we would have the same dataset without the features added post-capture. 
 
-In the real world, gathering labelled data is often both a challenging and expensive task. In this thesis, we have decided to focus our attention in to modifying existing data instead of finding new data. 
+In the real world, gathering labelled data is often both a challenging and expensive task. In this thesis, we have decided to focus our attention at modifying existing data instead of finding new data. 
 
 We propose to use unsupervised machine learning to inpaint the areas with dataset specific artefacts as well as sparse areas. We then propose a transfer learning network to classify the newly created images. 
 
@@ -143,7 +143,7 @@ We propose three different types of inpainting to prove or disprove our two hypo
 \FloatBarrier
 \subsection{Removing black corners}
 The most straightforward experiment to conduct is to test how the removal of the black corners will affect the result.
-As we propose in hypothesis \ref{hyp:a}, we believe that this masking can help with giving the classifier fewer areas with non-relevant information.
+As we propose in hypothesis \ref{hyp:a}, we believe that this masking can help giving the classifier fewer areas with non-relevant information.
 Figure \ref{fig:CornerMask} shows the mask used to inpaint the corners.
 
 As we recall from section \ref{cha:endocolo}, the black edges around the images in our datasets is also, in general, present in medical colonoscopy images. By removing the black corners around the image, we do not change \textit{Kvasir specific} artefacts, but according to our first hypothesis, we believe we will get a higher classification accuracy since this removes areas with sparse information.
@@ -198,7 +198,7 @@ When classifying images during the testing stage, we have the same decision to t
 \item We can forgo modifying the test data and just run the test set as is. 
 \end{enumerate}
 
-To keep the consistency between to different inpainting methods, we use method 3) for the test set.
+To keep the consistency between the two different inpainting methods, we use method 3) for the test set.
 As with the black corners to be inpainted, we choose not to preprocess the test data, as this takes time, and should in theory not be necessary to get the right classification.
  
 
@@ -349,14 +349,14 @@ In the DenseNet model, all layers are connected in a way to ensure the maximum f
 \subsection{Pooling and Freezing}
 The pretrained networks were initially trained for the 1000 classes in the imagenet dataset. Without modifying the network, it would output one of the 1000 classes when confronted with an image. In this thesis, this is not desirable since none of the original classes is usable for medical image classification~\cite{imagenet_cvpr09,imagenet}.
 When we introduce our pretrained network, we cut the last two layers from the model and introduce a pooling layer instead.
-The two layers cut is the fully connected layer with 1000 nodes, and a softmax layer (The Purple and The Red blocks at the right side of the networks in Figure \ref{fig:IRV2} \& \ref{fig:DN})
+The two layers cut are the fully connected layer with 1000 nodes, and a softmax layer (The Purple and The Red blocks at the right side of the networks in Figure \ref{fig:IRV2} \& \ref{fig:DN})
 As we recall from section \ref{cha:pool}, it is common in the practice of transfer learning to add a pooling followed by a fully connected layer and a softmax layer as a substitute for the original layers removed.  The pooling can either be average or max pooling, and we have the option of using global or local pooling. 
 
 Another prominent way to improve the performance of transfer learning is freezing the layers in the model. When we freeze a layer, we lock the weights of the layer making it not trainable.
 The main consequences of freezing layers are related to time and accuracy. 
 
 If we freeze all layers but the last five, the network only has to backpropagate the gradient five steps, reducing the computation time drastically in an extensive network like Densenet. 
-By freezing weights, we obviously can not learn anything new width the frozen weights, which means that we can only store new information in the latest unfrozen layers. For similar datasets, this might not be a notable problem, given that they most likely have similar features. When the dataset differs a lot from the transfer learning dataset, we might not reach an optimal solution, given the smaller feature space.
+By freezing weights, we obviously can not learn anything new with the frozen weights, which means that we can only store new information in the latest unfrozen layers. For similar datasets, this might not be a notable problem, given that they most likely have similar features. When the dataset differs a lot from the transfer learning dataset, we might not reach an optimal solution, given the smaller feature space.
 
 
 
