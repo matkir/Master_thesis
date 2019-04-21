@@ -5,7 +5,7 @@ We have seen the power of inpainting when it comes to datasets previously unseen
 Unfortunately, we often get inconsistent results during testing, which means that we cannot recommend any method over another, as both the testing and training dataset influences the results.
 In general, we saw an improvement when it came to inpainting, but the improvement differed between the two datasets. 
 
-For the CVC 356 dataset removing artefacts within the image gave the best result for both models. When inpainting areas within the image the GAN won out five out of six times, making it the best model for inpainting  areas with great detail. The good results lie also in the network used. The Densenet model worked excellent for the classification of this dataset.
+For the CVC 356 dataset removing artefacts within the image gave the best result for both models. When inpainting areas within the image the GAN won five out of six times, making it the best model for inpainting  areas with great detail. The good results lie also in the network used. The Densenet model worked excellent for the classification of this dataset.
 
 
 For the CVC 12k dataset, we saw lower scores in general, confirming that this dataset is notoriously harder to classify. We did get the only improvement using inpainting of the borders around the Kvasir dataset during training, giving us believe that the network gained accuracy from the ´´distilled'' data provided when the borders were removed. 

@@ -905,10 +905,6 @@ Just as with the inpainted corners, the training time of the GAN was closer to t
 
 
 \subsection{Double resolution}
-\todo{
-Make shure 512 resolution is described proppery before table tab:datasets 
-}
-
 In addition to the datasets at standard size, we created the datasets at double resolution (IX \& XIV in Table \ref{tab:datasets}).  The goal of the seven datasets generated at double resolution was to see how image size affects the results. We apply the same cropping-inpainting procedure as with the other sets. The result is shown in Figure \ref{fig:AE_GAN_512}.
 
 As we see in figure \ref{fig:AE_GAN_512} the inpainted areas is more smeared out in contrast to the previous datasets. In this thesis, we have chosen to keep our focus primarily on the images at $256\times 256$ px resolution though we keep the double resolution images as a means to draw more context from our results.
@@ -1985,7 +1981,7 @@ This increase shows that there might be some viability to do more inpainting whe
 In addition to getting the highest score for evaluation, we also got one of the lowest scores too. 
 The main difference in score is most likely the result of the precision of the autoencoder being much lower than the precision of the GAN.
 The difference in score can also be the result of variation within the K-fold transfer learning.
-Based on previous research done by us we have shown that this method had the highest standard deviation for both generator models followed by the base case~\cite{Mathias2019IEEpaper}.\todo{This cite is incomplete} This can indicate that we should not rely on the result given its high variance. 
+Based on previous research done by us we have shown that this method had the highest standard deviation for both generator models followed by the base case~\cite{Mathias2019IEEpaper}.This can indicate that we should not rely on the result given its high variance. 
 
 
 
