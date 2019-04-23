@@ -7,12 +7,12 @@ With this in mind, we look at neural networks, especially convolutional neural n
 Lastly, we combine the need for computer-aided diagnosis with machine learning, looking at where previous models fall short and why that is the case.
 
 \section{The Medical Background}
+\label{cha:endocolo}
 As we recall from the introduction, our motivation for this thesis is the improvement of medical diagnosis, more specific CAD. 
 Before we look into the CAD procedures that are in use today, we need to go more in-depth into the capture of the medical images. 
 
-
-\subsection{Endoscopy and Colonoscopy}
-\label{cha:endocolo}
+\vspace{5px}
+%\subsection{Endoscopy and Colonoscopy}
 Gastrointestinal endoscopies are one of the most routine medical examinations where medical staff visualise the mucosa of the patient via a camera through the GI tract~\cite{Holme13}.
 Today the medical staff working with the visual screening of the intestinal tract use primarily two different methods: colonoscopy and gastroscopy. 
 Colonoscopy is the practice of inserting a colonoscope into the rectum and moving through the large intestine towards the small intestine.  Gastroscopy is the practice of inserting a camera via the mouth to get a visualisation through the stomach.
@@ -30,8 +30,8 @@ As Figure \ref{fig:HumanGI}\footnote{From \url{https://commons.wikimedia.org/wik
 
 
 
-\subsection{Summary}
-We have now looked at the medical perspective of colonoscopy. We see that the practice has not changed since the introduction of the colonoscope and that the best chance of detection is manually looking at images by professional medical staff. \todo{Need more here, or in previous section.. Remember to talk about medical team}
+%\subsection{Summary}
+%We have now looked at the medical perspective of colonoscopy. We see that the practice has not changed since the introduction of the colonoscope and that the best chance of detection is manually looking at images by professional medical staff. \todo{Need more here, or in previous section.. Remember to talk about medical team}
 
 
 \section{CAD - Computer Aided Diagnosis}
@@ -44,7 +44,7 @@ In addition to the possible miss chance during colonoscopies, the price of the p
 The motivation for this thesis is to advance the systems in place that does CAD, and in more detail, we want to improve the medical systems for detecting polyps in the GI tract. 
 Automatic detection of polyps is, in general, a well-researched study, and at the time there are many publications regarding this detection and classification, especially when it comes to generalisation and limited datasets~\cite{riegler2016multimedia}.  
 Despite the numerous papers published on the subject, there are still challenges that need more research. 
-\vspace{5px}
+
 Wang et al. published a system called Polyp-Alert that provides near real-time feedback during colonoscopy~\cite{wang2015polyp}. The system correctly detected 97\% (42 of 43) of the polyps in the videoes provided. The system had a 4.3\% error, marking non-polyps as polyps. Polyp-Alert shows that we already have fast, effective and potentially useful colonoscopy tools to guide medical staff.
 
 When it comes to network training,  Tajbakhsh et al. demonstrated how fine-tuning a pretraind convolutional neural network in a layer-wise manner leads to incremental performance improvement in medical images~\cite{DBLP:journals/corr/TajbakhshSGHKGL17}.
@@ -69,11 +69,12 @@ However, to truly understand how automated systems like Mirmir~\cite{25953} work
 Machine learning is a broad term, but we summarise it with the quote from  Tom M. Mitchell in his machine learning book from 1997~\cite{MitchellTomM1997Ml}:\\
 \vspace{10px}
 
+\begin{minipage}{\linewidth}
 \begin{quote}
  A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with the experience E.
-
 \end{quote} 
 \label{ML}
+\end{minipage}
 
 
 \vspace{10px}
@@ -193,7 +194,7 @@ Forward to 1967, the Nearest Neighbour algorithm~\cite{Cover:2006:NNP:2263261.22
 \vspace{5px}
 
 Another early adoption of machine learning was in the form of regression. Regression is the statistical concept of estimating the relationships among variables. It is in heavy use today, and one of the core concept we use machine learning.
-Legendre first used regression in 1805 with his method of least squares\todo{MICHAEL OR PAAL:\\ How do I cite this? Should i find a ´´well known'' book and cite that?}. The least square methods were initially being done by hand, and it was at the time one of the best models, backed by math, to estimate the relationship between an input and a subsequent output. 
+Legendre first used regression in 1805 with his method of least squares. The least square methods were initially being done by hand, and it was at the time one of the best models, backed by math, to estimate the relationship between an input and a subsequent output. 
 Today, regression analysis is widely used in statistics and informatics, and there is a significant overlap between the two research fields. While often we can make analytical models when working with a dataset with few variables, machine learning has the possibility of making much more complex models.
 
 \vspace{5px}
@@ -212,7 +213,7 @@ We will now first go more in-depth into how a general machine learning algorithm
 After this, we look into more advanced examples of modern machine learning algothroms that forms a basis in this thesis.
 
     
-\subsection{The basic concept of machine learning}   
+\subsection{The Basic Concept of Machine Learning}   
 \label{cha:concept}
 One of the easiest to tasks to understand in machine learning is the process of regression. As stated earlier, regression is a process of approximation given prior input.
 We start with one of the simplest forms of approximation, namely linear approximation. In linear approximation, we are interested in finding the function that best defines our data using only a polynomial of the first degree.  First, we recall that a first-order function is always on the form
@@ -500,7 +501,7 @@ In this thesis, our CNNs used only the three activation functions shown in Figur
 \label{cha:pool}
 Pooling layers, often also called downsampling layers, are commonly found in CNN's. 
 Their primary role in the network is to reduce the spatial size of the data provided, and thus reducing the number of weights and variables used by the network. This reduction helps with reducing processing and memory costs.  
-The two most common pooling operations are max pooling and average pooling~\cite{zhou1988computation}\todo{MICHAEL OR PAAL:\\ I have not read this because its behind a paywall.. This is the same reference that was used in \url{https://www.deeplearningbook.org/contents/convnets.html} by Ian Goodfellow, so I believe its legit}. Both methods resemble convolutions in the way that they apply their function to a sliding filter over the data. 
+The two most common pooling operations are max pooling and average pooling~\cite{zhou1988computation}. Both methods resemble convolutions in the way that they apply their function to a sliding filter over the data. 
  
 \begin{figure}
         \centering

@@ -30,15 +30,14 @@ Earlier projects regarding CAD have shown promising results, giving doctors new 
 The first project on CAD that formed the basis for this thesis is the basic EIR system by Riegler et al.~\cite{riegler2016eir}.  The Eir system set the goal of automatically detecting diseases in the GI tract from videoes or images in real time. 
 
 The paper on Mimir by Hicks et al. presents a system to both improve the ``black box'' understanding and assist in the administrative duties of writing an examination report, and in summary helping medical staff with CAD~\cite{25953}. 
-
 The work published by Hicks et al. and Riegler et al. show that deep learning has excellent applications when it comes to computer aided diagnosis, but there is insufficient work into generalising the methods to work on new data. Another problem with deep learning is that the model overfits to the dataset, meaning it learns the internal bias associated with the data provided. 
 
 In this thesis we explore these topics. We will look at methods into how to counteract overfitting of medical data, as well as methods to help generalise models to better adapt to new unseen datasets.
-
+\todo{Tecnical inpainting stuff here, and fix the flow}
 \section{Problem Statement}
 \label{cha:problemstatement}
 Based on the motivation presented in the previous section, we believe that we still have room for improvement when making CAD. Based on the previous work done in the research area~\cite{25956,25953,riegler2016eir}, we present the following two hypothesises as a basis for the thesis:
-
+\todo{based on, based on}
 
 \noindent
 \begin{hyp} \label{hyp:a}
@@ -65,9 +64,9 @@ Our objective in this thesis is to explore the following two hypothesises to sho
 
 The hypotheses raise the following questions which we will address:\\
 
-\textit{1. Can the process of redrawing an area with a new more relevant information (we define it as inpainting), of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+\noindent \textit{1. Can the process of redrawing an area with a new more relevant information (we define it as inpainting), of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
-\textit{2. Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
+\noindent \textit{2. Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
 
 %\todo{Parantes, disse er kanskje litt for like}
 \section{Scope and Limitations}
@@ -79,7 +78,7 @@ For the six created datasets plus the base dataset we run two different pretrain
 In addition to doing this at the size $256 \times 256$ pixels (px), we also do all the tests above at double resolution to check the validity at larger image sizes.
 
 In total, we make fourteen datasets, and we test the first seven a total of 70 times, and the last seven 35 times. Including the base case, we do 105 total tests to check the validity of inpainting.
-
+\todo{describe other enhancements}
 
 
 \section{Research Method}
@@ -119,15 +118,19 @@ In section \ref{cha:problemstatement} we outlined two main questions based on \r
 
 \item \textit{Can the process of redrawing an area with a new more relevant information, we define it as inpainting, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
-From our testing, we can see that inpainting sparse areas in datasets help with the classification. Based on our results shown in \cref{bar:cvc12k,bar:cvc356,bar:kvasir}, we can see that most of our models benefit from the inpainting. It is important to note that not all inpainting methods benefitted from inpainting.
+From our testing, we can see that inpainting sparse areas in datasets help with the classification. Based on our results shown in Figure \ref{bar:cvc356}, \ref{bar:kvasir} and \ref{bar:cvc12k}, we can see that most of our models benefit from the inpainting. It is important to note that not all inpainting methods benefitted from inpainting.
 
 
 
 \item \textit{Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
 
 
-We have strong evidence supporting our hypothesis concerning inpainting artefacts. As our results in \cref{bar:cvc12k,bar:cvc356,bar:kvasir} shows, all but one of our inpainting methods beat the baseline when inpainting artefacts. By inpainting artefacts, we got at some cases at least a doubling in MCC score.
-\todo{MICHAEL OR PAAL:\\ Do i add conferences/publications?}
+We have strong evidence supporting our hypothesis concerning inpainting artefacts. As our results in Figure \ref{bar:cvc356}, \ref{bar:kvasir} and \ref{bar:cvc12k} show, all but one of our inpainting methods beat the baseline when inpainting artefacts. By inpainting artefacts, we got at some cases at least a doubling in MCC score.
+
+\todo{We have also published 2 different papers during this thesis. The papers spupport our work.}
+\todo{
+Seksjon 1.5. Her må du selge deg bedre. Det er her du ført overbeviser leseren om at du har gjort noe bra!! Mer detaljer rundt hva du har gjort og eksempler på de viktigste resultatene og konklusjonene. Ikke bare pek på figurer langt bak i oppgaven - hva ser vi i disse figurene. Gi eksempler på tall for forbedringene. Videre har begge spørsmålene et underspørsmål "If so, how detailed should the inpainting be, and how much should be inpainted?”, men dette blir ikke besvart. Og JA, få med publikasjonene}
+
 
 \end{enumerate}
 

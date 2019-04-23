@@ -777,11 +777,11 @@ The next two datasets (III \& VI in Table \ref{tab:datasets}) were generated fro
         \label{fig:AE_GAN_SQUARE2}
 \end{figure}
     
-Figure \ref{fig:AE_GAN_SQUARE1} and Figure \ref{fig:AE_GAN_SQUARE2} shows two examples from the datasets with the green square inpainted.
+Figure \ref{fig:AE_GAN_SQUARE1} and Figure \ref{fig:AE_GAN_SQUARE2} show two examples from the datasets with the green square inpainted.
 Figure \ref{fig:AE_GAN_SQUARE1} show images that, for both datasets, images are challenging areas to get correct, and require more than just colour matching to pass as real images. In the first image, a large part of a polyp is covered, and we can see that both algorithms try to recreate the area to varying success. We can see that the GAN is much better, in both examples, to find the right colours at the edges, giving a more natural look.
 Another advantage with the GAN is the ability to estimate the corner size better, as we can see that the corner is unnaturally large in Figure \ref{fig:z_AE_SQUARE1} compared to Figure \ref{fig:z_GAN_SQUARE1}.
  
-Figure \ref{fig:polyp_ORIG_SQUARE2},\ref{fig:polyp_AE_SQUARE2},\ref{fig:polyp_GAN_SQUARE2} shows how the two algorithms handles unexpected data. Here the green area was moved to the right to the point it was outside the mask range. Both algorithms added a green tint to the images, though the GAN did a better job making it natural looking. 
+Figure \ref{fig:polyp_ORIG_SQUARE2}, \ref{fig:polyp_AE_SQUARE2}, \ref{fig:polyp_GAN_SQUARE2} show how the two algorithms handles unexpected data. Here the green area was moved to the right to the point it was outside the mask range. Both algorithms added a green tint to the images, though the GAN did a better job making it natural looking. 
 The last image set shows that the GAN has learned to connect structures throughout the inpainted area. The mucosa in Figure \ref{fig:nc_GAN_SQUARE2} the foreground is a full structure as we would expect if we removed the green square.
  
 
@@ -891,7 +891,7 @@ The last two datasets (IV \& VII in Table \ref{tab:datasets}) were generated fro
         \label{fig:AE_GAN_BOTH2}
     \end{figure}
 
-Figure \ref{fig:AE_GAN_BOTH1} and Figure \ref{fig:AE_GAN_BOTH2} shows two examples from the datasets with the green square inpainted as well as the black corners inpainted.
+Figure \ref{fig:AE_GAN_BOTH1} and Figure \ref{fig:AE_GAN_BOTH2} show two examples from the datasets with the green square inpainted as well as the black corners inpainted.
 The first set of images in Figure \ref{fig:AE_GAN_BOTH1} shows cases where both algorithms did reasonably well. Here, most of the job was cutting the images, and because the areas inpainted were homogeneous, the main task was to colour-match the areas.
 
 Figure \ref{fig:AE_GAN_BOTH2} show some more problematic areas. Image \ref{fig:dlp_AE_BOTH2} show a downfall with the AE by the fact that it uses a green colour not present in any of the training images. Luckily the GAN in Figure \ref{fig:dlp_GAN_BOTH2} manages to use the dyed mucosa to better inpaint the area.
@@ -1374,7 +1374,7 @@ H&  0 & 0 & 0 & 3 & 0 & 0 & 3 & 162\\
 
 
 %
-\noindent Figure \ref{fig:results_DN121_GAN_CORNER} and \ref{fig:results_DN121_AE_CORNER} shows the evaluation of the test set on each of the three datasets made by both the Autoencoder and GAN. 
+\noindent Figure \ref{fig:results_DN121_GAN_CORNER} and \ref{fig:results_DN121_AE_CORNER} show the evaluation of the test set on each of the three datasets made by both the Autoencoder and GAN. 
 
 \paragraph{CVC 356}
 We got the highest MCC from the Autoencoder with a score of 0.56 compared to a score of 0.31 from the GAN.
@@ -1666,7 +1666,7 @@ H&  0 & 0 & 0 & 3 & 0 & 0 & 3 & 162\\
 %\advance\rightskip-1.5cm
 \end{figure}
 
-\noindent Figure \ref{fig:results_DN121_GAN_SQUARE} and \ref{fig:results_DN121_AE_SQUARE} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
+\noindent Figure \ref{fig:results_DN121_GAN_SQUARE} and \ref{fig:results_DN121_AE_SQUARE} show the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
 
 \paragraph{CVC 356}
 As this is a dataset unseen by the classifier during training, we would expect, given that Hypothesis \ref{hyp:b} is True, that the classification score would be higher than the base case.
@@ -1972,7 +1972,7 @@ H&  2 & 0 & 0 & 5 & 0 & 0 & 8 & 160\\
 \end{figure}
 
 %
-Figure \ref{fig:results_DN121_GAN_BOTH} and \ref{fig:results_DN121_AE_BOTH} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
+Figure \ref{fig:results_DN121_GAN_BOTH} and \ref{fig:results_DN121_AE_BOTH} show the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
 
 \paragraph{CVC 356}
 Evaluating on the CVC 356 dataset we see the most significant increase in the MCC score compared to the other models. 
@@ -2695,7 +2695,7 @@ H&  0 & 0 & 3 & 3 & 4 & 5 & 5 & 157\\
 
 
 
-\noindent Figure \ref{fig:results_IRV2_GAN_SQUARE} and \ref{fig:results_IRV2_AE_SQUARE} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder when the green square was inpainted. 
+\noindent Figure \ref{fig:results_IRV2_GAN_SQUARE} and \ref{fig:results_IRV2_AE_SQUARE} show the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder when the green square was inpainted. 
 
 \paragraph{CVC 356}
 Evaluating our GAN generated model gives us an MCC value of 0.57 which is close to three times the MCC value of the baseline.  This score highly indicates that our hypothesis \ref{hyp:b} holds ground.
@@ -2958,7 +2958,7 @@ H&  0 & 0 & 0 & 2 & 1 & 0 & 1 & 157\\
 
 
 
-\noindent Figure \ref{fig:results_IRV2_GAN_BOTH} and \ref{fig:results_IRV2_AE_BOTH} shows the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder.
+\noindent Figure \ref{fig:results_IRV2_GAN_BOTH} and \ref{fig:results_IRV2_AE_BOTH} show the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder.
 
 
 \paragraph{CVC 356}
@@ -2982,7 +2982,7 @@ We can see, for both models, that the precision rose significantly.
 \FloatBarrier
 \clearpage
 \section{Classification results based on the Densenet model}
-\Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} shows the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} shows the visualised MCC values. 
+\Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} show the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} show the visualised MCC values. 
 
 \paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_CVC356_DN121} \& Bar: \ref{bar:cvc356_DN121})}
 Here we can see a considerable improvement when inpainting in general. The results coincide well with our hypothesis \ref{hyp:b}, and we can argue that hypothesis \ref{hyp:a} also holds some ground when evaluated on this dataset. 
@@ -3063,7 +3063,7 @@ VII               & 0.2105 & 0.3713 & 0.6182 & 0.5937 & 0.3733\\
 
 
 \section{Classification results based on the InceptionResnetV2 model}
-\Cref{tab:summary_CVC356_IRV2,tab:summary_KVASIR_IRV2,tab:summary_CVC12k_IRV2} shows the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} shows the visualised MCC values.
+\Cref{tab:summary_CVC356_IRV2,tab:summary_KVASIR_IRV2,tab:summary_CVC12k_IRV2} show the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} shows the visualised MCC values.
 
 
 \paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_CVC356_IRV2} \& Bar: \ref{bar:cvc356_IRV2})}
@@ -3074,7 +3074,7 @@ A significant difference in the InceptionResNetV2 model compared to the Densenet
 The Kvasir dataset shows minimal to no improvement. We can conclude that when inpainting to only remove sparseness the the machine learining algortithms draws no benefit from it, independently of the model used.
 
 \paragraph{The CVC 12k dataset (Fig: \ref{tab:summary_CVC12k_IRV2} \& Bar: \ref{bar:cvc12k_IRV2})}
-For the CVC 12k dataset every model shows improvement compared to the base case, with the highest score for the GAN removing dataset specific features. Though all the scores are low compared to the CVC 356 dataset, we can get double MCC when using inpainting.
+For the CVC 12k dataset, every model show improvement compared to the base case, with the highest score for the GAN removing dataset specific features. Though all the scores are low compared to the CVC 356 dataset, we can get double MCC when using inpainting.
 
 
 \begin{table}
