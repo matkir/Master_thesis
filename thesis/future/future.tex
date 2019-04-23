@@ -14,6 +14,27 @@ The Kvasir dataset did not see anything else than a marginal improvement to an a
 
 
 Finally, the act of inpainting both the corners and the green square gave us the highest score on the CVC 356 dataset, and a decent score for the CVC 12k dataset. The excellent scores give us some merit to believe that the two inpainting models can work together without interfering destructively with each other. 
+
+\vspace{5px}
+
+We can recall \ref{hyp:a} regarding the removal of sparse information to help with image classification. From our tests, we conclude that this hypothesis is correct given the right dataset and model. 
+In general, we saw a clear advantage of removing sparse regions. 
+
+Hypothesis \ref{hyp:b} about the removal of dataset-specific artefacts we also conclude to be correct, given the right dataset and model. 
+Based on our results we can see a clear difference between the inpainted images and the baseline. 
+Using a dataset like CVC 356 gave us better result with every configuration when inpainting based on hypothesis \ref{hyp:b}
+
+\noindent \textit{1. Can the process of redrawing an area with a new more relevant information, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+
+Repainting areas with sparse information help with classification, given that the test dataset does not have even bigger areas with sparse information compared to the training dataset. When it comes to the detail of inpainting, we do not draw any definite conclusions, but the results tend to show that a smother form if inpainting is better.
+
+
+
+
+\noindent \textit{2. Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
+
+Repainting areas containing artefacts helps significantly with classification. With the right setup, we saw results both doubling and tripling the MCC score. The models show an advantage using the GAN for inpainting, giving us an indication that the more details, the better. 
+
 \todo{Her bør du gjenta seksjon 1.5. Få også med en mer detaljert diskusjon om HYPOTESENE holder og hva svaret er på SPØRSMÅLENE (med underspørsmål) fra seksjon 1.2. Her må du henvise tilbake til problemstillingen og vise at du har løst oppgaven du har spesifisert. Igjen si at resultater er publisert.}
 
 
