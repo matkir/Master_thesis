@@ -2,7 +2,7 @@ The task of making general models to cover a broad aspect of medical images is s
 
 \section{Conclusion}
 We have seen the power of inpainting when it comes to datasets previously unseen during training. Both shown in our publications and the thesis, we have an increase in classification score on multiple types of inpainting.
-Unfortunately, we often get inconsistent results during testing, which means that we cannot recommend any method over another, as both the testing and training dataset influences the results.
+Unfortunately, we get some inconsistencies results during testing, which means that we cannot recommend any method over another, as the result show that the type of inpainting is closely related to the dataset.
 In general, we saw an improvement when it came to inpainting, but the improvement differed between the two datasets. 
 
 For the CVC 356 dataset removing artefacts within the image gave the best result for both models. When inpainting areas within the image the GAN won five out of six times, making it the best model for inpainting  areas with great detail. The good results lie also in the network used. The Densenet model worked excellent for the classification of this dataset.
@@ -22,18 +22,36 @@ In general, we saw a clear advantage of removing sparse regions.
 
 Hypothesis \ref{hyp:b} about the removal of dataset-specific artefacts we also conclude to be correct, given the right dataset and model. 
 Based on our results we can see a clear difference between the inpainted images and the baseline. 
-Using a dataset like CVC 356 gave us better result with every configuration when inpainting based on hypothesis \ref{hyp:b}
+Using a dataset like CVC 356 gave us better result with almost every configuration when inpainting based on hypothesis \ref{hyp:b}
 
-\noindent \textit{1. Can the process of redrawing an area with a new more relevant information, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}\\
+\vspace{5px}
+\noindent \textit{1. Can the process of redrawing an area with a new more relevant information, of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be?}\\
 
 Repainting areas with sparse information help with classification, given that the test dataset does not have even bigger areas with sparse information compared to the training dataset. When it comes to the detail of inpainting, we do not draw any definite conclusions, but the results tend to show that a smother form if inpainting is better.
 
 
 
 
-\noindent \textit{2. Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be, and how much should be inpainted?}
+\vspace{5px}
+\noindent \textit{2. Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be?}
 
 Repainting areas containing artefacts helps significantly with classification. With the right setup, we saw results both doubling and tripling the MCC score. The models show an advantage using the GAN for inpainting, giving us an indication that the more details, the better. 
+
+
+In addition to the results presented in this thesis we have during the writing of this thesis published two articles to support our results.
+
+\paragraph{Using prerocessing as a tool in medical image detection}
+The first paper was presented at the ACM conference in Nice, France worked exclusively on the Kvasir dataset. The result we published showed a small increase in classification perfromance when inpainting sparse regions. 
+Here we showed that even though we tested and trained on the same dataset, we saw performance gains.
+
+\paragraph{Unsupervised preprocessing to improve generalisation for medical image classification}
+The second paper presented at the ISMICT conference in Oslo, Norway expanded the work presented in the ACM conference in 2018.
+The presented result used an average of multiple runs instead of K-fold cross-refenrence, though the same datasets and transfer learning models were used.
+Here we saw similar results as the findings presented in this thesis. 
+
+
+
+
 
 \todo{Her bør du gjenta seksjon 1.5. Få også med en mer detaljert diskusjon om HYPOTESENE holder og hva svaret er på SPØRSMÅLENE (med underspørsmål) fra seksjon 1.2. Her må du henvise tilbake til problemstillingen og vise at du har løst oppgaven du har spesifisert. Igjen si at resultater er publisert.}
 
