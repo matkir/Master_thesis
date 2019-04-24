@@ -119,43 +119,30 @@ This category was supported by the finished system able to inpaint images to imp
 
 \section{Main Contributors}
 During this thesis we have worked closely on the two hypotesises (\ref{hyp:a} \& \ref{hyp:a}) and research questions (\ref{que:a} \& \ref{que:b}). 
-The answers research questions and hypothesises and our published articles is as follows:
+We present the main contributions we achieved during this thesis, followed by our two published articles. 
 
 \begin{enumerate}
 
-\item \textbf{\ref{hyp:a}:} \textit{When classifying images, we will get the best result when we have images with the least amount of sparse information. Hence, by removing areas with sparse information, we will see an increase in classification performance compared to not removing the areas.}
-
-From our testing, we can see that inpainting sparse areas in datasets help with the classification. Throughout our testing of the datasets, when we removed sparse areas, we saw an increase in classification score. Given some exceptions, \ref{hyp:a} seems to be correct.
-    
-
-
 \item \textbf{\ref{que:a}:} \textit{ Can the process of inpainting of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be?}\\ 
     
-Inpainting areas with sparse information do help with classification. When it comes to the detail of inpainting, we do not draw any definite conclusions, but the results tend to show that a smoother form of inpainting is better.
-For a dataset like the CVC 356 dataset, the dataset generated with the autoencoder gave better results than the base case when evaluated with Densenet.
-Dataset like the CVC 12k dataset shows performance gain when inpainting sparse regions. This performance gain indicates that, given the notable borders in the dataset, inpainting the sparse areas work.
-For datasets used for both training and testing, like Kvasir, we see too little of improvement to confirm the usage of inpainting confidently.
-    
-
-
-\item \textbf{\ref{hyp:b}:} \textit{When training a classifier, we will get a higher probability of generalisation of our results when removing the dataset-specific artefacts compared to not removing artefacts.}
-    
-Inpainting areas containing artefacts helps significantly with classification. With the right setup, we saw results both doubling and tripling the classification score. Given that our training data has artefacts that do not appear in the test set we conclude that \ref{hyp:b} is correct.
+We have shown in this thesis that inpainting areas with sparse information do help with classification. 
+When it comes to the detail of inpainting, we do not draw any definite conclusions regarding the best method, but the results tend to show that a smoother form of inpainting is better.
+The inpainting of sparse information is also very dataset spessific, meaning that the inpainting does not always yield the best results.
+We do show that, for the majority of our test, inpainting of the sparse regions work.
 
 
 \item \textbf{\ref{que:b}:} \textit{ Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be?}
     
-    
-Inpainting artefacts improve the classification results in most cases. When it comes to the detail of inpainting, the GAN outperformed the autoencoder in all but one of the tests. The results give us feasible suggestions that inpainting dataset-specific artefacts help with the classification of unseen data, and that the more precise the result, the better.
-For the CVC 356 dataset removing artefacts within the image gave the best result for both models. When inpainting areas within the image the GAN won five out of six times, making it the best model for inpainting areas with great detail. The good results lie also in the network used. The Densenet model worked excellent for the classification of this dataset.
-For the CVC 12k dataset, we saw lower scores in general, giving us indications that this dataset is notably harder to classify, and that the removal of dataset-specific artefacts does not always work flawlessly. 
-As with the research question \ref{que:a} regarding sparse areas, the Kvasir dataset does not show any clear indication that the removal of dataset-specific artefacts helps.
+We conclude in this thesis that inpainting artefacts improve the classification results, in most cases. 
+When it comes to the detail of inpainting, our results show that the more detailed inpainting the better with some few exceptions. 
+As with \ref{que:a}, the inpainting is very dataset spesific, meaning there are no clear best solution, though in general we see improvement.
+Our result gave us at best almost a tripling of the classification score in one case.
 
 \end{enumerate}
 
 
 \noindent
-To build more confidence regarding the claims stated above we also published two papers concerning the same research explored in the thesis.
+We have during this thesis published the following papers.
 
 \paragraph{Using preprocessing as a tool in medical image detection~\cite{Mathias2018MediaevalPaper}}
 The first paper presented at the MediaEval conference in Nice, France worked exclusively on the Kvasir dataset. The result we published showed an increase in classification performance when inpainting sparse regions. 
