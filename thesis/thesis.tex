@@ -104,6 +104,7 @@ tabsize=2}
 
 %%%%%%%%%% FOR MY THEOREMS
 \usepackage{thmtools}
+
 \declaretheoremstyle[
 spaceabove=6pt, spacebelow=6pt,
 headfont=\normalfont\bfseries,
@@ -112,11 +113,17 @@ bodyfont=\normalfont,
 postheadspace=0.6em,
 headpunct=:
 ]{mystyle}
+
 \declaretheorem[style=mystyle, name=Hypothesis, preheadhook={\renewcommand{\thehyp}{H\textsubscript{\arabic{hyp}}}}]{hyp}
+
+\declaretheorem[style=mystyle, name=Research Question, preheadhook={\renewcommand{\theque}{Q\textsubscript{\arabic{que}}}}]{que}
 
 \usepackage{cleveref}
 \crefname{hyp}{hypothesis}{hypotheses}
 \Crefname{hyp}{Hypothesis}{Hypotheses}
+
+\crefname{que}{question}{question}
+\Crefname{que}{Question}{Question}
 
 
 
@@ -154,6 +161,7 @@ legend image code/.code={
 
 \begin{document}
 \setcounter{hyp}{-1}
+\setcounter{que}{-1}
 \duoforside[dept={Department of Informatics},program={Informatics: Technical and Scientific Applications},long]
 
 \frontmatter{}
@@ -190,7 +198,7 @@ legend image code/.code={
 \input{experiments/experiments.tex}
 
 
-\chapter{Conclusion and future work} \label{cap:future}
+\chapter{Conclusion and Future Work} \label{cap:future}
 \input{future/future.tex}
 
 %\input{result/result.tex}
@@ -204,7 +212,7 @@ legend image code/.code={
 
 
 \backmatter{}
-\todo{style}
+\todo{style of bibfile, alfabetisk?}
 \printbibliography
 
 

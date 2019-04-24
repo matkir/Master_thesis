@@ -780,8 +780,10 @@ The next two datasets (III \& VI in Table \ref{tab:datasets}) were generated fro
 Figure \ref{fig:AE_GAN_SQUARE1} and Figure \ref{fig:AE_GAN_SQUARE2} show two examples from the datasets with the green square inpainted.
 Figure \ref{fig:AE_GAN_SQUARE1} show images that, for both datasets, images are challenging areas to get correct, and require more than just colour matching to pass as real images. In the first image, a large part of a polyp is covered, and we can see that both algorithms try to recreate the area to varying success. We can see that the GAN is much better, in both examples, to find the right colours at the edges, giving a more natural look.
 Another advantage with the GAN is the ability to estimate the corner size better, as we can see that the corner is unnaturally large in Figure \ref{fig:z_AE_SQUARE1} compared to Figure \ref{fig:z_GAN_SQUARE1}.
+
+
  
-Figure \ref{fig:polyp_ORIG_SQUARE2}, \ref{fig:polyp_AE_SQUARE2}, \ref{fig:polyp_GAN_SQUARE2} show how the two algorithms handles unexpected data. Here the green area was moved to the right to the point it was outside the mask range. Both algorithms added a green tint to the images, though the GAN did a better job making it natural looking. 
+Figure \ref{fig:polyp_ORIG_SQUARE2}, \ref{fig:polyp_AE_SQUARE2} and \ref{fig:polyp_GAN_SQUARE2} show how the two algorithms handles unexpected data. Here the green area was moved to the right to the point it was outside the mask range. Both algorithms added a green tint to the images, though the GAN did a better job making it natural looking. 
 The last image set shows that the GAN has learned to connect structures throughout the inpainted area. The mucosa in Figure \ref{fig:nc_GAN_SQUARE2} the foreground is a full structure as we would expect if we removed the green square.
  
 
@@ -2984,15 +2986,53 @@ We can see, for both models, that the precision rose significantly.
 \section{Classification results based on the Densenet model}
 \Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} show the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} show the visualised MCC values. 
 
-\paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_CVC356_DN121} \& Bar: \ref{bar:cvc356_DN121})}
+\paragraph{The CVC 356 dataset (Figure: \ref{tab:summary_CVC356_DN121} \& Bar: \ref{bar:cvc356_DN121})}
 Here we can see a considerable improvement when inpainting in general. The results coincide well with our hypothesis \ref{hyp:b}, and we can argue that hypothesis \ref{hyp:a} also holds some ground when evaluated on this dataset. 
 
-\paragraph{The Kvasir dataset (Fig: \ref{tab:summary_KVASIR_DN121} \& Bar: \ref{bar:kvasir_DN121})}
+\paragraph{The Kvasir dataset (Figure: \ref{tab:summary_KVASIR_DN121} \& Bar: \ref{bar:kvasir_DN121})}
 Here we do not expect the same result as we would for a dataset not seen by the classifier. We hypothesised that model \textbf{III} and \textbf{VI} would get us the best results, as they only removed areas with sparse information. From the results, we can see no significant improvement to the results when evaluated on the datasets. Thus we can not prove hypothesis \ref{hyp:a} with the densenet model.
 
-\paragraph{The CVC 12k dataset (Fig: \ref{tab:summary_CVC12k_DN121} \& Bar: \ref{bar:cvc12k_DN121})}
+\paragraph{The CVC 12k dataset (Figure: \ref{tab:summary_CVC12k_DN121} \& Bar: \ref{bar:cvc12k_DN121})}
 Here we see the most significant change when we removed sparse areas at the corner as opposed to removing dataset specific artefacts. As the MCC rose with 0.08 for both the datasets and no others, it seems like removing dataset specific artefacts does not always yield the best results.
 
+
+
+
+\section{Classification results based on the InceptionResnetV2 model}
+\Cref{tab:summary_CVC356_IRV2,tab:summary_KVASIR_IRV2,tab:summary_CVC12k_IRV2} show the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} shows the visualised MCC values.
+
+
+\paragraph{The CVC 356 dataset (Figure: \ref{tab:summary_CVC356_IRV2} \& Bar: \ref{bar:cvc356_IRV2})}
+Here we can see the same considerable improvement when inpainting the \textit{dataset-specific} artefacts as we saw with the densenet model. We see that we can, with this model, double the MCC score with the GAN dataset.
+A significant difference in the InceptionResNetV2 model compared to the Densenet model is the fact that some of the results did considerably worse than the base case. 
+
+\paragraph{The Kvasir dataset (Figure: \ref{tab:summary_KVASIR_IRV2} \& Bar: \ref{bar:kvasir_IRV2})}
+The Kvasir dataset shows minimal to no improvement. We can conclude that when inpainting to only remove sparseness the the machine learining algortithms draws no benefit from it, independently of the model used.
+
+\paragraph{The CVC 12k dataset (Figure: \ref{tab:summary_CVC12k_IRV2} \& Bar: \ref{bar:cvc12k_IRV2})}
+For the CVC 12k dataset, every model show improvement compared to the base case, with the highest score for the GAN removing dataset specific features. Though all the scores are low compared to the CVC 356 dataset, we can get double MCC when using inpainting.
+
+
+
+\section{Classification results based on the Densenet model at double size}
+In addition to the two models tested with the generated dataset, we also looked at what would happen at larger resolutions. We made the same datasets as in the previous section but at twice the size. The results can be found in table \ref{tab:summary_CVC12k_DN121512px} with the visualised examples in Figure \ref{bar:512}.
+
+We can see from this summary that the results seem to keep the same trend at the larger size.
+It is important to not that the image quality is harder to maintain at double size.
+
+
+\paragraph{The CVC 356 dataset (Figure: \ref{tab:summary_CVC356_DN121512px} \& Bar: \ref{bar:cvc356_DN121_512})}
+At double the size the inpaining results tend to have the same shape as with the smaller size, except for the fully inpainted dataset produced by the GAN.  The baseline were also a bit higher at double size, while we would believe that it would be lower due to the non-polyp images from the CVC 356 set is around 288 $\times$ 384 px, meaning that we interpolate the images to get them to the appropriate size. The fact that we interpolate only the non-polyp images might have helped the classifier due to now different quality of the images.
+
+\paragraph{The CVC 356 dataset (Figure: \ref{tab:summary_KVASIR_DN121512px})}
+The Kvasir dataset shows minimal to no improvement. As with the standard size model, we can conclude that when inpainting to only remove sparseness the the machine learning algorithms draws no benefit from it, independently of the model used.
+
+\paragraph{The CVC 12k dataset (Figure: \ref{tab:summary_CVC12k_DN121512px} \& Bar: \ref{bar:cvc12k_DN121_512})}
+In the CVC 12k dataset all images are at the size 288 $\times$ 384 px. The upscaling of the images to 512 $\times$ 512 px distorts all the images, curiously enough the baseline is higher compared to the 256 $\times$ 256 px images, indicating perhaps a bad baseline for the previous dataset, though this might also be coincidental.
+
+
+
+\FloatBarrier
 
 \begin{table}
 \centering
@@ -3062,21 +3102,6 @@ VII               & 0.2105 & 0.3713 & 0.6182 & 0.5937 & 0.3733\\
 
 
 
-\section{Classification results based on the InceptionResnetV2 model}
-\Cref{tab:summary_CVC356_IRV2,tab:summary_KVASIR_IRV2,tab:summary_CVC12k_IRV2} show the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} shows the visualised MCC values.
-
-
-\paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_CVC356_IRV2} \& Bar: \ref{bar:cvc356_IRV2})}
-Here we can see the same considerable improvement when inpainting the \textit{dataset-specific} artefacts as we saw with the densenet model. We see that we can, with this model, double the MCC score with the GAN dataset.
-A significant difference in the InceptionResNetV2 model compared to the Densenet model is the fact that some of the results did considerably worse than the base case. 
-
-\paragraph{The Kvasir dataset (Fig: \ref{tab:summary_KVASIR_IRV2} \& Bar: \ref{bar:kvasir_IRV2})}
-The Kvasir dataset shows minimal to no improvement. We can conclude that when inpainting to only remove sparseness the the machine learining algortithms draws no benefit from it, independently of the model used.
-
-\paragraph{The CVC 12k dataset (Fig: \ref{tab:summary_CVC12k_IRV2} \& Bar: \ref{bar:cvc12k_IRV2})}
-For the CVC 12k dataset, every model show improvement compared to the base case, with the highest score for the GAN removing dataset specific features. Though all the scores are low compared to the CVC 356 dataset, we can get double MCC when using inpainting.
-
-
 \begin{table}
 \centering
 \caption*{\small 
@@ -3141,26 +3166,6 @@ VII               & 0.2305 & 0.5819 & 0.6498 & 0.5887 & 0.6802\\
 \end{tabular}
 \label{tab:summary_CVC12k_IRV2}
 \end{table}
-
-
-\section{Classification results based on the Densenet model at double size}
-In addition to the two models tested with the generated dataset, we also looked at what would happen at larger resolutions. We made the same datasets as in the previous section but at twice the size. The results can be found in table \ref{tab:summary_CVC12k_DN121512px} with the visualised examples in Figure \ref{bar:512}.
-
-We can see from this summary that the results seem to keep the same trend at the larger size.
-It is important to not that the image quality is harder to maintain at double size.
-
-
-\paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_CVC356_DN121512px} \& Bar: \ref{bar:cvc356_DN121_512})}
-At double the size the inpaining results tend to have the same shape as with the smaller size, except for the fully inpainted dataset produced by the GAN.  The baseline were also a bit higher at double size, while we would believe that it would be lower due to the non-polyp images from the CVC 356 set is around 288 $\times$ 384 px, meaning that we interpolate the images to get them to the appropriate size. The fact that we interpolate only the non-polyp images might have helped the classifier due to now different quality of the images.
-
-\paragraph{The CVC 356 dataset (Fig: \ref{tab:summary_KVASIR_DN121512px})}
-The Kvasir dataset shows minimal to no improvement. As with the standard size model, we can conclude that when inpainting to only remove sparseness the the machine learning algorithms draws no benefit from it, independently of the model used.
-
-\paragraph{The CVC 12k dataset (Fig: \ref{tab:summary_CVC12k_DN121512px} \& Bar: \ref{bar:cvc12k_DN121_512})}
-In the CVC 12k dataset all images are at the size 288 $\times$ 384 px. The upscaling of the images to 512 $\times$ 512 px distorts all the images, curiously enough the baseline is higher compared to the 256 $\times$ 256 px images, indicating perhaps a bad baseline for the previous dataset, though this might also be coincidental.
-
-
-
 
 
 
