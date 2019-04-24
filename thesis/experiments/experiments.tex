@@ -433,8 +433,11 @@ Weighted average gives us the best of both worlds, but it lacks the intuitivenes
 With the three methods presented, we have chosen to Macro average our results. While both Macro and Weighted average would give a good indication given that not all our datasets are balanced, we argue that the weighted average would give metrics that are harder to explain when we are working on datasets with unbalanced classes.
 
 In addition to looking at the Macro average of precision and recall, we want to look at specific cases of the classification.  In many cases, we have multiple classes, where we are most interested in just one or a handful of the classes shown. 
-For instance, a focus we have in this thesis is to give a score on how predictable polyp detection is, and on that case, we want to discuss the True positive rate (TPR) of the polyp detection and not the TPR of the non-polyp classes. 
+For instance, a focus we have in this thesis is to give a score on how predictable polyp detection is, and on that case, we want to discuss the True positive rate (TPR) of the polyp detection versus the TPR of the non-polyp classes. 
 
+As stated, our primary metric for comparison is the Matthews correlation coefficient, with a secondary focus on precision and recall when we compare different results.
+
+\iffalse
 \todo{Might remove rest of this section.. Need to think about it.}
 Take for instance the matrix \ref{mat:exampleMAT}\\
 \begin{figure}[h]
@@ -454,11 +457,7 @@ Take for instance the matrix \ref{mat:exampleMAT}\\
 Here we can calculate the weighted average recall to be \todo{x}. This can be an interesting observation in itself, but often the first or second True label is much more important relative to the other.  In a more practical example: We are more interested in finding areas with polyps when we know they are present, compared knowing there is not a polyp in an area when none are present. 
 
 These Metrics becomes a more prominent topic when it comes to inpainting. With inpainting, we take areas with no relevant information and makes it into areas that are similar to the rest of the image. Given that we can inpaint over polyps by mistake, or that we might train our classifiers to not look in certain areas when classifying, we have an interest if also comparing single cases of recall and precision included to the average values.
-
-
-\subsection{Hardware and Software setup}
-For the experiments we used the hardware setup shown in table \ref{tab:HW}.
-The software type and version for the experiments is shown in table \ref{tab:SW}.
+\fi
 
 
 \begin{table}[]
@@ -490,7 +489,6 @@ RAM                          & Kingston 16 GB DDR3 @ 1600 MHz \\ \bottomrule
 \label{tab:HW}
 \end{table}
 
-\todo{MICHAEL OR PAAL: \\ Do I need more info/fluff here? }
 
 \section{Setup of experiments}
 As we recall, we proposed the following hypothesis.
@@ -519,6 +517,9 @@ After a rundown of the generation of the custom datasets trough inpainting, we w
 
 Our primary goal in this thesis is to see if any of the generated datasets can help with classification. We will both compare the different areas inpainted, and the method used to inpaint the images. 
 For the classification, we will use MCC as our primary metric for comparison, as described in section \ref{cha:metrics}. As we described in the MCC paragraph, this metric gives us the best indication of success based on the imbalance of data in the CVC datasets. We chose to show the other metrics from section \ref{cha:metrics} as well, but they are only there to get a comprehensive picture of the results.
+For the experiments we used the hardware setup shown in table \ref{tab:HW}.
+The software type and version for the experiments is shown in table \ref{tab:SW}.
+
 
 
 

@@ -22,22 +22,27 @@ Humans can get cancer in every major organ, but some types of cancer are more co
 For instance cancer in the gastrointestinal (GI) tract is such a place, with approximately 40,000 cases each year in the UK~\cite{UKCancerBowel}. There are around 16,000 bowel cancer deaths in the United Kingdom every year, and it is the 2nd most common cause of cancer-related death, accounting for 10\% of all cancer mortalities.
 
 Given the global focus on cancer, research into detection and treatment is highly relevant in modern western society. 
-Especially with detection of cancerous areas in the body, the advancement of computer-aided diagnosis (CAD) has helped significantly when it comes to early detection and localisation. In addition to the boom in computing power, machine learning has become prevalent in the past few years, and specifically, deep learning has become a tool in image and video classification both within and outside the medical domain~\cite{NIPS2012_4824,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/HeZRS15,DBLP:journals/corr/SzegedyIV16}. 
+Especially with detection of cancerous areas in the body, the advancement of computer-aided diagnosis (CAD) has helped significantly when it comes to early detection and localisation. In addition to the boom in computing power, machine learning has become prevalent in the past few years, and specifically deep learning has become a tool in image and video classification both within and outside the medical domain~\cite{NIPS2012_4824,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/HeZRS15,DBLP:journals/corr/SzegedyIV16}. 
 With machine learning and CAD, researchers have now the ability to help doctors with the vital task of detecting and classifying anomalies found in medical images and videos.
 
 Earlier projects regarding CAD have shown promising results, giving doctors new tools when looking for cancer in the GI tract.
+The first project on CAD that formed the basis for this thesis is the basic EIR system by Riegler et al.~\cite{riegler2016eir}.  The EIR system set the goal of automatically detecting diseases in the GI tract from videoes or images in real time. 
+Later, work regarding the accuracy of the EIR model got much focus. Zeno Albisser presented a model for automatic detection of polyps in the GI tract in hes master thesis. To improve classifiaction and detection of polyps, he used a mixture of image augmentation methods for prepossessing of the data. 
+Fredrik Henriksen and Rune Jensen did similar work in their joint master thesis. Here they looked at the effect of changing the contrast of the medical data, as well as rotating the images and removing reflections.
 
-The first project on CAD that formed the basis for this thesis is the basic EIR system by Riegler et al.~\cite{riegler2016eir}.  The Eir system set the goal of automatically detecting diseases in the GI tract from videoes or images in real time. 
 
 The paper on Mimir by Hicks et al. presents a system to both improve the ``black box'' understanding and assist in the administrative duties of writing an examination report, and in summary helping medical staff with CAD~\cite{25953}. 
 The work published by Hicks et al. and Riegler et al. show that deep learning has excellent applications when it comes to computer aided diagnosis, but there is insufficient work into generalising the methods to work on new data. Another problem with deep learning is that the model overfits to the dataset, meaning it learns the internal bias associated with the data provided. 
 
-In this thesis we explore these topics. We will look at methods into how to counteract overfitting of medical data, as well as methods to help generalise models to better adapt to new unseen datasets.
-\todo{Technical inpainting stuff here, and fix the flow 80, cad bedre forfine dataset, det orådet er det gjort. zeno fredrik}
+Machine learning has also found many use cases outside of CAD. Recently there has been a surge in generative modelling algorithms, ranging from the work by larger corporations like Nvidia~\cite{DBLP:journals/corr/abs-1812-04948}, to the context-driven work by researchers like Denton et al.~\cite{DBLP:journals/corr/DentonGF16} and Pathak et al.~\cite{DBLP:journals/corr/PathakKDDE16}.
+
+
+In this thesis, we explore these topics. We will look at methods into how to counteract overfitting of medical data, as well as methods to help generalise models to better adapt to new unseen datasets. We will do this by using generative modelling as a method to improve the quality of the datasets we already have, with the goal of making our existing CAD methods even more reliable when used on new data.
+
+
 \section{Problem Statement}
 \label{cha:problemstatement}
-Based on the motivation presented in the previous section, we believe that we still have room for improvement when making CAD. Based on the previous work done in the research area~\cite{25956,25953,riegler2016eir}, we present the following two hypothesises as a basis for the thesis:
-\todo{based on, based on}
+Based on the motivation presented in the previous section, we believe that we still have room for improvement when making models using CAD. Extending on the previous work done in the research area~\cite{25956,25953,riegler2016eir}, we present the following two hypothesises as a basis for the thesis:
 
 \noindent
 \begin{hyp} \label{hyp:a}
@@ -113,6 +118,59 @@ This category was supported by the finished system able to inpaint images to imp
 
 
 \section{Main Contributors}
+During this thesis we have worked closely on the two hypotesises (\ref{hyp:a} \& \ref{hyp:a}) and research questions (\ref{que:a} \& \ref{que:b}). 
+The answers research questions and hypothesises and our published articles is as follows:
+
+\begin{enumerate}
+
+\item \textbf{\ref{hyp:a}:} \textit{When classifying images, we will get the best result when we have images with the least amount of sparse information. Hence, by removing areas with sparse information, we will see an increase in classification performance compared to not removing the areas.}
+
+From our testing, we can see that inpainting sparse areas in datasets help with the classification. Throughout our testing of the datasets, when we removed sparse areas, we saw an increase in classification score. Given some exceptions, \ref{hyp:a} seems to be correct.
+    
+
+
+\item \textbf{\ref{que:a}:} \textit{ Can the process of inpainting of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be?}\\ 
+    
+Inpainting areas with sparse information do help with classification. When it comes to the detail of inpainting, we do not draw any definite conclusions, but the results tend to show that a smoother form of inpainting is better.
+For a dataset like the CVC 356 dataset, the dataset generated with the autoencoder gave better results than the base case when evaluated with Densenet.
+Dataset like the CVC 12k dataset shows performance gain when inpainting sparse regions. This performance gain indicates that, given the notable borders in the dataset, inpainting the sparse areas work.
+For datasets used for both training and testing, like Kvasir, we see too little of improvement to confirm the usage of inpainting confidently.
+    
+
+
+\item \textbf{\ref{hyp:b}:} \textit{When training a classifier, we will get a higher probability of generalisation of our results when removing the dataset-specific artefacts compared to not removing artefacts.}
+    
+Inpainting areas containing artefacts helps significantly with classification. With the right setup, we saw results both doubling and tripling the classification score. Given that our training data has artefacts that do not appear in the test set we conclude that \ref{hyp:b} is correct.
+
+
+\item \textbf{\ref{que:b}:} \textit{ Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be?}
+    
+    
+Inpainting artefacts improve the classification results in most cases. When it comes to the detail of inpainting, the GAN outperformed the autoencoder in all but one of the tests. The results give us feasible suggestions that inpainting dataset-specific artefacts help with the classification of unseen data, and that the more precise the result, the better.
+For the CVC 356 dataset removing artefacts within the image gave the best result for both models. When inpainting areas within the image the GAN won five out of six times, making it the best model for inpainting areas with great detail. The good results lie also in the network used. The Densenet model worked excellent for the classification of this dataset.
+For the CVC 12k dataset, we saw lower scores in general, giving us indications that this dataset is notably harder to classify, and that the removal of dataset-specific artefacts does not always work flawlessly. 
+As with the research question \ref{que:a} regarding sparse areas, the Kvasir dataset does not show any clear indication that the removal of dataset-specific artefacts helps.
+
+\end{enumerate}
+
+
+\noindent
+To build more confidence regarding the claims stated above we also published two papers concerning the same research explored in the thesis.
+
+\paragraph{Using preprocessing as a tool in medical image detection~\cite{Mathias2018MediaevalPaper}}
+The first paper presented at the MediaEval conference in Nice, France worked exclusively on the Kvasir dataset. The result we published showed an increase in classification performance when inpainting sparse regions. 
+Here we displayed that even though we tested and trained on the same dataset, we saw small performance gains. We concluded the paper with that, if the test and training set are similar to each other, we can achieve better performance gain with hyperparameter optimisation rather than preprocessing with inpainting. 
+
+
+\paragraph{Unsupervised preprocessing to improve generalisation for medical image classification~\cite{Mathias2019IEEpaper}}
+The second paper presented at the ISMICT conference in Oslo, Norway expanded the work presented at the MediaEval conference in 2018.
+The presented result used an average of multiple runs instead of K-fold cross-reference, though we used the same datasets and transfer learning models.
+Here we saw similar results as the findings presented in this thesis, only less significant. The publication presents two hypothesises that bears resemblance to \ref{hyp:a} and \ref{hyp:b}. We conclude the publication by supporting both hypothesise.
+
+
+
+
+\iffalse
 Throughout this thesis we have developed a system for preprocessing data as a tool to help classification. 
 The system can take any mask and recreate the masked area, and can be used both in the removal of dataset specific artefacts as well as a general tool for inpainting. 
 \todo{hva har jeg gjort, hinte frem til 5.. copy paste nesten}
@@ -135,8 +193,8 @@ We have strong evidence supporting our hypothesis concerning inpainting artefact
 \todo{
 Seksjon 1.5. Her må du selge deg bedre. Det er her du ført overbeviser leseren om at du har gjort noe bra!! Mer detaljer rundt hva du har gjort og eksempler på de viktigste resultatene og konklusjonene. Ikke bare pek på figurer langt bak i oppgaven - hva ser vi i disse figurene. Gi eksempler på tall for forbedringene. Videre har begge spørsmålene et underspørsmål "If so, how detailed should the inpainting be, and how much should be inpainted?”, men dette blir ikke besvart. Og JA, få med publikasjonene}
 \todo{for generelt og overfadisk}
-
 \end{enumerate}
+\fi
 
 
 \section{Outline}
