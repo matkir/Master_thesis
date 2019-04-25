@@ -1,83 +1,80 @@
 \section{Summary}
-The task of making general models to cover a broad aspect of medical images is still a widely researched area today, and most likely it will continue to be so in the future. There are a plethora of different ways to build models for the medical domain, and in most of them there is room for improvement. Right now, the mean age of the world population increases, and as a consequence we perform more colonoscopies than ever before. The demand for better systems for medical diagnosis will follow this trend.
+The task of making general models that can classify a broad aspect of medical images is still a widely researched area today, and most likely, it will continue to be so in the future. There are a plethora of different ways to build models for the medical domain, and in most of them, there is room for improvement. Right now, the mean age of the world population increases, and as a consequence, we perform more colonoscopies than ever before. The demand for better systems for medical diagnosis will follow this trend.
 
-We have during this thesis presented a system that, when used correctly removes unwanted areas from the datasets. This inpainting is making the augmented datasets easier and more reliable to train, and more predisposed to be generalised.
+We have during this thesis presented a system that removes user-specified areas from provided images. The program can take any highlighting, in the form of a binary mask, as input and inpaint the specified area. In this thesis the areas we wanted to inpaint were the same for all images, meaning we converted whole datasets based on the provided binary mask. In the end, we made two fully functional algorithms that could inpaint any part of an image, given that it already was trained on similar datasets.
+This inpainting is making the augmented datasets easier and more reliable to train, and more predisposed to be generalised.
+
+In addition to the two generative modelling algorithms, we also created a classifier as an instrument to check the success of the newly created datasets. The model was based on transfer learning, with the ability to use any pretrained network to check the validity of any provided data. The model used k-fold cross-validation to secure the most reliable result.
+
 An underlying goal was to make a system that could help with the generalisation of data, and the programs presented in the thesis we believe is a step in the right direction when it comes to aiding systems for automation of medical diagnosis.
-
 We have seen the power of inpainting when it comes to datasets previously unseen during training, both shown in our publications and the thesis.
 In general, to find the right inpainting and network type is not a trivial task. Because of this, we can not recommend any method over another, as the results show that the ideal type of inpainting is closely related to the dataset used both for training and for testing.
- 
-
 
 \section{Contributions}
-As we discussed in section \ref{cha:problemstatement}, we derived two hypothesises and a problem statement related to each of the hypothesises.
-Below we restate the hypothesises and problem statements with a description of how our work answers the said statements.
-We end the section by summarising our published papers, drawing connections between the thesis and the publications.\\
-\clearpage
+As described in the problem statement in section \ref{cha:problemstatement}, we have addressed the following research hypothesises and questions:
 \begin{enumerate}
 
 \item \textbf{\ref{hyp:a}:} \textit{When classifying images, we will get the best result when we have images with the least amount of sparse information. Hence, by removing areas with sparse information, we will see an increase in classification performance compared to not removing the areas.}
 
-From our testing, we can see that inpainting sparse areas in datasets help with the classification. Throughout our testing of the datasets, when we removed sparse areas, we saw an increase in classification score. Given some exceptions, \ref{hyp:a} seems to be correct.
+From our testing, we can see that inpainting sparse areas in images improve classification accuracy. Throughout our testing of the datasets, when we removed sparse areas, we generally saw an increase in classification score. Except for some inconsistencies, as we see in \ref{tab:cvc356_metrics_IRV2_AE_CORNER} and \ref{tab:cvc356_metrics_DN121_GAN_CORNER} where both MCC values are below the baseline, \ref{hyp:a} seems to hold some merit, especially datasets similar to the CVC 12k dataset. 
     
 
 
 \item \textbf{\ref{que:a}:} \textit{ Can the process of inpainting of sparse areas in datasets help with training and classification performed by machine learning? If so, how detailed should the inpainting be?}\\ 
     
-Inpainting areas with sparse information do help with classification. When it comes to the detail of inpainting, we do not draw any definite conclusions, but the results tend to show that a smoother form of inpainting is better.
-For a dataset like the CVC 356 dataset, the dataset generated with the autoencoder gave better results than the base case when evaluated with Densenet.
-Dataset like the CVC 12k dataset shows performance gain when inpainting sparse regions. This performance gain indicates that, given the notable borders in the dataset, inpainting the sparse areas work.
+Inpainting areas with sparse information do help with classification in numerous cases. When it comes to the detail of inpainting, we do not draw any definite conclusions, but the results tend to show that a smoother form of inpainting is better.
+For an evaluation dataset like the CVC 356, the new dataset generated with the autoencoder gave better classification results compared to the base case when evaluated with the Densenet121 network.
+Datasets like the CVC 12k dataset show performance gain when inpainting sparse regions. Looking at the ``corner'' results from Figure \ref{bar:cvc12k}, we observe that all four datasets improved the classification score compared to the baseline.
+This performance gain indicates that, given the notable borders in the dataset, inpainting the sparse areas work.
 For datasets used for both training and testing, like Kvasir, we see too little of improvement to confirm the usage of inpainting confidently.
     
 
 
 \item \textbf{\ref{hyp:b}:} \textit{When training a classifier, we will get a higher probability of generalisation of our results when removing the dataset-specific artefacts compared to not removing artefacts.}
     
-Inpainting areas containing artefacts helps significantly with classification. With the right setup, we saw results both doubling and tripling the classification score. Given that our training data has artefacts that do not appear in the test set we conclude that \ref{hyp:b} is correct.
+Inpainting areas containing artefacts helps significantly with classification. With the right setup, we observed results like Figure \ref{tab:cvc356_metrics_DN121_GAN_SQUARE} and \ref{tab:cvc356_metrics_DN121_GAN_BOTH}. Here, our MCC scores increased with 69\% and 76\% respectively, compared to the baseline.
+As with hypothesis \ref{hyp:a}, hypothesis \ref{hyp:b} holds some merit, though we observed exceptions with the CVC 12k dataset as it did not gain any classification improvements with this method.
 
 
 \item \textbf{\ref{que:b}:} \textit{ Can inpainting of dataset-specific artefacts help with the classification of previously unseen data done by machine learning? If so, how detailed should the inpainting be?}
     
     
-Inpainting artefacts improve the classification results in most cases. When it comes to the detail of inpainting, the GAN outperformed the autoencoder in all but one of the tests. The results give us feasible suggestions that inpainting dataset-specific artefacts help with the classification of unseen data, and that the more precise the result, the better.
-For the CVC 356 dataset removing artefacts within the image gave the best result for both models. When inpainting areas within the image the GAN won five out of six times, making it the best model for inpainting areas with great detail. The good results lie also in the network used. The Densenet model worked excellent for the classification of this dataset.
+Inpainting dataset-specific artefacts improve the classification results in most cases. When it comes to the detail of inpainting, the GAN outperformed the autoencoder in all but one of the tests. The results give us reasonable suggestions that inpainting dataset-specific artefacts help with the classification of unseen data. In addition, it gives us evidence that the more precise inpainting of the images is, the better.
+For the CVC 356 dataset, removing artefacts within the training images gave the best result for both models. When inpainting areas within the image, the images generated by the GAN outperformed the images generated by the autoencoder five out of six times, making it the most reliable model for generating new images without artefacts. 
 For the CVC 12k dataset, we saw lower scores in general, giving us indications that this dataset is notably harder to classify, and that the removal of dataset-specific artefacts does not always work flawlessly. 
-As with the research question \ref{que:a} regarding sparse areas, the Kvasir dataset does not show any clear indication that the removal of dataset-specific artefacts helps.
+As with the research question \ref{que:a} regarding sparse areas, the experiments both training and testing on the Kvasir dataset does not show any clear indication that the removal of dataset-specific artefacts helps.
 
 \end{enumerate}
 
-
 \noindent
-To build more confidence regarding the claims stated above we also published two papers concerning the same research explored in the thesis.
+In summary, our medical image inpainting system is able to remove the dataset-specific artefacts found in our training set, Kvasir, and thereby improve the detection and classification of anomalies in medical images.
+With our models, we observed an increase in MCC score of 0.225 on the CVC 12k dataset, and an increase of 0.371 on the CVC 356 dataset, both score increases based solely on inpainting.
+
+The two papers we published during the thesis conclude with similar results. The results from our first paper draw a direct mapping to hypothesis \ref{hyp:a}, and tries to answer \ref{que:a}. The results from our second paper draw a direct mapping to both hypothesis \ref{hyp:a} and \ref{hyp:b}. In this paper the conclusion satisfy both \ref{que:a} and \ref{que:b}. 
+
 
 \paragraph{Using preprocessing as a tool in medical image detection~\cite{Mathias2018MediaevalPaper}}
 The first paper presented at the MediaEval conference in Nice, France worked exclusively on the Kvasir dataset. The result we published showed an increase in classification performance when inpainting sparse regions. 
-Here we displayed that even though we tested and trained on the same dataset, we saw small performance gains. We concluded the paper with that, if the test and training set are similar to each other, we can achieve better performance gain with hyperparameter optimisation rather than preprocessing with inpainting. 
-
+Here, we showed that even though we tested and trained on the same dataset, we saw small performance gains. We concluded the paper with that, if the test and training set are similar to each other, we can achieve better performance gain with hyperparameter optimisation rather than preprocessing with inpainting. 
 
 \paragraph{Unsupervised preprocessing to improve generalisation for medical image classification~\cite{Mathias2019IEEpaper}}
 The second paper presented at the ISMICT conference in Oslo, Norway expanded the work presented at the MediaEval conference in 2018.
 The presented result used an average of multiple runs instead of K-fold cross-reference, though we used the same datasets and transfer learning models.
-Here we saw similar results as the findings presented in this thesis, only less significant. The publication presents two hypothesises that bears resemblance to \ref{hyp:a} and \ref{hyp:b}. We conclude the publication by supporting both hypothesise.
+Here, we saw similar results as the findings presented in this thesis, only less significant. The publication presents two hypothesises that bears resemblance to \ref{hyp:a} and \ref{hyp:b}. We conclude the publication by supporting both hypothesises.
 
 
-
-
-
-
-\todo{Her bør du gjenta seksjon 1.5. Få også med en mer detaljert diskusjon om HYPOTESENE holder og hva svaret er på SPØRSMÅLENE (med underspørsmål) fra seksjon 1.2. Her må du henvise tilbake til problemstillingen og vise at du har løst oppgaven du har spesifisert. Igjen si at resultater er publisert.}
 
 
 \section{Future work}
-The work done in this thesis shows that there might be improvements when classifying images with non-perfect information. There is still much work that can be done, both to improve inpainting and classification, and to better understand the ´´black box'' that is machine learning. 
+The work done in this thesis shows that there might be improvements when classifying images with non-perfect information. There is still much work that can be done, both to improve inpainting and classification, and to better understand the ``black box'' that is machine learning. 
 
 \paragraph{Better performance GAN}
 Since the start of this project, there have been published multiple new papers concerning making realistic GANs including \cite{DBLP:journals/corr/abs-1809-11096} \cite{DBLP:journals/corr/abs-1812-04948}. As this is still a relatively new research field, there are still many improvements that could be done to make the models better.
-The best way to improve the GAN models is just to let them train longer. The latest model used to generate the inpainted dataset were running for approximately 40 hours, which is still away from reaching the best result. By using more time when training the models, we might achieve even better MCC when classifying the medical datasets.
-Another way that might improve the GAN is better utilisation of the channel-wise fully-connected layer. In this thesis, this layer was a quintessential part of the result we got, and by tweaking the layers might give even better results.
+The best way to improve the GAN models is just to let them train longer covering more data. The latest model used to generate the inpainted dataset were running for approximately 40 hours, here we believe that the model still did not reach the most optimal result. By using more time when training the models, we might achieve even better MCC when classifying the medical datasets.
+Another way that might improve the GAN is better utilisation of the channel-wise fully-connected layer. In this thesis, this layer was a quintessential part of the result we got, and tweaking the layers might give even better results.
 
 \paragraph{Looking into using the generated images for classification}
-The images generated by the GAN will most likely have features that are an essential part of the original image. If this is the same underlying features that are used in, for instance, DenseNet or Inceptionresnet we might not need to paste the inpainted area back into the original image.
+The images generated with the GAN algorithm will most likely have features that are an essential part of the original image. If this is the same underlying features that are used in, for instance, DenseNet or Inceptionresnet, we might not need to paste the inpainted area back into the original image. Instead, we might be able to use the output from the GAN without reverting a majority of the image back to its original form.
 Further research regarding the generator learning features from the different classes could show good results.
 Another promising aspect of this is to let the discriminator guess the class in addition to real and fake images. If that is the case, the generator needs to learn features that define the different classes. We can see from images like Figure \ref{fig:p_GAN_BOTH2} that this, to a case, is already happening without making an auxiliary GAN.
 In the end, the ability to compress the images with a GAN or AE might give us a new way to classify images.
@@ -100,6 +97,6 @@ We tested the option to remove text using an Optical Character Recognition (OCR)
 
 
 \paragraph{NASNetLarge}
-When we chose our general model for classification back in August 2018, we used InceptionResNetV2 as our model. Since then F. Chollet has added NASNetLarge~\cite{DBLP:journals/corr/ZophVSL17} to the list of transfer learning models. NASNetLarge has higher accuracy on the imagenet model and should possibly be the standard model for the classification.
+When we chose our general model for classification back in August 2018, we used InceptionResNetV2 as our model. Since then, F. Chollet has added NASNetLarge~\cite{DBLP:journals/corr/ZophVSL17} to the list of transfer learning models. NASNetLarge has higher accuracy on the imagenet model and should possibly be the standard model for the classification.
 
 
