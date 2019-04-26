@@ -358,8 +358,8 @@ We have also decided to use global average pooling as our pooling layer for both
 
 
 \subsection{Summary}
-We have, in this section, talked about how we want to use transfer learning to help with the classification. We have looked at the two main advantages with transfer learning, namely the time saved in training and the accuracy gained during evaluation. The advantages coupled with the fact of the widespread use of transfer learning makes it the best option for us, compared to regular classification.
- We then took the results from the SAGA tool made by Borgli et al. and used the most optimal network as our primary network in this thesis. 
+We have, in this section, talked about how we want to use transfer learning to help the classification process. We have looked at the two main advantages with transfer learning, namely the time saved in training and the accuracy gained during evaluation. The advantages coupled with the fact of the widespread use of transfer learning makes it the best option for us, compared to regular classification.
+We then took the results from the hyperparameter optimiser tool made by Borgli et al. and used the most optimal network as our primary network in this thesis. 
 In addition to the best network, based on hyperparameter optimisation, we used InceptionResNet as a secondary network for evaluation, reasoning that the use of a generally good network would yield a scenario closer to the real world.
 After a brief discussion about the composition of the networks, we concluded with the DenseNet model with global average pooling would yield the best result based on our datasets.
 
@@ -378,34 +378,34 @@ When doing machine learning, some of the most popular languages, in no particula
 Right now Python is the leading language for machine learning. Driven by this, there is considerable focus into making it faster, to compete with already fast languages, like the C family. 
 
 Python is an interpreted, high-level, general-purpose programming language created in 1991.   It, like many other modern languages, is object-oriented and supports functional programming. 
-Mainly because of the excellent support when it comes to machine learning, and the general "easy to use and no compiling" we have chosen python as the base for our code in this thesis. 
+Mainly because of the excellent support when it comes to machine learning, and the general "easy to use and no compiling" we have chosen Python as the base for our code in this thesis. 
 
 
 
 \subsection{Tensorflow}
-Arguably the biggest reason for the success of machine learning in python lies in Tensorflow~\cite{tensorflow2015-whitepaper}. Tensorflow is a machine learning package released by Google in November 2015 and has since then become the leading framework for machine learning worldwide~\cite{kaggle}.  
+Arguably the biggest reason for the success of machine learning in Python lies in Tensorflow~\cite{tensorflow2015-whitepaper}. Tensorflow is a machine learning package released by Google in November 2015 and has since then become the leading framework for machine learning worldwide~\cite{kaggle}.  
 Tensorflow is in use by companies like AMD, Twitter, eBay and Snapchat. 
 
 
-Tensorflow is today a multi-language tool, but it had its origin in python. It is just in later years that other languages have gotten tensorflow support.  
+Tensorflow is today a multi-language tool, but it had its origin in Python. It is just in later years that other languages have gotten Tensorflow support.  
 The data flows through a graph network, where the objects in the graph describe the mathematical operations used in the machine learning, and the edges between graphs are the multidimensional arrays storing the weights associated with the operation in question. The name Tensorflow is a combination of the flow we experience during calculation and the tensors between the mathematical operations. 
 
 As stated, Python, and subsequently machine learning in Python, would be much slower than a counterpart in C. Because of this, Tensorflow works as a layer of abstraction to code running in the C language. 
 In addition to the layer of abstraction, Tensoflow can do the computation using a graphical processing unit (GPU). Using a GPU for machine learning will often give a considerable speedup to the training, given that the GPU is designed with matrix multiplication in mind. This gives the GPU the option to easily calculate large chunks of the data in a fraction of the time.
 
-Other packages for machine learning like PyTorch~\cite{paszke2017automatic} and Microsofts CNTK~\cite{Seide:2016:CMO:2939672.2945397} would be other options, but as they are not as widespread. Because of the widespread usage, we have chosen to use Tensoflow as our primary machine learning package.
+Other packages for machine learning like PyTorch~\cite{paszke2017automatic} and Microsofts CNTK~\cite{Seide:2016:CMO:2939672.2945397} would be other options. Because of the widespread usage of Tensorflow, we have chosen it as our primary machine learning package.
 
 
 
 \subsection{Keras}
-One of the least attractive things with tensorflow is its unnecessary complexity.  Even though Tensorflow offers more abstraction compared to running the code in pure C, the Tensorflow library can be unnecessarily complex. As a result of this, many external libraries try to simplify many of the complexities that accompany tensorflow. 
-Libraries like TFlearn is a modular and transparent deep learning library on top of tensorflow. It gives a higher-level API to Tensoflow to reduce complexity and speed up experiments~\cite{tflearn2016}.
+One of the least attractive things with Tensorflow is its unnecessary complexity.  Even though Tensorflow offers more abstraction compared to running the code in pure C, the Tensorflow library can be unnecessarily complex. As a result of this, many external libraries try to simplify many of the complexities that accompany Tensorflow. 
+Libraries like TFlearn is a modular and transparent deep learning library on top of Tensorflow. It gives a higher-level API to Tensoflow to reduce complexity and speed up experiments~\cite{tflearn2016}.
 The most successful library for on top of Tensorflow is Keras~\cite{Keras.io}. 
-Just as TFlearn, Keras is a high-level package written in python. It is capable of running on top of TensorFlow, CNTK, or PyTorch, which is the tree most popular machine learning libraries at the time of writing.  Keras is made to be user-friendly, modular, easily extensible, and to work with python.
+Just as TFlearn, Keras is a high-level package written in Python. It is capable of running on top of TensorFlow, CNTK, or PyTorch, which is the tree most popular machine learning libraries at the time of writing.  Keras is made to be user-friendly, modular, easily extensible, and to work with Python.
 
 One of the core elements of Keras that makes it a better choice than just running, for instance, Tensorflow, is the concept of a model. A model in Keras is a way to organise the layers of the network in a more organised way, giving a better understanding of how the network is set up, and how each layer type contributes to the graph. 
 
-This thesis relies on Keras as a wrapper for tensorflow. As stated, the use of models and the simplicity of the language makes it an excellent choice of such a large project. Also, Keras has good support for convolutional operations which is the most used methods when managing images. Keras also has the most popular pretrained convolutional neural network models available in its package.
+This thesis relies on Keras as a wrapper for Tensorflow. As stated, the use of models and the simplicity of the language makes it an excellent choice of such a large project. Also, Keras has good support for convolutional operations which is the most used methods when managing images. Keras also has the most popular pretrained convolutional neural network models available in its package.
 
 
 
@@ -426,7 +426,7 @@ This problem extends to other types of generator networks where there are not su
 Even though this problem often is solved by compressing the network into a space that can not contain the information correctly, the network does not always learn the features that define the network. 
 
 We propose a custom ``channel-wise fully-connected layer'' in Keras to help with the problem of correctly learning features. This layer is based on the work done by Pathak et al. in their paper on context encoders~\cite{Pathak_2016}.
-The channel wise fully connected layer is primarily used in the GAN to transfer information within each feature map, without using convolutions to do it. As we recall, fully connected layers are often not suitable because of the large size of the weight layer associated with it. This layer is essentially a fully connected layer with groups, where the goal is to propagate the information within each feature map.
+The channel-wise fully-connected layer is primarily used in the GAN to transfer information within each feature map, without using convolutions to do it. As we recall, fully connected layers are often not suitable because of the large size of the weight layer associated with it. This layer is essentially a fully connected layer with groups, where the goal is to propagate the information within each feature map.
 Given the latent space of $n \times n$ with $m$ feature maps, by not connecting the feature maps together in the fully connected layer we achieve a parameter reduction from $m^2n^4$ to $mn^4$ (ignoring bias terms)~\cite{Pathak_2016}.
 With the ``channel-wise fully-connected layer'' the network can learn features from the entirety of the image, and not just local regions as it would with just convolutions. 
 Listing \ref{listing:CWDense} shows the source code used for the channel-wise fully-connected layer. The code is presented in the standard way Keras structure its layers. 
@@ -458,10 +458,10 @@ During this thesis, we have done multiple tests with this layer. In the datasets
 The default way of loading data into Keras is with the usage of the default generators provided by their library. The Keras.ImageDataGenerator() does an adequate job when loading images, though it had some shortcomings.
 Maskload and Setload are custom loaders we made for this thesis to get a more simple way of loading, augmenting, and storing images.
 
-Maskloader has the primary job of adding and removing masks from images. In addition to masking, it can flip and mirror the images. Maskloader can mask text in images, though at a timeframe not feasible for this thesis at a time up to two seconds per image. 
+Maskloader has the primary job of adding and removing masks from images. In addition to masking, it can flip and mirror the images. Maskloader can mask text in images, though at a timeframe not feasible for this thesis, at a time up to two seconds per image. 
 
 Setload is a library for loading a large number of images for training. In addition to loading images, we designed Setload to remove black borders from images if necessary. 
-We use morphological opening\footnote{Morphological opening is the dilation of the erosion of an image } to remove any nonblack pixels in the edges of the image that original from text added post-capture, which gives ut a clean cut as close to the ´´true'' image as possible. The Setload function defaults to normalise the images around zero. This normalisation is to stabilise both the GAN and AE.
+We use morphological opening\footnote{Morphological opening is the dilation of the erosion of an image } to remove any nonblack pixels in the edges of the image that original from text added post-capture, which gives us a clean cut as close to the ´´true'' image as possible. The Setload function defaults to normalise the images around zero. This normalisation is to stabilise both the GAN and AE.
 
 
 \subsection{Self Attention}
@@ -685,7 +685,7 @@ We made a decision regarding if inpainting of the test set were feasible, and de
 We looked at the need for a classification model to discern the results of our inpainting and decided to use transfer learning to represent a real-world scenario better.
 We looked into the two transfer learning models we use in this thesis, namely Densenet121 and InceptionResNetV2, and gave a brief overview of their similarities and differences.
 
-After a more conceptual view, we talked more about how we would achieve the experiments in practice.  Here we talked about why we chose python, tensorflow and keras, followed by custom functions needed for our machine learning algorithms. 
+After a more conceptual view, we talked more about how we would achieve the experiments in practice.  Here we talked about why we chose Python, Tensorflow and keras, followed by custom functions needed for our machine learning algorithms. 
 We ended the chapter with the description of the three models in practice.
 
  
