@@ -1,20 +1,18 @@
 With our background in both medical procedures and machine learning, we can now look at how we want to solve the problems associated with setting up a system for medical diagnosis.  
 We will first get a birds-eye view of the objective of this thesis, looking at the hypothesises presented in the introduction, and take a look into how we can test their validity. We look at the proposed program set up to test the hypothesises both for classification and generation.
-Then we look at the language and packages suitable for this project. We go in-depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. We end the chapter by presenting the program designed to test our problem statements.
+Then we look at the programming language and packages suitable for this project. We go in-depth into the reasoning behind why we chose the tools and packages that became the foundation of the programs. We end the chapter by presenting the program designed to test our problem statements.
 
 
 \section{Bird's Eye View}
 \label{cha:BEW}
 In the summary of the background chapter, we looked at two articles published by Pogorelov et al. and Hicks et al. where they discussed the effect of overfitting and the consequences of dataset-specific artefacts.
-To help solve these predicaments look back at the two hypothesises presented in section~\ref{cha:problemstatement}:
+To help solve these predicaments we look back at the two hypothesises presented in section~\ref{cha:problemstatement}:
 
 \vspace{2px}
 Hypothesis~\ref{hyp:a} stated that sparse information in the images made it harder to classify the images correctly. Figure \ref{fig:Saliencymasks} from Hicks's paper shows the case where the black areas with sparse information activates the classification map. As we can see, the black areas trigger as a ``positive'' in some om the saliency maps. We can interpret this as the network learning features not useful for the classification. 
 Our quest is to check the validity of hypothesis \ref{hyp:a}. We propose to test the classification of images with and without areas with sparse information by inpainting the images.
 
-
-\vspace{5px}
-Hypothesis~\ref{hyp:b} stated that dataset specific artefacts create false positives and negatives. This error is clearly shown in \ref{fig:sal2}, where the classification is affected by the green square in the image. 
+Hypothesis~\ref{hyp:b} stated that dataset specific artefacts create false positives and false negatives. This error is clearly shown in \ref{fig:sal2}, where the classification is affected by the green square in the image. 
 As long as the classification is affected by dataset specific artefacts, the ability to adapt the dataset to new use cases might suffer.  
 
 
@@ -74,8 +72,7 @@ As long as the classification is affected by dataset specific artefacts, the abi
 
 We note that \ref{hyp:a} concerns both training and testing on the same dataset, while \ref{hyp:b} is more concerned about the generalisability of the model, and hence the goal is to use different datasets for training and testing, as well as testing on the training set. 
 
-
-To test the two hypotheses, we first need new datasets to compare against a base case. In addition to the dataset with sparse information and dataset-specific artefacts, we need similar looking datasets without these unwanted features. In an ideal scenario, we would have the same dataset without the features added post-capture. 
+To test the two hypotheses, we first need new datasets to compare against our base case dataset. In addition to the dataset with sparse information and dataset-specific artefacts that we already have, we need similar looking datasets without these unwanted features. In an ideal scenario, we would have our base dataset without the features added post-capture, though we do not have this luxury.  
 
 In the real world, gathering labelled data is often both a challenging and expensive task. In this thesis, we have decided to focus our attention at modifying existing data instead of finding new data. 
 We propose to use unsupervised machine learning to inpaint the areas with dataset specific artefacts as well as sparse areas. We then propose a transfer learning network to classify the newly created images. 
@@ -83,9 +80,9 @@ We propose to use unsupervised machine learning to inpaint the areas with datase
 
 \section{Design of the Inpainting Algorithms}
 
-We first want to set up a platform where every dataset is made with the same parameters, except for the dataset-specific parameters that define the dataset. 
-When generating the datasets, we use the Kvasir dataset~\cite{Pogorelov:2017:KMI:3083187.3083212} as the training set, as Hicks et al. did in their paper on removing dataset specific artefacts~\cite{25956}. In addition, we use datasets without the artefacts for testing.
-This selection of image sources was made intentionally to have a fundamentally different test and training set, and the more differences between testing and training set the more of an indication of generalisation. 
+Our main goal to test the significance of dataset-specific artefacts need a platform where we can create new datasets without unwanted features, based on the datasets we provide.
+When generating the datasets, we use the Kvasir dataset~\cite{Pogorelov:2017:KMI:3083187.3083212} as the training set, as Hicks et al. did in their paper on removing dataset specific artefacts~\cite{25956}. In addition to the Kvasir dataset, we use the CVC datasets~\cite{CVC} for testing, as they are without the same type artefacts.
+This selection of the dataset sources was made intentionally to have a fundamentally different test and training set. With a greater difference between testing and training we believe it is a more meaningful indication of generalisation. 
 
 Figure \ref{fig:KvasirAnomaliesFIX} shows two different image types from the Kvasir dataset. 
 Figure \ref{fig:LargeLeftBlack} shows an image of esophagitis. This image shows one of the main problems with the Kvasir dataset when it comes to artefacts. In addition to the cut corners, we have an extra wide area to the left of the image containing non-relevant information like name, sex, and other comments. This area gives us ample opportunity to test hypothesis \ref{hyp:a}, given that the image contains a large amount of sparse information that we want to remove to see the effect on classification. 
@@ -136,7 +133,7 @@ The most straightforward experiment to conduct is to test how the removal of the
 As we propose in hypothesis \ref{hyp:a}, we believe that this masking can help giving the classifier fewer areas with non-relevant information.
 Figure \ref{fig:CornerMask} shows the mask used to inpaint the corners.
 
-As we recall from section \ref{cha:endocolo}, the black edges around the images in our datasets is also, in general, present in medical colonoscopy images. By removing the black corners around the image, we do not change \textit{Kvasir specific} artefacts, but according to our first hypothesis, we believe we will get a higher classification accuracy since this removes areas with sparse information.
+As we recall from section \ref{cha:endocolo}, the black borders around the images in our datasets are present in medical colonoscopy images in general. By removing the black corners around the image, we do not change \textit{Kvasir specific} artefacts, but according to our first hypothesis, we believe we will get a higher classification accuracy since this removes areas with sparse information.
 
 When classifying images during the testing stage, we need to take inpainting during training into account. 
 \begin{enumerate}
@@ -207,8 +204,8 @@ With the three masks discussed, we now want to present the generative modelling 
 We have chosen to use the two generative models presented in section \ref{cha:Explaining_autoencoders} and in section \ref{cha:Explaining_GANS}, namely Autoencoders and GANs.
 
 
-As we recall from section \ref{cha:Explaining_autoencoders} the autoencoder and GAN\footnote{It is necessary to mention that regular GANs does not use a ground truth when training, though our modified GAN do.} networks both use a ground truth when training.
-When training we need images that are already inpainted as a reference point. We solve this by zooming in the images to the limit that the edges are gone, as shown in figure \ref{fig:CornerMask}. When removing the dataset-specific features, we have the luxury that not all images contain the green square, giving us ample data for training after the images are sorted.
+As we recall from section \ref{cha:Explaining_autoencoders} the autoencoder and GAN\footnote{It is necessary to mention that regular GANs does not use a ground truth when training, though our modified GAN does use a MSE loss weighted to 1\% in addition to the adversarial loss weighted at 99\%.} networks both use a ground truth when training.
+When training, we need images that are already inpainted as a reference point. We solve this by zooming in the images to the limit that the edges are gone, as shown in figure \ref{fig:CornerMask}. When removing the dataset-specific features, we have the luxury that not all images contain the green square, giving us ample data for training after the images are sorted.
 By removing the corners by zooming and by using images without artefacts during training, we have images where we know the whole ground truth, giving us the option to use MSE for backpropagation.
 
 
@@ -281,11 +278,13 @@ In addition to an optimal model, we have chosen to use InceptionResNetV2~\cite{D
 
 
 \subsection{Models}
-The models used in the evaluation of our results are fundamentally different from one another, and to better understand the results we give a short introduction of both pretrained networks. 
+
+Though the two models we use for our evaluation have some similar aspects, they have relatively different methods for feature learning.
+To get a better understanding of our results we give a  short introduction of both pretrained networks. 
 
 \paragraph{Inception Residual Network architecture }
-We can often see performance gains in our network architectures when we increase the size of the network. To increase the size, we can either increase the depth of the network, i.e. the number of layers, or we can increase the width of the network, i.e. increase the number of units per layer. Both methods are often easy to implement, but it often comes with the drawback of either increasing the number of parameters to train, which can result in overfitting, or it can result in the computation time of the network to increase to an undesirable length.
-To find a balance between accuracy and memory is often a hard task when it comes to not only medical images but images in general.
+We can often see performance gains in our neural networks when we increase their size. To increase the size, we can either increase the depth of the network, i.e. the number of layers, or we can increase the width of the network, i.e. increase the number of units per layer. Both methods are often easy to implement, but it often comes with the drawback of either increasing the number of parameters we need to train, which can result in overfitting, or it can result in the computation time of the network to increase to an undesirable length.
+To find a balance between accuracy and memory is often a hard task, and it has been a central aspect of classification challenges like the imagenet challenge~\cite{imagenet}. 	
 
 Szegedy et al. presented an architecture for the imagenet challenge with the intention of reducing the computational cost of training large neural networks by decreasing the number of parameters~\cite{DBLP:journals/corr/SzegedyLJSRAEVR14}. 
 The network presented, GoogLeNet, used inception modules to reduce the computational cost.  Inception modules (networks within networks) tries to answer the question of witch convolution is the correct for each layer. Often it is up to the network architect to decide this, but with inception modules, the network chooses for itself. 
@@ -339,7 +338,7 @@ In the DenseNet model, all layers are connected in a way to ensure the maximum f
 \subsection{Pooling and Freezing}
 The pretrained networks were initially trained for the 1000 classes in the imagenet dataset. Without modifying the network, it would output one of the 1000 classes when confronted with an image. In this thesis, this is not desirable since none of the original classes is usable for medical image classification~\cite{imagenet_cvpr09,imagenet}.
 When we introduce our pretrained network, we cut the last two layers from the model and introduce a pooling layer instead.
-The two layers cut are the fully connected layer with 1000 nodes, and a softmax layer (The Purple and The Red blocks at the right side of the networks in Figure \ref{fig:IRV2} \& \ref{fig:DN})
+The two layers cut are the fully connected layer with 1000 nodes, and a softmax layer (The Purple and The Red blocks at the right side of the networks in Figure \ref{fig:IRV2} \& \ref{fig:DN}).
 As we recall from section \ref{cha:pool}, it is common in the practice of transfer learning to add a pooling followed by a fully connected layer and a softmax layer as a substitute for the original layers removed.  The pooling can either be average or max pooling, and we have the option of using global or local pooling. 
 
 Another prominent way to improve the performance of transfer learning is freezing the layers in the model. When we freeze a layer, we lock the weights of the layer making it not trainable.
@@ -360,7 +359,7 @@ We have also decided to use global average pooling as our pooling layer for both
 \subsection{Summary}
 We have, in this section, talked about how we want to use transfer learning to help the classification process. We have looked at the two main advantages with transfer learning, namely the time saved in training and the accuracy gained during evaluation. The advantages coupled with the fact of the widespread use of transfer learning makes it the best option for us, compared to regular classification.
 We then took the results from the hyperparameter optimiser tool made by Borgli et al. and used the most optimal network as our primary network in this thesis. 
-In addition to the best network, based on hyperparameter optimisation, we used InceptionResNet as a secondary network for evaluation, reasoning that the use of a generally good network would yield a scenario closer to the real world.
+In addition to the best network, based on hyperparameter optimisation, we used InceptionResNetV2 as a secondary network for evaluation, reasoning that the use of a generally good network would yield a scenario closer to the real world.
 After a brief discussion about the composition of the networks, we concluded with the DenseNet model with global average pooling would yield the best result based on our datasets.
 
 
@@ -374,7 +373,7 @@ In this section, we will discuss the foundation of our code, important external 
 We first discuss the programming language in question, give insight into the reasoning behind it. Then we will look into the framework used for machine learning, and in detail how it implemented in our programming language. Lastly, we look into the wrapper we use to get a higher level of abstraction over our code, together with custom functions that are in use by our wrapper. 
 
 \subsection{Python}
-When doing machine learning, some of the most popular languages, in no particular order, are Python, Java, R, C++, SQL, and C \cite{kaggle}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base and user-friendliness. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
+When doing machine learning, some of the most popular languages, in no particular order, are Python, Java, R, C++, and C \cite{kaggle}. Some of these languages, like C and C++, are chosen for their speed, which is often a significant factor in Machine learning. Other languages, like R, is chosen because of its integration into the scientific community long before machine learning became a trend. The last group, consisting of Java and Python has gained popularity because of its already big user base and user-friendliness. Python is also the winner when it comes to machine learning because of, like R, its integration into the scientific community. 
 Right now Python is the leading language for machine learning. Driven by this, there is considerable focus into making it faster, to compete with already fast languages, like the C family. 
 
 Python is an interpreted, high-level, general-purpose programming language created in 1991.   It, like many other modern languages, is object-oriented and supports functional programming. 
@@ -393,7 +392,7 @@ The data flows through a graph network, where the objects in the graph describe 
 As stated, Python, and subsequently machine learning in Python, would be much slower than a counterpart in C. Because of this, Tensorflow works as a layer of abstraction to code running in the C language. 
 In addition to the layer of abstraction, Tensoflow can do the computation using a graphical processing unit (GPU). Using a GPU for machine learning will often give a considerable speedup to the training, given that the GPU is designed with matrix multiplication in mind. This gives the GPU the option to easily calculate large chunks of the data in a fraction of the time.
 
-Other packages for machine learning like PyTorch~\cite{paszke2017automatic} and Microsofts CNTK~\cite{Seide:2016:CMO:2939672.2945397} would be other options. Because of the widespread usage of Tensorflow, we have chosen it as our primary machine learning package.
+Other packages for machine learning like PyTorch~\cite{paszke2017automatic} and Microsofts CNTK~\cite{Seide:2016:CMO:2939672.2945397} would be alternative options. Because of the widespread usage of Tensorflow, we have chosen it as our primary machine learning package.
 
 
 
@@ -428,7 +427,7 @@ Even though this problem often is solved by compressing the network into a space
 We propose a custom ``channel-wise fully-connected layer'' in Keras to help with the problem of correctly learning features. This layer is based on the work done by Pathak et al. in their paper on context encoders~\cite{Pathak_2016}.
 The channel-wise fully-connected layer is primarily used in the GAN to transfer information within each feature map, without using convolutions to do it. As we recall, fully connected layers are often not suitable because of the large size of the weight layer associated with it. This layer is essentially a fully connected layer with groups, where the goal is to propagate the information within each feature map.
 Given the latent space of $n \times n$ with $m$ feature maps, by not connecting the feature maps together in the fully connected layer we achieve a parameter reduction from $m^2n^4$ to $mn^4$ (ignoring bias terms)~\cite{Pathak_2016}.
-With the ``channel-wise fully-connected layer'' the network can learn features from the entirety of the image, and not just local regions as it would with just convolutions. 
+With the channel-wise fully-connected layer the network can learn features from the entirety of the image, and not just local regions as it would with just convolutions. 
 Listing \ref{listing:CWDense} shows the source code used for the channel-wise fully-connected layer. The code is presented in the standard way Keras structure its layers. 
 
 %\begin{minipage}{\linewidth}
@@ -455,13 +454,13 @@ During this thesis, we have done multiple tests with this layer. In the datasets
 
 
 \subsection{Masklaod and Setload}
-The default way of loading data into Keras is with the usage of the default generators provided by their library. The Keras.ImageDataGenerator() does an adequate job when loading images, though it had some shortcomings.
+The most common way of loading data into Keras is with the usage of the default generators provided by their library. The Keras.ImageDataGenerator() does an adequate job when loading images, though it had some shortcomings.
 Maskload and Setload are custom loaders we made for this thesis to get a more simple way of loading, augmenting, and storing images.
 
 Maskloader has the primary job of adding and removing masks from images. In addition to masking, it can flip and mirror the images. Maskloader can mask text in images, though at a timeframe not feasible for this thesis, at a time up to two seconds per image. 
 
 Setload is a library for loading a large number of images for training. In addition to loading images, we designed Setload to remove black borders from images if necessary. 
-We use morphological opening\footnote{Morphological opening is the dilation of the erosion of an image } to remove any nonblack pixels in the edges of the image that original from text added post-capture, which gives us a clean cut as close to the ´´true'' image as possible. The Setload function defaults to normalise the images around zero. This normalisation is to stabilise both the GAN and AE.
+We use morphological opening\footnote{Morphological opening is the dilation of the erosion of an image } to remove any nonblack pixels in the edges of the image that original from text added post-capture, which gives us a clean cut as close to the ``true'' image as possible. The Setload function defaults to normalise the images around zero. This normalisation is to stabilise both the GAN and AE.
 
 
 \subsection{Self Attention}
@@ -515,7 +514,7 @@ The masked loss showed a considerable increase in stability during training, but
 \section{Stabilising the GAN}
 Before we ended up with the model we used in the thesis we ran multiple experiments to make the generative adversarial network stable for training.  In contrast to the autoencoder, the GAN does not use the ground truth as a reference point. Where the autoencoder always has a gradient based on the input data, the generator in the GAN gets its learning gradient from another network.
 
-This lack of a ground truth gives the GAN many pitfalls that cause the training process to crash \footnote{Crashing is not the right word to use, but the result is the same: The learning process stops.}.
+This lack of a ground truth gives the GAN many pitfalls that cause the training process to crash\footnote{Crashing is not the right word to use, but the result is the same: The learning process stops.}.
 
 
 \paragraph{Normalise the inputs}
@@ -550,7 +549,7 @@ The removal of the tanh layer meant that the pixel values could be arbitrary on 
 
 
 \paragraph{Avoiding residual and inception layers}
-When training the GAN, experiments show that the usage of both residual \cite{Rumelhart:1986:LIR:104279.104293} and inception \cite{DBLP:journals/corr/SzegedyLJSRAEVR14} models do not contribute to a good result when training the GAN.
+When training the GAN, experiments show that the usage of both residual \cite{Rumelhart:1986:LIR:104279.104293} and inception \cite{DBLP:journals/corr/SzegedyLJSRAEVR14} models do not contribute to a better result.
 
 We recall that residual modules primary strength is that they always send the image/signal throughout the network in addition to the standard layers, making the gradient flow better at the start of the network. 
 This modification to the original image might seem reasonable when it comes to inpainting, but in reality, this does not work.  Given an image where we want to change only the inpainted area, the image is about 80\% unchanged. The network could focus on just filling in the inpainted area in theory, but in practice, the network tries to change the rest of the image in addition to the square. This incorrect inpainting gives us a generator that changes too much of the image and a discriminator that does not learn any essential features since the input and output are relatively similar from the start.
@@ -636,8 +635,6 @@ Upsampling consisted of upsampling in the same way as in the autoencoder, follow
 We have in section \ref{cha:classifier} gone in-depth into the two desired networks used in this thesis.  Our main objective when making a classifier is to make a system that is robust, reliable and has the option to be modular. 
 We built the classifier to gather the same information as shown in Figure \ref{fig:KTLmodel}, meaning we first specify the desired network (VGG~\cite{simonyan2014very}, DenseNet~\cite{DBLP:journals/corr/HuangLW16a}, or Mobilenet~\cite{DBLP:journals/corr/HowardZCKWWAA17}), then we specify the optimiser (NAdam, Adam, RMSprop or SGD).
 After the network and optimiser are chosen, the network takes information about the dataset related parameters; batch size, K-folds, Patience, and epochs.
-
-when all variables are determined, the networks train for the desired amount of time for each of the datasets provided.
 
 \begin{table}[h]
 \begin{center}

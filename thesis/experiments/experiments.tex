@@ -9,8 +9,8 @@ In this thesis, we primarily use three datasets to train and evaluate our result
 
 \subsection{Kvasir}
 Kvasir is a Multi-Class Image Dataset for Computer Aided Gastrointestinal Disease Detection made in Norway~\cite{Pogorelov:2017:KMI:3083187.3083212}. The data is gathered from the Vestre Viken Health Trust, and it contains not only polyps but also two other findings, two classes related to polyp removal and three anatomical landmarks in the GI tract.
-The dataset contains the eight classes mentioned above with 1000 samples for each of them.  In the Kvasir dataset, we have primarily two dataset specific artefacts and one artefact often seen in colonoscopy images. The first two artefacts are text and the green box in the lower left corner. The last artefact is the rounded edges; this kind of frame is a shared feature between all three datasets.
-Over 60\% of the dataset contains images with text, and text is represented in all classes. The text is located on the left side of the images, and it is always white.
+The dataset contains the eight classes mentioned above with 1000 samples for each of them.  In the Kvasir dataset, we have primarily two dataset-specific artefacts and one artefact often seen in colonoscopy images. The first two artefacts are text and the green box in the lower left corner. The last artefact is the rounded edges; this kind of frame is a shared feature between all three datasets.
+Over 60\% of the dataset contains images with text, and text is present in all classes. The text is located on the left side of the images, and it is always white.
 The green square is present in 38\% of the images but only in 5 of the classes. Figure \ref{fig:Kvasir} shows a sample with images from each class. The classes with images containing green squares are also the same images that contain green squares in the figure.
 As we can see in Figure \ref{fig:Kvasir} all images got the rounded corners.
 
@@ -21,11 +21,11 @@ The goal of the datasets is to cover all different scenarios that a given suppor
 The CVC datasets are publicly available datasets from the CVCVideoClinicDB database.
 
 In the CVC 356 dataset, we have 356 video-frames originating from the polyp class, and 1928 frames originating from the non-polyp class. 
-In general, the video-frames from the non-polyp class are more identical to each other, meaning the video is from the same place in the GI tract, given that there are more films from areas without polyps than with them. 
-Given that 85 \% of the images originate from a small subset of videos, it is likely straightforward to overfit any model trained on this dataset.
+In general, the video-frames from the non-polyp class are more alike to each other, meaning the video is from the same place in the GI tract, given that there are more films from areas without polyps than with them. 
+Given that 85 \% of the images originate from a small subset of videos, it is likely easy to overfit any model trained on this dataset.
 
 
-The CVC 12k dataset has many of the same problems as the CVC dataset as many of the images are identical to each other. One of the most substantial issues with the CVC 12k  that makes it a worse set compared to the CVC 356 dataset is the fact that the polyp in question can almost be outside of the frame of the image during capture, meaning that there is no polyp in the image in an image classified as a polyp. Because of the numerous misclassifications in the CVC 12k dataset, we can never achieve a perfect score.
+The CVC 12k dataset has many of the same problems as the CVC dataset as many of the images are identical to each other. One of the most substantial issues with the CVC 12k  that makes it a worse set compared to the CVC 356 dataset is the fact that the polyps image can almost be outside of the frame during capture, meaning that there are images without polyps that are classified as a polyp image. Because of the numerous misclassifications in the CVC 12k dataset, we can never achieve a perfect score.
  
 
 
@@ -214,7 +214,7 @@ If the procedure did not eradicate the polyp, the residual polyp tissue might le
     %=============================================
 \FloatBarrier
 \section{Metrics}
-To discern the results of our experiments we introduce multiple metrics and tables to get an indication of our success. The primary dataset we used for training, Kvasir, was split into k number of folds, using k-fold cross-validation.  K-fold cross-validation is a tool used in statistics and machine learning to help to get an accurate representation of the data based on finding a statistical average of the dataset.  In machine learning, it is a powerful tool that can help with adapting to new datasets and prevent overfitting.  We recall that the Kvasir dataset contains 8000 images, with 1000 of each class.
+To discern the results of our experiments we introduce multiple metrics and tables to get an indication of our success. The primary dataset we used for training, Kvasir, was split into k number of folds, using k-fold cross-validation. K-fold cross-validation is a tool used in statistics and machine learning to help to get an accurate representation of the data based on finding a statistical average of the dataset.  In machine learning, it is a powerful tool that can help with adapting to new datasets and prevent overfitting.  We recall that the Kvasir dataset contains 8000 images, with 1000 of each class.
 In our testing, we split the dataset up in k=6 folds. This split means that we split our dataset into six pieces before training.  With the six folds, we assign one of them as a test set, and we assign the four other for training and validation. We then train our data five times, using four folds for training and the last fold for validation during training. For each training run, we rotate the validation set, so each of the five folds is used for validation once.
 
 
@@ -226,7 +226,7 @@ In our testing, we split the dataset up in k=6 folds. This split means that we s
 \label{fig:KfoldKvasir}
 \end{figure}
 
-The advantage of using K-fold cross-validation is that we maximise the utility of the dataset. We find the distribution of the dataset that hopefully covers the most significant range of the unseen data. 
+The advantage of using k-fold cross-validation is that we maximise the utility of the dataset. We find the distribution of the dataset that hopefully covers the most significant range of the unseen data. 
 
 \subsection{The confusion matrix}
 With k-fold cross-validation, we end up with the dataset that scored the highest during the final validation step.  There are multiple ways to calculate metrics for how well a dataset is doing,  but they all are a comparison of the predicted class versus the true class.  
@@ -263,9 +263,9 @@ The most common way to store these value pairs is to use a confusion matrix.  We
 
 
 
-After we have initialised the confusion matrix, we add each value pair as to the matrix at its corresponding position.  
-Given the pair $\begin{bmatrix} 3 & 5 \end{bmatrix}$ we add one to the position corresponding to (x=3,y=5). 
-Another example could be given the pair where we guessed class 0 and the true class was 0:  $\begin{bmatrix}  0 & 0 \end{bmatrix}$, we add one to the matrix at position (x=0,y=0). With the two examples we get the following confusion matrix as shown in Figure \ref{mat:nonemptyCM}
+After we have initialised the confusion matrix, we add each value pair to the matrix at its corresponding position.  
+Given the pair $\begin{bmatrix} 3 & 5 \end{bmatrix}$ we increment the number at the position corresponding to (x=3, y=5), changing it from 0 to 1. 
+Another example could be given the pair where we guessed class 0 and the true class was 0:  $\begin{bmatrix}  0 & 0 \end{bmatrix}$. Here, we increment the matrix at position (x=0, y=0) from 0 to 1. With the two examples we get the following confusion matrix as shown in Figure \ref{mat:nonemptyCM}
 
 \begin{figure}[h]
     \myfontsize
@@ -957,7 +957,7 @@ The transfer learning network chosen is loaded with the imagenet weights. With t
 
 With the model loaded we complete it by adding the desired optimiser, and set parameters like batch size, learning rate, validation patience, and image size.
 
-As described, we increase our confidence in our results by using K-fold cross-validation. This method ensures a realistic result using the theoretically best model for the task. 
+As described, we increase our confidence in our results by using k-fold cross-validation. This method ensures a realistic result using the theoretically best model for the task. 
 When we are looking at the models, we use the base case results as a reference point improve upon. This base case is the result of a standard run of classification without any inpainting.
 
 
@@ -1983,7 +1983,7 @@ We have, compared to the base case, a 76\% increase in MCC score, from 0.42 to 0
 This increase shows that there might be some viability to do more inpainting when training a model for unseen data.
 In addition to getting the highest score for evaluation, we also got one of the lowest scores too. 
 The main difference in score is most likely the result of the precision of the autoencoder being much lower than the precision of the GAN.
-The difference in score can also be the result of variation within the K-fold transfer learning.
+The difference in score can also be the result of variation within the k-fold transfer learning.
 Based on previous research done by us we have shown that this method had the highest standard deviation for both generator models followed by the base case~\cite{Mathias2019IEEpaper}.This can indicate that we should not rely on the result given its high variance. 
 
 
