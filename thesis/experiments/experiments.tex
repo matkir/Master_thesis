@@ -3,13 +3,13 @@ In this chapter, we will start with the description of the datasets used on the 
 Finally, for each model, we will evaluate it for the datasets we have presented.
 
 \section{Datasets}
-To show and explain the experiments, we need to look at the datasets we have to evaluate our results. 
-In this thesis, we primarily use three datasets to train and evaluate our results. Here we will look at the different datasets. We will comment on similarities and differences. 
+Before we present our results, we first need to take a closer look at the datasets used for training and evaluation.
+In this thesis, we primarily use one dataset for training and two other datasets for the evaluation of our results. Here we will look at the three different datasets, and we will comment on similarities and differences. 
 
 
 \subsection{Kvasir}
 Kvasir is a Multi-Class Image Dataset for Computer Aided Gastrointestinal Disease Detection made in Norway~\cite{Pogorelov:2017:KMI:3083187.3083212}. The data is gathered from the Vestre Viken Health Trust, and it contains not only polyps but also two other findings, two classes related to polyp removal and three anatomical landmarks in the GI tract.
-The dataset contains the eight classes mentioned above with 1000 samples for each of them.  In the Kvasir dataset, we have primarily two dataset-specific artefacts and one artefact often seen in colonoscopy images. The first two artefacts are text and the green box in the lower left corner. The last artefact is the rounded edges; this kind of frame is a shared feature between all three datasets.
+The dataset contains the eight classes mentioned above with 1000 samples for each of them.  In the Kvasir dataset, we have primarily two dataset-specific artefacts, that is, Kvasir is the only set with a map in the lower left corner, and it is the only dataset with text. Another artefact present in the Kvasir dataset is the rounded edges, though this kind of border is a shared feature between all three datasets.
 Over 60\% of the dataset contains images with text, and text is present in all classes. The text is located on the left side of the images, and it is always white.
 The green square is present in 38\% of the images but only in 5 of the classes. Figure \ref{fig:Kvasir} shows a sample with images from each class. The classes with images containing green squares are also the same images that contain green squares in the figure.
 As we can see in Figure \ref{fig:Kvasir} all images got the rounded corners.
@@ -21,7 +21,7 @@ The goal of the datasets is to cover all different scenarios that a given suppor
 The CVC datasets are publicly available datasets from the CVCVideoClinicDB database.
 
 In the CVC 356 dataset, we have 356 video-frames originating from the polyp class, and 1928 frames originating from the non-polyp class. 
-In general, the video-frames from the non-polyp class are more alike to each other, meaning the video is from the same place in the GI tract, given that there are more films from areas without polyps than with them. 
+In general, the video-frames from the non-polyp class are more alike to each other, meaning the video is from the same place in the GI tract, given that there are more film from areas without polyps than with them. 
 Given that 85 \% of the images originate from a small subset of videos, it is likely easy to overfit any model trained on this dataset.
 
 
@@ -34,7 +34,7 @@ The CVC 12k dataset has many of the same problems as the CVC dataset as many of 
 
 \iffalse
 
-\subsection{kvasir}
+\subsection{Kvasir}
 
 
 As we recall from the introduction chapter, oesophagal, stomach and colorectal cancer accounts for about 2.8 million new cases and 1.8 million deaths per year, and this number is increasing as the population gets older.   With automatic detection of diseases by use of computers being prominent, but a still unexplored field of research the dataset Kvasir was made.
@@ -351,7 +351,7 @@ ACC=\frac{TP+TN}{TP+TN+FP+FN}
 Recall is the probability of detection, often called sensitivity.
 This metric is a measure of the fraction of relevant instances that have been retrieved over the total amount of relevant instances for a binary classification example. It is calculated using equation \ref{eq:REC}.
 
-Recall together with Specificity and Precision gives a complete view of the data compared to for instance accuracy alone. This difference is shown when we have uneven datasets. Given a dataset where we know that only 1\% of the data is negative, we will get an accuracy of 99\% if we label all the data as positive. When adding recall, specificity and precision, our score will reflect that we mislabeled all the negative values.
+Recall together with Specificity and Precision give a complete view of the data compared to for instance accuracy alone. This difference is shown when we have uneven datasets. Given a dataset where we know that only 1\% of the data is negative, we will get an accuracy of 99\% if we label all the data as positive. When adding recall, specificity and precision, our score will reflect that we mislabeled all the negative values.
 %\todo{ "Detector Performance Analysis Using ROC Curves – MATLAB & Simulink Example". www.mathworks.com. Retrieved 11 August 2016.}
 \begin{equation}
 REC=\frac{TP}{TP+FN}
@@ -412,7 +412,7 @@ MCC=\frac{TP \times TN - FP \times FN}{\sqrt{(TP + FP)(TP + FN)(TN + FP)(TN + FN
 
 \subsection{Singleclass vs Multiclass Metrics}
 
-The metrics presented are, in general, a solid way to present the validity of a model. However, not all metrics presented is the same when switching between single and multiclass classification.  Metrics like Accuracy is designed to work for multiclass classification, given that there is only one way to calculate the score as shown in either equation \ref{eq:ACC} or in equation \ref{eq:ACCalt}.
+The metrics presented are, in general, a solid way to present the validity of a model. However, not all metrics presented are the same when switching between single and multiclass classification.  Metrics like Accuracy is designed to work for multiclass classification, given that there is only one way to calculate the score as shown in either equation \ref{eq:ACC} or in equation \ref{eq:ACCalt}.
 \begin{equation}
 \frac{\sum (diag(Covarience Matrix))}{\sum(Covariance Matrix)}
 \label{eq:ACCalt}
