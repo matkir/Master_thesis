@@ -995,13 +995,12 @@ To prevent the network of reaching 20 epochs we have chosen validation patience 
 In addition to the number of epochs trained we divided Kvasir into six folds. Based on the six folds we got 1333 images for both validation and testing, while we use the majority of the images for training. A smaller fold would leave the training with too little data, and hence we could not expect as good of a result. A higher number of folds would increase the number of training runs substantially, since we are training on 14 different datasets.
 
 Finally, the batch size was decided to be the highest number that did not give any memory issues.  We believe that a batch size of 24 is well within the scope of reality.
-
 \FloatBarrier
 \subsection{Densenet121 Base Model}
 We present the results from the Densenet121 network in table \ref{fig:results_DN121_base}.
 This table shows the base case result with the Densenet121 model, meaning the unaugmented dataset. 
 
-\begin{figure}
+\begin{figure}[h]
 %\caption{Densenet121 Base results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -1143,10 +1142,10 @@ Though the accuracy were 65\%, this model most likely did not learn the essentia
 
 
 \subsection{Densenet121 Corners Inpainted}
-Based on Hypothesis \ref{hyp:a} we would expect the act of inpainting the corner in the images to give Kvasir a higher score compared to the baseline. Also, we should see improvement in both CVC 356 and CVC 12k.
-We present the dataset created by the  GAN followed by the dataset created by the Autoencoder evaluated with the Densenet121 model.
+Based on Hypothesis \ref{hyp:a} we would expect the act of inpainting the corner in the images to give Kvasir a higher score compared to the baseline. Also, we expect to see improvement in both CVC 356 and CVC 12k.
+We present the dataset created by the GAN followed by the dataset created by the Autoencoder evaluated with the Densenet121 model.
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{Densenet121 Inpainted corners with the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -1262,7 +1261,7 @@ H&  0 & 0 & 0 & 2 & 0 & 0 & 1 & 159\\
 
 
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{Densenet121 Inpainted corners with the AE results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -1377,12 +1376,12 @@ H&  0 & 0 & 0 & 3 & 0 & 0 & 3 & 162\\
 
 
 %
-\noindent Figure \ref{fig:results_DN121_GAN_CORNER} and \ref{fig:results_DN121_AE_CORNER} show the evaluation of the test set on each of the three datasets made by both the Autoencoder and GAN. 
+\noindent Figure \ref{fig:results_DN121_GAN_CORNER} and \ref{fig:results_DN121_AE_CORNER} show the evaluation of the test set on each of the three datasets made by both the GAN and Autoencoder. 
 
 \paragraph{CVC 356}
 We got the highest MCC from the Autoencoder with a score of 0.56 compared to a score of 0.31 from the GAN.
 In general, the Autoencoder has a higher score overall compared to the GAN, where the Autoencoder reaches a higher score than the base case, and the GAN does not.
-This difference indicates that the way the Autoencoder inpaints sparsly covered areas gives an edge in this use case. 
+This difference indicates that the way the Autoencoder inpaints sparsely covered areas give an edge in this use case. 
 
 
 \paragraph{The Kvasir}
@@ -1397,16 +1396,6 @@ The MCC scores for the GAN and Autoencoder both reaches a higher value than the 
 
 
 
-
-
-
-
-
-
-
-
-
-
 \subsection{Densenet121 Green Square Inpainted}
 
 
@@ -1415,7 +1404,7 @@ In this experiment, we expect the Kvasir dataset not show any improvements, thou
 We present the dataset created by the GAN followed by the dataset created by the Autoencoder and evaluate their performance with the Densenet model together.
 
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{Densenet121 Inpainted green square with the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -1527,11 +1516,10 @@ H&  0 & 0 & 0 & 2 & 0 & 0 & 4 & 162\\
 \label{fig:results_DN121_GAN_SQUARE}
 %\advance\rightskip-1.5cm
 \end{figure}
-\FloatBarrier
 
 
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{Densenet121 Inpainted green square with the AE results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -1645,7 +1633,7 @@ H&  0 & 0 & 0 & 3 & 0 & 0 & 3 & 162\\
 %\advance\rightskip-1.5cm
 \end{figure}
 
-\noindent Figure \ref{fig:results_DN121_GAN_SQUARE} and \ref{fig:results_DN121_AE_SQUARE} show the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
+Figure \ref{fig:results_DN121_GAN_SQUARE} and \ref{fig:results_DN121_AE_SQUARE} show the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder. 
 
 \paragraph{CVC 356}
 As this is a dataset unseen by the classifier during training, we would expect, given that Hypothesis \ref{hyp:b} is True, that the classification score would be higher than the base case.
@@ -1715,11 +1703,10 @@ It is important to note that there are significant differences between the two C
 
 In addition to testing the two hypothesises separately we, as we recall, want to check both types of inpainting at the same time.
 When testing both inpainting types, we do not draw any predictions, given that we do not know if the two methods interfere with each other. 
-
 We present the GAN inpainting of both the areas followed by the same inpainting with the Autoencoder.
 
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{Densenet121 Inpainted both areas with the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -1835,7 +1822,7 @@ H&  0 & 1 & 0 & 5 & 1 & 0 & 3 & 161\\
 
 
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{Densenet121 Inpainted both areas with the AE results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -1958,7 +1945,7 @@ This increase shows that there might be some viability to do more inpainting whe
 In addition to getting the highest score for evaluation, we also got one of the lowest scores too. 
 The main difference in score is most likely the result of the precision of the autoencoder being much lower than the precision of the GAN.
 The difference in score can also be the result of variation within the k-fold transfer learning.
-Based on previous research done by us we have shown that this method had the highest standard deviation for both generator models followed by the base case~\cite{Mathias2019IEEpaper}.This can indicate that we should not rely on the result given its high variance. 
+Based on our previous research, we have shown that this method had the highest standard deviation for both generator models followed by the base case~\cite{Mathias2019IEEpaper}.This can indicate that we should not rely on the result given its high variance. 
 
 
 
@@ -2003,8 +1990,8 @@ Here we can notice that the recall is constant between each model and the base c
 
 
 
-
-%\clearpage
+\FloatBarrier
+\clearpage
 \section{InceptionResNetV2}
 In addition to just testing our results with the Densenet121, we wanted to see if the results were replicable with other networks. We present our result from InceptionResNetV2 (IRV2) as a base of comparison versus the Densenet121 model. \todo{MICHAEL OR PAAL: This is a bit redundant, but might help people whi skips chapters.. thoughts?}
 
@@ -2041,7 +2028,7 @@ From the previous tests in done on the same datasets with the InceptionResNetV2 
 We present the results with InceptionResNetV2 in table \ref{fig:results_IRV2_base}.
 This Table shows the base case result with the larger Inceptionresnetv2 model. 
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{InceptionResNetV2 Base results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2163,21 +2150,23 @@ As with the Densenet model we used k-fold cross-validation with six folds for th
 \paragraph{CVC 356}
 The CVC 356 base case MCC lies at 0.20 with an accuracy of 61\%.
 Compared to the Densenet model we lost half of our MCC score and 10\% accuracy. 
-From the Confusion matrix, we can discern that the model had trouble finding polyps with only 243 of the 356 total polyps found. The results from this model are arguable to low to be used successfully as a classifier.
+From the Confusion matrix, we can discern that the model had trouble finding polyps with only 243 of the 356 total polyps found. Here we get strong indications that the InceptionResNetV2 model did not learn the essential features of a polyp, given the high score on the training set and low score on the test set.
+The results from this model are arguable to low to be used successfully as a classifier.
+
 
 \paragraph{The Kvasir}
-As with the Densenet model we have scores close to the highest MCC possible. This score, as previous, shows that the model most likely is overfitting to the data. 
+As with the Densenet model we have scores close to the highest MCC possible. This score, as with the previous model, shows that the model most likely is overfitting to the data. 
 The misclassification is between the esophagitis class, and the normal-z-line class, as well as a small mixup between dyed lifted polyps and dyed resection margins. 
 
 
 \paragraph{CVC 12k}
-The InceptionResNetV2 model evaluated on the CVC 12k dataset gives a relatively low MCC score of 0.07. The score gives us a good indication that the model did not learn the dataset-specific features that define the dataset, and hence gave us such a low score.
+The InceptionResNetV2 model evaluated on the CVC 12k dataset gives a relatively low MCC score of 0.07. The score gives us a good indication that the model did not learn the dataset-specific features that define the dataset, and hence gave us such a low score. Given the significant differences between the Kvasir and the CVC 12k set, a 50\% classification accuracy is acceptable for an unseen dataset with 83\% polyps, though not acceptable for a model used by medical staff.
 
 
 \subsection{InceptionResNetV2 Corners Inpainted}
 For the first comparison, we look at the dataset with the inpainted corner. We present both the work done by the GAN and the Autoencoder. 
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{InceptionResNetV2 Inpainted corners with  the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2292,7 +2281,7 @@ H&  1 & 0 & 1 & 2 & 0 & 0 & 9 & 163\\
 
 
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{InceptionResNetV2 Inpainted corners with  the AE results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2409,20 +2398,15 @@ H&  0 & 0 & 1 & 4 & 0 & 0 & 0 & 157\\
 \noindent Figure \ref{fig:results_IRV2_GAN_CORNER} and \ref{fig:results_IRV2_AE_CORNER} shows the evaluation of the test set on each of the three datasets made by both the Autoencoder and GAN. 
 
 \paragraph{CVC 356}
-Evaluating our GAN generated model gives us an MCC value equal to the baseline. We can see a greater accuracy, F1, precision and recall score with this model, though the skewness of the dataset causes it. 
-The AE MCC value here is Negative, indicating that the model was not statistically significant. 
+Evaluating our GAN generated model gives us an MCC value close to the baseline. We can see a higher accuracy, F1, precision and recall score with this model, though the skewness of the dataset is the cause of it. 
+The AE MCC value here is Negative, indicating that the model was not statistically significant at all. 
 
 \paragraph{The Kvasir}
 When evaluating our results on the Kvasir dataset we see similar scores for both the GAN and Autoencoder with 0.892 and 0.891 respectively.  The same potential overfitting gives us no clear indication if any of our hypothesises are valid.
 
 \paragraph{CVC 12k}
-Both models beat the baseline for the CVC 12k MCC value. Here we can see clearly that the GAN has gotten results on par with the Densenet model.
-
-
-
-
-
-
+Both models beat the baseline for the CVC 12k MCC value. Here we can see clearly that the GAN has gotten results better than the Densenet model.
+The high MCC value for the GAN shows with great confidence that the removal of the corners around the image helped the InceptionResNetV2 model with learning the features of the polyps, rather than relying on the edges for detection.
 
 
 
@@ -2436,9 +2420,10 @@ Both models beat the baseline for the CVC 12k MCC value. Here we can see clearly
 
 Here we present the results from the dataset with the inpainted green square, both with the Autoencoder and the GAN.  
 Based on our hypothesis we expect the same improvement here as we had in our Densenet model.  
+
  
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{InceptionResNetV2 Inpainted square with  the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2553,7 +2538,7 @@ H&  1 & 0 & 0 & 1 & 0 & 0 & 4 & 145\\
 
 
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{InceptionResNetV2 Inpainted square with the AE results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2668,7 +2653,8 @@ H&  0 & 0 & 3 & 3 & 4 & 5 & 5 & 157\\
 
 
 
-\noindent Figure \ref{fig:results_IRV2_GAN_SQUARE} and \ref{fig:results_IRV2_AE_SQUARE} show the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder when the green square was inpainted. 
+Figure \ref{fig:results_IRV2_GAN_SQUARE} and \ref{fig:results_IRV2_AE_SQUARE} show the evaluation of the test set on each of the three datasets used both for the GAN and Autoencoder when the green square was inpainted. 
+\vspace{7px}
 
 \paragraph{CVC 356}
 Evaluating our GAN generated model gives us an MCC value of 0.57 which is close to three times the MCC value of the baseline.  This score highly indicates that our hypothesis \ref{hyp:b} holds ground.
@@ -2697,10 +2683,12 @@ The results from the CVC 12k dataset is here similar to the Densenet model. Here
 
 
 \subsection{InceptionResNetV2 Full Inpainting}
-Here we present the results from the dataset with the maximum inpainted area.
+As with the Densenet model we test the two hypothesises separately by inpainting both areas
+We would expect our models to follow the scores from the Densenet model.
+We present the GAN inpainting of both the areas followed by the same inpainting with the Autoencoder.
 
 
-\begin{figure}
+\begin{figure}[t]
 %\caption{Densenet121 Inpainted both areas with the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2816,7 +2804,7 @@ H&  1 & 0 & 0 & 2 & 0 & 0 & 5 & 162\\
 
 
 
-\begin{figure}
+\begin{figure}[t]
 \myfontsize
 %\advance\leftskip-1.5cm
 \caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
@@ -2953,7 +2941,7 @@ We can see, for both models, that the precision rose significantly.
 
 \FloatBarrier
 \section{Classification Results Based on the Densenet Model}
-\Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} show the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} show the visualised MCC values. 
+\Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} show the summary of the results gathered from the Densenet model, and \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} show the visualised MCC values. 
 
 \paragraph{The CVC 356 dataset (Figure: \ref{tab:summary_CVC356_DN121} \& Bar: \ref{bar:cvc356_DN121})}
 Here we can see a considerable improvement when inpainting in general. The results coincide well with our hypothesis \ref{hyp:b}, and we can argue that hypothesis \ref{hyp:a} also holds some ground when evaluated on this dataset. 
@@ -2991,7 +2979,7 @@ It is important to not that the image quality is harder to maintain at double si
 
 
 \paragraph{The CVC 356 dataset (Figure: \ref{tab:summary_CVC356_DN121512px} \& Bar: \ref{bar:cvc356_DN121_512})}
-At double the size the inpaining results tend to have the same shape as with the smaller size, except for the fully inpainted dataset produced by the GAN.  The baseline were also a bit higher at double size, while we would believe that it would be lower due to the non-polyp images from the CVC 356 set is around 288 $\times$ 384 px, meaning that we interpolate the images to get them to the appropriate size. The fact that we interpolate only the non-polyp images might have helped the classifier due to now different quality of the images.
+At double the size the inpaining results tend to have the same shape as with the smaller size, except for the fully inpainted dataset produced by the GAN.  The baseline were also a bit higher at double size, while we would believe that it would be lower due to the non-polyp images from the CVC 356 set is around 288 $\times$ 384 px, meaning that we interpolate the images to get them to the appropriate size. The fact that we interpolate only the non-polyp images might have helped the classifier due to the now different quality of the images.
 
 \paragraph{The CVC 356 dataset (Figure: \ref{tab:summary_KVASIR_DN121512px})}
 The Kvasir dataset shows minimal to no improvement. As with the standard size model, we can conclude that when inpainting to only remove sparseness the the machine learning algorithms draws no benefit from it, independently of the model used.
