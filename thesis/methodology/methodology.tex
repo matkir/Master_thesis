@@ -128,7 +128,7 @@ We believe that if we can change images like the one in Figure \ref{fig:GreenSqu
 
 We propose three different types of inpainting to prove or disprove our two hypothesises.
 \FloatBarrier
-\subsection{Removing black corners}
+\subsection{Removing Black Corners}
 The most straightforward experiment to conduct is to test how the removal of the black corners will affect the result.
 As we propose in hypothesis \ref{hyp:a}, we believe that this masking can help giving the classifier fewer areas with non-relevant information.
 Figure \ref{fig:CornerMask} shows the mask used to inpaint the corners.
@@ -416,7 +416,7 @@ In addition to the standard functions and packages provided by Python, Tensorflo
 The methods presented have all undergone testing during the thesis, though not every method ended up in the finished product.
 
 
-\subsection{Channel Wise Fully Connected Layer}
+\subsection{Channel-Wise Fully-Connected Layer}
 \label{cha:CWDense}
 A problem often encountered when working with autoencoders which are not undercomplete is the fact that they learn to represent the data flawlessly~\cite{OvercompleteAE}.
 When this problem arises, the network does not learn the fundamental features that define the dataset and instead passes the signal through the network without any consideration of the input data.
@@ -488,7 +488,7 @@ In our testing, self attention was used with a residual connection to prevent th
 
 
 
-\subsection{Masked loss}
+\subsection{Masked Loss}
 A problem encountered for both the autoencoder and the GAN is what happens when the non-inpainted area gets too close to correct ground truth. 
 As most of the image remains unchanged between the input-output space, the loss for most of the image approaches 0 while the inpainted area stays at a high loss value for most of the training. 
 As we recall from section \ref{cha:convNet}, we store our data as float32, and as the loss gets smaller and smaller, the squaring of the float32 gives at some point a number so small that the loss flips to a large integer and subsequently ruins the run\footnote{This flipping is at this time our best theory concerning the sudden spike in the loss as it gets closer and closer to zero.}. 
@@ -617,7 +617,7 @@ We feed \ref{fig:AErep} into the autoencoder consisting of the convolutional lay
 
 
 
-\subsection{Generative adversarial network}
+\subsection{Generative Adversarial Network}
 The GAN used the same generator discriminator elements as the Goodfellow GAN; however, the most significant difference is the fact that our model does not generate the image from Gaussian noise.
 Instead of the standard Gaussian noise as input to the generator, the inpainted image is taken as input. 
 
@@ -631,7 +631,7 @@ Upsampling consisted of upsampling in the same way as in the autoencoder, follow
 
 
 
-\subsection{Transfer learning classifier}
+\subsection{Transfer Learning Classifier}
 We have in section \ref{cha:classifier} gone in-depth into the two desired networks used in this thesis.  Our main objective when making a classifier is to make a system that is robust, reliable and has the option to be modular. 
 We built the classifier to gather the same information as shown in Figure \ref{fig:KTLmodel}, meaning we first specify the desired network (VGG~\cite{simonyan2014very}, DenseNet~\cite{DBLP:journals/corr/HuangLW16a}, or Mobilenet~\cite{DBLP:journals/corr/HowardZCKWWAA17}), then we specify the optimiser (NAdam, Adam, RMSprop or SGD).
 After the network and optimiser are chosen, the network takes information about the dataset related parameters; batch size, K-folds, Patience, and epochs.

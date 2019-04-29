@@ -228,7 +228,7 @@ In our testing, we split the dataset up in k=6 folds. This split means that we s
 
 The advantage of using k-fold cross-validation is that we maximise the utility of the dataset. We find the distribution of the dataset that hopefully covers the most significant range of the unseen data. 
 
-\subsection{The confusion matrix}
+\subsection{The Confusion Matrix}
 With k-fold cross-validation, we end up with the dataset that scored the highest during the final validation step.  There are multiple ways to calculate metrics for how well a dataset is doing,  but they all are a comparison of the predicted class versus the true class.  
 
 Take for instance the case with the 8-class dataset Kvasir, where we predict an image to be normal-cecum. We translate this to an integer representation of, for instance, class 3. In our example, the actual True class is normal-z-line, here represented as 5. 
@@ -329,7 +329,7 @@ Confusion matrix with eight classes, here True positive is marked in green, Fals
 \end{figure}
 
 
-\subsection{Common metrics}
+\subsection{Common Metrics}
 \label{cha:metrics}
 When evaluating our results, we use a set of common metrics used in the field of statistics and machine learning.  The metrics we will be using in this thesis are Recall (REC), Precision (PREC), Specificity (SPEC), Accuracy (ACC), Matthews correlation coefficient (MCC), and F1 score (F1). 
 
@@ -423,7 +423,7 @@ The problem with multiclass metrics arises when there is more than one way to ca
 \textbf{Micro average}: calculates the mean value of each of the binary metrics and averages the result over the total number of samples. 
 Micro average ignores all class frequencies and gives us a metric based on all samples gathered. Micro-averaging may be preferred in multilabel settings, including multiclass classification where a majority class is to be ignored.\\
 
-\textbf{Macro average}: calculates the mean of each of the binary metrics, giving the same weight to each of the classes. Macro average gives importance to classes with few samples, and infrequent classes play the same roles as frequent ones. The disadvantage with Macro average is the fact that in the real world some classes often plays a more significant role than others, and doing especially bad on one of the classes can worsen the total result. \\
+\textbf{Macro average}: calculates the mean of each of the binary metrics, giving the same weight to each of the classes. The macro average gives importance to classes with few samples, and infrequent classes play the same roles as the frequent ones. The disadvantage with Macro average is the fact that in the real world some classes often plays a more significant role than others, and primarily classifying wrong at some of the classes can worsen the total result, even though it might not matter in the end. \\
 
 \textbf{Weighted average} calculates the mean of each of the binary metrics but gives a weighted sum for each of the scores before it is averaged. 
 The weight of each class depends on the size of the true data samples.
@@ -527,10 +527,10 @@ The software type and version for the experiments is shown in table \ref{tab:SW}
 \section{Results of the Inpainting}
 We will first take a look at the generation of the new datasets and the machine learning methods used to inpaint the problematic areas.
 
-We can recall that based on  Hypothesis \ref{hyp:a}, we can assume that the removal of areas with sparse information we achieve a higher classification score. We have chosen our first dataset to contain the images from the Kvasir dataset where the black corners and edges inpainted. 
+We can recall that based on  Hypothesis \ref{hyp:a}, we can assume that the removal of areas with sparse information we achieve a higher classification score. We have chosen our first dataset to contain the images from the Kvasir dataset where the black corners and edges are inpainted. 
 From this, we hypotosise that we will see an increase in classification when training and testing on the same dataset, as well when testing on a new dataset, given that the network has less sparseness to take into account. 
 
-Based on Hypothesis \ref{hyp:b}, we predict assume that the removal of areas with dataset specific artefacts will result in a higher classification score.  By removing the green squares in the corners and the text overlayed on top of the images, we predict that we get a higher classification score on previously unseen datasets compared to not removing dataset specific artefacts.
+Based on Hypothesis \ref{hyp:b}, we predict that the removal of areas with dataset specific artefacts will result in a higher classification score.  By removing the green squares in the corners and the text overlayed on top of the images, we predict that we get a higher classification score on previously unseen datasets compared to not removing dataset specific artefacts.
 
 
 With Hypothesis \ref{hyp:a} and \ref{hyp:b} in mind, we present three types of datasets with two different generators to see if our hypothesises are correct. The full list of datasets is shown in Figure \ref{tab:datasets}
@@ -667,10 +667,10 @@ When generating the two first datasets (II \& V in Table \ref{tab:datasets}), we
         \label{fig:AE_GAN_CORNER2}
 \end{figure}
     
-In Figure \ref{fig:AE_GAN_CORNER1} present representative images from both datasets inpainting the four edges around the image. Figure \ref{fig:AE_GAN_CORNER1} show images that, for both datasets, images are well inpainted, and a good portion could pass as real images. We can discern that, in general, the autoencoder dataset gives a much more blurry image compared to the dataset generated by the GAN. 
+In Figure \ref{fig:AE_GAN_CORNER1} we present representative images from both datasets inpainting the four edges around the image. Figure \ref{fig:AE_GAN_CORNER1} show images that, for both datasets, images are well inpainted, and a good portion could pass as real images. We can discern that, in general, the autoencoder dataset gives a much more blurry image compared to the dataset generated by the GAN. 
 
 Figure \ref{fig:AE_GAN_CORNER2} show images that are more problematic. In Figure \ref{fig:polyp_AE_CORNER2} the image generated by the Autoencoder has drawn its colour from the nearby white over-saturated area, and subsequently, it has misdrawn the corner. In Figure \ref{fig:polyp_GAN_CORNER2} we do not have the same problem, as it has drawn information from a larger part of the image, and hence not drawn the oversaturated area.
-Both models failed in getting the right colour for the green box when present. 
+When confronted with a green box, both models failed inpainting the right colour over it. 
 In general, we remove a lot of the areas with sparse information solely by cutting the black border of the image. The finished product is without any areas with sparse information, compared to for instance \ref{fig:polyp_ORIG_CORNER1}, where 25\% of the image contains no relevant information. 
 
 \vspace{5px}
@@ -680,7 +680,7 @@ The training time of the GAN was over two days. The result of the GAN is a signi
 
 \FloatBarrier
 \subsection{Green square}
-The next two datasets (III \& VI in Table \ref{tab:datasets}) were generated from the mask in Figure \ref{fig:GreenMask}.  The goal of the datasets generated by the Autoencoder and the GAN is to remove the dataset-specific green square. The same cropping-inpainting procedure were applied. The result is shown in Figure \ref{fig:AE_GAN_SQUARE1} and Figure \ref{fig:AE_GAN_SQUARE2}.
+The next two datasets (III \& VI in Table \ref{tab:datasets}) were generated from the mask in Figure \ref{fig:GreenMask}.  The goal of the datasets generated by the Autoencoder and the GAN is to remove the dataset-specific green square. The same cropping-inpainting procedure were applied. The results is shown in Figure \ref{fig:AE_GAN_SQUARE1} and Figure \ref{fig:AE_GAN_SQUARE2}.
 
 
 \begin{figure}
@@ -785,7 +785,7 @@ Another advantage with the GAN is the ability to estimate the corner size better
 
  
 Figure \ref{fig:polyp_ORIG_SQUARE2}, \ref{fig:polyp_AE_SQUARE2} and \ref{fig:polyp_GAN_SQUARE2} show how the two algorithms handles unexpected data. Here the green area was moved to the right to the point it was outside the mask range. Both algorithms added a green tint to the images, though the GAN did a better job making it natural looking. 
-The last image set shows that the GAN has learned to connect structures throughout the inpainted area. The mucosa in Figure \ref{fig:nc_GAN_SQUARE2} the foreground is a full structure as we would expect if we removed the green square.
+The last image set shows that the GAN has learned to connect structures throughout the inpainted area. The mucosa we see in the foreground in Figure \ref{fig:nc_GAN_SQUARE2} is a full structure as we would expect if we removed the green square.
  
 
 
@@ -795,7 +795,7 @@ The training time of the GAN was over two days, closer to three days. However, t
 
 \FloatBarrier
 \subsection{Combination}
-The last two datasets (IV \& VII in Table \ref{tab:datasets}) were generated from the mask in Figure \ref{fig:BothMask}. The goal of the datasets generated by the AE and the GAN check how a combination of the previous datasets would do do to the classification. The same cropping-inpainting procedure were applied as with the other sets. The result is shown in Figure \ref{fig:AE_GAN_BOTH1} and Figure \ref{fig:AE_GAN_BOTH2}.
+The last two datasets (IV \& VII in Table \ref{tab:datasets}) were generated from the mask in Figure \ref{fig:BothMask}. The goal of the datasets generated by the AE and the GAN check how a combination of the previous datasets would do to the classification. The same cropping-inpainting procedure were applied as with the other sets. The result are shown in Figure \ref{fig:AE_GAN_BOTH1} and Figure \ref{fig:AE_GAN_BOTH2}.
 
     
         \begin{figure}
@@ -944,7 +944,7 @@ As we see in figure \ref{fig:AE_GAN_512} the inpainted areas is more smeared out
 
    
 \FloatBarrier
-\section{Results of the transfer learning experiments}In the previous section, we looked at the generation of the new datasets. We looked at how the different hypothesises formed the basis for different masking, and we discussed downfall and advantages with the autoencoder method versus the GAN method. 
+\section{Results of the Transfer Learning Experiments}In the previous section, we looked at the generation of the new datasets. We looked at how the different hypothesises formed the basis for different masking, and we discussed downfall and advantages with the autoencoder method versus the GAN method. 
 We will now look at the results when using the newly created datasets when training a classifier for each one of them. 
 The model used for the classifier is the same for all the datasets. We use the same learning rate, the same model, and the same parameters for early stopping of the training.  In this section we will first go through the model, then we will look at the results for each of the runs.
 
@@ -952,7 +952,7 @@ The model used for the classifier is the same for all the datasets. We use the s
 \subsection{Models}
 The classification model is constructed to give the best real-world correspondence.
 
-First, we supply info about the model. This information is for instance batch size, type of network, and choice of an optimiser. 
+First, we supply information about the model. This information is for instance batch size, type of network, and choice of an optimiser. 
 The transfer learning network chosen is loaded with the imagenet weights. With the model loaded into memory, the global average pooling layer is added, followed by a fully connected layer with the number of nodes equal to the number of classes in the input dataset and a softmax activation step as described in more detail in chapter \ref{cha:classifier}. 
 
 With the model loaded we complete it by adding the desired optimiser, and set parameters like batch size, learning rate, validation patience, and image size.
@@ -966,18 +966,17 @@ When we are looking at the models, we use the base case results as a reference p
 
 As stated in Section \ref{cha:classifier}, we use the research provided by Borgli et al. in hyperparameter optimisation~\cite{runeMedico2018}. We concluded that Densenet121 is the optimal network to achieve the highest score when both training and evaluating on the Kvasir dataset. 
 
-Based on the results, we assume that Densenet121 will give the best results both when evaluating our network on the Kvasir dataset, and when we use the generalised models on the CVC datasets. The stats for the Densenet training routine is shown in Table \ref{tab:TrainingAttrDN121}.
+Based on the results, we assume that Densenet121 will give the best results both when evaluating our network on the Kvasir dataset, and when we use the generalised models on the CVC datasets. The attributes for the Densenet training routine is shown in Table \ref{tab:TrainingAttrDN121}.
 
 
 
 \begin{table}[h]
-\caption{Training attributes for Densenet121 base model }
 \begin{center}
 \begin{tabular}{ll}
 \toprule
 Atribute                & Value   \\
 \midrule
-Max Number of epochs    & 20      \\
+Max number of epochs    & 20      \\
 Patience for validation & 3       \\
 Folds                   & 6       \\
 Image size              & 256x256 \\
@@ -985,22 +984,24 @@ Batch size              & 24      \\
 \bottomrule
 \end{tabular}
 \end{center}
+\caption{Training attributes for Densenet121 base model }
 \label{tab:TrainingAttrDN121}
 \end{table}
 
-The reasoning behind the training attributes for each of the parameters can be summarised with:
+The max number of epochs is an artificial roof where we do not allow any more training, even when the network is improving.  We believe that the network, should it come to 20 epochs, will only overfit the results. During the construction of our network, we got models that trained over 20 epochs, though the extra time it took did not help with the overall classification score.
 
-The max number of epochs is an artificial roof where we do not allow any more training, even when the network is improving.  We believe that the network, should it come to 20 epochs, will only overfit the results.
-We have chosen training patience of three. This patience is a compromise between a higher value, more likely to overfit, and a lower value, more likely to stop too early to learn all the meaningful representations. 
-In addition to the number of epochs trained we divided Kvasir into six folds. Based on the six folds we got 1333 images for both validation and testing, while the majority of the images would be used for training. A smaller fold would leave the training with too little data, and hence we could not expect as good of a result. A higher number of folds would increase the number of training runs substantially, since we are training on 14 datasets.
+To prevent the network of reaching 20 epochs we have chosen validation patience of 3. A validation patience of 3 ensures that, if we do not improve our results within the three most recent epochs, we do not continue training.  This patience is a compromise between a higher value, more likely to overfit, and a lower value, more likely to stop too early to learn all the meaningful representations. 
+
+In addition to the number of epochs trained we divided Kvasir into six folds. Based on the six folds we got 1333 images for both validation and testing, while we use the majority of the images for training. A smaller fold would leave the training with too little data, and hence we could not expect as good of a result. A higher number of folds would increase the number of training runs substantially, since we are training on 14 different datasets.
+
 Finally, the batch size was decided to be the highest number that did not give any memory issues.  We believe that a batch size of 24 is well within the scope of reality.
-\clearpage
+
 \FloatBarrier
 \subsection{Densenet121 Base Model}
 We present the results from the Densenet121 network in table \ref{fig:results_DN121_base}.
 This table shows the base case result with the Densenet121 model, meaning the unaugmented dataset. 
 
-\begin{figure}[t]
+\begin{figure}
 %\caption{Densenet121 Base results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -1140,8 +1141,7 @@ Though the accuracy were 65\%, this model most likely did not learn the essentia
 
 
 
-\FloatBarrier
-\clearpage
+
 \subsection{Densenet121 Corners Inpainted}
 Based on Hypothesis \ref{hyp:a} we would expect the act of inpainting the corner in the images to give Kvasir a higher score compared to the baseline. Also, we should see improvement in both CVC 356 and CVC 12k.
 We present the dataset created by the  GAN followed by the dataset created by the Autoencoder evaluated with the Densenet121 model.
@@ -1407,30 +1407,6 @@ The MCC scores for the GAN and Autoencoder both reaches a higher value than the 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\FloatBarrier
-\clearpage
 \subsection{Densenet121 Green Square Inpainted}
 
 
@@ -1439,7 +1415,7 @@ In this experiment, we expect the Kvasir dataset not show any improvements, thou
 We present the dataset created by the GAN followed by the dataset created by the Autoencoder and evaluate their performance with the Densenet model together.
 
 
-\begin{figure}[t]
+\begin{figure}
 %\caption{Densenet121 Inpainted green square with the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -1555,7 +1531,7 @@ H&  0 & 0 & 0 & 2 & 0 & 0 & 4 & 162\\
 
 
 
-\begin{figure}[t]
+\begin{figure}
 %\caption{Densenet121 Inpainted green square with the AE results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -1735,8 +1711,6 @@ It is important to note that there are significant differences between the two C
 
 
 
-\FloatBarrier
-\clearpage
 \subsection{Densenet121 Full Inpainting}
 
 In addition to testing the two hypothesises separately we, as we recall, want to check both types of inpainting at the same time.
@@ -1745,7 +1719,7 @@ When testing both inpainting types, we do not draw any predictions, given that w
 We present the GAN inpainting of both the areas followed by the same inpainting with the Autoencoder.
 
 
-\begin{figure}[t]
+\begin{figure}
 %\caption{Densenet121 Inpainted both areas with the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -1861,7 +1835,7 @@ H&  0 & 1 & 0 & 5 & 1 & 0 & 3 & 161\\
 
 
 
-\begin{figure}[t]
+\begin{figure}
 %\caption{Densenet121 Inpainted both areas with the AE results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2030,20 +2004,18 @@ Here we can notice that the recall is constant between each model and the base c
 
 
 
-\FloatBarrier
 %\clearpage
 \section{InceptionResNetV2}
 In addition to just testing our results with the Densenet121, we wanted to see if the results were replicable with other networks. We present our result from InceptionResNetV2 (IRV2) as a base of comparison versus the Densenet121 model. \todo{MICHAEL OR PAAL: This is a bit redundant, but might help people whi skips chapters.. thoughts?}
 
 
 As mentioned in the metodology, InceptionResnetV2 is a model with more parameters, and hence needs more time to train compared to the Densenet architecture. 
-For the IRV2 model, we used greater patience while training to ensure that the model did not underfit, or skipped essential features when training.
-The stats for the IRV2 training is shown in Table \ref{tab:TrainingAttrIRV2}.
+For the InceptionResNetV2 model, we used greater patience while training to ensure that the model did not underfit, or skipped essential features when training.
+The stats for the InceptionResNetV2 training is shown in Table \ref{tab:TrainingAttrIRV2}.
 
 
 
 \begin{table}[h]
-\caption{Training attributes for Inceptionresnetv2 base model }
 \begin{center}
 \begin{tabular}{ll}
 \toprule
@@ -2057,18 +2029,19 @@ Batch size              & 24      \\
 \bottomrule
 \end{tabular}
 \end{center}
+\caption{Training attributes for InceptionResNetV2 base model }
 \label{tab:TrainingAttrIRV2}
 \end{table}
 
-From the previous tests in done on the same datasets with the IRV2 network, we had gotten inconclusive results when the training patience was too low \cite{Mathias2019IEEpaper}. With the patience of four we, on average, train longer and hence get a more stable result without overfitting.
+From the previous tests in done on the same datasets with the InceptionResNetV2 network, we had gotten inconclusive results when the training patience was too low \cite{Mathias2019IEEpaper}. With the patience of four we, on average, train longer and hence get a more stable result without overfitting.
 
 \FloatBarrier
-\subsection{InceptionresNetV2 base model}
+\subsection{InceptionResNetV2 Base Model}
 
 We present the results with InceptionResNetV2 in table \ref{fig:results_IRV2_base}.
 This Table shows the base case result with the larger Inceptionresnetv2 model. 
 
-\begin{figure}[h]
+\begin{figure}
 %\caption{InceptionResNetV2 Base results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2201,11 +2174,10 @@ The misclassification is between the esophagitis class, and the normal-z-line cl
 The InceptionResNetV2 model evaluated on the CVC 12k dataset gives a relatively low MCC score of 0.07. The score gives us a good indication that the model did not learn the dataset-specific features that define the dataset, and hence gave us such a low score.
 
 
-\FloatBarrier
-\subsection{Inceptionresnetv2 Inpainted Corners}
+\subsection{InceptionResNetV2 Corners Inpainted}
 For the first comparison, we look at the dataset with the inpainted corner. We present both the work done by the GAN and the Autoencoder. 
 
-\begin{figure}[h]
+\begin{figure}
 %\caption{InceptionResNetV2 Inpainted corners with  the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2320,7 +2292,7 @@ H&  1 & 0 & 1 & 2 & 0 & 0 & 9 & 163\\
 
 
 
-\begin{figure}[h]
+\begin{figure}
 %\caption{InceptionResNetV2 Inpainted corners with  the AE results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2460,15 +2432,13 @@ Both models beat the baseline for the CVC 12k MCC value. Here we can see clearly
 
 
 
-
-\FloatBarrier
-\subsection{Inceptionresnetv2 Inpainted Square}
+\subsection{InceptionResNetV2 Square Inpainted}
 
 Here we present the results from the dataset with the inpainted green square, both with the Autoencoder and the GAN.  
 Based on our hypothesis we expect the same improvement here as we had in our Densenet model.  
  
 
-\begin{figure}[h]
+\begin{figure}
 %\caption{InceptionResNetV2 Inpainted square with  the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2583,7 +2553,7 @@ H&  1 & 0 & 0 & 1 & 0 & 0 & 4 & 145\\
 
 
 
-\begin{figure}[h]
+\begin{figure}
 %\caption{InceptionResNetV2 Inpainted square with the AE results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2726,12 +2696,11 @@ The results from the CVC 12k dataset is here similar to the Densenet model. Here
 
 
 
-\FloatBarrier
-\subsection{Inceptionresnetv2 both Inpainted}
+\subsection{InceptionResNetV2 Full Inpainting}
 Here we present the results from the dataset with the maximum inpainted area.
 
 
-\begin{figure}[h]
+\begin{figure}
 %\caption{Densenet121 Inpainted both areas with the GAN results}
 \myfontsize
 %\advance\leftskip-1.5cm
@@ -2847,7 +2816,7 @@ H&  1 & 0 & 0 & 2 & 0 & 0 & 5 & 162\\
 
 
 
-\begin{figure}[h]
+\begin{figure}
 \myfontsize
 %\advance\leftskip-1.5cm
 \caption*{\footnotesize \textmd{ \textbf{A}:{dyed-lifted-polyps} , \textbf{B}:{dyed-resection-margins} , \textbf{C}:{esophagitis} , \textbf{D}:{normal-cecum} , \textbf{E}:{normal-pylorus} , \textbf{F}:{normal-z-line} , \textbf{G}:{polyps} , \textbf{H}:{ulcerative-colitis} , \textbf{I}:{non-polyp}}}
@@ -2969,7 +2938,7 @@ For the CVC dataset, we see a small improvement for the autoencoder, while the G
 The low scores here, compared to our previous example, with only the artefacts inpainted, suggest that the inpainting of the edges around the image contributes to more misclassification, especially for the GAN, as the success of the lies in the high precision. 
 
 \paragraph{The Kvasir}
-As with the other Kvasir tests, here the IRV2 model gives us an MCC score of approximately 0.9, as the other test also has shown.
+As with the other Kvasir tests, here the InceptionResNetV2 model gives us an MCC score of approximately 0.9, as the other test also has shown.
 
 \paragraph{CVC 12k}
 The CVC 12k set with full inpainting is better than the baseline for both the autoencoder and the GAN, giving us reason to believe that, given the similarity to the scores for the last inpainting, the removal of the dataset-specific artefacts improved the model the most.
@@ -2983,8 +2952,7 @@ We can see, for both models, that the precision rose significantly.
 
 
 \FloatBarrier
-\clearpage
-\section{Classification results based on the Densenet model}
+\section{Classification Results Based on the Densenet Model}
 \Cref{tab:summary_CVC356_DN121,tab:summary_KVASIR_DN121,tab:summary_CVC12k_DN121} show the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} show the visualised MCC values. 
 
 \paragraph{The CVC 356 dataset (Figure: \ref{tab:summary_CVC356_DN121} \& Bar: \ref{bar:cvc356_DN121})}
@@ -2999,7 +2967,7 @@ Here we see the most significant change when we removed sparse areas at the corn
 
 
 
-\section{Classification results based on the InceptionResnetV2 model}
+\section{Classification Results Based on the InceptionResnetV2 Model}
 \Cref{tab:summary_CVC356_IRV2,tab:summary_KVASIR_IRV2,tab:summary_CVC12k_IRV2} show the summary of the results gathered from the Densenet model, and figure \Cref{bar:cvc356,bar:kvasir,bar:cvc12k} shows the visualised MCC values.
 
 
@@ -3015,7 +2983,7 @@ For the CVC 12k dataset, every model show improvement compared to the base case,
 
 
 
-\section{Classification results based on the Densenet model at double size}
+\section{Classification Results Based on the Densenet Model at Double Size}
 In addition to the two models tested with the generated dataset, we also looked at what would happen at larger resolutions. We made the same datasets as in the previous section but at twice the size. The results can be found in table \ref{tab:summary_CVC12k_DN121512px} with the visualised examples in Figure \ref{bar:512}.
 
 We can see from this summary that the results seem to keep the same trend at the larger size.
@@ -3047,7 +3015,7 @@ In the CVC 12k dataset all images are at the size 288 $\times$ 384 px. The upsca
 \textbf{VII}: AE Both inpainted.
 }
 \myfontsize
-\caption{DenseNet121 CVC 356}
+\caption{DenseNet121 at the CVC 356 dataset}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -3065,7 +3033,7 @@ VII               & 0.4462 & 0.6959 & 0.6556 & 0.8198 & 0.8787\\
 \label{tab:summary_CVC356_DN121}
 \vspace{10px}
 
-\caption{DenseNet121 CVC 356}
+\caption{DenseNet121 at the Kvasir dataset}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -3082,7 +3050,7 @@ VII               & 0.9097 & 0.9209 & 0.9209 & 0.9213 & 0.9209\\
 \end{tabular}
 \label{tab:summary_KVASIR_DN121}
 \vspace{10px}
-\caption{DenseNet121 CVC 356}
+\caption{DenseNet121 at the CVC 12k dataset}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -3115,7 +3083,7 @@ VII               & 0.2105 & 0.3713 & 0.6182 & 0.5937 & 0.3733\\
 \textbf{VII}: AE Both inpainted.
 }
 \myfontsize
-\caption{IRV21 CVC 356}
+\caption{InceptionResNetV2 at the CVC 356 dataset}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -3133,7 +3101,7 @@ VII               & 0.2590 & 0.5594 & 0.6776 & 0.5944 & 0.6278\\
 \label{tab:summary_CVC356_IRV2}
 \vspace{10px}
 
-\caption{IRV2 Kvasir}
+\caption{InceptionResNetV2 at the Kvasir dataset}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -3150,7 +3118,7 @@ VII               & 0.9017 & 0.9134 & 0.9134 & 0.9178 & 0.9134\\
 \end{tabular}
 \label{tab:summary_KVASIR_IRV2}
 \vspace{10px}
-\caption{IRV2 CVC 12k}
+\caption{InceptionResNetV2 at the CVC 12k dataset} 
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -3182,7 +3150,7 @@ VII               & 0.2305 & 0.5819 & 0.6498 & 0.5887 & 0.6802\\
 \textbf{VII}: AE Both inpainted.
 }
 \myfontsize
-\caption{DN121 $512 \times 512$px CVC 356}
+\caption{Densenet121 at the $512 \times 512$px CVC 356 dataset}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -3200,7 +3168,7 @@ VII               & 0.5707 & 0.7812 & 0.8152 & 0.7583 & 0.8717\\
 \label{tab:summary_CVC356_DN121512px}
 \vspace{10px}
 
-\caption{DN121 $512 \times 512$px Kvasir}
+\caption{Densenet121 at the $512 \times 512$px Kvasir dataset}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -3217,7 +3185,7 @@ VII               & 0.9218 & 0.9313 & 0.9315 & 0.9319 & 0.9315\\
 \end{tabular}
 \label{tab:summary_KVASIR_DN121512px}
 \vspace{10px}
-\caption{DN121 $512 \times 512$px CVC 12k}
+\caption{Densenet121 at the $512 \times 512$px CVC 12k dataset}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{1}{c}
@@ -3273,7 +3241,7 @@ VII               & 0.2423 & 0.4748 & 0.6590 & 0.5924 & 0.4975\\
 	\end{axis}
 	\end{tikzpicture}
 	}
-	\caption{CVC356 with DN121}
+	\caption{Densenet121 at the CVC 356 Dataset}
 	\label{bar:cvc356_DN121}
 	\end{subfigure}
 \qquad
@@ -3309,10 +3277,10 @@ VII               & 0.2423 & 0.4748 & 0.6590 & 0.5924 & 0.4975\\
 	\end{axis}
 	\end{tikzpicture}
 	}
-	\caption{CVC356 with IRV2}
+	\caption{InceptionResNetV2 at the CVC 356 dataset}
 	\label{bar:cvc356_IRV2}
 	\end{subfigure}
-	\caption{Visualisation of the CVC356 dataset MCC values made by both Densenet121 and InceptionresnetV2}
+	\caption{Visualisation of the CVC 356 dataset MCC values made by both Densenet121 and InceptionresnetV2}
 	\label{bar:cvc356}
 \end{figure}
 
@@ -3351,7 +3319,7 @@ VII               & 0.2423 & 0.4748 & 0.6590 & 0.5924 & 0.4975\\
 	\end{axis}
 	\end{tikzpicture}
 	}
-	\caption{Kvasir with DN121}
+	\caption{Densenet121 at the Kvasir dataset}
 	\label{bar:kvasir_DN121}
 	\end{subfigure}
 \qquad
@@ -3387,7 +3355,7 @@ VII               & 0.2423 & 0.4748 & 0.6590 & 0.5924 & 0.4975\\
 	\end{axis}
 	\end{tikzpicture}
 	}
-	\caption{Kvasir with IRV2}
+	\caption{InceptionResNetV2 at the Kvasir dataset}
 	\label{bar:kvasir_IRV2}
 	\end{subfigure}
 	\caption{Visualisation of the Kvasir dataset MCC values made by both Densenet121 and InceptionresnetV2}
@@ -3429,7 +3397,7 @@ VII               & 0.2423 & 0.4748 & 0.6590 & 0.5924 & 0.4975\\
 	\end{axis}
 	\end{tikzpicture}
 	}
-	\caption{CVC 12k with DN121}
+	\caption{Densenet121 at the CVC 12k dataset}
 	\label{bar:cvc12k_DN121}
 	\end{subfigure}
 \qquad
@@ -3465,7 +3433,7 @@ VII               & 0.2423 & 0.4748 & 0.6590 & 0.5924 & 0.4975\\
 	\end{axis}
 	\end{tikzpicture}
 	}
-	\caption{CVC 12k with IRV2}
+	\caption{InceptionResNetV2 at the CVC 12k dataset}
 	\label{bar:cvc12k_IRV2}
 	\end{subfigure}
 	\caption{Visualisation of the CVC 12k MCC values made by both Densenet121 and InceptionresnetV2}
@@ -3507,7 +3475,7 @@ VII               & 0.2423 & 0.4748 & 0.6590 & 0.5924 & 0.4975\\
 		\end{axis}
 		\end{tikzpicture}
 		}
-		\caption{CVC 356 with DN121 at 512 $\times$ 512 px}
+		\caption{Densenet121 at the 512 $\times$ 512 px CVC 356 dataset}
 		\label{bar:cvc356_DN121_512}
 	\end{subfigure}
 \iffalse
@@ -3579,10 +3547,10 @@ VII               & 0.2423 & 0.4748 & 0.6590 & 0.5924 & 0.4975\\
 		\end{axis}
 		\end{tikzpicture}
 		}
-		\caption{CVC 12k with DN121 at 512 $\times$ 512 px}
+		\caption{Densenet121 at the 512 $\times$ 512 px CVC 12k dataset}
 		\label{bar:cvc12k_DN121_512}
 	\end{subfigure}
-	\caption{Visualisation of the The three datasets with Densenet121 at 512 $\times$ 512 px}
+	\caption{Visualisation of two out of the three datasets with Densenet121 at 512 $\times$ 512 px}
 	\label{bar:512}
 \end{figure}
 
