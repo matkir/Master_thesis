@@ -21,24 +21,22 @@ Some types of cancer, like breast cancer, is one of the simpler forms of cancer 
 Humans can get cancer in every major organ, but some types of cancer are more common than others.    
 For instance cancer in the gastrointestinal (GI) tract is such a place, with approximately 40,000 cases each year in the UK~\cite{UKCancerBowel}. There are around 16,000 bowel cancer deaths in the United Kingdom every year, and it is the 2nd most common cause of cancer-related death, accounting for 10\% of all cancer mortalities.
 
-\todo{NEED TO WORK ON FLOW, From here and down}
-
 Given the global focus on cancer, research into detection and treatment is highly relevant in modern western society. 
-Especially with detection of cancerous areas in the body, the advancement of computer-aided diagnosis (CAD) has helped significantly when it comes to early detection and localisation. In addition to the boom in computing power, machine learning has become prevalent in the past few years, and specifically deep learning has become a tool in image and video classification both within and outside the medical domain~\cite{NIPS2012_4824,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/HeZRS15,DBLP:journals/corr/SzegedyIV16}. 
+Especially with detection of cancerous areas in the body, the advancement of computer-aided diagnosis (CAD) has significantly helped when it comes to early detection and localisation. In addition to the boom in computing power, machine learning has become prevalent in the past few years, and specifically deep learning has become a tool in image and video classification both within and outside the medical domain~\cite{NIPS2012_4824,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/SimonyanZ14a,DBLP:journals/corr/HeZRS15,DBLP:journals/corr/SzegedyIV16}. 
 With machine learning and CAD, researchers have now the ability to help doctors with the vital task of detecting and classifying anomalies found in medical images and videos.
 
 Earlier projects regarding CAD have shown promising results, giving doctors new tools when looking for cancer in the GI tract.
-The first project on CAD that formed the basis for this thesis is the basic EIR system by Riegler et al.~\cite{riegler2016eir}.  The EIR system set the goal of automatically detecting diseases in the GI tract from videoes or images in real time.
+The two first project on CAD that formed the basis for this thesis is the basic EIR system by Riegler et al.~\cite{riegler2016eir} and the work by Zeno Albisser in his thesis regarding polyp detection~\cite{ThesisZeno}.  
 
-Zeno Albisser presented a model for automatic detection of polyps in the GI tract in his master thesis. To improve the classification and detection of polyps, he used image augmentation for prepossessing of the data. 
-Fredrik Henriksen and Rune Jensen did similar work in their joint master thesis. Here they looked at the effect of changing the contrast of the medical data, as well as rotating the images and removing reflections.
+The EIR system set the goal of automatically detecting diseases in the GI tract from videoes or images in real time, and the presented work showed great results on images from the GI tract.
+Zeno Albisser presented a model for automatic detection of polyps in the GI tract in his master thesis. To improve the classification and detection of polyps, he used image augmentation for prepossessing of the data. Building on the work started by Albisser, Fredrik Henriksen and Rune Jensen did similar work in their joint master thesis~\cite{ThesisFR}. Here they looked at the effect of changing the contrast of the medical data, as well as rotating the images and removing reflections.
 
 We find more recent CAD research in the paper on Mimir by Hicks et al. Here they present a system to both improve the ``black box'' understanding and assist in the administrative duties of writing an examination report, helping medical staff with CAD~\cite{25953}. 
 
 The work published by Hicks et al. and Riegler et al. show that deep learning has excellent applications when it comes to CAD, but, as the papers show, there is insufficient work into generalising the methods to work on new data.
 
 
-Machine learning has also found many use cases outside of CAD. Recently there has been a surge in generative modelling algorithms, ranging from the work by larger corporations like Nvidia~\cite{DBLP:journals/corr/abs-1812-04948}, to the context-driven work by researchers like Denton et al.~\cite{DBLP:journals/corr/DentonGF16} and Pathak et al.~\cite{DBLP:journals/corr/PathakKDDE16}.
+Machine learning has also found many use cases outside of CAD. Recently there has been a surge in generative modelling algorithms, ranging from the work by corporations like Nvidia~\cite{DBLP:journals/corr/abs-1812-04948}, to the context-driven work by researchers like Denton et al.~\cite{DBLP:journals/corr/DentonGF16} and Pathak et al.~\cite{DBLP:journals/corr/PathakKDDE16}.
 
 
 In this thesis, we explore these topics. We will look at methods into how to improve the classification of medical data, as well as methods to help generalise models to better adapt to new unseen datasets. We will do this by using generative modelling as a method to improve the quality of the datasets we already have, with the goal of making our existing CAD methods even more reliable when used on new data.
@@ -91,7 +89,7 @@ For the six created datasets plus the base dataset we run two different pretrain
 In addition to doing this at the size $256 \times 256$ pixels (px), we also do all the tests above at double resolution to check the validity at larger image sizes.
 
 In total, we make fourteen datasets, and we test the first seven a total of 70 times, and the last seven 35 times. Including the base case, we do 105 total tests to check the validity of inpainting.
-\todo{describe other enhancements, find out in detail what Paal meant by ``enhancements''}
+%\todo{describe other enhancements, find out in detail what Paal meant by ``enhancements''}
 
 
 \section{Research Method}
@@ -153,7 +151,7 @@ The two papers we published during the thesis conclude with similar results. The
 
 
 
-\paragraph{Using preprocessing as a tool in medical image detection~\cite{Mathias2018MediaevalPaper}}
+\paragraph{Using preprocessing as a tool in medical image detection~\cite{26254}}
 The first paper presented at the MediaEval conference in Nice, France worked exclusively on the Kvasir dataset. The result we published showed an increase in classification performance when inpainting sparse regions. 
 Here, we displayed that even though we tested and trained on the same dataset, we saw small performance gains. We concluded the paper with that, if the test and training set are similar to each other, we can achieve better performance gain with hyperparameter optimisation rather than preprocessing with inpainting. 
 

@@ -54,10 +54,7 @@ In 2016 Pogorelov et al. presented a complete end-to-end multimedia system for t
 Pogorelov et al. also recently published a paper on the generalisation of data, for the purpose of using open datasets for training CAD systems~\cite{pogorelov2018deep}. In this paper, they presented hand-crafted and deep learning-based methods for detection of polyps in videos from colonoscopies. In this paper they worked to achieve real-world comparability by using challenging datasets captured with different kinds of hardware. In addition to this, they used imbalanced datasets and as little as possible training data.
 Their best model, a Generative adversarial network for handcrafted features, reached a detection specificity of 94\% and an accuracy of 90.9\%, done with only 356 training samples.
 
-As mentioned in the introduction, Hicks et al. published the Mirmir system~\cite{25953}. 
-Mirmir has, since the creation been analysed and, in later papers, shown that the system has similar problems to the one that we encounter~\cite{25956}.  
-\todo{´´Future works'' in Stevens paper is the basis for this thesis}
-\todo{asdada}%file:///home/mathias/Desktop/DDW_Abstract.pdf}
+As mentioned in the introduction, Hicks et al. published the Mirmir system~\cite{25953} for better understanding of the ``black box'' that is neural networks. The result we a system that automatically detected and selected frames with anomalies, and presented them to the user on an image analysis web page. For all the given frames the user can look through the images and verify of the anomaly was in fact correctly classified. In the end, the images were printed to a report with the most relevant data~\cite{25956}.  
 
 
 
@@ -108,7 +105,7 @@ A supervised algorithm analyses the training data and produces an inferred funct
 
 
 Examples of supervised tasks are to recognise handwritten numbers, or differentiate between different car models. We consider a task supervised if the images come with the correct label in the data set. 
-A more straightforward classification assignment is binary classification, where the target is (often, but not always) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian or International.\todo{\textbf{\textit{IF TIME}} Her må det vere et storre skille mellom trening og evaluering. Tenk paa om det er smart aa omskrive dette} In the last example, the classification changes from binary to multi-class if we sort the cars on every nationality, and not just Norwegian/non-Norwegian. Another type concerning supervised learning tasks is regression. Regression is the act of prediction given prior data. Examples of regression are the prediction of stock prices, to estimating house prices or to predicting the weather.
+A more straightforward classification assignment is binary classification, where the target is (often, but not always) yes or no. Examples for binary classification is if an email is spam or not, is a car Norwegian or International. In the last example, the classification changes from binary to multi-class if we sort the cars on every nationality, and not just Norwegian/non-Norwegian. Another type concerning supervised learning tasks is regression. Regression is the act of prediction given prior data. Examples of regression are the prediction of stock prices, to estimating house prices or to predicting the weather.
 
 An intuitive way to differentiate between the two supervised methods is to look at the output. If the output is a category or class from a predefined set, it is usually classification. If the output is an unbounded number, it is most likely regression. 
 %\begin{figure}
@@ -203,7 +200,6 @@ A newer and applied form of supervised machine learning is the support vector ma
 In 1995, Corinna Cortes and Vladimir Vapnik suggested ways to make the support vector machine work in multiclass examples by using kernels~\cite{cortes1995support}, making it still a viable pattern recognition tool in par with modern machine learning models.
 
 
-\todo{\textbf{\textit{IF TIME}} Here I might add another example, Perhaps openAI5 or aplphaGO.}
 
 \subsubsection{Summary} 
 
@@ -619,7 +615,6 @@ We achieve this by minimising the loss function:\\
 As this is a problem where the goal is to minimise error, autoencoders often use MSE or mean absolute error (MAE) as the optimiser for the gradient descent. 
 As we noted earlier, Figure \ref{fig:AEinpainting} show a visual example of equation \ref{eq:AEloss} when inpainting.
 
-\todo{\textbf{\textit{IF TIME}}Here we add an example of new AE paper perhaps}
     
 \subsection{Advaserial Neural Networks}
 \label{cha:Explaining_GANS}
@@ -649,7 +644,6 @@ as derived from~\cite{Goodfellow:2014:GAN:2969033.2969125}.
 \end{figure}
 
 
-\todo{\textbf{\textit{IF TIME}} Here we add an example of new gan paper, like \cite{DBLP:journals/corr/abs-1812-04948}}
 
     
 \subsection{Transfer Learning}

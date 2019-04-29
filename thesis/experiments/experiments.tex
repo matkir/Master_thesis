@@ -1956,9 +1956,7 @@ As with the earlier tests, we see little change in the scores when evaluating on
 
 \paragraph{CVC 12k}
 As with the inpainted square example, the MCC values when inpainting the largest possible area is lower than the base case.  For the Densenet model, on the CVC 12k set, removing artefacts gives not any advantages compared no not removing the artefacts. 
-Here we can notice that the recall is constant between each model and the base case, while the precision decreases for both inpainted datasets. This drop in precision can indicate that the inpainted models less frequently gets its predictions correct. \todo{Snakk med noen om dette}
-
-
+Here we can notice that the recall is constant between each model and the base case, while the precision decreases for both inpainted datasets. This drop in precision can indicate that the inpainted models less frequently gets its predictions correct. 
 
 
 
@@ -1993,7 +1991,7 @@ Here we can notice that the recall is constant between each model and the base c
 \FloatBarrier
 \clearpage
 \section{InceptionResNetV2}
-In addition to just testing our results with the Densenet121, we wanted to see if the results were replicable with other networks. We present our result from InceptionResNetV2 (IRV2) as a base of comparison versus the Densenet121 model. \todo{MICHAEL OR PAAL: This is a bit redundant, but might help people whi skips chapters.. thoughts?}
+In addition to just testing our results with the Densenet121, we wanted to see if the results were replicable with other networks. We present our result from InceptionResNetV2 (IRV2) as a base of comparison versus the Densenet121 model. 
 
 
 As mentioned in the metodology, InceptionResnetV2 is a model with more parameters, and hence needs more time to train compared to the Densenet architecture. 
@@ -2975,7 +2973,7 @@ For the CVC 12k dataset, every model show improvement compared to the base case,
 In addition to the two models tested with the generated dataset, we also looked at what would happen at larger resolutions. We made the same datasets as in the previous section but at twice the size. The results can be found in table \ref{tab:summary_CVC12k_DN121512px} with the visualised examples in Figure \ref{bar:512}.
 
 We can see from this summary that the results seem to keep the same trend at the larger size.
-It is important to not that the image quality is harder to maintain at double size.
+It is important to note that the image quality is harder to maintain at double size.
 
 
 \paragraph{The CVC 356 dataset (Figure: \ref{tab:summary_CVC356_DN121512px} \& Bar: \ref{bar:cvc356_DN121_512})}
