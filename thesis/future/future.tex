@@ -1,5 +1,5 @@
 \section{Summary}
-The task of making general models that can classify a broad aspect of medical images is still a widely researched area today, and most likely, it will continue to be so in the future. There are a plethora of different ways to build models for the medical domain, and in most of them, there is room for improvement. Right now, the mean age of the world population increases, and as a consequence, we perform more colonoscopies than ever before. The demand for better systems for medical diagnosis will follow this trend.
+The task of making general models that can classify a broad aspect of medical images is still a widely researched area today, and most likely, it will continue to be so in the future. There are a plethora of different ways to build models for the medical domain, and in most of them, there are room for improvement. Right now, the mean age of the world population increases, and as a consequence, we perform more colonoscopies than ever before. The demand for better systems for medical diagnosis will follow this trend.
 
 We have during this thesis presented a system that removes user-specified areas from provided images. The program can take any highlighting, in the form of a binary mask, as input and inpaint the specified area. In this thesis the areas we wanted to inpaint were the same for all images, meaning we converted whole datasets based on the provided binary mask. In the end, we made two fully functional algorithms that could inpaint any part of an image, given that it already was trained on similar datasets.
 This inpainting is making the augmented datasets easier and more reliable to train, and more predisposed to be generalised.
@@ -8,7 +8,7 @@ In addition to the two generative modelling algorithms, we also created a classi
 
 An underlying goal was to make a system that could help with the generalisation of data, and the programs presented in the thesis we believe is a step in the right direction when it comes to aiding systems for automation of medical diagnosis.
 We have seen the power of inpainting when it comes to datasets previously unseen during training, both shown in our publications and the thesis.
-In general, to find the right inpainting and network type is not a trivial task. Because of this, we can not recommend any method over another, as the results show that the ideal type of inpainting is closely related to the dataset used both for training and for testing.
+In general, to find the right inpainting and network type is not a trivial task. Because of this, we can not recommend any method in preference to another, as the results show that the ideal type of inpainting is closely related to the dataset used both for training and for testing.
 
 \section{Contributions}
 As described in the problem statement in section \ref{cha:problemstatement}, we have addressed the following research hypothesises and questions:
@@ -59,7 +59,7 @@ Here, we showed that even though we tested and trained on the same dataset, we s
 
 \paragraph{Unsupervised preprocessing to improve generalisation for medical image classification~\cite{Mathias2019IEEpaper}}
 The second paper presented at the ISMICT conference in Oslo, Norway expanded the work presented at the MediaEval conference in 2018.
-The presented result used an average of multiple runs instead of K-fold cross-reference, though we used the same datasets and transfer learning models.
+The presented result used an average of multiple runs instead of k-fold cross-reference, though we used the same datasets and transfer learning models.
 Here, we saw similar results as the findings presented in this thesis, only less significant. The publication presents two hypothesises that bears resemblance to \ref{hyp:a} and \ref{hyp:b}. We conclude the publication by supporting both hypothesises.
 
 
